@@ -1,0 +1,85 @@
+/* general styles*/
+
+.mar-top-10{
+    margin-top : 10px;
+}
+.mar-top-20{
+    margin-top : 20px;
+}
+.mar-top-50{
+    margin-top : 50px;
+}
+.mar-bot-10{
+    margin-bottom : 10px;
+}
+.mar-bot-20{
+    margin-bottom : 20px;
+}
+.mar-bot-50{
+    margin-bottom : 50px;
+}
+
+.pad-top-10{
+    padding-top : 10px;
+}
+.pad-top-20{
+    padding-top : 20px;
+}
+.pad-top-50{
+    padding-top : 50px;
+}
+.pad-bot-10{
+    padding-bottom : 10px;
+}
+.pad-bot-20{
+    padding-bottom : 20px;
+}
+.pad-bot-50{
+    padding-bottom : 50px;
+}
+
+.btn.active{
+    background-color: #8754ef;
+    color:#fff;
+}
+
+/*login specific styles*/
+
+.lupa-login-container{
+    background-color: #ddd;
+    width: 100%;
+    height:100%;
+}
+.login-container{
+    width:65%;
+    height: 65%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 5px;
+}
+.login-label label{
+    font-size: 1.25em;
+    line-height: 1em;
+    font-weight: normal;
+}
+.label-top{
+    display: block;
+    width:43px;
+    border-top: 3px solid #8754ef;
+    margin-bottom: 5px;
+}
+.login-submit{
+    background-color: #8754ef;
+    padding: 10px 15px;
+    width: 40%;
+    border-radius: 20px;
+    color: #fff;
+}
+.login-button{
+    border-radius: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+.login-right{
+    padding: 0px 50px;
+}
