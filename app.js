@@ -1,6 +1,6 @@
 	// create the module and name it lupaApp
 	var lupaApp = angular.module('lupaApp', ['ngRoute']);
-
+    console.log("git");
 	// configure our routes
 	lupaApp.config(function($routeProvider) {
 		$routeProvider
