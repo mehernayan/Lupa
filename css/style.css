@@ -38,9 +38,13 @@
     padding-bottom : 50px;
 }
 
-.btn.active{
+.btn.current{
     background-color: #8754ef;
     color:#fff;
+    border: none;
+}
+.btn.focus, .btn:focus, .btn:hover{
+    color: #fff;
 }
 
 /*login specific styles*/
@@ -86,6 +90,15 @@
     border-radius: 20px;
     background-color: #fff;
     border: 1px solid #ccc;
+}
+.login-button a{
+    text-decoration: none;
+    color: #333;
+    padding: 10px 5px;
+}
+.login-button.current a{
+    text-decoration: none;
+    color: #fff;
 }
 .login-right{
     padding: 0px 50px;
