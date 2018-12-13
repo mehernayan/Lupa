@@ -23,7 +23,7 @@
           }
           $scope.onFocusEvent = function(index) {
             for (item = 1; item < index; item++) {
-              const currentElement = getCodeBoxElement(item);
+              const currentElement = $scope.getCodeBoxElement(item);
               if (!currentElement.value) {
                   currentElement.focus();
                   break;
