@@ -1,4 +1,4 @@
-  lupaApp.controller('loginController', function($scope) {
+  lupaApp.controller('userLoginController', function($scope) {
    
       //error chart - rmse
   });
