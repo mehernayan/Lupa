@@ -8,44 +8,18 @@
 	 .when('/', {
 				templateUrl : 'views/userlogin.html',
 				controller  : 'userLoginController'
-			})
+		})
 
-    .when('/userregister', {
-				templateUrl : 'views/userregister.html',
-				controller  : 'userRegisterController'
-			})
-      .when('/userforgotpassword', {
-				templateUrl : 'views/userforgotpassword.html',
-				controller  : 'userForgotPasswordController'
-			})
-
-     .when('/admin', {
-				templateUrl : 'views/adminlogin.html',
-				controller  : 'adminLoginController'
-			})
-      .when('/adminregister', {
-				templateUrl : 'views/adminregister.html',
-				controller  : 'adminRegisterController'
-			})
-      .when('/adminforgotpassword', {
-				templateUrl : 'views/adminforgotpassword.html',
-				controller  : 'adminForgotPasswordController'
-			})
-
-       .when('/manager', {
-				templateUrl : 'views/managerlogin.html',
-				controller  : 'managerLoginController'
-			})
-      .when('/managerregister', {
-				templateUrl : 'views/managerregister.html',
-				controller  : 'managerRegisterController'
-			})
-      .when('/managerforgotpassword', {
-				templateUrl : 'views/managerforgotpassword.html',
-				controller  : 'managerForgotPasswordController'
-			})
+		.when('/admin', {
+			templateUrl : 'views/adminlogin.html',
+			controller  : 'adminLoginController'
+		})
+		
+		.when('/manager', {
+			templateUrl : 'views/managerlogin.html',
+			controller  : 'managerLoginController'
+		})
 			
-    
     .when('/dashboard', {
       templateUrl : 'views/dashboard.html',
       controller  : 'dashboardController'
