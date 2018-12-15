@@ -120,3 +120,132 @@
   width: 30px; 
   text-align:center
 }
+
+
+.sidebar-panel {
+    width: 200px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    overflow-x: hidden;
+    background-color: #E8E3E3;
+    height: calc(100%-40px);
+    height: -moz-calc(100% - 40px);
+    height: -webkit-calc(100% - 40px);
+    height: calc(100% - 40px);
+}
+.logo-section {
+    text-align: center;
+    border-bottom: 1px solid #CBBEBE;
+
+}
+.navigation-header {
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.navigation-links {
+    padding: 5px;
+
+}
+.navigation-links  li {
+    list-style-type: none;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-left: 5px;
+}
+.navigation-links a {
+   padding-left: 20px;
+   text-decoration: none;
+   color: #000;
+}
+.navigation-links i {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.user-dropdown  button {
+    background: none;
+    box-shadow: none;
+    border: 0px;
+}
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+.active-menu {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+.arrow-custom  {
+    float: right;
+    /* text-align: right; */
+    position: relative;
+    right: 20px;
+    top: 6px;
+}
+.header-container {
+    position: fixed;
+    height: 50px;
+    z-index: 9;
+    background: #E8E8E8;
+    width: 100%;
+    padding-left: 200px;
+}
+.main-navigation {
+    float: left;
+    padding: 7px;
+}
+.main-navigation .fa-heart {
+    color: #f00;
+}
+.user-dropdown {
+    float: right;
+    padding-top: 15px;
+    position: relative;
+    right: 75px;
+}
+.user-dropdown .dropdown-menu {
+    width: 200px;
+    left: -122px;
+    border-radius: 0px;
+}
+.user-dropdown .dropdown-menu li a i {
+    padding-right: 10px;
+}
+.main-nav-links {
+    width: 112px;
+    height: 33px;
+    border-radius: 20px;
+    line-height: 32px;
+    display: inline-block;
+    text-align: center;
+}
+.main-nav-links:hover {
+    text-decoration: none;
+}
+.active-main-nav {
+    background-color: #ccc;
+    color: #3E503E;
+}
+a.active-main-nav:hover, a.active-main-nav:focus {
+    color: #3E503E;
+}
+.footer-container  {
+    text-align: center;
+    height: 40px;
+    background: #ccc;
+    position: fixed;
+    bottom: 0px;
+    line-height: 38px;
+    width: 100%;
+    font-size: 12px;
+}

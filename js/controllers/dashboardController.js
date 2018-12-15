@@ -1,4 +1,3 @@
-  lupaApp.controller('dashboardController', function($scope) {
-   
-      //error chart - rmse
-  });
+lupaApp.controller("dashboardController",function() {
+
+});
