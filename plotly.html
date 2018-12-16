@@ -1,0 +1,45 @@
+<html>
+    <head>
+
+        
+    </head>
+    <body>
+        <div id="chart"></div>
+        <script src="plotly-latest.min.js"></script>
+        <script type="text/javascript">
+            var trace1 = {
+                x: ['Jan', 'Feb', 'Mar','Apr','May', 'June', 'Jul','Aug','Sep','Oct','Nov','Dec'], 
+                y: [7,7,7,7,7,7,7,7,7,7,7,7],
+                name: 'LS Dyna', 
+                type: 'bar',
+                marker: {
+                        color: '#836797'
+                        }
+                };
+
+                var trace2 = {
+                x: ['Jan', 'Feb', 'Mar','Apr','May', 'June', 'Jul','Aug','Sep','Oct','Nov','Dec'], 
+                y: [14,14,14,14,14,14,14,14,14,14,14,14], 
+                name: 'ALTAIR', 
+                type: 'bar',
+                marker: {
+                        color: '#DED8CE'
+                        }
+                };
+                var trace3 = {
+                x: ['Jan', 'Feb', 'Mar','Apr','May', 'June', 'Jul','Aug','Sep','Oct','Nov','Dec'], 
+                y: [22,22,22,22,22,22,22,22,22,22,22,22], 
+                name: 'BETA CAE', 
+                type: 'bar',
+                marker: {
+                        color: '#A9C135'
+                        }
+                };
+
+                var data = [trace1, trace2,trace3];
+                var layout = {barmode: 'group'};
+
+                Plotly.newPlot('chart', data, layout, {}, {showSendToCloud:true});
+        </script>
+    </body>
+</html>
