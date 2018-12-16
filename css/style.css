@@ -259,7 +259,7 @@ a.active-main-nav:hover, a.active-main-nav:focus {
 }
 .setting{
     position: relative;
-    min-height: 250px;
+    min-height: 350px;
 }
 .btn-profile{
     background-color: #333;

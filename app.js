@@ -21,14 +21,21 @@
 	})
 			
     .when('/dashboard', {
-      templateUrl : 'views/dashboard.html',
-      controller  : 'dashboardController'
+      	templateUrl : 'views/dashboard.html',
+      	controller  : 'dashboardController'
     })
-	.when('/usersetting', {
-		templateUrl : 'views/usersetting.html',
-		controller  : 'userSettingController'
-	  })
-			
+	.when('/userprofilesetting', {
+		templateUrl : 'views/userprofilesetting.html',
+		controller  : 'userPSettingController'
+	})
+	.when('/adminprofilesetting', {
+		templateUrl : 'views/adminprofilesetting.html',
+		controller  : 'adminPSettingController'
+	})
+	.when('/deptprofilesetting', {
+		templateUrl : 'views/deptprofilesetting.html',
+		controller  : 'deptPSettingController'
+	})		
 	});
   lupaApp.controller('mainController', function($scope) {
 		// create a message to display in our view
