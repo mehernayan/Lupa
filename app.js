@@ -5,26 +5,29 @@
 	lupaApp.config(function($routeProvider) {
 		$routeProvider
 
-	 .when('/', {
+	.when('/', {
 				templateUrl : 'views/userlogin.html',
 				controller  : 'userLoginController'
-		})
+	})
 
-		.when('/admin', {
-			templateUrl : 'views/adminlogin.html',
-			controller  : 'adminLoginController'
-		})
-		
-		.when('/manager', {
-			templateUrl : 'views/managerlogin.html',
-			controller  : 'managerLoginController'
-		})
+	.when('/admin', {
+		templateUrl : 'views/adminlogin.html',
+		controller  : 'adminLoginController'
+	})
+	
+	.when('/manager', {
+		templateUrl : 'views/managerlogin.html',
+		controller  : 'managerLoginController'
+	})
 			
     .when('/dashboard', {
       templateUrl : 'views/dashboard.html',
       controller  : 'dashboardController'
     })
-
+	.when('/usersetting', {
+		templateUrl : 'views/usersetting.html',
+		controller  : 'userSettingController'
+	  })
 			
 	});
   lupaApp.controller('mainController', function($scope) {

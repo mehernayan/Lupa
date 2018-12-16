@@ -249,3 +249,23 @@ a.active-main-nav:hover, a.active-main-nav:focus {
     width: 100%;
     font-size: 12px;
 }
+.setting-container{
+    width: 98%;
+    padding-left: 210px;
+    padding-top: 60px;
+}
+.form-group label{
+    width: 150px;
+}
+.setting{
+    position: relative;
+    min-height: 250px;
+}
+.btn-profile{
+    background-color: #333;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    width: 150px;
+    margin-left: -75px;
+}
