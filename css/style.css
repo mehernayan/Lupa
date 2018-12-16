@@ -46,6 +46,18 @@
 .btn.focus, .btn:focus, .btn:hover{
     color: #fff;
 }
+.table .thead-dark th {
+    color: #fff;
+    background-color: #212529;
+    border-color: #32383e;
+}
+.btn-table{
+    border-radius: 20px;
+    padding: 0px 10px;
+}
+.table-inner{
+    width: 100%;
+}
 
 /*login specific styles*/
 

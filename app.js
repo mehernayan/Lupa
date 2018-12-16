@@ -35,7 +35,11 @@
 	.when('/deptprofilesetting', {
 		templateUrl : 'views/deptprofilesetting.html',
 		controller  : 'deptPSettingController'
-	})		
+	})
+	.when('/adminsetting', {
+		templateUrl : 'views/adminsetting.html',
+		controller  : 'adminSettingController'
+	})			
 	});
   lupaApp.controller('mainController', function($scope) {
 		// create a message to display in our view
