@@ -54,11 +54,15 @@
 .btn-table{
     border-radius: 20px;
     padding: 0px 10px;
+    width: 100px;
 }
 .table-inner{
     width: 100%;
 }
-
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: #fff;
+    background-color: #212529;
+}
 /*login specific styles*/
 
 .lupa-login-container{

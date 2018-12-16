@@ -39,6 +39,10 @@
 	.when('/adminsetting', {
 		templateUrl : 'views/adminsetting.html',
 		controller  : 'adminSettingController'
+	})
+	.when('/deptsetting', {
+		templateUrl : 'views/deptsetting.html',
+		controller  : 'deptSettingController'
 	})			
 	});
   lupaApp.controller('mainController', function($scope) {
