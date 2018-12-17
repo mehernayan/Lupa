@@ -1,0 +1,77 @@
+<header ng-include="'views/partials/header.html'"></header>
+<div class="sidebar-panel">
+    <div class="logo-section"> <img src="/images/login-logo.png" width="135px"></div>
+    <div class="navIgation-header">Navigation</div>
+    <ul class="navigation-links">
+        <li><img src="/images/product-icon.jpg" width="20px"><a href="/">Products<i class="arrow right arrow-custom"></i></a></li>
+        <li><img src="/images/report-icon.jpg" width="20px"><a href="/">Reports <i class="arrow right arrow-custom active-menu"></i></a></li>
+    </ul>
+</div>
+<div class="setting-container">
+    <div class="mar-bot-20"><button class="btn btn-primary"><i class="fas fa-columns"></i></button>
+         <label class="setting-header">Dyna Compares</label></div>
+        <div class="pad-bot-20">
+            <div class="row">
+                <div class="col-sm-7">
+                    <form class="form-inline">
+                     <div class="first-compare compare">
+                        <div class="form-group mar-top-20">
+                            <select class="form-control" placeholder="Select Products">
+                                <option value="">Select Products</option>
+                                <option value="product1"> Product 1</option>
+                                <option value="product2"> Product 2</option>
+                                <option value="product3"> Product 3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="first-compare compare">
+                        <div class="form-group">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="checkbox" aria-label="">MPP</td>
+                                        <td><input type="checkbox" aria-label="">LS</td>
+                                        <td><input type="checkbox" aria-label="">MP</td>
+                                        <td><input type="checkbox" aria-label="">HW</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" aria-label="">DPS</td>
+                                        <td><input type="checkbox" aria-label="">JS</td>
+                                        <td><input type="checkbox" aria-label="">PK</td>
+                                        <td><input type="checkbox" aria-label="">SWA</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                <div class="col-sm-5">
+                    <form>
+                        <div class="first-compare compare">
+                        <div class="form-group">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="checkbox" aria-label="">MPP</td>
+                                            <td><input type="checkbox" aria-label="">MP</td>
+                                            <td><input type="checkbox" aria-label="">HW</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox" aria-label="">DPS</td>
+                                            <td><input type="checkbox" aria-label="">JS</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="pad-bot-50">
+                                    <button  class="btn btn-dyna" > COMPARE </button>
+                            </div>
+                        </form>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer ng-include="'views/partials/footer.html'"></footer>

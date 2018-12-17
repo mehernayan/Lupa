@@ -43,7 +43,12 @@
 	.when('/deptsetting', {
 		templateUrl : 'views/deptsetting.html',
 		controller  : 'deptSettingController'
-	})			
+	})
+
+	.when('/dynacompares', {
+		templateUrl : 'views/dynacompares.html',
+		controller  : 'dynaComparesController'
+	})
 	});
   lupaApp.controller('mainController', function($scope) {
 		// create a message to display in our view
