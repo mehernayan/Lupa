@@ -49,6 +49,11 @@
 		templateUrl : 'views/dynacompares.html',
 		controller  : 'dynaComparesController'
 	})
+
+	.when('/smtp', {
+		templateUrl : 'views/smtp.html',
+		controller  : 'smtpController'
+	})
 	});
   lupaApp.controller('mainController', function($scope) {
 		// create a message to display in our view

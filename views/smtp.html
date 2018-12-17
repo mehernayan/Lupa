@@ -1,0 +1,71 @@
+<header ng-include="'views/partials/header.html'"></header>
+<div class="sidebar-panel">
+    <div class="logo-section"> <img src="/images/login-logo.png" width="135px"></div>
+    <div class="navIgation-header">Navigation</div>
+    <ul class="navigation-links">
+        <li><img src="/images/product-icon.jpg" width="20px"><a href="/">Products<i class="arrow right arrow-custom"></i></a></li>
+        <li><img src="/images/report-icon.jpg" width="20px"><a href="/">Reports <i class="arrow right arrow-custom active-menu"></i></a></li>
+    </ul>
+</div>
+<div class="setting-container">
+    <div class="mar-bot-20"><button class="btn btn-primary"><i class="fa fa-user"></i></button>
+         <label class="setting-header">SMTP</label></div>
+    <div class="pad-bot-20">
+        <div class="row">
+            <form class="form-inline">
+            <div class="col-sm-6 setting-left smtp">
+                    <div class="form-group">
+                            <label>Mail Driver</label>
+                            <select class="form-control">
+                                    <option value="">Select Mail Driver</option>
+                                    <option value="maildriver"> Mail Driver 1</option>
+                            </select>
+                    </div>
+                    <div class="form-group mar-top-20">
+                        <label>E Mail</label>
+                        <select class="form-control">
+                                <option value="">Select Port</option>
+                                <option value="port80"> Port 80</option>
+                        </select>
+                    </div>
+                    <div class="form-group mar-top-20">
+                        <label for="smtpPass">Password</label>
+                        <input  type="text" id="smtpPass" class="form-control" placeholder="Password" />
+                    </div>
+                
+            </div>
+            <div class="col-sm-6 setting-right smtp">
+                    
+                        <div class="form-group">
+                        <label for="host">Enter Host </label>
+                        <input  type="text" id="host" class="form-control" placeholder="Enter Host" />
+                        </div>
+                        <div class="form-group mar-top-20">
+                        <label for="userName">User Name</label>
+                        <input type="text" id="userName" class="form-control" placeholder="Enter user name" />
+                        </div>
+                        <div class="form-group mar-top-20">
+                            <label>Encryption Type</label>
+                            <select class="form-control">
+                                    <option value="">Enter Encryption Type</option>
+                                    <option value="Type1"> Type 1</option>
+                            </select>
+                        </div>
+                        
+            </div>
+            <div class="col-sm-12 text-center mar-top-50">
+                    <button  class="btn login-button btn-smtp" > SUBMIT </button>
+            </div>
+        </form>
+        <div class="col-sm-4 col-sm-offset-4 mar-top-20">
+            <form>
+                    <input type="text"  class="form-control" placeholder="Enter Email ID" />
+                    <div class="text-center mar-top-20">
+                            <button  class="btn login-button btn-smtp" > Send Test Mail </button>
+                    </div>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+<footer ng-include="'views/partials/footer.html'"></footer>
