@@ -1,0 +1,80 @@
+<header ng-include="'views/partials/header.html'"></header>
+<div class="sidebar-panel">
+    <div ng-include="'views/partials/sidebar.html'"></div>
+</div>
+<div class="setting-container">
+    <div class="mar-bot-20"><button class="btn btn-primary"><i class="fa fa-user"></i></button>
+         <label class="setting-header">Cost Calculator</label></div>
+    <div class="pad-bot-20">
+        <div class="row">
+            <form class="form-inline">
+            <div class="col-sm-6 setting-left calculator">
+                    <div class="form-group">
+                            <label>Name of Software</label>
+                            <select class="form-control">
+                                    <option value="">Select Software Name</option>
+                                    <option value="software1"> Software 1</option>
+                            </select>
+                    </div>
+                    <div class="form-group mar-top-20">
+                        <label>Type of Licenses</label>
+                        <select class="form-control">
+                                <option value="">Select License Type</option>
+                                <option value="license"> License</option>
+                        </select>
+                    </div>
+                    <div class="form-group mar-top-20">
+                        <label for="pcost">Purchase Cost</label>
+                        <input  type="number" id="pcost" class="form-control" placeholder="Enter Purchase Cost" />
+                    </div>
+                
+            </div>
+            <div class="col-sm-6 setting-right calculator">
+                    <div class="form-group">
+                        <label for="datep">Date of Purchase </label>
+                        <input  type="date" id="datep" class="form-control" placeholder="DD-MM-YYYY" />
+                    </div>
+                    <div class="form-group mar-top-20">
+                        <label for="noLicense">No Of Licenses</label>
+                        <input type="text" id="noLicense" class="form-control" placeholder="Enter total no license purchased" />
+                    </div>
+                    <div class="text-center mar-top-20">
+                            <button  class="btn login-button btn-smtp" > SUBMIT </button>
+                    </div>
+            </div>
+            
+        </form>
+        <div class="col-sm-12 mar-top-50">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col" class="text-center"">Software Name</th>
+                    <th scope="col" class="text-center">Date of Purchase</th>
+                    <th scope="col" class="text-center">Type of Licenses</th>
+                    <th scope="col" class="text-center">Lesso Months</th>
+                    <th scope="col" class="text-center">No fo Licenses</th>
+                    <th scope="col" class="text-center">Purchase Cost</th>
+                    <th scope="col" class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                    <td>Altair</td>
+                    <td>04-11-2018</td>
+                    <td>amc_renewal</td>
+                    <td>
+                        
+                    </td>
+                    <td> 10 </td>
+                    <td> 3500 </td>
+                    <td>
+                        <button class="btn btn-danger btn-table">Delete</button>
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>
+<footer ng-include="'views/partials/footer.html'"></footer>

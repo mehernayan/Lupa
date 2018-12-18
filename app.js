@@ -54,6 +54,10 @@
 		templateUrl : 'views/smtp.html',
 		controller  : 'smtpController'
 	})
+	.when('/costcalculator', {
+		templateUrl : 'views/costcalculator.html',
+		controller  : 'costCalculatorController'
+	})
 	});
   lupaApp.controller('mainController', function($scope) {
 		// create a message to display in our view
