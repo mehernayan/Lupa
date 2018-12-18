@@ -1,8 +1,8 @@
 	// create the module and name it lupaApp
-	var lupaApp = angular.module('lupaApp', ['ngRoute']);
+	var lupaApp = angular.module('lupaApp', ['ngRoute','lupaProvider','lupaSharedProvider','LocalStorageModule']);
 
 	// configure our routes
-	lupaApp.config(function($routeProvider) {
+	lupaApp.config(function($routeProvider,$httpProvider) {
 		$routeProvider
 
 	.when('/', {
@@ -58,11 +58,44 @@
 		templateUrl : 'views/costcalculator.html',
 		controller  : 'costCalculatorController'
 	})
-	});
-  lupaApp.controller('mainController', function($scope) {
+
+	$httpProvider.defaults.useXDomain = true;
+	$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
+	$httpProvider.interceptors.push('noCacheInterceptor');
+}).factory('noCacheInterceptor', function () {
+    return {
+        request: function (config) {
+            //console.log(config);
+            if (config.method.toUpperCase() === "GET") {
+                if (config.url.indexOf('.html') === -1) {
+                    var seperator = config.url.indexOf('?') === -1 ? '?' : '&';
+                    config.url = config.url + seperator + 'ts=' + new Date().getTime();
+                }
+            }
+            return config;
+        }
+    };
+    
+});
+lupaApp.controller('mainController', function($scope) {
 		// create a message to display in our view
 		$scope.message = 'Everyone come and see how good I look!';
-  });
+});
+
+  lupaApp.constant('appConstants', {
+    serviceHeaders: {
+        "POST": {
+            "Content-Type": "application/json"
+        },
+        "GET": {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "DELETE": {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+    },
+    'serviceAddress':'http://kaizenat.com/LUPA'
+})
    
 
 

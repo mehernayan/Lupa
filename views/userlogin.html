@@ -21,9 +21,9 @@
                 </div>
                 <div class="form-container pad-top-50 text-center">
                     <form>
-                        <input  type="text" class="form-control" placeholder="Enter Email ID" />
-                        <input type="password" class="form-control mar-top-20" placeholder="Enter Password" />
-                        <button  class="btn login-submit mar-top-50" > LOGIN </button><br/><br/>
+                        <input  type="email" class="form-control" ng-model="user.email" placeholder="Enter Email ID" />
+                        <input type="password" class="form-control mar-top-20" ng-model="user.password" placeholder="Enter Password" />
+                        <button  class="btn login-submit mar-top-50" ng-click="userAuth()" > LOGIN </button><br/><br/>
                         <a href="javascript:void(0)" ng-click="getResetForm()">Forgot your password?</a><br/><br/>
                         <span class="Register-link">Don't have account</span> <a href="javascript:void(0)" ng-click="getRegisterForm()">Register here</a>
                     </form>
