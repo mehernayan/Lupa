@@ -42,7 +42,7 @@
       $scope.error ="";
       $scope.$watch('user', function (n, o) {
           if (n !== o){
-            userData.setUser(n.email,n.password);
+            userData.set(n.email,n.password);
           };
       }, true);
       /*
@@ -74,7 +74,7 @@
       };
       $scope.$watch('userReg', function (n, o) {
         if (n !== o){
-          userRegData.setUser(n.name,n.email,n.phone,n.department,n.password,n.password_confirmation);
+          userRegData.set(n.name,n.email,n.phone,n.department,n.password,n.password_confirmation);
         };
     }, true);
 
@@ -94,4 +94,6 @@
             }
           });
       };
+
+      
   }]);

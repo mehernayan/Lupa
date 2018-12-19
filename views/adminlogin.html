@@ -19,11 +19,17 @@
                     <span class="label-top"></span>
                     <label>Admin as a User</label>
                 </div>
-                <div class="form-container pad-top-50 text-center">
+                <div class="error-container" style="height:50px;">
+                    <div class="pad-top-20" ng-show="error.length">
+                        <i class="fa fa-exclamation-triangle" style="color:red"></i>
+                        <span style="color:red">{{error}}</span>
+                    </div>
+                </div>
+                <div class="form-container text-center">
                     <form>
-                        <input  type="text" class="form-control" placeholder="Enter Email ID" />
-                        <input type="password" class="form-control mar-top-20" placeholder="Enter Password" />
-                        <button  class="btn login-submit mar-top-50" > LOGIN </button><br/><br/>
+                        <input  type="email" ng-model="admin.email" class="form-control" placeholder="Enter Email ID" />
+                        <input type="password" ng-model="admin.password" class="form-control mar-top-20" placeholder="Enter Password" />
+                        <button  class="btn login-submit mar-top-50" ng-click="adminLogin()" > LOGIN </button><br/><br/>
                         <a href="javascript:void(0)" ng-click="getResetForm()">Forgot your password?</a>
                     </form>
                 </div>

@@ -5,10 +5,10 @@ angular.module('lupaSharedProvider', [])
         password:''
     };
     return {
-        getUser: function () {
+        get: function () {
             return user;
         },
-        setUser: function (email,password) {
+        set: function (email,password) {
             user.email = email;
             user.password = password;
         }
@@ -23,10 +23,10 @@ angular.module('lupaSharedProvider', [])
         password_confirmation: ''
     };
     return {
-        getUser: function () {
+        get: function () {
             return userReg;
         },
-        setUser: function (name,email,phone,department,password,password_confirmation) {
+        set: function (name,email,phone,department,password,password_confirmation) {
             userReg.name = name;
             userReg.email = email;
             userReg.phone = phone;
@@ -34,6 +34,20 @@ angular.module('lupaSharedProvider', [])
             userReg.password = password;
             userReg.password_confirmation = password_confirmation;
             //console.log(userReg,"userReg");
+        }
+    };
+}).factory('adminData', function () {
+    var adminReg = {
+        email : '',
+        password:''
+    };
+    return {
+        get: function () {
+            return adminReg;
+        },
+        set: function (email,password) {
+            adminReg.email = email;
+            adminReg.password = password;
         }
     };
 });
