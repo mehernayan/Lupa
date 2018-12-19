@@ -272,11 +272,7 @@ a.active-main-nav:hover, a.active-main-nav:focus {
     width: 100%;
     font-size: 12px;
 }
-.setting-container{
-    width: 98%;
-    padding-left: 210px;
-    padding-top: 60px;
-}
+
 .form-group label{
     width: 150px;
 }
@@ -301,8 +297,10 @@ a.active-main-nav:hover, a.active-main-nav:focus {
     padding: 10px 12px;
 }
 
-.dashboard-container {
-    padding-top: 65PX;
+.body-container {
+    padding-top: 65px;
+    width: 98%;
+    padding-left: 60px;
 }   
 .recent-update {
     border: 1px solid #ccc;
@@ -391,8 +389,9 @@ span.job_status {
     display: inline-block;
     width: 144px;
 }
-.dashboard-container.expand {
-    padding-left: 175px;
+.body-container.expand {
+    padding-left: 210px;
+    width: 98%;
 }
 .nav-slide {
     display: inline-block;

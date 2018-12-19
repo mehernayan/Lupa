@@ -1,30 +1,27 @@
 <header ng-include="'views/partials/header.html'"></header>
-<div class="sidebar-panel">
+<div class="sidebar-panel" ng-class="{'expand': expandNav}">
     <div ng-include="'views/partials/sidebar.html'"></div>
 </div>
-<div class="setting-container">
+<div class="setting-container body-container" ng-class="{'expand':expandNav}">
     <div class="mar-bot-20"><button class="btn btn-primary"><i class="fa fa-user"></i></button> <label class="setting-header">Profile Setting</label></div>
     <div class="pad-bot-20">
         <div class="row">
+            <form class="form-inline">
             <div class="col-sm-6 setting-left setting">
                 <div class="text-center mar-bot-20">
                     <label class="setting-header">UPDATE PROFILE</label>
                 </div>
-                <form class="form-inline">
+                
                     <div class="form-group">
                     <label for="userEmail">E Mail</label>
                     <input  type="text" id="userEmail" class="form-control" placeholder="Enter Email ID" />
                     </div>
-                    <div class="text-center">
-                        <button  class="btn login-submit btn-profile" > SUBMIT </button>
-                    </div>
-                </form>
+                   
             </div>
             <div class="col-sm-6 setting-right setting">
                     <div class="text-center mar-bot-20">
                         <label class="setting-header">UPDATE PASSWORD</label>
                     </div>
-                    <form class="form-inline">
                         <div class="form-group">
                         <label for="newPass">New Password</label>
                         <input  type="password" id="newPass" class="form-control" placeholder="Enter new Password" />
@@ -36,8 +33,8 @@
                         <div class="text-center">
                             <button  class="btn login-submit btn-profile" > SUBMIT </button>
                         </div>
-                    </form>
             </div>
+          </form>
         </div>
     </div>
 </div>

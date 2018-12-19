@@ -77,9 +77,28 @@
     };
     
 });
-lupaApp.controller('mainController', function($scope) {
+lupaApp.controller('mainController', function($scope,$timeout) {
 		// create a message to display in our view
 		$scope.message = 'Everyone come and see how good I look!';
+
+		$scope.expandNav = true;
+		$scope.collapseNav = false;  
+		$scope.navToggle = function() {
+			if($scope.expandNav) {
+				$scope.expandNav = false;
+				$scope.collapseNav = true;
+			}
+			else {
+				$scope.expandNav = true;
+				$scope.collapseNav = false;
+			}
+		}
+
+		$timeout(function() {
+			$("#product li").on("click", function(event) {
+				event.stopPropagation();
+			})
+		}, 2000);
 });
 
   lupaApp.constant('appConstants', {
