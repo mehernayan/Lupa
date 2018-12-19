@@ -1,32 +1,46 @@
-<div class="logo-section"> <img src="images/login-logo.png" width="135px"></div>
-    <div class="navIgation-header">Navigation <span class="nav-switch"><i class="fa fa-toggle-on"></i></span></div>
+<div class="nav-sidebar sidenav">
+    <div class="navIgation-header"><span ng-if="expandNav" class="nav-txt">Navigation</span> <span class="nav-switch" ng-if="!collapseNav" ng-click="navToggle()"><i class="fa fa-toggle-on"></i></span>
+        <span class="nav-switch" ng-if="!expandNav" ng-click="navToggle()"><i class="fa fa-toggle-off"></i></span></div>
     <ul class="navigation-links">
 
-        <li><img src="images/product-icon.jpg" width="20px"><a href="/">Products<i class="arrow right arrow-custom"></i></a></li>
-        <li><img src="images/report-icon.jpg" width="20px"><a href="/">Reports <i class="arrow right arrow-custom active-menu"></i></a>
+        <li data-toggle="collapse" class="collapsed" data-target="#product"><img src="/images/product-icon.jpg" width="20px"><span class="nav-slide" ng-if="expandNav">Products</span><i class="arrow right arrow-custom" ng-if="expandNav"></i>
+
+            <ul id="product" class="collapse" ng-if="expandNav">
+                <li>
+                    <a>LS-DYNA</a>
+                </li>
+                <li>
+                    <a>ALTAIR</a>
+                </li>
+                <li>
+                    <a>BETA CAE</a>
+                </li>
+
+            </ul>
+
+        </li>
+        <li><img src="/images/report-icon.jpg" width="20px"><span class="nav-slide" ng-if="expandNav">Reports</span><i class="arrow right arrow-custom active-menu" ng-if="expandNav"></i>
             <ul>
-                <li data-toggle="collapse" class="collapsed" data-target="#duration" >Licence <i class="arrow right arrow-custom"></i>
+                <li data-toggle="collapse" class="collapsed" data-target="#duration" ng-if="expandNav">Licence <i class="arrow right arrow-custom" ng-if="expandNav"></i>
                     <ul id="duration" class="collapse">
                         <li>
-                            <input type="radio" class="custom-control-input" name="durations" />
                             <a href="#">MONTHLY</a>
                         </li>
-                         <li>
-                            <input type="radio" class="custom-control-input" name="durations" />
+                        <li>
                             <a href="#">WEEKLY</a>
                         </li>
-                         <li>
-                             <input type="radio" class="custom-control-input" name="durations" />
+                        <li>
                             <a href="#">YEARLY</a>
                         </li>
-                         <li>
-                             <input type="radio" class="custom-control-input" name="durations" />
+                        <li>
                             <a href="#">MINUTES 5</a>
                         </li>
                     </ul>
                 </li>
             </ul>
-        
+
         </li>
 
     </ul>
+
+</div>
