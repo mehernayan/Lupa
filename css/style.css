@@ -238,6 +238,9 @@
     left: -122px;
     border-radius: 0px;
 }
+.user-dropdown .dropdown-menu li {
+    padding: 8px;
+}
 .user-dropdown .dropdown-menu li a i {
     padding-right: 10px;
 }
