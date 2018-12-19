@@ -1,8 +1,8 @@
 <header ng-include="'views/partials/header.html'"></header>
-<div class="sidebar-panel">
+<div class="sidebar-panel" ng-class="{'expand': expandNav}">
     <div ng-include="'views/partials/sidebar.html'"></div>
 </div>
-<div class="setting-container">
+<div class="setting-container body-container" ng-class="{'expand':expandNav}">
     <div class="mar-bot-20"><button class="btn btn-primary"><i class="fa fa-user"></i></button> <label class="setting-header">Setting</label></div>
         <div class="pad-bot-20">
             <div class="row">
