@@ -19,7 +19,13 @@
                     <span class="label-top"></span>
                     <label>Login as a User</label>
                 </div>
-                <div class="form-container pad-top-50 text-center">
+                <div class="error-container" style="height:50px;">
+                    <div class="pad-top-20" ng-show="error.length">
+                        <i class="fa fa-exclamation-triangle"></i>
+                        <span style="color:red">{{error}}</span>
+                    </div>
+                </div>
+                <div class="form-container text-center">
                     <form>
                         <input  type="email" class="form-control" ng-model="user.email" placeholder="Enter Email ID" />
                         <input type="password" class="form-control mar-top-20" ng-model="user.password" placeholder="Enter Password" />

@@ -9,8 +9,9 @@ angular.module('lupaSharedProvider', [])
             return user;
         },
         setUser: function (email,password) {
-            this.user.email = email;
-            this.user.password = password;
+            user.email = email;
+            user.password = password;
+            console.log(user,"user");
         }
     };
 });
