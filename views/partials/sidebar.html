@@ -1,6 +1,8 @@
 <div class="nav-sidebar sidenav">
-    <div class="navIgation-header"><span ng-if="expandNav" class="nav-txt">Navigation</span> <span class="nav-switch" ng-if="!collapseNav" ng-click="navToggle()"><i class="fa fa-toggle-on"></i></span>
-        <span class="nav-switch" ng-if="!expandNav" ng-click="navToggle()"><i class="fa fa-toggle-off"></i></span></div>
+    <div class="navIgation-header">
+        <label ng-if="expandNav" class="nav-txt">Navigation</label>
+        <span class="nav-switch" ng-if="!collapseNav" ng-click="navToggle()"><i class="fa fa-toggle-on fa-2x"></i></span>
+        <span class="nav-switch" ng-if="!expandNav" ng-click="navToggle()"><i class="fa fa-toggle-off fa-2x"></i></span></div>
     <ul class="navigation-links">
 
         <li data-toggle="collapse" class="collapsed" data-target="#product"><img src="images/product-icon.jpg" width="20px"><span class="nav-slide" ng-if="expandNav">Products</span><i class="arrow right arrow-custom" ng-if="expandNav"></i>

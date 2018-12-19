@@ -401,3 +401,6 @@ span.job_status {
 #product, #duration {
     padding-left: 0px;
 }
+.nav-switch .nav-icon{
+    font-size: 30px;
+}
