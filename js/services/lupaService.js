@@ -1,8 +1,40 @@
 var lupaService = angular.module('lupaProvider', ['lupaSharedProvider']);
-lupaService.service('lupaService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','adminData',
-    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,adminData) {
+lupaService.service('lupaService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','adminData','userRegOtpVal','userEmailData','userResetData',
+    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,adminData,userRegOtpVal,userEmailData,userResetData) {
+
+        
+       /*
+		 * fetch the elastic URL
+		 */
+        this.fetchUserDeptList = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/user/registration_page_data'
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
 
        /*
+		 * fetch the elastic URL
+		 */
+        this.fetchDeptList = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/departmentmanager/department_types'
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        /*
         * user login detail
         */
        
@@ -43,9 +75,93 @@ lupaService.service('lupaService', ['$http', '$q','$filter','localStorageService
             return deferred.promise;
         }
        };
-    /*
-        * admin login detail
+
+       /*
+        * user otp detail
         */
+       
+       this.userRegOtp = function() { 
+        var userObj = userRegOtpVal.get();
+        var deferred = $q.defer();
+        if(typeof userObj !== "undefined"){
+            $http({
+                method : 'POST',
+                url : appConstants.serviceAddress+'/user/otp',
+                data : userObj
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+       };
+
+       /*
+        * user forgor password detail
+        */
+       
+       this.getUserForgotPasswordOtp = function() { 
+        var userObj = userEmailData.get();
+        var deferred = $q.defer();
+        if(typeof userObj !== "undefined"){
+            $http({
+                method : 'POST',
+                url : appConstants.serviceAddress+'/user/password/email',
+                data : userObj
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+       };
+
+        /*
+        * password otp detail
+        */
+       
+       this.validateUserForgotPasswordOtp = function() { 
+        var userObj = userRegOtpVal.get();
+        var deferred = $q.defer();
+        if(typeof userObj !== "undefined"){
+            $http({
+                method : 'POST',
+                url : appConstants.serviceAddress+'/user/password/forgotpassword/otp',
+                data : userObj
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+       };
+
+       /*
+        * reset password detail
+        */
+       
+       this.resetUserPassword = function() { 
+        var userObj = userResetData.get();
+        var deferred = $q.defer();
+        if(typeof userObj !== "undefined"){
+            $http({
+                method : 'POST',
+                url : appConstants.serviceAddress+'/user/password/reset',
+                data : userObj,
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+       };
+    /*
+    * admin login detail
+    */
        
        this.loginAdmin = function() { 
         var userObj = adminData.get();
