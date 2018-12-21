@@ -75,18 +75,4 @@ angular.module('lupaSharedProvider', [])
             resetUser.password_confirmation = password_confirmation;
         }
     };
-}).factory('adminData', function () {
-    var adminReg = {
-        email : '',
-        password:''
-    };
-    return {
-        get: function () {
-            return adminReg;
-        },
-        set: function (email,password) {
-            adminReg.email = email;
-            adminReg.password = password;
-        }
-    };
 });

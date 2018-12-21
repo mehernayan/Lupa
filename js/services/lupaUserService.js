@@ -1,10 +1,10 @@
-var lupaService = angular.module('lupaProvider', ['lupaSharedProvider']);
-lupaService.service('lupaService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','adminData','userRegOtpVal','userEmailData','userResetData',
-    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,adminData,userRegOtpVal,userEmailData,userResetData) {
+var lupaUserService = angular.module('lupaUserProvider', ['lupaSharedProvider']);
+lupaUserService.service('lupaUserService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData',
+    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData) {
 
         
        /*
-		 * fetch the elastic URL
+		 * fetch the user department list
 		 */
         this.fetchUserDeptList = function() {
             var deferred = $q.defer();

@@ -1,5 +1,5 @@
 	// create the module and name it lupaApp
-	var lupaApp = angular.module('lupaApp', ['ngRoute','lupaProvider','lupaSharedProvider','LocalStorageModule']);
+	var lupaApp = angular.module('lupaApp', ['ngRoute','lupaUserProvider','lupaAdminProvider','lupaManagerProvider','lupaSharedProvider','LocalStorageModule']);
 
 	// configure our routes
 	lupaApp.config(function($routeProvider,$httpProvider) {

@@ -1,5 +1,5 @@
-  lupaApp.controller('userLoginController', ['$scope','userData','userRegData','lupaService','$location','userRegOtpVal','userEmailData','userResetData',
-  function($scope,userData,userRegData,lupaService,$location,userRegOtpVal,userEmailData,userResetData) {
+  lupaApp.controller('userLoginController', ['$scope','userData','userRegData','lupaUserService','$location','userRegOtpVal','userEmailData','userResetData',
+  function($scope,userData,userRegData,lupaUserService,$location,userRegOtpVal,userEmailData,userResetData) {
    
       $scope.isLogin = true;
       $scope.isRegister = false;
@@ -48,7 +48,7 @@
        */
       $scope.errorUserlist ="";
       $scope.getUserDeptList = function(){
-        lupaService.fetchUserDeptList().then(function(response) {
+        lupaUserService.fetchUserDeptList().then(function(response) {
           //console.log(response.data,"register user");
           $scope.response = JSON.parse(response.data.status_response);
           //console.log($scope.response,"is success");
@@ -78,7 +78,7 @@
       }, true);
       
       $scope.userLogin = function(){
-        lupaService.loginUser().then(function(response) {
+        lupaUserService.loginUser().then(function(response) {
           //console.log(response.data,"loginresponse");
           $scope.response = JSON.parse(response.data.status_response);
           //console.log($scope.response,"is success");
@@ -110,7 +110,7 @@
 
       $scope.userRegister = function(){
           $scope.error = "";
-          lupaService.registerUser().then(function(response) {
+          lupaUserService.registerUser().then(function(response) {
             //console.log(response.data,"register user");
             $scope.response = JSON.parse(response.data.status_response);
             //console.log($scope.response,"is success");
@@ -167,7 +167,7 @@
        */
       $scope.validateUserRegOtp = function(){
         $scope.error = "";
-        lupaService.userRegOtp().then(function(response) {
+        lupaUserService.userRegOtp().then(function(response) {
           //console.log(response.data,"register user");
           $scope.response = JSON.parse(response.data.status_response);
           //console.log($scope.response,"is success");
@@ -197,7 +197,7 @@
        */
       $scope.getUserForgotPasswordOtp = function(){
         $scope.error = "";
-        lupaService.getUserForgotPasswordOtp().then(function(response) {
+        lupaUserService.getUserForgotPasswordOtp().then(function(response) {
           //console.log(response.data,"register user");
           $scope.response = JSON.parse(response.data.status_response);
           //console.log($scope.response,"is success");
@@ -213,7 +213,7 @@
 
       $scope.validateUserPasswordOtp = function(){
         $scope.error = "";
-        lupaService.validateUserForgotPasswordOtp().then(function(response) {
+        lupaUserService.validateUserForgotPasswordOtp().then(function(response) {
           //console.log(response.data,"register user");
           $scope.response = JSON.parse(response.data.status_response);
           //console.log($scope.response,"is success");
@@ -240,7 +240,7 @@
       }, true);
       $scope.resetUserPassword = function(){
         $scope.error = "";
-        lupaService.resetUserPassword().then(function(response) {
+        lupaUserService.resetUserPassword().then(function(response) {
           //console.log(response.data,"register user");
           $scope.response = JSON.parse(response.data.status_response);
           //console.log($scope.response,"is success");
