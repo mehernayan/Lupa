@@ -1,6 +1,7 @@
   lupaApp.controller('userLoginController', ['$scope','userData','userRegData','lupaUserService','$location','userRegOtpVal','userEmailData','userResetData',
   function($scope,userData,userRegData,lupaUserService,$location,userRegOtpVal,userEmailData,userResetData) {
-   
+
+      
       $scope.isLogin = true;
       $scope.isRegister = false;
       $scope.isReset = false;
@@ -78,7 +79,10 @@
       }, true);
       
       $scope.userLogin = function(){
+        $scope.error = "";
+        $('#loadergif').show();
         lupaUserService.loginUser().then(function(response) {
+          $('#loadergif').hide();
           //console.log(response.data,"loginresponse");
           $scope.response = JSON.parse(response.data.status_response);
           //console.log($scope.response,"is success");
@@ -110,7 +114,9 @@
 
       $scope.userRegister = function(){
           $scope.error = "";
+          $('#loadergif').show();
           lupaUserService.registerUser().then(function(response) {
+            $('#loadergif').hide();
             //console.log(response.data,"register user");
             $scope.response = JSON.parse(response.data.status_response);
             //console.log($scope.response,"is success");
@@ -167,7 +173,9 @@
        */
       $scope.validateUserRegOtp = function(){
         $scope.error = "";
+        $('#loadergif').show();
         lupaUserService.userRegOtp().then(function(response) {
+          $('#loadergif').hide();
           //console.log(response.data,"register user");
           $scope.response = JSON.parse(response.data.status_response);
           //console.log($scope.response,"is success");
@@ -197,7 +205,9 @@
        */
       $scope.getUserForgotPasswordOtp = function(){
         $scope.error = "";
+        $('#loadergif').show();
         lupaUserService.getUserForgotPasswordOtp().then(function(response) {
+          $('#loadergif').hide();
           //console.log(response.data,"register user");
           $scope.response = JSON.parse(response.data.status_response);
           //console.log($scope.response,"is success");
@@ -213,7 +223,9 @@
 
       $scope.validateUserPasswordOtp = function(){
         $scope.error = "";
+        $('#loadergif').show();
         lupaUserService.validateUserForgotPasswordOtp().then(function(response) {
+          $('#loadergif').hide();
           //console.log(response.data,"register user");
           $scope.response = JSON.parse(response.data.status_response);
           //console.log($scope.response,"is success");
@@ -240,7 +252,9 @@
       }, true);
       $scope.resetUserPassword = function(){
         $scope.error = "";
+        $('#loadergif').show();
         lupaUserService.resetUserPassword().then(function(response) {
+          $('#loadergif').hide();
           //console.log(response.data,"register user");
           $scope.response = JSON.parse(response.data.status_response);
           //console.log($scope.response,"is success");
