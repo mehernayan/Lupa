@@ -48,11 +48,7 @@
                     </div>
                     <div class="form-container text-center">
                         <form novalidate>
-                            <select class="form-control" ng-options="user.username for user in userNames track by user.username"
-                                ng-model="userReg.name">
-                                <option value="" disabled selected="selected">Select Name</option>
-                            </select>
-                            <!--<input  type="text" ng-model="userReg.name" class="form-control" placeholder="Enter Name" />-->
+                            <input  type="text" ng-model="userReg.name" class="form-control" placeholder="Enter Name" />
                             <input  type="email" ng-model="userReg.email" class="form-control mar-top-20" placeholder="Enter Email ID" />
                             <select class="form-control mar-top-20" ng-options="dept.department_name for dept in deptNames track by dept.department_name"
                                 ng-model="userReg.department">

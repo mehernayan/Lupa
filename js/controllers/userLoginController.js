@@ -8,6 +8,7 @@
       $scope.isOTP = false;
       $scope.isReg = false;
       $scope.isForgotPassword = true;
+      $scope.error ="";
 
       $scope.getLoginForm = function(){
         $scope.isLogin = true;
@@ -71,7 +72,7 @@
         email :"",
         password : ""
       };
-      $scope.error ="";
+      
       $scope.$watch('user', function (n, o) {
           if (n !== o){
             userData.set(n.email,n.password);
@@ -135,23 +136,29 @@
       /**
        * OTP
        */
+      $scope.otpVal = "";
       $scope.getCodeBoxElement = function(index) {
         return document.getElementById('codeBox' + index);
       };
-      $scope.otpVal = "";
+      $scope.getOtp = function(){
+        $scope.otpVal = "";
+        for(let box=1; box < 7;box++){
+          $scope.otpVal += document.getElementById('codeBox'  + box).value;
+        }
+        return $scope.otpVal;
+      };
       $scope.onKeyUpEvent = function(index, event) {
         const eventCode = event.which || event.keyCode;
         if ($scope.getCodeBoxElement(index).value.length === 1) {
           if (index !== 6) {
-            $scope.otpVal = $scope.otpVal + $scope.getCodeBoxElement(index).value;
             $scope.getCodeBoxElement(index+ 1).focus();
           } else {
             $scope.getCodeBoxElement(index).blur();
             $scope.confirmOTP = false;
-            $scope.otpVal = $scope.otpVal + $scope.getCodeBoxElement(index).value;
+            $scope.otpVal = $scope.getOtp();
             $scope.otp = parseInt($scope.otpVal);
             userRegOtpVal.set($scope.otp);
-            console.log($scope.otp,"otp")
+            console.log($scope.otp,"otp");
           }
         }
         if (eventCode === 8 && index !== 1) {

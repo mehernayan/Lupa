@@ -65,7 +65,10 @@
       }, true);
       
       $scope.userLogin = function(){
+        $scope.error ="";
+        $('#loadergif').show();
         lupaAdminService.loginUser().then(function(response) {
+          $('#loadergif').hide();
           //console.log(response.data,"loginresponse");
           $scope.response = JSON.parse(response.data.status_response);
           //console.log($scope.response,"is success");
@@ -84,30 +87,39 @@
       /**
        * OTP
        */
+      $scope.otpVal = "";
       $scope.getCodeBoxElement = function(index) {
         return document.getElementById('codeBox' + index);
       };
-      $scope.otpVal = "";
+      $scope.getOtp = function(){
+        $scope.otpVal = "";
+        for(let box=1; box < 7;box++){
+          $scope.otpVal += document.getElementById('codeBox'  + box).value;
+        }
+        return $scope.otpVal;
+      };
+      
       $scope.onKeyUpEvent = function(index, event) {
         const eventCode = event.which || event.keyCode;
         if ($scope.getCodeBoxElement(index).value.length === 1) {
           if (index !== 6) {
-            $scope.otpVal = $scope.otpVal + $scope.getCodeBoxElement(index).value;
             $scope.getCodeBoxElement(index+ 1).focus();
           } else {
             $scope.getCodeBoxElement(index).blur();
             $scope.confirmOTP = false;
-            $scope.otpVal = $scope.otpVal + $scope.getCodeBoxElement(index).value;
+            $scope.otpVal = $scope.getOtp();
             $scope.otp = parseInt($scope.otpVal);
             userRegOtpVal.set($scope.otp);
-            console.log($scope.otp,"otp")
+            console.log($scope.otp,"otp");
           }
+          
         }
         if (eventCode === 8 && index !== 1) {
           $scope.getCodeBoxElement(index - 1).focus();
         }
       };
       $scope.onFocusEvent = function(index) {
+        $scope.otp = null;
         for (item = 1; item < index; item++) {
           const currentElement = $scope.getCodeBoxElement(item);
           if (!currentElement.value) {
@@ -122,7 +134,10 @@
        */
       $scope.validateUserRegOtp = function(){
         $scope.error = "";
+        $('#loadergif').show();
         lupaAdminService.userRegOtp().then(function(response) {
+          $('#loadergif').hide();
+          $scope.otpVal = "";
           //console.log(response.data,"register user");
           $scope.response = JSON.parse(response.data.status_response);
           //console.log($scope.response,"is success");
@@ -168,7 +183,9 @@
 
       $scope.validateUserPasswordOtp = function(){
         $scope.error = "";
+        $('#loadergif').show();
         lupaAdminService.validateUserForgotPasswordOtp().then(function(response) {
+          $('#loadergif').hide();
           //console.log(response.data,"register user");
           $scope.response = JSON.parse(response.data.status_response);
           //console.log($scope.response,"is success");
@@ -195,7 +212,9 @@
       }, true);
       $scope.resetUserPassword = function(){
         $scope.error = "";
+        $('#loadergif').show();
         lupaAdminService.resetUserPassword().then(function(response) {
+          $('#loadergif').hide();
           //console.log(response.data,"register user");
           $scope.response = JSON.parse(response.data.status_response);
           //console.log($scope.response,"is success");

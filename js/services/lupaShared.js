@@ -17,7 +17,6 @@ angular.module('lupaSharedProvider', [])
     var userReg = {
         name : '',
         email : '',
-        phone : '',
         department : '',
         password:'',
         password_confirmation: ''

@@ -3,24 +3,9 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
     function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData) {
 
         
+      
        /*
-		 * fetch the user department list
-		 */
-        this.fetchUserDeptList = function() {
-            var deferred = $q.defer();
-            $http({
-                method : 'GET',
-                url : appConstants.serviceAddress+'/user/registration_page_data'
-            }).then(function(response) {
-                deferred.resolve(response);
-            }, function(error) {
-                deferred.reject(error);
-            });
-            return deferred.promise;
-        };
-
-       /*
-		 * fetch the elastic URL
+		 * fetch the department list
 		 */
         this.fetchDeptList = function() {
             var deferred = $q.defer();
