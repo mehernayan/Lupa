@@ -1,6 +1,6 @@
 var lupaManagerService = angular.module('lupaManagerProvider', ['lupaSharedProvider']);
-lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData',
-    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData) {
+lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','deptProfileSettingData',
+    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,deptProfileSettingData) {
 
         
       
@@ -170,7 +170,7 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
         */
        
        this.updateProfileSettings = function() { 
-        var userObj = profileSettingData.get();
+        var userObj = deptProfileSettingData.get();
         var deferred = $q.defer();
         if(typeof userObj !== "undefined"){
             $http({

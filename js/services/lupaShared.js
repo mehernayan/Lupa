@@ -92,4 +92,24 @@ angular.module('lupaSharedProvider', [])
             profileData.ncpassword = ncpassword;
         }
     };
+}).factory('deptProfileSettingData', function () {
+    var profileData = {
+        id : '',
+        name : '',
+        email : '',
+        password : '',
+        cpassword : ''
+      };
+    return {
+        get: function () {
+            return profileData;
+        },
+        set: function (id,name,email,password,cpassword) {
+            profileData.id = id;
+            profileData.name = name;
+            profileData.email = email;
+            profileData.password = password;
+            profileData.cpassword = cpassword;
+        }
+    };
 });

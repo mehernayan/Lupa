@@ -1,17 +1,18 @@
-lupaApp.controller('userPSettingController',['$scope','lupaManagerUserService','profileSettingData','localStorageService',
- function($scope,lupaManagerUserService,profileSettingData,localStorageService) {
+lupaApp.controller('deptPSettingController',['$scope','lupaManagerService','deptProfileSettingData','localStorageService',
+ function($scope,lupaManagerService,deptProfileSettingData,localStorageService) {
       
       $scope.userLogged = localStorageService.get("user");
       
       $scope.profileData = {
         id : '',
+        name : '',
         email : '',
-        npassword : '',
-        ncpassword : ''
+        password : '',
+        cpassword : ''
       };
       $scope.$watch('profileData', function (n, o) {
         if (n !== o){
-            profileSettingData.set(n.id,n.email,n.npassword,n.ncpassword);
+            deptProfileSettingData.set(n.id,n.name,n.email,n.password,n.cpassword);
         };
       }, true);
       /* set id */
@@ -21,6 +22,7 @@ lupaApp.controller('userPSettingController',['$scope','lupaManagerUserService','
       $scope.emptyReqFields = function(){
         $scope.profileData = {
             id : $scope.userLogged.id,
+            name : '',
             email : '',
             npassword : '',
             ncpassword : ''
@@ -31,12 +33,13 @@ lupaApp.controller('userPSettingController',['$scope','lupaManagerUserService','
        * Get existing user profile details
        */
       $scope.fetchProfileSettings = function(){
-        lupaManagerUserService.fetchUserProfileSettings().then(function(response) {
+        lupaManagerService.fetchUserProfileSettings().then(function(response) {
         $scope.response = JSON.parse(response.data.status_response);
         if(typeof $scope.response!=="undefined"){
             if($scope.response.success){
                 console.log($scope.response);
-                $scope.profileData.email = $scope.response.data[1].email;
+                $scope.profileData.email = $scope.response.data[0].email;
+                $scope.profileData.name = $scope.response.data[0].name;
             }else{
                 $scope.error = "Error in fetching user data";
             }
@@ -52,11 +55,9 @@ lupaApp.controller('userPSettingController',['$scope','lupaManagerUserService','
         $scope.error = "";
         $scope.successMsg = "";
         $('#loadergif').show();
-        lupaManagerUserService.updateProfileSettings().then(function(response) {
+        lupaManagerService.updateProfileSettings().then(function(response) {
         $('#loadergif').hide();
-        //console.log(response.data,"register user");
         $scope.response = JSON.parse(response.data.status_response);
-        //console.log($scope.response,"is success");
         if(typeof $scope.response!=="undefined"){
             if($scope.response.success){
                 $scope.error ="";

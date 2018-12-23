@@ -1,5 +1,5 @@
-lupaApp.controller('managerLoginController', ['$scope','userData','userRegData','lupaManagerService','$location','userRegOtpVal','userEmailData','userResetData',
-function($scope,userData,userRegData,lupaManagerService,$location,userRegOtpVal,userEmailData,userResetData) {
+lupaApp.controller('managerLoginController', ['$scope','userData','userRegData','lupaManagerService','$location','userRegOtpVal','userEmailData','userResetData','localStorageService',
+function($scope,userData,userRegData,lupaManagerService,$location,userRegOtpVal,userEmailData,userResetData,localStorageService) {
  
     $scope.isLogin = true;
     $scope.isRegister = false;
