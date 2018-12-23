@@ -1,72 +1,95 @@
 <div class="lupa-login-container">
-    <div class="lupa-logo-container  text-center mar-bot-10">
-        <img class="" src="images/login-logo.png" title="Logo" alt="Logo" />
-    </div>
-    <div class="container login-container pad-top-50 pad-bot-20">
-        <div class="row">
-            <div class="col-sm-6 login-left">
-                <div class="button-container pad-top-10">
-                    <button class="btn login-button current"><a href="#/admin" ng-click="getLoginForm()">ADMIN LOGIN </a></button>
-                    <button class="btn login-button"><a href="#/manager">DEPARTMENT LOGIN</a></button>
-                    <button class="btn login-button"><a href="#/">USER LOGIN</a></button>
-                </div>
-                <div class="login-img mar-top-20">
-                    <img class="img-responsive" src="images/login-img.png" title="Logo" alt="Logo" />
-                </div>
-            </div>
-            <div class="col-sm-6 login-right" ng-show="isLogin">
-                <div class="login-label mar-top-10">
-                    <span class="label-top"></span>
-                    <label>Admin as a User</label>
-                </div>
-                <div class="error-container" style="height:50px;">
-                    <div class="pad-top-20" ng-show="error.length">
-                        <i class="fa fa-exclamation-triangle" style="color:red"></i>
-                        <span style="color:red">{{error}}</span>
+        <div class="lupa-logo-container  text-center mar-bot-10">
+            <img class="" src="images/login-logo.png" title="Logo" alt="Logo" />
+        </div>
+        <div class="container login-container pad-top-50 pad-bot-20">
+            <div class="row">
+                <div class="col-sm-6 login-left">
+                    <div class="button-container pad-top-10">
+                        <button class="btn login-button  current"><a href="#/admin">ADMIN LOGIN </a></button>
+                        <button class="btn login-button"><a href="#/manager">DEPARTMENT LOGIN</a></button>
+                        <button class="btn login-button"><a href="#/" ng-click="getLoginForm()">USER LOGIN</a></button>
+                    </div>
+                    <div class="login-img mar-top-20">
+                        <img class="img-responsive" src="images/login-img.png" title="Logo" alt="Logo" />
                     </div>
                 </div>
-                <div class="form-container text-center">
-                    <form>
-                        <input  type="email" ng-model="admin.email" class="form-control" placeholder="Enter Email ID" />
-                        <input type="password" ng-model="admin.password" class="form-control mar-top-20" placeholder="Enter Password" />
-                        <button  class="btn login-submit mar-top-50" ng-click="adminLogin()" > LOGIN </button><br/><br/>
-                        <a href="javascript:void(0)" ng-click="getResetForm()">Forgot your password?</a>
-                    </form>
-                </div>
-            </div>
-            <div class="col-sm-6 login-right pwd-reset-email" ng-show="isReset">
-                <div class="login-label mar-top-10">
-                    <span class="label-top"></span>
-                    <label>Reset Password</label>
-                    <span class="pwd-reset-label pad-top-50">Please enter your register email ID to request a<br/>  password reset</span>
-                </div>
-                <div class="form-container pad-top-50 text-center">
-                    <form>
-                        <input  type="email" class="form-control" placeholder="Enter Email ID" />
-                        <button  class="btn login-submit mar-top-50" ng-click="getOTPForm()"> SUBMIT </button><br/><br/>
-                    </form>
-                </div>
-            </div>
-            <div class="col-sm-6 login-right pwd-reset-otp" ng-show="isOTP">
-                <div class="login-label mar-top-10">
-                    <span class="label-top"></span>
-                    <label>One Time Password(OTP)</label>
-                    <span class="pwd-reset-label pad-top-50">One time password(OTP) has been sent to  your register email ID <br/>
-                    Please enter the reset password</span>
-                </div>
-                <div class="form-container pad-top-50 text-center">
-                    <form>
-                        <div class="otp-container">
-                            <input type="number" id="codeBox1"  class="otp-inp" placeholder="0" ng-keyup="onKeyUpEvent(1, $event)" ng-focus="onFocusEvent(1)"/>
-                            <input type="number" id="codeBox2" class="otp-inp"  placeholder="0" ng-keyup="onKeyUpEvent(2, $event)" ng-focus="onFocusEvent(2)"/>
-                            <input type="number" id="codeBox3" class="otp-inp"  placeholder="0" ng-keyup="onKeyUpEvent(3, $event)" ng-focus="onFocusEvent(3)"/>
-                            <input type="number" id="codeBox4"  class="otp-inp" placeholder="0" ng-keyup="onKeyUpEvent(4, $event)" ng-focus="onFocusEvent(4)"/>
+                <div class="col-sm-6 login-right" ng-show="isLogin">
+                    <div class="login-label mar-top-10">
+                        <span class="label-top"></span>
+                        <label>Admin as a User</label>
+                    </div>
+                    <div class="error-container" style="height:50px;">
+                        <div class="pad-top-20" ng-show="error.length">
+                            <i class="fa fa-exclamation-triangle" style="color:red"></i>
+                            <span style="color:red">{{error}}</span>
                         </div>
-                        <button  class="btn login-submit mar-top-50" ng-disabled="confirmOTP"> CONFIRM </button><br/><br/>
-                      
-                    </form>
+                    </div>
+                    <div class="form-container text-center">
+                        <form novalidate>
+                            <input  type="email" class="form-control" ng-model="user.email" placeholder="Enter Email ID" />
+                            <input type="password" class="form-control mar-top-20" ng-model="user.password" placeholder="Enter Password" />
+                            <button  class="btn login-submit mar-top-50" ng-click="userLogin()" > LOGIN </button><br/><br/>
+                        </form>
+                        <a href="javascript:void(0)" ng-click="getResetForm()">Forgot your password?</a><br/><br/>
+                    </div>
+                </div>
+                <div class="col-sm-6 login-right pwd-reset-email" ng-show="isReset">
+                    <div class="login-label mar-top-10">
+                        <span class="label-top"></span>
+                        <label>Reset Password</label>
+                        <span class="pwd-reset-label pad-top-50">Please enter your register email ID to request a<br/>  password reset</span>
+                    </div>
+                    <div class="error-container" style="height:50px;">
+                        <div class="pad-top-20" ng-show="error.length">
+                            <i class="fa fa-exclamation-triangle" style="color:red"></i>
+                            <span style="color:red">{{error}}</span>
+                        </div>
+                    </div>
+                    <div class="form-container text-center" ng-if="isForgotPassword">
+                        <form>
+                            <input  type="email" ng-model="userEmail.email" class="form-control" placeholder="Enter Email ID" />
+                            <button  class="btn login-submit mar-top-50" ng-click="getUserForgotPasswordOtp()"> SUBMIT </button><br/><br/>
+                        </form>
+                    </div>
+                    <div class="form-container text-center" ng-if="!isForgotPassword">
+                            <form>
+                                <input  type="email" ng-model="resetUser.email" class="form-control" placeholder="Enter Email ID" />
+                                <input  type="password" ng-model="resetUser.password" class="form-control mar-top-20" placeholder="Enter New Password" />
+                                <input  type="password" ng-model="resetUser.password_confirmation" class="form-control mar-top-20" placeholder="Confirm Password" />
+                                <button  class="btn login-submit mar-top-50" ng-click="resetUserPassword()"> SUBMIT </button><br/><br/>
+                            </form>
+                        </div>
+                </div>
+                <div class="col-sm-6 login-right pwd-reset-otp" ng-show="isOTP">
+                    <div class="login-label mar-top-10">
+                        <span class="label-top"></span>
+                        <label>One Time Password(OTP)</label>
+                        <span class="pwd-reset-label pad-top-50">One time password(OTP) has been sent to  your register email ID <br/>
+                        Please enter the OTP</span>
+                    </div>
+                    <div class="error-container" style="height:50px;">
+                        <div class="pad-top-20" ng-show="error.length">
+                            <i class="fa fa-exclamation-triangle" style="color:red"></i>
+                            <span style="color:red">{{error}}</span>
+                        </div>
+                    </div>
+                    <div class="form-container text-center">
+                        <form>
+                            <div class="otp-container">
+                                <input type="number" id="codeBox1"  class="otp-inp" placeholder="0" ng-keyup="onKeyUpEvent(1, $event)" ng-focus="onFocusEvent(1)"/>
+                                <input type="number" id="codeBox2" class="otp-inp"  placeholder="0" ng-keyup="onKeyUpEvent(2, $event)" ng-focus="onFocusEvent(2)"/>
+                                <input type="number" id="codeBox3" class="otp-inp"  placeholder="0" ng-keyup="onKeyUpEvent(3, $event)" ng-focus="onFocusEvent(3)"/>
+                                <input type="number" id="codeBox4"  class="otp-inp" placeholder="0" ng-keyup="onKeyUpEvent(4, $event)" ng-focus="onFocusEvent(4)"/>
+                                <input type="number" id="codeBox5"  class="otp-inp" placeholder="0" ng-keyup="onKeyUpEvent(5, $event)" ng-focus="onFocusEvent(5)"/>
+                                <input type="number" id="codeBox6"  class="otp-inp" placeholder="0" ng-keyup="onKeyUpEvent(6, $event)" ng-focus="onFocusEvent(6)"/>
+                            </div>
+                            <button  class="btn login-submit mar-top-50" ng-if="isReg" ng-disabled="confirmOTP" ng-click="validateUserRegOtp()"> CONFIRM </button>
+                            <button  class="btn login-submit mar-top-50" ng-if="!isReg" ng-disabled="confirmOTP" ng-click="validateUserPasswordOtp()"> CONFIRM </button><br/><br/><br/><br/>
+                          
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

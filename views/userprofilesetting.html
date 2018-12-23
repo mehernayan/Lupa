@@ -4,35 +4,44 @@
 </div>
 <div class="setting-container body-container" ng-class="{'expand':expandNav}">
     <div class="mar-bot-20"><button class="btn btn-primary"><i class="fa fa-user"></i></button> <label class="setting-header">Profile Setting</label></div>
-    <div class="pad-bot-20">
+    <div class="pad-20 back-g-white half-bordered">
         <div class="row">
             <form class="form-inline">
             <div class="col-sm-6 setting-left setting">
                 <div class="text-center mar-bot-20">
                     <label class="setting-header">UPDATE PROFILE</label>
                 </div>
-                
-                    <div class="form-group">
+                <div class="form-group">
                     <label for="userEmail">E Mail</label>
-                    <input  type="text" id="userEmail" class="form-control" placeholder="Enter Email ID" />
-                    </div>
+                    <input  type="text" id="userEmail" ng-model="profileData.email" class="form-control" placeholder="Enter Email ID" />
+                </div>
                    
             </div>
             <div class="col-sm-6 setting-right setting">
                     <div class="text-center mar-bot-20">
                         <label class="setting-header">UPDATE PASSWORD</label>
                     </div>
-                        <div class="form-group">
+                    <div class="form-group">
                         <label for="newPass">New Password</label>
-                        <input  type="password" id="newPass" class="form-control" placeholder="Enter new Password" />
-                        </div>
-                        <div class="form-group mar-top-10">
+                        <input  type="password" id="newPass" ng-model="profileData.npassword" class="form-control" placeholder="Enter new Password" />
+                    </div>
+                    <div class="form-group mar-top-10">
                         <label for="confirmPass">Confirm Password</label>
-                        <input type="password" id="confirmPass" class="form-control" placeholder="Enter confirm Password" />
+                        <input type="password" id="confirmPass" ng-model="profileData.ncpassword" class="form-control" placeholder="Enter confirm Password" />
+                    </div>
+                    <div class="message-container">
+                        <div class="pad-top-20 error-msg" ng-if="error">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            <span>{{error}}</span>
                         </div>
-                        <div class="text-center">
-                            <button  class="btn login-submit btn-profile" > SUBMIT </button>
+                        <div class="pad-top-20 success-msg" ng-if="successMsg">
+                                <i class="fa fa-check"></i>
+                            <span>{{successMsg}}</span>
                         </div>
+                    </div>
+                    <div class="text-center">
+                            <button  class="btn login-submit btn-profile" ng-click="updateProfileSettings()" > SUBMIT </button>
+                    </div>
             </div>
           </form>
         </div>
