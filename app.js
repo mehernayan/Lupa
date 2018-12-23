@@ -58,6 +58,10 @@
 		templateUrl : 'views/costcalculator.html',
 		controller  : 'costCalculatorController'
 	})
+	.when('/report', {
+		templateUrl : 'views/report.html',
+		controller  : 'reportController'
+	})
 
 	$httpProvider.defaults.useXDomain = true;
 	$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';

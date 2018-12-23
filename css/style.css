@@ -353,7 +353,7 @@ span.job_status {
     font-size: 12px;
     vertical-align: top;
 }
-.navigation-links #duration {
+.navigation-links #timestatistics {
     padding-left: 0px;
 }
 .arrow-custom {
@@ -397,9 +397,101 @@ span.job_status {
     display: inline-block;
     padding-left: 10px;
 }
-#product, #duration {
+#product, #duration, #timestatistics {
     padding-left: 0px;
 }
 .nav-switch .nav-icon{
     font-size: 30px;
 }
+
+
+.circle {
+  display : inline-block;
+  border-radius : 8px;
+  width: 12px;
+  height: 12px;
+  line-height: 1px;
+  margin-right: 6px;
+}
+.red {
+  border: 2px solid #C35D8A;
+}
+.blue {
+  border: 2px solid #7EC7BB;
+}
+.green {
+  border: 2px solid #79C3B8;
+}
+.yellow {
+  border: 2px solid #E7D297;
+}
+.dot:before {
+  content: ".";
+  width: 1px;
+  height: 1px;
+  display: block;
+  border-radius: 2px;
+  margin: 0 auto;
+  margin-top: 2px;
+  margin-left: 2px;
+  display: none;
+  
+}
+.red:before {
+  background-color: #C35D8A;
+  border: 2px solid #C35D8A;
+}
+.green:before {
+  background-color: #79C3B8;
+  border: 2px solid #79C3B8;
+}
+.yellow:before {
+  background-color: #E7D297;
+  border: 2px solid #E7D297;
+}
+.blue:before {
+  background-color: #7EC7BB;
+  border: 2px solid #7EC7BB;
+}
+.active:before {
+  display : block;
+}
+.report-link {
+    display: inline-block;
+    width: 155px;
+}
+.navigation-links img {
+    float: left;
+
+}
+.navigation-links a {
+    padding-left: 0px;
+   font-weight: bold
+}
+.navigation-links ul {
+    padding-left: 0px;
+}
+#product {
+    padding-left: 30px;
+}
+.navigation-links li {
+    cursor: pointer;
+}
+#reports li {
+    font-weight: bold;
+}
+#duration a, #timestatistics a , #product a{
+    font-weight: normal
+}
+.sidenav { 
+    width: 6%;
+}
+
+.pie-chart-container  svg.main-svg{
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    -webkit-box-shadow: 1px 1px 2px 1px #ccc;
+    -moz-box-shadow: 1px 1px 2px 1px #ccc;
+    box-shadow: 1px 1px 2px 1px #ccc;   
+}
+.js-plotly-plot .plotly .modebar {left: 0%; top: 93% !important;}
