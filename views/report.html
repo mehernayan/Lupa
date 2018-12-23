@@ -1,0 +1,83 @@
+<header ng-include="'views/partials/header.html'"></header>
+<div class="sidebar-panel" ng-class="{'expand': expandNav}">
+    <div ng-include="'views/partials/sidebar.html'"></div>
+</div>
+<div class="report-container body-container" ng-class="{'expand':expandNav}">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-md-6 full-screen-view">
+                <!--<div class="graph-icons"><span class="click-full-screen" onclick="fullScreenView()">Bar</span></div>-->
+                <div class="pie-chart-container">
+                    <!-- <span class="download-arrow-down"> <i class="fas fa-arrow-circle-down"></i></span>-->
+                    <div id="product-chart-monthly"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-md-6 full-screen-view">
+                <!--<div class="graph-icons"><span class="click-full-screen" onclick="fullScreenView()">Bar</span></div>-->
+                <div class="pie-chart-container">
+                    <div id="product-chart-yearly"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <script type="text/javascript">
+        var dataPieM = {
+            "label": ["used license", "unused license"],
+            "value": [16, 15]
+        }
+        var dataPieY = {
+            "label": ["used license", "unused license"],
+            "value": [16, 15]
+        }
+        var pieDataColors = ['rgb(0,181,234)', 'rgb(251,66,82)'];
+        var plotDataPieM = [{
+            values: dataPieM.value,
+            labels: dataPieM.label,
+            domain: { column: 0 },
+            name: 'BETA CAE',
+            marker: {
+                colors: pieDataColors
+            },
+            hoverinfo: 'label+percent+name',
+            hole: .5,
+            type: 'pie'
+        }];
+        var plotDataPieY = [{
+            values: dataPieY.value,
+            labels: dataPieY.label,
+            domain: { column: 0 },
+            name: 'BETA CAE',
+            marker: {
+                colors: pieDataColors
+            },
+            hoverinfo: 'label+percent+name',
+            hole: .5,
+            type: 'pie'
+        }];
+
+        var layout = {
+            title: 'BETA/CAE / Monthly Report',
+            grid: { rows: 1, columns: 1 },
+            showlegend: false,
+            annotations: [
+                {
+                    font: {
+                        size: 14
+                    },
+                    showarrow: false,
+                    x: 0.17,
+                    y: 0.5,
+                    text: ''
+                }
+            ]
+        };
+
+        var plotlyDefaultConfiguration = { responsive: true, displaylogo: false, showTips: true, modeBarButtonsToRemove: ['sendDataToCloud', 'hoverClosestPie'] }
+        Plotly.newPlot('product-chart-monthly', plotDataPieM, layout, plotlyDefaultConfiguration);
+        Plotly.newPlot('product-chart-yearly', plotDataPieY, layout, plotlyDefaultConfiguration);
+
+
+
+    </script>
+</div>
+<footer ng-include="'views/partials/footer.html'"></footer>
