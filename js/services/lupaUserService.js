@@ -145,26 +145,7 @@ lupaUserService.service('lupaUserService', ['$http', '$q','$filter','localStorag
             return deferred.promise;
         }
        };
-    /*
-    * admin login detail
-    */
-       
-       this.loginAdmin = function() { 
-        var userObj = adminData.get();
-        var deferred = $q.defer();
-        if(typeof userObj !== "undefined"){
-            $http({
-                method : 'POST',
-                url : appConstants.serviceAddress+'/admin/login',
-                data : userObj
-            }).then(function(response) {
-                deferred.resolve(response);
-            }, function(error) {
-                deferred.reject(error);
-            });
-            return deferred.promise;
-        }
-       };
+    
 
        /*
 		 * fetch the user profile details
