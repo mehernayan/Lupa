@@ -144,17 +144,38 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
             return deferred.promise;
         }
        };
-    /*
-    * admin login detail
-    */
+    
+       /*
+		 * fetch the user profile details
+		 */
+        var userLogged = null;
+        if(localStorageService.get("user") !==null){
+            userLogged = localStorageService.get("user")[0];
+        }
+        this.fetchUserProfileSettings = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/departmentmanager/profile_existing_data?id='+userLogged.id
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+       /*
+        * user update profile setting
+        */
        
-       this.loginAdmin = function() { 
-        var userObj = adminData.get();
+       this.updateProfileSettings = function() { 
+        var userObj = profileSettingData.get();
         var deferred = $q.defer();
         if(typeof userObj !== "undefined"){
             $http({
                 method : 'POST',
-                url : appConstants.serviceAddress+'/admin/login',
+                url : appConstants.serviceAddress+'/departmentmanager/profile',
                 data : userObj
             }).then(function(response) {
                 deferred.resolve(response);

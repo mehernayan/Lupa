@@ -77,7 +77,8 @@
     };
     
 });
-lupaApp.controller('mainController', function($scope,$timeout) {
+lupaApp.controller('mainController',['$scope','$timeout','localStorageService','$location',
+ function($scope,$timeout,localStorageService,$location) {
 		// create a message to display in our view
 		$scope.message = 'Everyone come and see how good I look!';
 
@@ -92,14 +93,19 @@ lupaApp.controller('mainController', function($scope,$timeout) {
 				$scope.expandNav = true;
 				$scope.collapseNav = false;
 			}
-		}
+		};
 
 		$timeout(function() {
 			$("#product li").on("click", function(event) {
 				event.stopPropagation();
 			})
 		}, 2000);
-});
+
+		$scope.getSignOut = function(){
+			localStorageService.clearAll();
+			$location.path('/');
+		};
+}]);
 
   lupaApp.constant('appConstants', {
     serviceHeaders: {

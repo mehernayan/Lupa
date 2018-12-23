@@ -4,7 +4,7 @@ lupaApp.controller('userPSettingController',['$scope','lupaUserService','profile
       $scope.userLogged = localStorageService.get("user");
       
       $scope.profileData = {
-        id : $scope.userLogged[0].id,
+        id : '',
         email : '',
         npassword : '',
         ncpassword : ''
@@ -14,7 +14,10 @@ lupaApp.controller('userPSettingController',['$scope','lupaUserService','profile
             profileSettingData.set(n.id,n.email,n.npassword,n.ncpassword);
         };
       }, true);
-
+      /* set id */
+      if($scope.userLogged !== null){
+        $scope.profileData.id = $scope.userLogged[0].id;
+      }
       $scope.emptyReqFields = function(){
         $scope.profileData = {
             id : $scope.userLogged.id,

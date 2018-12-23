@@ -150,7 +150,10 @@ lupaUserService.service('lupaUserService', ['$http', '$q','$filter','localStorag
        /*
 		 * fetch the user profile details
 		 */
-        var userLogged = localStorageService.get("user")[0];
+        var userLogged = null;
+        if(localStorageService.get("user") !==null){
+            userLogged = localStorageService.get("user")[0];
+        }
         this.fetchUserProfileSettings = function() {
             var deferred = $q.defer();
             $http({

@@ -1,5 +1,5 @@
-  lupaApp.controller('userLoginController', ['$scope','userData','userRegData','lupaUserService','$location','userRegOtpVal','userEmailData','userResetData',
-  function($scope,userData,userRegData,lupaUserService,$location,userRegOtpVal,userEmailData,userResetData) {
+  lupaApp.controller('userLoginController', ['$scope','userData','userRegData','lupaUserService','$location','userRegOtpVal','userEmailData','userResetData','localStorageService',
+  function($scope,userData,userRegData,lupaUserService,$location,userRegOtpVal,userEmailData,userResetData,localStorageService) {
 
       
       $scope.isLogin = true;
@@ -90,6 +90,7 @@
           if(typeof $scope.response!=="undefined"){
             if($scope.response.success){
               $scope.error ="";
+              localStorageService.set("user",$scope.response.data);
               $location.path('/dashboard');
             }else{
               $scope.error = $scope.response.message;
