@@ -112,4 +112,24 @@ angular.module('lupaSharedProvider', [])
             profileData.cpassword = cpassword;
         }
     };
+}).factory('adminProfileSettingData', function () {
+    var profileData = {
+        id : '',
+        name : '',
+        email : '',
+        password : '',
+        password_confirmation : ''
+      };
+    return {
+        get: function () {
+            return profileData;
+        },
+        set: function (id,name,email,password,password_confirmation) {
+            profileData.id = id;
+            profileData.name = name;
+            profileData.email = email;
+            profileData.password = password;
+            profileData.password_confirmation = password_confirmation;
+        }
+    };
 });

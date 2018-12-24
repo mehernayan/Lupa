@@ -33,8 +33,10 @@ lupaApp.controller('deptPSettingController',['$scope','lupaManagerService','dept
        * Get existing user profile details
        */
       $scope.fetchProfileSettings = function(){
+        $('#loadergif').show();
         lupaManagerService.fetchUserProfileSettings().then(function(response) {
         $scope.response = JSON.parse(response.data.status_response);
+        $('#loadergif').hide();
         if(typeof $scope.response!=="undefined"){
             if($scope.response.success){
                 console.log($scope.response);
@@ -67,6 +69,7 @@ lupaApp.controller('deptPSettingController',['$scope','lupaManagerService','dept
                 $scope.successMsg = "";
                 $scope.error = $scope.response.message;
             }
+            $scope.fetchProfileSettings();
         }
         });
       };

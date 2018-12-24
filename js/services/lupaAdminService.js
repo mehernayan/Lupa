@@ -1,6 +1,6 @@
 var lupaAdminService = angular.module('lupaAdminProvider', ['lupaSharedProvider']);
-lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData',
-    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData) {
+lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','adminProfileSettingData',
+    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,adminProfileSettingData) {
 
         
        /*
@@ -109,6 +109,47 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStor
                 method : 'POST',
                 url : appConstants.serviceAddress+'/admin/password/reset',
                 data : userObj,
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+       };
+
+       /*
+		 * fetch the user profile details
+		 */
+        var userLogged = null;
+        if(localStorageService.get("user") !==null){
+            userLogged = localStorageService.get("user")[0];
+        }
+        this.fetchUserProfileSettings = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/profile_existing_data?id='+userLogged.id
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+       /*
+        * user update profile setting
+        */
+       
+       this.updateProfileSettings = function() { 
+        var userObj = adminProfileSettingData.get();
+        var deferred = $q.defer();
+        if(typeof userObj !== "undefined"){
+            $http({
+                method : 'POST',
+                url : appConstants.serviceAddress+'/admin/profileupdate',
+                data : userObj
             }).then(function(response) {
                 deferred.resolve(response);
             }, function(error) {
