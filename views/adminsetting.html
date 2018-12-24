@@ -4,7 +4,7 @@
 </div>
 <div class="setting-container body-container" ng-class="{'expand':expandNav}">
     <div class="mar-bot-20"><button class="btn btn-primary"><i class="fa fa-user"></i></button> <label class="setting-header">Setting</label></div>
-        <div class="pad-bot-20">
+        <div class="mar-bot-50 back-g-white">
             <div class="row">
                 <div class="col-sm-12">
                     <ul class="nav nav-pills" id="pills-tab" role="tablist">
@@ -12,47 +12,67 @@
                         <li ng-class="{active:tab==2}"><a href ng-click="setTab(2)">Department Manager</a></li>
                         <li ng-class="{active:tab==3}"><a href ng-click="setTab(3)">Total Users</a></li>
                     </ul>
+                    <div class="message-container pad-left-20">
+                            <div class="pad-top-20 error-msg" ng-if="error">
+                                <i class="fa fa-exclamation-triangle"></i>
+                                <span>{{error}}</span>
+                            </div>
+                            <div class="pad-top-20 success-msg" ng-if="successMsg">
+                                    <i class="fa fa-check"></i>
+                                <span>{{successMsg}}</span>
+                            </div>
+                        </div> 
                     <div ng-show="tab==1">
-                        <div class="mar-top-20">
+                        <div class="mar-top-20 col-sm-12 back-g-white">
                             <form class="form-inline">
                                 <div class="form-group">
                                     <label for="userName">Department Name</label>
-                                    <input  type="text" id="userName" ng-model="department.department" class="form-control" placeholder="Department Name" />
-                                    <button class="btn  btn-primary btn-custom-radius" ng-click="addDepartment()">Add Department</button>
+                                    <input  type="text" id="userName" ng-model="department.department" class="form-control" placeholder="Enter Department Name" />
+                                    <button class="btn btn-dyna mar-left-50" ng-click="addDepartment()">Submit</button>
                                 </div>
                             </form>
-                            <div class="message-container">
-                                <div class="pad-top-20 error-msg" ng-if="error">
-                                    <i class="fa fa-exclamation-triangle"></i>
-                                    <span>{{error}}</span>
-                                </div>
-                                <div class="pad-top-20 success-msg" ng-if="successMsg">
-                                        <i class="fa fa-check"></i>
-                                    <span>{{successMsg}}</span>
-                                </div>
-                            </div> 
                         </div>
-                        <div class="mar-top-20">
-                                <table class="table table-striped table-bordered">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                        <th scope="col" class="text-center"">Department ID</th>
-                                        <th scope="col" class="text-center">Department Name</th>
-                                        <th scope="col" class="text-center">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="text-center" ng-repeat="department in departments track by department.id">
-                                        <td>{{department.id}}</td>
-                                        <td>{{department.department_name}}</td>
-                                        <td><button class="btn  btn-danger btn-table" ng-click="deleteDepartment(department.id)">Delete</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="mar-top-20 col-sm-9">
+                            <table class="table table-striped table-bordered">
+                                <thead class="thead-dark">
+                                    <tr>
+                                    <th scope="col" class="text-center">Departments Name</th>
+                                    <th scope="col" class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="text-center" ng-repeat="department in departments track by department.id">
+                                    <td>{{department.department_name}}</td>
+                                    <td>
+                                        <button class="btn  btn-primary btn-table" ng-click="editDepartment(department.id)">Edit</button>
+                                        <button class="btn  btn-danger btn-table" ng-click="deleteDepartment(department.id)">Delete</button>
+                                    </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mar-top-20 col-sm-9">
+                            <table class="table table-striped table-bordered">
+                                <thead class="thead-dark">
+                                    <tr>
+                                    <th scope="col" class="text-center">Software Name</th>
+                                    <th scope="col" class="text-center">Tokens</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="text-center" ng-repeat="license in licenses">
+                                    <td>{{license.product_name}}</td>
+                                    <td>
+                                        <button class="btn  btn-primary btn-table">Total - {{license.total_license}}</button>
+                                        <button class="btn  btn-danger btn-table">Used - {{license.total_license - license.license_remaining}}</button>
+                                    </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div ng-show="tab==2">
-                        <div class="mar-top-20">
+                        <div class="mar-top-20 col-sm-9">
                             <table class="table table-striped table-bordered">
                                 <thead class="thead-dark">
                                     <tr>
@@ -64,19 +84,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="text-center">
-                                    <td>Shrikant</td>
-                                    <td>Web@keizenat.com</td>
-                                    <td>Crash</td>
-                                    <td>
-                                        Pending
-                                    </td>
+                                    <tr class="text-center" ng-repeat="deptManager in deptManagers track by deptManager.id">
+                                    <td>{{deptManager.name}}</td>
+                                    <td>{{deptManager.email}}</td>
+                                    <td>{{deptManager.department}}</td>
+                                    <td>{{deptManager.admin_approved?'Confirmed':'Pending'}}</td>
                                     <td>
                                         <table class="table-inner">
                                             <tbody>
                                             <tr>
                                                 <td class="text-center">
-                                                    <button class="btn  btn-primary btn-table">Confirm</button>                                                </td>
+                                                    <button class="btn  btn-primary btn-table" ng-click="approveDeptManager(deptManager.id)" ng-disabled="deptManager.admin_approved">Confirm</button>                                                
+                                                </td>
+                                                <td>
+                                                    <button class="btn  btn-warning btn-table" ng-click="blockDeptManager(deptManager.id)" ng-disabled="!deptManager.admin_approved">Block</button>
+                                                </td>
                                                 <td>
                                                     <button class="btn  btn-danger btn-table">Delete</button>
                                                 </td>

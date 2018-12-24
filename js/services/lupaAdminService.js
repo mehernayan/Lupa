@@ -213,5 +213,73 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStor
             });
             return deferred.promise;
         };
+
+        /*
+		 * fetch licenses lists
+		 */
+        
+        this.fetchLicenseList = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/total_license'
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        /*
+		 * fetch department managers lists
+		 */
+        
+        this.fetchDeptManagersList = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/departmentmangers_list'
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        /*
+		 * approve department manager
+		 */
+        
+        this.approveDeptManager = function(id) {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/deptmanagerctivate?id='+id
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        /*
+		 * approve department manager
+		 */
+        
+        this.blockDeptManager = function(id) {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/deptmanagerdeactivate?id='+id
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
        
 }]);
