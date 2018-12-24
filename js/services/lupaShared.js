@@ -132,4 +132,16 @@ angular.module('lupaSharedProvider', [])
             profileData.password_confirmation = password_confirmation;
         }
     };
+}).factory('addDepartmentData', function () {
+    var departmentData = {
+        department : ''
+      };
+    return {
+        get: function () {
+            return departmentData;
+        },
+        set: function (department) {
+            departmentData.department = department;
+        }
+    };
 });

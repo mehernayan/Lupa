@@ -81,6 +81,9 @@
     border-radius: 20px;
     color: #fff
 }
+.btn-custom-radius{
+    border-radius: 20px;
+}
 body{
     background-color: #f2f7fb;
 }

@@ -1,6 +1,6 @@
 var lupaAdminService = angular.module('lupaAdminProvider', ['lupaSharedProvider']);
-lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','adminProfileSettingData',
-    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,adminProfileSettingData) {
+lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','adminProfileSettingData','addDepartmentData',
+    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,adminProfileSettingData,addDepartmentData) {
 
         
        /*
@@ -158,6 +158,60 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStor
             return deferred.promise;
         }
        };
-    
+
+       /*
+		 * fetch department lists
+		 */
+        
+        this.fetchDepartmentList = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/totaldepartments_list'
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        
+        /*
+        * add department 
+        */
        
-    }]);
+       this.addDepartment = function() { 
+        var userObj = addDepartmentData.get();
+        var deferred = $q.defer();
+        if(typeof userObj !== "undefined"){
+            $http({
+                method : 'POST',
+                url : appConstants.serviceAddress+'/admin/deptAdd',
+                data : userObj
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+       };
+
+       /*
+		 * Delete department from lists
+		 */
+        
+        this.delteDepartment = function(id) {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/deptDestroy?id='+id
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+       
+}]);
