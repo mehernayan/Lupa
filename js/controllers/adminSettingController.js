@@ -1,5 +1,5 @@
-lupaApp.controller('adminSettingController',['$scope','lupaAdminService','addDepartmentData',
-function($scope,lupaAdminService,addDepartmentData){
+lupaApp.controller('adminSettingController',['$scope','lupaAdminService','addDepartmentData','transferUserData',
+function($scope,lupaAdminService,addDepartmentData,transferUserData){
     $scope.tab = 1;
     $scope.setTab = function (tabId) {
         $scope.tab = tabId;
@@ -8,6 +8,9 @@ function($scope,lupaAdminService,addDepartmentData){
             $scope.getLicenseList();
         }else if(tabId==2){
             $scope.getDeptManagersList();
+        }else if(tabId==3){
+            $scope.getUsersList();
+            $scope.getTransDepartmentList();
         }
     };
     $scope.isSet = function (tabId) {
@@ -19,9 +22,13 @@ function($scope,lupaAdminService,addDepartmentData){
     $scope.departments = [];
     $scope.licenses = [];
     $scope.deptManagers = [];
+    $scope.usersList = [];
+    $scope.transDepartments =[];
+    $scope.errorTransDeptList ="";
     $scope.errorManager ="";
     $scope.errorDeptlist ="";
     $scope.errorLicense ="";
+    $scope.errorUsersList="";
 
     
     /** get Department list */
@@ -138,7 +145,7 @@ function($scope,lupaAdminService,addDepartmentData){
       };
 
       /** 
-       * Approve Dept managers list
+       * Approve Dept manager
        */
       $scope.approveDeptManager = function(id){
         $('#loadergif').show();
@@ -160,7 +167,7 @@ function($scope,lupaAdminService,addDepartmentData){
       };
 
       /** 
-       * Block Dept managers list
+       * Block Dept manager
        */
       $scope.blockDeptManager = function(id){
         $('#loadergif').show();
@@ -180,5 +187,177 @@ function($scope,lupaAdminService,addDepartmentData){
           }
         });
       };
+
+      /** 
+       * Delete Dept manager
+       */
+      $scope.deleteDeptManager = function(id){
+        $('#loadergif').show();
+        lupaAdminService.deleteDeptManager(id).then(function(response) {
+          //console.log(response.data,"register user");
+          $scope.response = JSON.parse(response.data.status_response);
+          $('#loadergif').hide();
+          if(typeof $scope.response!=="undefined"){
+            if($scope.response.Success){
+              $scope.error ="";
+              $scope.getDeptManagersList();
+              $scope.successMsg =$scope.response.message;
+            }else{
+              $scope.successMsg ="";
+              $scope.error = $scope.response.message;
+            }
+          }
+        });
+      };
+
+       /** 
+       * Fetch Users list
+       */
+      $scope.getUsersList = function(){
+        $('#loadergif').show();
+        lupaAdminService.fetchUsersList().then(function(response) {
+          $scope.response = JSON.parse(response.data.status_response);
+          $('#loadergif').hide();
+          if(typeof $scope.response!=="undefined"){
+            if($scope.response.Success){
+              $scope.errorUsersList ="";
+              $scope.usersList =$scope.response.data;
+            }else{
+              $scope.errorUsersList = $scope.response.message;
+            }
+          }
+        });
+      };
+
+       /** 
+       * block user from Users list
+       */
+      $scope.blockUser = function(id){
+        $('#loadergif').show();
+        $scope.error ="";
+        $scope.successMsg = "";
+        lupaAdminService.blockUser(id).then(function(response) {
+          $scope.response = JSON.parse(response.data.status_response);
+          $('#loadergif').hide();
+          if(typeof $scope.response!=="undefined"){
+            if($scope.response.Success){
+                $scope.error ="";
+                $scope.successMsg = $scope.response.message;
+              }else{
+                $scope.successMsg = "";
+                $scope.error = $scope.response.message;
+              }
+              $scope.getUsersList();
+          }
+        });
+      };
+
+      /** 
+       * Unblock user from Users list
+       */
+      $scope.unBlockUser = function(id){
+        $('#loadergif').show();
+        $scope.error ="";
+        $scope.successMsg = "";
+        lupaAdminService.unBlockUser(id).then(function(response) {
+          $scope.response = JSON.parse(response.data.status_response);
+          $('#loadergif').hide();
+          if(typeof $scope.response!=="undefined"){
+            if($scope.response.Success){
+              $scope.error ="";
+              $scope.successMsg = $scope.response.message;
+            }else{
+              $scope.successMsg = "";
+              $scope.error = $scope.response.message;
+            }
+            $scope.getUsersList();
+          }
+        });
+      };
+
+      /** 
+       * Delete user from Users list
+       */
+      $scope.deleteUser = function(id){
+        $('#loadergif').show();
+        $scope.error ="";
+        $scope.successMsg = "";
+        lupaAdminService.deleteUser(id).then(function(response) {
+          $scope.response = JSON.parse(response.data.status_response);
+          $('#loadergif').hide();
+          if(typeof $scope.response!=="undefined"){
+            if($scope.response.Success){
+              $scope.error ="";
+              $scope.successMsg = $scope.response.message;
+            }else{
+              $scope.successMsg = "";
+              $scope.error = $scope.response.message;
+            }
+            $scope.getUsersList();
+          }
+        });
+      };
+
+      /** 
+       * Fetch Department list to Tranfer User
+       */
+      $scope.getTransDepartmentList = function(){
+        $('#loadergif').show();
+        lupaAdminService.getTransDepartmentList().then(function(response) {
+          $scope.response = JSON.parse(response.data.status_response);
+          $('#loadergif').hide();
+          if(typeof $scope.response!=="undefined"){
+            if($scope.response.Success){
+              $scope.errorTransDeptList ="";
+              $scope.transDepartments =$scope.response.data;
+            }else{
+              $scope.errorTransDeptList = $scope.response.message;
+            }
+          }
+        });
+      };
+
+      /**
+     * Transfer user to department
+     */
+    
+    $scope.transUser = {
+        todepartment : '',
+        useremail : '',
+        fromdepartment : '',
+        username : ''
+    };
+    $scope.$watch('transUser', function (n, o) {
+    if (n !== o){
+        //console.log(n.todepartment,n.useremail,n.fromdepartment,n.username);
+        transferUserData.set(n.todepartment,n.useremail,n.fromdepartment,n.username);
+    };
+    }, true);
+
+    $scope.getTransferInfo = function (todepartment,useremail,fromdepartment,username) {
+        $scope.transUser.todepartment = todepartment;
+        $scope.transUser.useremail = useremail;
+        $scope.transUser.fromdepartment = fromdepartment;
+        $scope.transUser.username = username;
+    }
+
+    $scope.transferUser = function(){
+      $('#loadergif').show();
+      lupaAdminService.transferUser().then(function(response) {
+        //console.log(response.data,"register user");
+        $scope.response = JSON.parse(response.data.status_response);
+        $('#loadergif').hide();
+        if(typeof $scope.response!=="undefined"){
+          if($scope.response.Success){
+            $scope.error ="";
+            $scope.successMsg = $scope.response.message;
+          }else{
+            $scope.successMsg = "";
+            $scope.error = $scope.response.message;
+          }
+          $scope.getUsersList();
+        }
+      });
+    };
 }]);
    

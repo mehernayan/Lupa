@@ -144,4 +144,22 @@ angular.module('lupaSharedProvider', [])
             departmentData.department = department;
         }
     };
+}).factory('transferUserData', function () {
+    var transferUserData = {
+        todepartment : '',
+        useremail : '',
+        fromdepartment : '',
+        username : ''
+    };
+    return {
+        get: function () {
+            return transferUserData;
+        },
+        set: function (todepartment,useremail,fromdepartment,username) {
+            transferUserData.todepartment = todepartment;
+            transferUserData.useremail = useremail;
+            transferUserData.fromdepartment = fromdepartment;
+            transferUserData.username = username;
+        }
+    };
 });

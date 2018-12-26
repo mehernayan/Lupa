@@ -100,7 +100,7 @@
                                                     <button class="btn  btn-warning btn-table" ng-click="blockDeptManager(deptManager.id)" ng-disabled="!deptManager.admin_approved">Block</button>
                                                 </td>
                                                 <td>
-                                                    <button class="btn  btn-danger btn-table">Delete</button>
+                                                    <button class="btn  btn-danger btn-table" ng-click="deleteDeptManager(deptManager.id)">Delete</button>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -112,7 +112,7 @@
                         </div>
                     </div>
                     <div ng-show="tab==3">
-                        <div class="mar-top-20">
+                        <div class="mar-top-20 col-sm-9">
                             <table class="table table-striped table-bordered">
                                 <thead class="thead-dark">
                                     <tr>
@@ -124,12 +124,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="text-center">
-                                    <td>Shrikant</td>
-                                    <td>Web@keizenat.com</td>
-                                    <td>Crash</td>
+                                    <tr class="text-center" ng-repeat="user in usersList track by user.id">
+                                    <td>{{user.name}}</td>
+                                    <td>{{user.email}}</td>
+                                    <td>{{user.department}}</td>
                                     <td>
-                                        <button class="btn btn-warning btn-table">Block</button>
+                                        <button class="btn btn-warning btn-table" ng-if="user.verified" ng-click="blockUser(user.id)">Block</button>
+                                        <button class="btn btn-warning btn-table" ng-if="!user.verified" ng-click="unBlockUser(user.id)">UnBlock</button>
                                     </td>
                                     <td>
                                         <table class="table-inner">
@@ -138,18 +139,16 @@
                                                 <td class="text-center">
                                                     <div class="btn-group">
                                                         <button type="button" class="btn btn-default btn-table dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            Method <span class="caret"></span>
+                                                            Department <span class="caret"></span>
                                                         </button>
                                                         <ul class="dropdown-menu">
-                                                            <li><a href="#">Method 1</a></li>
-                                                            <li><a href="#">Method 2</a></li>
-                                                            <li><a href="#">Method 3</a></li>
+                                                            <li ng-repeat="dept in transDepartments"><a href="javascript:void(0)" ng-click="getTransferInfo(dept.department,user.email,user.department,user.name)">{{dept.department}}</a></li>
                                                         </ul>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <button class="btn  btn-primary btn-table">Confirm</button><br/>
-                                                    <button class="btn  btn-danger btn-table mar-top-10">Delete</button>
+                                                    <button class="btn  btn-primary btn-table" ng-click="transferUser()">Transfer</button><br/>
+                                                    <button class="btn  btn-danger btn-table mar-top-10" ng-click="deleteUser(user.id)">Delete</button>
                                                 </td>
                                             </tr>
                                             </tbody>

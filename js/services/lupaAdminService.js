@@ -1,6 +1,6 @@
 var lupaAdminService = angular.module('lupaAdminProvider', ['lupaSharedProvider']);
-lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','adminProfileSettingData','addDepartmentData',
-    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,adminProfileSettingData,addDepartmentData) {
+lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','adminProfileSettingData','addDepartmentData','transferUserData',
+    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,adminProfileSettingData,addDepartmentData,transferUserData) {
 
         
        /*
@@ -266,7 +266,7 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStor
         };
 
         /*
-		 * approve department manager
+		 * Block department manager
 		 */
         
         this.blockDeptManager = function(id) {
@@ -281,5 +281,129 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStor
             });
             return deferred.promise;
         };
+
+        /*
+		 * Delete department manager
+		 */
+        
+        this.deleteDeptManager = function(id) {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/deptmanagerdelete?id='+id
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        /*
+		 * Fetch User List
+		 */
+        
+        this.fetchUsersList = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/users_list'
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        /*
+		 * Block User
+		 */
+        
+        this.blockUser = function(id) {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/userblock?id='+id
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        /*
+		 * Unblock User
+		 */
+        
+        this.unBlockUser = function(id) {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/userunblock?id='+id
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        
+        /*
+		 * Delete User
+		 */
+        
+        this.deleteUser = function(id) {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/userdelete?id='+id
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+         /*
+		 * Fetch Department list to transfer user
+		 */
+        
+        this.getTransDepartmentList = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/departments_list'
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        /**
+         * Transfer User from department to to department
+         */
+
+        this.transferUser = function() { 
+            var userObj = transferUserData.get();
+            var deferred = $q.defer();
+            if(typeof userObj !== "undefined"){
+                $http({
+                    method : 'POST',
+                    url : appConstants.serviceAddress+'/admin/usertransfer',
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            }
+           };
        
 }]);
