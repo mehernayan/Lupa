@@ -5,27 +5,29 @@
 <div class="setting-container body-container" ng-class="{'expand':expandNav}">
     <div class="mar-bot-20"><button class="btn btn-primary"><i class="fa fa-user"></i></button>
          <label class="setting-header">SMTP</label></div>
-    <div class="pad-bot-20">
+    <div class="pad-20 back-g-white">
         <div class="row">
             <form class="form-inline">
             <div class="col-sm-6 setting-left smtp">
                     <div class="form-group">
                             <label>Mail Driver</label>
-                            <select class="form-control">
+                            <select class="form-control" ng-model="smtpObj.mail_driver">
                                     <option value="">Select Mail Driver</option>
-                                    <option value="maildriver"> Mail Driver 1</option>
+                                    <option value="smtp"> SMTP</option>
                             </select>
                     </div>
                     <div class="form-group mar-top-20">
-                        <label>E Mail</label>
-                        <select class="form-control">
+                        <label>Port</label>
+                        <select class="form-control" ng-model="smtpObj.port">
                                 <option value="">Select Port</option>
-                                <option value="port80"> Port 80</option>
+                                <option value="25"> 25</option>
+                                <option value="465"> 465</option>
+                                <option value="587"> 587</option>
                         </select>
                     </div>
                     <div class="form-group mar-top-20">
                         <label for="smtpPass">Password</label>
-                        <input  type="text" id="smtpPass" class="form-control" placeholder="Password" />
+                        <input  type="password" id="smtpPass" ng-model="smtpObj.password"  class="form-control" placeholder="Password" />
                     </div>
                 
             </div>
@@ -33,24 +35,39 @@
                     
                         <div class="form-group">
                         <label for="host">Enter Host </label>
-                        <input  type="text" id="host" class="form-control" placeholder="Enter Host" />
+                        <input  type="text" id="host" ng-model="smtpObj.host" class="form-control" placeholder="Enter Host" />
                         </div>
                         <div class="form-group mar-top-20">
-                        <label for="userName">User Name</label>
-                        <input type="text" id="userName" class="form-control" placeholder="Enter user name" />
+                        <label for="userName">E mail</label>
+                        <input type="email" id="userName" ng-model="smtpObj.email" class="form-control" placeholder="Enter Email" />
                         </div>
                         <div class="form-group mar-top-20">
                             <label>Encryption Type</label>
-                            <select class="form-control">
+                            <select class="form-control" ng-model="smtpObj.encryption_type">
                                     <option value="">Enter Encryption Type</option>
-                                    <option value="Type1"> Type 1</option>
+                                    <option value="ssl"> SSL</option>
+                                    <option value="tls"> TLS</option>
+                                    <option value="not secure"> Not Secure</option>
                             </select>
                         </div>
                         
             </div>
-            <div class="col-sm-12 text-center mar-top-50">
-                    <button  class="btn login-button btn-smtp" > SUBMIT </button>
+            <div class="col-sm-4">
+                <div class="message-container">
+                    <div class="pad-top-20 error-msg" ng-if="error">
+                        <i class="fa fa-exclamation-triangle"></i>
+                        <span>{{error}}</span>
+                    </div>
+                    <div class="pad-top-20 success-msg" ng-if="successMsg">
+                            <i class="fa fa-check"></i>
+                        <span>{{successMsg}}</span>
+                    </div>
+                </div>
             </div>
+            <div class="col-sm-4 text-center mar-top-50">
+                    <button  class="btn login-button btn-smtp" ng-click="updateSmtpDetails()" > SUBMIT </button>
+            </div>
+            <div class="col-sm-4"></div>
         </form>
         <div class="col-sm-4 col-sm-offset-4 mar-top-20">
             <form>

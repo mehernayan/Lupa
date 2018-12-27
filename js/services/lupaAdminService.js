@@ -1,6 +1,6 @@
 var lupaAdminService = angular.module('lupaAdminProvider', ['lupaSharedProvider']);
-lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','adminProfileSettingData','addDepartmentData','transferUserData',
-    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,adminProfileSettingData,addDepartmentData,transferUserData) {
+lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','adminProfileSettingData','addDepartmentData','transferUserData','smtpData',
+    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,adminProfileSettingData,addDepartmentData,transferUserData,smtpData) {
 
         
        /*
@@ -405,5 +405,43 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStor
                 return deferred.promise;
             }
            };
+
+        /*
+		 * Fetch existing smtp details
+		 */
+        
+        this.getSmtpExistingDetails = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/smtp_existing_details'
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        /*
+        * Update smtp details
+        */
+        
+       this.updateSmtpDetails = function() { 
+        var userObj = smtpData.get();
+        var deferred = $q.defer();
+        if(typeof userObj !== "undefined"){
+            $http({
+                method : 'POST',
+                url : appConstants.serviceAddress+'/admin/smtp_update',
+                data : userObj
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+      };
        
 }]);

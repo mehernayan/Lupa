@@ -162,4 +162,26 @@ angular.module('lupaSharedProvider', [])
             transferUserData.username = username;
         }
     };
+}).factory('smtpData', function () {
+    var smtpObj = {
+        mail_driver : '',
+        host : '',
+        port : '',
+        email : '',
+        password : '',
+        encryption_type : ''
+    };
+    return {
+        get: function () {
+            return smtpObj;
+        },
+        set: function (mail_driver,host,port,email,password,encryption_type) {
+            smtpObj.mail_driver = mail_driver;
+            smtpObj.host = host;
+            smtpObj.port = port;
+            smtpObj.email = email;
+            smtpObj.password = password;
+            smtpObj.encryption_type = encryption_type;
+        }
+    };
 });
