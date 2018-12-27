@@ -1,6 +1,6 @@
 var lupaManagerService = angular.module('lupaManagerProvider', ['lupaSharedProvider']);
-lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','deptProfileSettingData',
-    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,deptProfileSettingData) {
+lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','deptProfileSettingData','transferUserData',
+    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,deptProfileSettingData,transferUserData) {
 
         
       
@@ -185,5 +185,112 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
             return deferred.promise;
         }
        };
+
+       /*
+		 * Fetch User List
+		 */
+        
+        this.fetchUsersList = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/departmentmanager/users_list?department=CRASH'
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        /*
+		 * Block User
+		 */
+        
+        this.blockUser = function(id) {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/departmentmanager/userblock?id='+id
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        /*
+		 * Unblock User
+		 */
+        
+        this.unBlockUser = function(id) {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/departmentmanager/userunblock?id='+id
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        
+        /*
+		 * Delete User
+		 */
+        
+        this.deleteUser = function(id) {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/departmentmanager/delete_user?id='+id
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+         /*
+		 * Fetch Department list to transfer user
+		 */
+        
+        this.getTransDepartmentList = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/departments_list'
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        /**
+         * Transfer User from department to to department
+         */
+
+        this.transferUser = function() { 
+            var userObj = transferUserData.get();
+            var deferred = $q.defer();
+            if(typeof userObj !== "undefined"){
+                $http({
+                    method : 'POST',
+                    url : appConstants.serviceAddress+'/departmentmanager/usertransfer',
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            }
+           };
        
     }]);

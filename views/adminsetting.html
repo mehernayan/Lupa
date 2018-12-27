@@ -13,15 +13,15 @@
                         <li ng-class="{active:tab==3}"><a href ng-click="setTab(3)">Total Users</a></li>
                     </ul>
                     <div class="message-container pad-left-20">
-                            <div class="pad-top-20 error-msg" ng-if="error">
-                                <i class="fa fa-exclamation-triangle"></i>
-                                <span>{{error}}</span>
-                            </div>
-                            <div class="pad-top-20 success-msg" ng-if="successMsg">
-                                    <i class="fa fa-check"></i>
-                                <span>{{successMsg}}</span>
-                            </div>
-                        </div> 
+                        <div class="pad-top-20 error-msg" ng-if="error">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            <span>{{error}}</span>
+                        </div>
+                        <div class="pad-top-20 success-msg" ng-if="successMsg">
+                                <i class="fa fa-check"></i>
+                            <span>{{successMsg}}</span>
+                        </div>
+                    </div> 
                     <div ng-show="tab==1">
                         <div class="mar-top-20 col-sm-12 back-g-white">
                             <form class="form-inline">
