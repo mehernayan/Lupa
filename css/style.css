@@ -354,6 +354,9 @@ a.active-main-nav:hover, a.active-main-nav:focus {
     margin-top: 12px;
     font-weight: bold;
 }
+.smtp input,.smtp select, .calculator input,.calculator select{
+    min-width: 196px;
+}
 
 /* Side bar starts*/
 .green_dot {

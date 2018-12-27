@@ -196,4 +196,26 @@ angular.module('lupaSharedProvider', [])
            smtpEmail.email = email;
         }
     };
+}).factory('purchaseData', function () {
+    var purchaseObj = {
+        software_name : '',
+        year_of_purchase : new Date(),
+        license_type : '',
+        lease_months : 0,
+        licenses_purchased : 0,
+        purchase_cost : 0
+    };
+    return {
+        get: function () {
+            return purchaseObj;
+        },
+        set: function (software_name,year_of_purchase,license_type,lease_months,licenses_purchased,purchase_cost) {
+            purchaseObj.software_name = software_name;
+            purchaseObj.year_of_purchase = year_of_purchase;
+            purchaseObj.license_type = license_type;
+            purchaseObj.lease_months = lease_months;
+            purchaseObj.licenses_purchased = licenses_purchased;
+            purchaseObj.purchase_cost = purchase_cost;
+        }
+    };
 });

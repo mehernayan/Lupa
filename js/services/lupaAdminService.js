@@ -1,6 +1,6 @@
 var lupaAdminService = angular.module('lupaAdminProvider', ['lupaSharedProvider']);
-lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','adminProfileSettingData','addDepartmentData','transferUserData','smtpData','smtpTestData',
-    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,adminProfileSettingData,addDepartmentData,transferUserData,smtpData,smtpTestData) {
+lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','adminProfileSettingData','addDepartmentData','transferUserData','smtpData','smtpTestData','purchaseData',
+    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,adminProfileSettingData,addDepartmentData,transferUserData,smtpData,smtpTestData,purchaseData) {
 
         
        /*
@@ -464,5 +464,60 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStor
             return deferred.promise;
         }
       };
+
+      /*
+		 * Fetch purchase list
+		 */
+        
+        this.getPurchaseList = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/purchase_list'
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        /*
+        * Update purchase details
+        */
+        
+       this.updatePurchaseDetails = function() { 
+        var userObj = purchaseData.get();
+        var deferred = $q.defer();
+        if(typeof userObj !== "undefined"){
+            $http({
+                method : 'POST',
+                url : appConstants.serviceAddress+'/admin/cost_calculation',
+                data : userObj
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+      };
+
+      /*
+		 * Delete purchase from lists
+		 */
+        
+        this.deletePurchase = function(id) {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/delete_purchase?id='+id
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
        
 }]);
