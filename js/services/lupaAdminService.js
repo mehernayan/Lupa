@@ -1,6 +1,6 @@
 var lupaAdminService = angular.module('lupaAdminProvider', ['lupaSharedProvider']);
-lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','adminProfileSettingData','addDepartmentData','transferUserData','smtpData',
-    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,adminProfileSettingData,addDepartmentData,transferUserData,smtpData) {
+lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','adminProfileSettingData','addDepartmentData','transferUserData','smtpData','smtpTestData',
+    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,adminProfileSettingData,addDepartmentData,transferUserData,smtpData,smtpTestData) {
 
         
        /*
@@ -434,6 +434,27 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStor
             $http({
                 method : 'POST',
                 url : appConstants.serviceAddress+'/admin/smtp_update',
+                data : userObj
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+      };
+
+      /*
+        * Test smtp mail
+        */
+        
+       this.testSmtpMail = function() { 
+        var userObj = smtpTestData.get();
+        var deferred = $q.defer();
+        if(typeof userObj !== "undefined"){
+            $http({
+                method : 'POST',
+                url : appConstants.serviceAddress+'/admin/test_mail',
                 data : userObj
             }).then(function(response) {
                 deferred.resolve(response);

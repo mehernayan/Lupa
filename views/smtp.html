@@ -71,9 +71,9 @@
         </form>
         <div class="col-sm-4 col-sm-offset-4 mar-top-20">
             <form>
-                    <input type="text"  class="form-control" placeholder="Enter Email ID" />
+                    <input type="email"  class="form-control" ng-model="smtpTest.email" placeholder="Enter Email ID" />
                     <div class="text-center mar-top-20">
-                            <button  class="btn login-button btn-smtp" > Send Test Mail </button>
+                            <button  class="btn login-button btn-smtp" ng-click="testSmtpMail()" > Send Test Mail </button>
                     </div>
             </form>
         </div>

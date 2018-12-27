@@ -184,4 +184,16 @@ angular.module('lupaSharedProvider', [])
             smtpObj.encryption_type = encryption_type;
         }
     };
+}).factory('smtpTestData', function () {
+    var smtpEmail = {
+        email : ''
+    };
+    return {
+        get: function () {
+            return smtpEmail;
+        },
+        set: function (email) {
+           smtpEmail.email = email;
+        }
+    };
 });

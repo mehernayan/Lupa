@@ -1,5 +1,5 @@
-lupaApp.controller('smtpController', ['$scope','lupaAdminService','smtpData',
-function($scope,lupaAdminService,smtpData){
+lupaApp.controller('smtpController', ['$scope','lupaAdminService','smtpData','smtpTestData',
+function($scope,lupaAdminService,smtpData,smtpTestData){
     $scope.error ="";
     $scope.successMsg ="";
 
@@ -58,6 +58,40 @@ function($scope,lupaAdminService,smtpData){
             }
             
           }
+        });
+      };
+
+      /**
+       * Test mail
+       */
+
+    $scope.smtpTest = {
+        email : ''
+    };
+    $scope.$watch('smtpTest', function (n, o) {
+        if (n !== o){
+            smtpTestData.set(n.email);
+        };
+    }, true);
+
+    /**
+     * Update smtp details
+     */
+    $scope.testSmtpMail = function(){
+        $scope.error = "";
+        $('#loadergif').show();
+        lupaAdminService.testSmtpMail().then(function(response) {
+          $('#loadergif').hide();
+          $scope.response = JSON.parse(response.data.status_response);
+          if(typeof $scope.response!=="undefined"){
+            if($scope.response.success){
+              $scope.error ="";
+              $scope.successMsg = $scope.response.message;
+            }else{
+              $scope.error = $scope.response.message;
+              $scope.successMsg ="";
+            }
+           }
         });
       };
 }]);
