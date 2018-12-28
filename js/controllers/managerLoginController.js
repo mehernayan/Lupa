@@ -7,6 +7,8 @@ function($scope,userData,userRegData,lupaManagerService,$location,userRegOtpVal,
     $scope.isOTP = false;
     $scope.isReg = false;
     $scope.isForgotPassword = true;
+    $scope.successMsg = "";
+    $scope.isResetDone = false;
 
     $scope.getLoginForm = function(){
       $scope.isLogin = true;
@@ -48,7 +50,9 @@ function($scope,userData,userRegData,lupaManagerService,$location,userRegOtpVal,
      */
     $scope.errorUserlist ="";
     $scope.getUserDeptList = function(){
+      $('#loadergif').show();
       lupaManagerService.fetchDeptList().then(function(response) {
+        $('#loadergif').hide();
         //console.log(response.data,"register user");
         $scope.response = JSON.parse(response.data.status_response);
         //console.log($scope.response,"is success");
@@ -228,15 +232,21 @@ function($scope,userData,userRegData,lupaManagerService,$location,userRegOtpVal,
 
     $scope.validateUserPasswordOtp = function(){
       $scope.error = "";
+      $scope.successMsg ="";
+      $('#loadergif').show();
       lupaManagerService.validateUserForgotPasswordOtp().then(function(response) {
+        $('#loadergif').hide();
         //console.log(response.data,"register user");
         $scope.response = JSON.parse(response.data.status_response);
         //console.log($scope.response,"is success");
         if($scope.response.success){
           $scope.error ="";
           $scope.getResetForm();
+          $scope.resetUser.email = userEmailData.get().email;
+          $scope.successMsg = $scope.response.message;
           $scope.isForgotPassword = false;
         }else{
+          $scope.successMsg ="";
           $scope.error = $scope.response.message;
         }
       });
@@ -255,6 +265,7 @@ function($scope,userData,userRegData,lupaManagerService,$location,userRegOtpVal,
     }, true);
     $scope.resetUserPassword = function(){
       $scope.error = "";
+      $scope.successMsg ="";
       $('#loadergif').show();
       lupaManagerService.resetUserPassword().then(function(response) {
         $('#loadergif').hide();
@@ -263,9 +274,13 @@ function($scope,userData,userRegData,lupaManagerService,$location,userRegOtpVal,
         //console.log($scope.response,"is success");
         if($scope.response.success){
           $scope.error ="";
-          $scope.getLoginForm();
+          $scope.isReset = true;
+          $scope.isResetDone = true;
+          $scope.successMsg =$scope.response.message;
         }else{
+          $scope.successMsg ="";
           $scope.error = $scope.response.message;
+          $scope.isResetDone = false;
         }
       });
     };
