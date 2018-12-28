@@ -519,5 +519,22 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStor
             });
             return deferred.promise;
         };
+
+        /*
+		 * Fetch product list
+		 */
+        
+        this.getProductList = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/products'
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
        
 }]);

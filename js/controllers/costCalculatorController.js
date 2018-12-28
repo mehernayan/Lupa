@@ -4,12 +4,14 @@ function($scope,$filter,lupaAdminService,purchaseData){
     $scope.successMsg ="";
 
     $scope.purchases = [];
+    $scope.products = [];
     $scope.errorPurchaselist ="";
+    $scope.errorProductlist ="";
 
 
     $scope.purchaseObj = {
         software_name : '',
-        year_of_purchase : new Date('dd-MM-yyyy'),
+        year_of_purchase : new Date(),
         license_type : '',
         lease_months : 0,
         licenses_purchased : 0,
@@ -20,6 +22,27 @@ function($scope,$filter,lupaAdminService,purchaseData){
             purchaseData.set(n.software_name,n.year_of_purchase,n.license_type,n.lease_months,n.licenses_purchased,n.purchase_cost);
         };
     }, true);
+    /**
+     * Fetch Product list 
+     */
+    $scope.getProductList = function(){
+        $('#loadergif').show();
+        lupaAdminService.getProductList().then(function(response) {
+          //console.log(response.data,"register user");
+          $scope.response = response.data;
+          $('#loadergif').hide();
+          if(typeof $scope.response!=="undefined"){
+            if($scope.response.success){
+              $scope.errorProductlist ="";
+              $scope.products = $scope.response.data;
+            }else{
+              $scope.errorProductlist = $scope.response.message;
+            }
+          }
+        });
+      };
+      $scope.getProductList();
+
     /**
      * Fetch Purchase list 
      */

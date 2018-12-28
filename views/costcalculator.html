@@ -11,9 +11,9 @@
             <div class="col-sm-6 setting-left calculator">
                     <div class="form-group">
                             <label>Name of Software</label>
-                            <select class="form-control" ng-model="purchaseObj.software_name">
-                                    <option value="">Select Software Name</option>
-                                    <option value="ALTAIR"> ALTAIR</option>
+                            <select class="form-control" ng-model="purchaseObj.software_name"  >
+                                    <option value="" disabled selected="selected">Select Software Name</option>
+                                    <option ng-repeat="product in products track by product.id" value="{{product.product_name}}">{{product.product_name}}</option>
                             </select>
                     </div>
                     <div class="form-group mar-top-20">
