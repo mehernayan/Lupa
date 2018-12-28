@@ -9,6 +9,7 @@ function($scope,userData,userRegData,lupaManagerService,$location,userRegOtpVal,
     $scope.isForgotPassword = true;
     $scope.successMsg = "";
     $scope.isResetDone = false;
+    $scope.isRegDone = false;
 
     $scope.getLoginForm = function(){
       $scope.isLogin = true;
@@ -16,6 +17,7 @@ function($scope,userData,userRegData,lupaManagerService,$location,userRegOtpVal,
       $scope.isReset = false;
       $scope.isOTP = false;
       $scope.error ="";
+      $scope.successMsg = "";
     };
 
     $scope.getRegisterForm = function(){
@@ -24,6 +26,7 @@ function($scope,userData,userRegData,lupaManagerService,$location,userRegOtpVal,
       $scope.isReset = false;
       $scope.isOTP = false;
       $scope.error ="";
+      $scope.successMsg = "";
       $scope.getUserDeptList();
     };
 
@@ -34,6 +37,7 @@ function($scope,userData,userRegData,lupaManagerService,$location,userRegOtpVal,
       $scope.isOTP = false;
       $scope.isForgotPassword = true;
       $scope.error ="";
+      $scope.successMsg = "";
     };
 
     $scope.getOTPForm = function(){
@@ -43,6 +47,7 @@ function($scope,userData,userRegData,lupaManagerService,$location,userRegOtpVal,
       $scope.isOTP = true;
       $scope.confirmOTP = true;
       $scope.error ="";
+      $scope.successMsg = "";
     };
     
     /**
@@ -182,6 +187,7 @@ function($scope,userData,userRegData,lupaManagerService,$location,userRegOtpVal,
      */
     $scope.validateUserRegOtp = function(){
       $scope.error = "";
+      $scope.successMsg = "";
       $('#loadergif').show();
       lupaManagerService.userRegOtp().then(function(response) {
         $('#loadergif').hide();
@@ -191,8 +197,11 @@ function($scope,userData,userRegData,lupaManagerService,$location,userRegOtpVal,
         if(typeof $scope.response!=="undefined"){
           if($scope.response.success){
             $scope.error ="";
-            $scope.getLoginForm();
+            $scope.successMsg = $scope.response.message;
+            $scope.isRegDone =true;
           }else{
+            $scope.successMsg = "";
+            $scope.isRegDone =false;
             $scope.error = $scope.response.message;
           }
       }

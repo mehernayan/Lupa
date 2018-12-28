@@ -19,10 +19,14 @@
                         <span class="label-top"></span>
                         <label>Department Manager as a User</label>
                     </div>
-                    <div class="error-container" style="height:50px;">
-                        <div class="pad-top-20" ng-show="error.length">
-                            <i class="fa fa-exclamation-triangle" style="color:red"></i>
-                            <span style="color:red">{{error}}</span>
+                    <div class="message-container" style="min-height:50px;">
+                        <div class="pad-top-20 error-msg" ng-if="error">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            <span>{{error}}</span>
+                        </div>
+                        <div class="pad-top-20 success-msg" ng-if="successMsg">
+                                <i class="fa fa-check"></i>
+                            <span>{{successMsg}}</span>
                         </div>
                     </div>
                     <div class="form-container text-center">
@@ -40,14 +44,18 @@
                         <span class="label-top"></span>
                         <label>Signup as a Department Manager</label>
                     </div>
-                    <div class="error-container" style="height:50px;">
-                        <div class="pad-top-20" ng-show="error.length">
-                            <i class="fa fa-exclamation-triangle" style="color:red"></i>
-                            <span style="color:red">{{error}}</span>
+                    <div class="message-container" style="min-height:50px;">
+                        <div class="pad-top-20 error-msg" ng-if="error">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            <span>{{error}}</span>
+                        </div>
+                        <div class="pad-top-20 success-msg" ng-if="successMsg">
+                                <i class="fa fa-check"></i>
+                            <span>{{successMsg}}</span>
                         </div>
                     </div>
                     <div class="form-container text-center">
-                        <form novalidate>
+                        <form>
                             <input  type="text" ng-model="userReg.name" class="form-control" placeholder="Enter Name" />
                             <input  type="email" ng-model="userReg.email" class="form-control mar-top-20" placeholder="Enter Email ID" />
                             <select class="form-control mar-top-20" ng-options="dept.department_name for dept in deptNames track by dept.department_name"
@@ -59,6 +67,7 @@
                             <button  class="btn login-submit mar-top-50" ng-click="userRegister()" > SIGNUP </button>
                         </form>
                     </div>
+                    
                 </div>
                 <div class="col-sm-6 login-right pwd-reset-email" ng-show="isReset">
                     <div class="login-label mar-top-10">
@@ -68,15 +77,15 @@
                         
                     </div>
                     <div class="message-container" style="min-height:50px;">
-                            <div class="pad-top-20 error-msg" ng-if="error">
-                                <i class="fa fa-exclamation-triangle"></i>
-                                <span>{{error}}</span>
-                            </div>
-                            <div class="pad-top-20 success-msg" ng-if="successMsg">
-                                    <i class="fa fa-check"></i>
-                                <span>{{successMsg}}</span>
-                            </div>
+                        <div class="pad-top-20 error-msg" ng-if="error">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            <span>{{error}}</span>
                         </div>
+                        <div class="pad-top-20 success-msg" ng-if="successMsg">
+                                <i class="fa fa-check"></i>
+                            <span>{{successMsg}}</span>
+                        </div>
+                    </div>
                     <div class="form-container text-center" ng-if="isForgotPassword">
                         <form>
                             <input  type="email" ng-model="userEmail.email" class="form-control" placeholder="Enter Email ID" />
@@ -102,13 +111,16 @@
                         <span class="pwd-reset-label pad-top-50">One time password(OTP) has been sent to  your register email ID <br/>
                         Please enter the OTP</span>
                     </div>
-                    <div class="error-container" style="height:50px;">
-                        <div class="pad-top-20" ng-show="error.length">
-                            <i class="fa fa-exclamation-triangle" style="color:red"></i>
-                            <span style="color:red">{{error}}</span>
+                    <div class="message-container" style="min-height:50px;">
+                        <div class="pad-top-20 error-msg" ng-if="error">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            <span>{{error}}</span>
+                        </div>
+                        <div class="pad-top-20 success-msg" ng-if="successMsg">
+                                <i class="fa fa-check"></i>
+                            <span>{{successMsg}}</span>
                         </div>
                     </div>
-
                     <div class="form-container text-center">
                         <form>
                             <div class="otp-container">
@@ -121,8 +133,10 @@
                             </div>
                             <button  class="btn login-submit mar-top-50" ng-if="isReg" ng-disabled="confirmOTP" ng-click="validateUserRegOtp()"> CONFIRM </button>
                             <button  class="btn login-submit mar-top-50" ng-if="!isReg" ng-disabled="confirmOTP" ng-click="validateUserPasswordOtp()"> CONFIRM </button><br/><br/><br/><br/>
-                          
                         </form>
+                    </div>
+                    <div class="text-center">
+                        <p ng-if="isRegDone">Click <a href="javascript:void(0)" ng-click="getLoginForm()">here for login</a>.</p>
                     </div>
                 </div>
             </div>

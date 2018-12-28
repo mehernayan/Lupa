@@ -9,6 +9,9 @@
       $scope.isReg = false;
       $scope.isForgotPassword = true;
       $scope.error ="";
+      $scope.successMsg = "";
+      $scope.isResetDone =false;
+      $scope.isRegDone = false;
 
       $scope.getLoginForm = function(){
         $scope.isLogin = true;
@@ -16,6 +19,7 @@
         $scope.isReset = false;
         $scope.isOTP = false;
         $scope.error ="";
+        $scope.successMsg = "";
       };
 
       $scope.getRegisterForm = function(){
@@ -24,6 +28,7 @@
         $scope.isReset = false;
         $scope.isOTP = false;
         $scope.error ="";
+        $scope.successMsg = "";
         $scope.getUserDeptList();
       };
 
@@ -34,6 +39,7 @@
         $scope.isOTP = false;
         $scope.isForgotPassword = true;
         $scope.error ="";
+        $scope.successMsg = "";
       };
 
       $scope.getOTPForm = function(){
@@ -43,6 +49,7 @@
         $scope.isOTP = true;
         $scope.confirmOTP = true;
         $scope.error ="";
+        $scope.successMsg = "";
       };
       
       /**
@@ -50,8 +57,10 @@
        */
       $scope.errorUserlist ="";
       $scope.getUserDeptList = function(){
+        $('#loadergif').show();
         lupaUserService.fetchUserDeptList().then(function(response) {
           //console.log(response.data,"register user");
+          $('#loadergif').hide();
           $scope.response = JSON.parse(response.data.status_response);
           //console.log($scope.response,"is success");
           if(typeof $scope.response!=="undefined"){
@@ -190,8 +199,11 @@
           if(typeof $scope.response!=="undefined"){
             if($scope.response.success){
               $scope.error ="";
-              $scope.getLoginForm();
+              $scope.successMsg = $scope.response.message;
+              $scope.isRegDone =true;
             }else{
+              $scope.successMsg = "";
+              $scope.isRegDone =false;
               $scope.error = $scope.response.message;
             }
         }
@@ -240,8 +252,11 @@
           if($scope.response.success){
             $scope.error ="";
             $scope.getResetForm();
+            $scope.resetUser.email = userEmailData.get().email;
+            $scope.successMsg = $scope.response.message;
             $scope.isForgotPassword = false;
           }else{
+            $scope.successMsg ="";
             $scope.error = $scope.response.message;
           }
         });
@@ -268,9 +283,13 @@
           //console.log($scope.response,"is success");
           if($scope.response.success){
             $scope.error ="";
-            $scope.getLoginForm();
+            $scope.isReset = true;
+            $scope.isResetDone = true;
+            $scope.successMsg =$scope.response.message;
           }else{
+            $scope.successMsg ="";
             $scope.error = $scope.response.message;
+            $scope.isResetDone = false;
           }
         });
       };
