@@ -4,11 +4,17 @@ function($scope,lupaAdminService,addDepartmentData,transferUserData){
     $scope.setTab = function (tabId) {
         $scope.tab = tabId;
         if(tabId==1){
+            $scope.error ="";
+            $scope.successMsg ="";
             $scope.getDepartmentList();
             $scope.getLicenseList();
         }else if(tabId==2){
+            $scope.error ="";
+            $scope.successMsg ="";
             $scope.getDeptManagersList();
         }else if(tabId==3){
+            $scope.error ="";
+            $scope.successMsg ="";
             $scope.getUsersList();
             $scope.getTransDepartmentList();
         }

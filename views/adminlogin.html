@@ -42,7 +42,7 @@
                     <div class="login-label mar-top-10">
                         <span class="label-top"></span>
                         <label>Reset Password</label>
-                        <span class="pwd-reset-label pad-top-50">Please enter your register email ID to request a<br/>  password reset</span>
+                        <span class="pwd-reset-label pad-top-50" ng-if="isForgotPassword">Please enter your register email ID to request a<br/>  password reset</span>
                     </div>
                     <div class="message-container" style="min-height:50px;">
                         <div class="pad-top-20 error-msg" ng-if="error">
@@ -61,13 +61,16 @@
                         </form>
                     </div>
                     <div class="form-container text-center" ng-if="!isForgotPassword">
-                            <form>
-                                <input  type="email" ng-model="resetUser.email" class="form-control" placeholder="Enter Email ID" />
-                                <input  type="password" ng-model="resetUser.password" class="form-control mar-top-20" placeholder="Enter New Password" />
-                                <input  type="password" ng-model="resetUser.password_confirmation" class="form-control mar-top-20" placeholder="Confirm Password" />
-                                <button  class="btn login-submit mar-top-50" ng-click="resetUserPassword()"> SUBMIT </button><br/><br/>
-                            </form>
-                        </div>
+                        <form>
+                            <input  type="email" ng-model="resetUser.email" class="form-control" placeholder="Enter Email ID" ng-disabled="true" />
+                            <input  type="password" ng-model="resetUser.password" class="form-control mar-top-20" placeholder="Enter New Password" />
+                            <input  type="password" ng-model="resetUser.password_confirmation" class="form-control mar-top-20" placeholder="Confirm Password" />
+                            <button  class="btn login-submit mar-top-50" ng-click="resetUserPassword()"> SUBMIT </button><br/><br/>
+                        </form>
+                    </div>
+                    <div class="text-center">
+                        <p ng-if="!isForgotPassword&&isResetDone">Click <a href="javascript:void(0)" ng-click="getLoginForm()">here for login</a>.</p>
+                    </div>
                 </div>
                 <div class="col-sm-6 login-right pwd-reset-otp" ng-show="isOTP">
                     <div class="login-label mar-top-10">

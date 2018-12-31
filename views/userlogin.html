@@ -72,7 +72,7 @@
                     <div class="login-label mar-top-10">
                         <span class="label-top"></span>
                         <label>Reset Password</label>
-                        <span class="pwd-reset-label pad-top-50">Please enter your register email ID to request a<br/>  password reset</span>
+                        <span class="pwd-reset-label pad-top-50" ng-if="isForgotPassword">Please enter your register email ID to request a<br/>  password reset</span>
                     </div>
                     <div class="message-container" style="min-height:50px;">
                         <div class="pad-top-20 error-msg" ng-if="error">
@@ -92,7 +92,7 @@
                     </div>
                     <div class="form-container text-center" ng-if="!isForgotPassword">
                         <form>
-                            <input  type="email" ng-model="resetUser.email" class="form-control" placeholder="Enter Email ID" />
+                            <input  type="email" ng-model="resetUser.email" class="form-control" placeholder="Enter Email ID" ng-disabled="true" />
                             <input  type="password" ng-model="resetUser.password" class="form-control mar-top-20" placeholder="Enter New Password" />
                             <input  type="password" ng-model="resetUser.password_confirmation" class="form-control mar-top-20" placeholder="Confirm Password" />
                             <button  class="btn login-submit mar-top-50" ng-click="resetUserPassword()"> SUBMIT </button><br/><br/>
@@ -130,7 +130,7 @@
                                 <input type="number" id="codeBox6"  class="otp-inp" placeholder="0" ng-keyup="onKeyUpEvent(6, $event)" ng-focus="onFocusEvent(6)"/>
                             </div>
                             <button  class="btn login-submit mar-top-50" ng-if="isReg" ng-disabled="confirmOTP" ng-click="validateUserRegOtp()"> CONFIRM </button>
-                            <button  class="btn login-submit mar-top-50" ng-if="!isReg" ng-disabled="confirmOTP" ng-click="validateUserPasswordOtp()"> CONFIRM </button><br/><br/><br/><br/>
+                            <button  class="btn login-submit mar-top-50" ng-if="!isReg" ng-disabled="confirmOTP" ng-click="validateUserPasswordOtp()"> CONFIRM </button><br/><br/>
                           
                         </form>
                     </div>

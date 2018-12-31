@@ -9,7 +9,6 @@ function($scope,userData,lupaAdminService,$location,userRegOtpVal,userEmailData,
     $scope.error ="";
     $scope.successMsg ="";
     $scope.isResetDone =false;
-    $scope.isRegDone = false;
 
     $scope.getLoginForm = function(){
       $scope.isLogin = true;
@@ -175,15 +174,20 @@ function($scope,userData,lupaAdminService,$location,userRegOtpVal,userEmailData,
      */
     $scope.getUserForgotPasswordOtp = function(){
       $scope.error = "";
+      $scope.successMsg = "";
+      $('#loadergif').show();
       lupaAdminService.getUserForgotPasswordOtp().then(function(response) {
+        $('#loadergif').hide();
         //console.log(response.data,"register user");
         $scope.response = JSON.parse(response.data.status_response);
         //console.log($scope.response,"is success");
         if($scope.response.success){
           $scope.error ="";
+          $scope.successMsg = $scope.response.message;
           $scope.getOTPForm();
           $scope.isReg = false;
         }else{
+          $scope.successMsg = "";
           $scope.error = $scope.response.message;
         }
       });
@@ -198,10 +202,13 @@ function($scope,userData,lupaAdminService,$location,userRegOtpVal,userEmailData,
         $scope.response = JSON.parse(response.data.status_response);
         //console.log($scope.response,"is success");
         if($scope.response.success){
-          $scope.error ="";
           $scope.getResetForm();
+          $scope.error ="";
+          $scope.successMsg =$scope.response.message;
+          $scope.resetUser.email = userEmailData.get().email;
           $scope.isForgotPassword = false;
         }else{
+          $scope.successMsg = "";
           $scope.error = $scope.response.message;
         }
       });
@@ -220,6 +227,7 @@ function($scope,userData,lupaAdminService,$location,userRegOtpVal,userEmailData,
     }, true);
     $scope.resetUserPassword = function(){
       $scope.error = "";
+      $scope.successMsg ="";
       $('#loadergif').show();
       lupaAdminService.resetUserPassword().then(function(response) {
         $('#loadergif').hide();
@@ -228,8 +236,10 @@ function($scope,userData,lupaAdminService,$location,userRegOtpVal,userEmailData,
         //console.log($scope.response,"is success");
         if($scope.response.success){
           $scope.error ="";
-          $scope.getLoginForm();
+          $scope.successMsg =$scope.response.message;
+          $scope.isResetDone =true;
         }else{
+          $scope.successMsg ="";
           $scope.error = $scope.response.message;
         }
       });
