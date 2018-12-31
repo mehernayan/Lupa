@@ -6,12 +6,17 @@ function($scope,userData,lupaAdminService,$location,userRegOtpVal,userEmailData,
     $scope.isOTP = false;
     $scope.isReg = false;
     $scope.isForgotPassword = true;
+    $scope.error ="";
+    $scope.successMsg ="";
+    $scope.isResetDone =false;
+    $scope.isRegDone = false;
 
     $scope.getLoginForm = function(){
       $scope.isLogin = true;
       $scope.isReset = false;
       $scope.isOTP = false;
       $scope.error ="";
+      $scope.successMsg ="";
     };
 
     $scope.getResetForm = function(){
@@ -20,6 +25,7 @@ function($scope,userData,lupaAdminService,$location,userRegOtpVal,userEmailData,
       $scope.isOTP = false;
       $scope.isForgotPassword = true;
       $scope.error ="";
+      $scope.successMsg ="";
     };
 
     $scope.getOTPForm = function(){
@@ -28,6 +34,7 @@ function($scope,userData,lupaAdminService,$location,userRegOtpVal,userEmailData,
       $scope.isOTP = true;
       $scope.confirmOTP = true;
       $scope.error ="";
+      $scope.successMsg ="";
     };
     
     /**

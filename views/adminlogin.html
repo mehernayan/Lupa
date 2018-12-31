@@ -19,10 +19,14 @@
                         <span class="label-top"></span>
                         <label>Admin as a User</label>
                     </div>
-                    <div class="error-container" style="height:50px;">
-                        <div class="pad-top-20" ng-show="error.length">
-                            <i class="fa fa-exclamation-triangle" style="color:red"></i>
-                            <span style="color:red">{{error}}</span>
+                    <div class="message-container" style="min-height:50px;">
+                        <div class="pad-top-20 error-msg" ng-if="error">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            <span>{{error}}</span>
+                        </div>
+                        <div class="pad-top-20 success-msg" ng-if="successMsg">
+                                <i class="fa fa-check"></i>
+                            <span>{{successMsg}}</span>
                         </div>
                     </div>
                     <div class="form-container text-center">
@@ -40,10 +44,14 @@
                         <label>Reset Password</label>
                         <span class="pwd-reset-label pad-top-50">Please enter your register email ID to request a<br/>  password reset</span>
                     </div>
-                    <div class="error-container" style="height:50px;">
-                        <div class="pad-top-20" ng-show="error.length">
-                            <i class="fa fa-exclamation-triangle" style="color:red"></i>
-                            <span style="color:red">{{error}}</span>
+                    <div class="message-container" style="min-height:50px;">
+                        <div class="pad-top-20 error-msg" ng-if="error">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            <span>{{error}}</span>
+                        </div>
+                        <div class="pad-top-20 success-msg" ng-if="successMsg">
+                                <i class="fa fa-check"></i>
+                            <span>{{successMsg}}</span>
                         </div>
                     </div>
                     <div class="form-container text-center" ng-if="isForgotPassword">
@@ -68,12 +76,16 @@
                         <span class="pwd-reset-label pad-top-50">One time password(OTP) has been sent to  your register email ID <br/>
                         Please enter the OTP</span>
                     </div>
-                    <div class="error-container" style="height:50px;">
-                        <div class="pad-top-20" ng-show="error.length">
-                            <i class="fa fa-exclamation-triangle" style="color:red"></i>
-                            <span style="color:red">{{error}}</span>
+                    <div class="message-container" style="min-height:50px;">
+                        <div class="pad-top-20 error-msg" ng-if="error">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            <span>{{error}}</span>
                         </div>
-                    </div>
+                        <div class="pad-top-20 success-msg" ng-if="successMsg">
+                                <i class="fa fa-check"></i>
+                            <span>{{successMsg}}</span>
+                        </div>
+                    </div> 
                     <div class="form-container text-center">
                         <form>
                             <div class="otp-container">
