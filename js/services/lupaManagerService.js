@@ -1,6 +1,6 @@
 var lupaManagerService = angular.module('lupaManagerProvider', ['lupaSharedProvider']);
-lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','deptProfileSettingData','transferUserData',
-    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,deptProfileSettingData,transferUserData) {
+lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','deptProfileSettingData','transferUserData','dynaCompData','dynaFeatureData',
+    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,deptProfileSettingData,transferUserData,dynaCompData,dynaFeatureData) {
 
         
       
@@ -291,6 +291,65 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
                 });
                 return deferred.promise;
             }
-           };
+        };
+
+        /*
+		 * Fetch Product List
+		 */
+        
+        this.fetchDynaProductList = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/departmentmanager/dyna_compare'
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        /*
+        * Get Features List
+        */
+       
+       this.getFeaturesList = function() {
+        var userObj = dynaCompData.get();
+        var deferred = $q.defer();
+        if(typeof userObj !== "undefined"){
+            $http({
+                method : 'POST',
+                url : appConstants.serviceAddress+'/departmentmanager/get_features',
+                data : userObj
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+    };
+
+    /*
+        * Post Features List
+        */
+       
+       this.postFeaturesList = function() {
+        var userObj = dynaFeatureData.get();
+        var deferred = $q.defer();
+        if(typeof userObj !== "undefined"){
+            $http({
+                method : 'POST',
+                url : appConstants.serviceAddress+'/departmentmanager/final_list_features',
+                data : userObj
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+    };
        
     }]);

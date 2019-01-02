@@ -218,4 +218,28 @@ angular.module('lupaSharedProvider', [])
             purchaseObj.purchase_cost = purchase_cost;
         }
     };
+}).factory('dynaCompData', function () {
+    var dynaObj = {
+        product_name : ''
+    };
+    return {
+        get: function () {
+            return dynaObj;
+        },
+        set: function (product_name) {
+            dynaObj.product_name = product_name;
+        }
+    };
+}).factory('dynaFeatureData', function () {
+    var dynaFeatureObj = {
+        features_lists : []
+    };
+    return {
+        get: function () {
+            return dynaFeatureObj;
+        },
+        set: function (features_lists) {
+            dynaFeatureObj.features_lists = features_lists;
+        }
+    };
 });
