@@ -20,33 +20,33 @@
                     </div>
                     
                     <div class="first-compare compare">
-                        <div class="row pad-20">
+                        <div class="row">
                             <div class="col-sm-3 mar-top-20 feature" ng-repeat="feature in prodFeatures track by feature.feature_name">
                                 <input type="checkbox" id="{{feature.feature_name+1}}" ng-model="feature.status" checked="{{feature.status}}" aria-label=""><label for="{{feature.feature_name+1}}">{{feature.feature_name}}</label>
                             </div>
                         </div>
                     </div>
-                    <div class="pad-bot-20 mar-top-50 text-center">
+                    <div class="mar-top-50 text-center">
                         <button  class="btn btn-dyna" ng-click="addFeatures()" > ADD </button>
                     </div>
                     </form>
                     </div>
                 </div>
                 <div class="col-sm-5">
-                    <div class=" back-g-white pad-20">
+                    <div class=" back-g-white pad-20" ng-show="features_lists.length">
                         <form class="form-inline">
                         <div class="first-compare compare">
-                            <div class="row pad-20">
+                            <div class="row">
                                 
                                 <div class="col-sm-3 feature" ng-repeat="feature in features_lists track by $index">
                                     <input type="checkbox" id="{{feature+1}}" checked="checked" ng-disabled="true" aria-label=""><label for="{{feature+1}}">{{feature}}</label>
                                 </div>
                             </div>
-                            <div class="pad-bot-20 mar-top-50 text-center">
+                            <div class="mar-top-50 text-center">
                                     <button  class="btn btn-dyna" ng-click="postFeaturesList()"> COMPARE </button>
                             </div>
                         </form>
-                        <div class="message-container" style="min-height:50px;">
+                        <div class="message-container" ng-if="error || successMsg" style="min-height:50px;">
                             <div class="pad-top-20 error-msg" ng-if="error">
                                 <i class="fa fa-exclamation-triangle"></i>
                                 <span>{{error}}</span>
