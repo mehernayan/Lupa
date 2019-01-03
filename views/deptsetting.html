@@ -47,16 +47,14 @@
                                                 <tr>
                                                     <td class="text-center">
                                                         <div class="btn-group">
-                                                            <button type="button" class="btn btn-default btn-table dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                Department <span class="caret"></span>
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                <li ng-repeat="dept in transDepartments"><a href="javascript:void(0)" ng-click="getTransferInfo(dept.department,user.email,user.department,user.name)">{{dept.department}}</a></li>
-                                                            </ul>
+                                                            <select class="btn btn-default btn-table btn-drop"  ng-options="dept.department for dept in transDepartments track by dept.department"
+                                                                ng-model="user.todepartment">
+                                                                <option value="" disabled selected="selected">Department</option>
+                                                            </select>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <button class="btn  btn-primary btn-table" ng-click="transferUser()">Transfer</button><br/>
+                                                        <button class="btn  btn-primary btn-table" ng-click="transferUser(user)">Transfer</button><br/>
                                                         <button class="btn  btn-danger btn-table mar-top-10" ng-click="deleteUser(user.id)">Delete</button>
                                                     </td>
                                                 </tr>
