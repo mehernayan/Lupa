@@ -1,32 +1,11 @@
-lupaApp.controller('userPSettingController',['$scope','lupaUserService','profileSettingData','localStorageService',
- function($scope,lupaUserService,profileSettingData,localStorageService) {
-      
-      $scope.userLogged = localStorageService.get("user");
-      
-      $scope.profileData = {
-        id : '',
-        email : '',
-        npassword : '',
-        ncpassword : ''
-      };
-      $scope.$watch('profileData', function (n, o) {
-        if (n !== o){
-            profileSettingData.set(n.id,n.email,n.npassword,n.ncpassword);
-        };
-      }, true);
-      /* set id */
-      if($scope.userLogged !== null){
-        $scope.profileData.id = $scope.userLogged[0].id;
-      }
-      $scope.emptyReqFields = function(){
+lupaApp.controller('userPSettingController',['$scope','$location','lupaUserService','profileSettingData','localStorageService',
+ function($scope,$location,lupaUserService,profileSettingData,localStorageService) {
         $scope.profileData = {
-            id : $scope.userLogged.id,
+            id : '',
             email : '',
             npassword : '',
             ncpassword : ''
-        };
-      };
-
+        };  
       /**
        * Get existing user profile details
        */
@@ -45,7 +24,39 @@ lupaApp.controller('userPSettingController',['$scope','lupaUserService','profile
         }
         });
       };
+
+    
+    
+    var userId = localStorageService.get("user");
+    if(typeof userId ==="undefined" || userId == null) {
+        $location.path('/');
+    }else{
+      $scope.userLogged = localStorageService.get("user");
+      /* set id */
+      if($scope.userLogged !== null){
+        $scope.profileData.id = $scope.userLogged.id;
+      }
       $scope.fetchProfileSettings();
+    }
+    
+      
+      $scope.$watch('profileData', function (n, o) {
+        if (n !== o){
+            profileSettingData.set(n.id,n.email,n.npassword,n.ncpassword);
+        };
+      }, true);
+      
+      $scope.emptyReqFields = function(){
+        $scope.profileData = {
+            id : $scope.userLogged.id,
+            email : '',
+            npassword : '',
+            ncpassword : ''
+        };
+      };
+
+      
+      
       /**
        * update user profile details
        */

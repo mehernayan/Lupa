@@ -1,5 +1,9 @@
-lupaApp.controller('adminSettingController',['$scope','lupaAdminService','addDepartmentData','transferUserData',
-function($scope,lupaAdminService,addDepartmentData,transferUserData){
+lupaApp.controller('adminSettingController',['$scope','$location','lupaAdminService','addDepartmentData','transferUserData','localStorageService',
+function($scope,$location,lupaAdminService,addDepartmentData,transferUserData,localStorageService){
+    var userId = localStorageService.get("user");
+    if(typeof userId ==="undefined" || userId == null) {
+        $location.path('/');
+    }
     $scope.tab = 1;
     $scope.setTab = function (tabId) {
         $scope.tab = tabId;

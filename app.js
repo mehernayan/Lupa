@@ -62,6 +62,7 @@
 	$httpProvider.defaults.useXDomain = true;
 	$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
 	$httpProvider.interceptors.push('noCacheInterceptor');
+	//$httpProvider.interceptors.push('httpInterceptor');
 }).factory('noCacheInterceptor', function () {
     return {
         request: function (config) {

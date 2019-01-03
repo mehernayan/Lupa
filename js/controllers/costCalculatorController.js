@@ -1,5 +1,10 @@
-lupaApp.controller('costCalculatorController', ['$scope','$filter','lupaAdminService','purchaseData',
-function($scope,$filter,lupaAdminService,purchaseData){
+lupaApp.controller('costCalculatorController', ['$scope','$filter','$location','lupaAdminService','purchaseData','localStorageService',
+function($scope,$filter,$location,lupaAdminService,purchaseData,localStorageService){
+    var userId = localStorageService.get("user");
+    if(typeof userId ==="undefined" || userId == null) {
+      $location.path('/');
+    }
+
     $scope.error ="";
     $scope.successMsg ="";
 

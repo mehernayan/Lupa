@@ -1,5 +1,10 @@
-lupaApp.controller('dynaComparesController', ['$scope','lupaManagerService','dynaCompData','dynaFeatureData',
-function($scope,lupaManagerService,dynaCompData,dynaFeatureData){
+lupaApp.controller('dynaComparesController', ['$scope','$location','lupaManagerService','dynaCompData','dynaFeatureData','localStorageService',
+function($scope,$location,lupaManagerService,dynaCompData,dynaFeatureData,localStorageService){
+  var userId = localStorageService.get("user");
+  if(typeof userId ==="undefined" || userId == null) {
+      $location.path('/');
+  }
+
     $scope.error = "";
     $scope.successMsg = "";
     $scope.errorProductsList ="";

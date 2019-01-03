@@ -1,5 +1,10 @@
-lupaApp.controller('smtpController', ['$scope','lupaAdminService','smtpData','smtpTestData',
-function($scope,lupaAdminService,smtpData,smtpTestData){
+lupaApp.controller('smtpController', ['$scope','$location','lupaAdminService','smtpData','smtpTestData','localStorageService',
+function($scope,$location,lupaAdminService,smtpData,smtpTestData,localStorageService){
+  var userId = localStorageService.get("user");
+  if(typeof userId ==="undefined" || userId == null) {
+      $location.path('/');
+  }
+
     $scope.error ="";
     $scope.successMsg ="";
 

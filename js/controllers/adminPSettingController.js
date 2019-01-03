@@ -1,6 +1,9 @@
-lupaApp.controller('adminPSettingController',['$scope','lupaAdminService','adminProfileSettingData','localStorageService',
- function($scope,lupaAdminService,adminProfileSettingData,localStorageService) {
-      
+lupaApp.controller('adminPSettingController',['$scope','$location','lupaAdminService','adminProfileSettingData','localStorageService',
+ function($scope,$location,lupaAdminService,adminProfileSettingData,localStorageService) {
+    var userId = localStorageService.get("user");
+    if(typeof userId ==="undefined" || userId == null) {
+        $location.path('/');
+    }
       $scope.userLogged = localStorageService.get("user");
       
       $scope.profileData = {

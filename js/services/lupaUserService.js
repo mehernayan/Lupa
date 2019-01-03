@@ -150,21 +150,23 @@ lupaUserService.service('lupaUserService', ['$http', '$q','$filter','localStorag
        /*
 		 * fetch the user profile details
 		 */
-        var userLogged = null;
-        if(localStorageService.get("user") !==null){
-            userLogged = localStorageService.get("user")[0];
-        }
+        
         this.fetchUserProfileSettings = function() {
-            var deferred = $q.defer();
-            $http({
-                method : 'GET',
-                url : appConstants.serviceAddress+'/user/profile_existing_data?id='+userLogged.id
-            }).then(function(response) {
-                deferred.resolve(response);
-            }, function(error) {
-                deferred.reject(error);
-            });
-            return deferred.promise;
+            var userLogged = null;
+            if(localStorageService.get("user") !==null){
+                userLogged = localStorageService.get("user")[0];
+                var deferred = $q.defer();
+                $http({
+                    method : 'GET',
+                    url : appConstants.serviceAddress+'/user/profile_existing_data?id='+userLogged.id
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            }
+            
         };
 
        /*

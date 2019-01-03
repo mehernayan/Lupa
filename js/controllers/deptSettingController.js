@@ -1,6 +1,9 @@
-lupaApp.controller('deptSettingController', ['$scope','lupaManagerService','transferUserData',
-function($scope,lupaManagerService,transferUserData){
-    
+lupaApp.controller('deptSettingController', ['$scope','$location','lupaManagerService','transferUserData','localStorageService',
+function($scope,$location,lupaManagerService,transferUserData,localStorageService){
+  var userId = localStorageService.get("user");
+  if(typeof userId ==="undefined" || userId == null) {
+      $location.path('/');
+  }
     $scope.tab = 3;
     $scope.setTab = function (tabId) {
         $scope.tab = tabId;
