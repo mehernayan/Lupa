@@ -16,8 +16,7 @@ lupaApp.controller('userPSettingController',['$scope','$location','lupaUserServi
         $('#loadergif').hide();
         if(typeof $scope.response!=="undefined"){
             if($scope.response.success){
-                console.log($scope.response);
-                $scope.profileData.email = $scope.response.data[1].email;
+                $scope.profileData.email = $scope.response.data[0].email;
             }else{
                 $scope.error = "Error in fetching user data";
             }
