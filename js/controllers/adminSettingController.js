@@ -337,37 +337,39 @@ function($scope,$location,lupaAdminService,addDepartmentData,transferUserData,lo
         fromdepartment : '',
         username : ''
     };
-    $scope.$watch('transUser', function (n, o) {
-    if (n !== o){
-        //console.log(n.todepartment,n.useremail,n.fromdepartment,n.username);
-        transferUserData.set(n.todepartment,n.useremail,n.fromdepartment,n.username);
+   
+
+    $scope.transferUser = function(user){
+      
+      if(typeof user.todepartment !=="undefined"){
+          $('#loadergif').show();
+          $scope.transUser.todepartment = user.todepartment.department;
+          $scope.transUser.useremail = user.email;
+          $scope.transUser.fromdepartment = user.department;
+          $scope.transUser.username = user.name;
+          transferUserData.set($scope.transUser.todepartment,$scope.transUser.useremail,$scope.transUser.fromdepartment,$scope.transUser.username)
+      
+          lupaAdminService.transferUser().then(function(response) {
+            //console.log(response.data,"register user");
+            $scope.response = JSON.parse(response.data.status_response);
+            $('#loadergif').hide();
+            if(typeof $scope.response!=="undefined"){
+              if($scope.response.Success){
+                $scope.error ="";
+                $scope.successMsg = $scope.response.message;
+              }else{
+                $scope.successMsg = "";
+                $scope.error = $scope.response.message;
+              }
+              $scope.getUsersList();
+            }
+          });
+      }
+      
     };
-    }, true);
 
-    $scope.getTransferInfo = function (todepartment,useremail,fromdepartment,username) {
-        $scope.transUser.todepartment = todepartment;
-        $scope.transUser.useremail = useremail;
-        $scope.transUser.fromdepartment = fromdepartment;
-        $scope.transUser.username = username;
-    }
-
-    $scope.transferUser = function(){
-      $('#loadergif').show();
-      lupaAdminService.transferUser().then(function(response) {
-        //console.log(response.data,"register user");
-        $scope.response = JSON.parse(response.data.status_response);
-        $('#loadergif').hide();
-        if(typeof $scope.response!=="undefined"){
-          if($scope.response.Success){
-            $scope.error ="";
-            $scope.successMsg = $scope.response.message;
-          }else{
-            $scope.successMsg = "";
-            $scope.error = $scope.response.message;
-          }
-          $scope.getUsersList();
-        }
-      });
+    $scope.showDept = function(dept){
+        $(".deptbtn .btnvalue").text(dept);
     };
 }]);
    

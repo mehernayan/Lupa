@@ -77,8 +77,8 @@
 }
 .btn-table{
     border-radius: 20px;
-    padding: 0px 10px;
-    width: 100px;
+    padding: 0px 5px;
+    width: 110px;
 }
 .table-inner{
     width: 100%;
@@ -570,4 +570,11 @@ input[type=checkbox] {
     position: absolute;
     margin-top: 3px;
     text-transform: capitalize;
+}
+.btn-drop option{
+    color: #000;
+}
+.btn-drop:hover,.btn-drop:active{
+    color: #000;
+    background-color: #fff;
 }
