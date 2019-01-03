@@ -17,6 +17,7 @@ lupaApp.controller('userPSettingController',['$scope','$location','lupaUserServi
         if(typeof $scope.response!=="undefined"){
             if($scope.response.success){
                 $scope.profileData.email = $scope.response.data[0].email;
+                $scope.profileData.id = $scope.response.data[0].id;
             }else{
                 $scope.error = "Error in fetching user data";
             }
@@ -30,7 +31,7 @@ lupaApp.controller('userPSettingController',['$scope','$location','lupaUserServi
     if(typeof userId ==="undefined" || userId == null) {
         $location.path('/');
     }else{
-      $scope.userLogged = localStorageService.get("user");
+      $scope.userLogged = localStorageService.get("user")[0];
       /* set id */
       if($scope.userLogged !== null){
         $scope.profileData.id = $scope.userLogged.id;
