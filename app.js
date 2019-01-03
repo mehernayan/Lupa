@@ -82,6 +82,13 @@ lupaApp.controller('mainController',['$scope','$timeout','localStorageService','
  function($scope,$timeout,localStorageService,$location) {
 		// create a message to display in our view
 		$scope.message = 'Everyone come and see how good I look!';
+		$scope.username = "";
+		$scope.userType = "";
+		var user = localStorageService.get("user");
+		if(typeof user!=="undefined" && user !==[] && user !==null){
+			$scope.username = user[0].name;
+			$scope.userType = user[0].userType;
+		}
 
 		$scope.expandNav = true;
 		$scope.collapseNav = false;  

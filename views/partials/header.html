@@ -1,17 +1,20 @@
 <div class="header-container">
     <div class="logo-section"> <img src="images/login-logo.png" width="135px"></div>
     <div class="main-navigation">
-        <a href="#/dashboard" class="main-nav-links active-main-nav"><i class="fa fa-chart-area"></i> Dashboard</a>
-        <a href="#" class="main-nav-links"><i class="fas fa-heart"></i> Favourites </a>
+        <a href="#/dashboard" class="main-nav-links active-main-nav"><i class="fa fa-bar-chart"></i> Dashboard</a>
+        <a href="#" class="main-nav-links"><i class="fa fa-heart"></i> Favourites </a>
     </div>
 <div class="user-dropdown">
     <div class="dropdown">
-    <button class="dropdown-toggle" type="button" data-toggle="dropdown">User
+    <button class="dropdown-toggle" type="button" data-toggle="dropdown">{{username}}
     <span class="caret"></span></button>
     <ul class="dropdown-menu">
-      <li><a href="#"><i class="fa fa-cog"></i>Setting</a></li>
-      <li><a href="#"><i class="fa fa-user"></i>Profile</a></li>
-      <li><a href="#"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+      <li ng-if="userType !=='user'"><a href="#/{{userType}}setting"><i class="fa fa-cog"></i>Setting</a></li>
+      <li><a href="#/{{userType}}profilesetting"><i class="fa fa-user"></i>Profile</a></li>
+      <li ng-if="userType ==='admin'"><a href="#/costcalculator"><i class="fa fa-calculator"></i>Cost Calculator</a></li>
+      <li ng-if="userType ==='admin'"><a href="#/smtp"><i class="fa fa-database"></i>SMTP</a></li>
+      <li ng-if="userType ==='dept'"><a href="#/dynacompares"><i class="fa fa-database"></i>Dyna Compare</a></li>
+      <li><a href="javascript:void(0)" ng-click="getSignOut()"><i class="fa fa-sign-out"></i>Logout</a></li>
     </ul>
   </div>
 </div>
