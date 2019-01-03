@@ -10,24 +10,26 @@
                 <div class="col-sm-7">
                     <div class=" back-g-white pad-20">
                     <form class="form-inline">
-                     <div class="first-compare compare calculator">
-                        <div class="form-group">
-                            <select class="form-control mar-top-20" ng-options="product.product_name for product in productsList track by product.product_name"
-                                ng-model="dynaObj">
-                                <option value="" disabled selected="selected">Select Product</option>
-                            </select>
+                     <div class="height-250">
+                        <div class="first-compare compare calculator">
+                            <div class="form-group">
+                                <select class="form-control mar-top-20" ng-options="product.product_name for product in productsList track by product.product_name"
+                                    ng-model="dynaObj">
+                                    <option value="" disabled selected="selected">Select Product</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="first-compare compare">
-                        <div class="row">
-                            <div class="col-sm-3 mar-top-20 feature" ng-repeat="feature in prodFeatures track by feature.feature_name">
-                                <input type="checkbox" id="{{feature.feature_name+1}}" ng-model="feature.status" checked="{{feature.status}}" aria-label=""><label for="{{feature.feature_name+1}}">{{feature.feature_name}}</label>
+                        
+                        <div class="first-compare compare">
+                            <div class="row">
+                                <div class="col-sm-3 mar-top-20 feature" ng-repeat="feature in prodFeatures track by feature.feature_name">
+                                    <input type="checkbox" id="{{feature.feature_name+1}}" ng-model="feature.status" checked="{{feature.status}}" aria-label=""><label for="{{feature.feature_name+1}}">{{feature.feature_name}}</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="mar-top-50 text-center">
-                        <button  class="btn btn-dyna" ng-click="addFeatures()" > ADD </button>
+                        <button  class="btn btn-dyna btn-profile" ng-click="addFeatures()" > ADD </button>
                     </div>
                     </form>
                     </div>
@@ -35,16 +37,18 @@
                 <div class="col-sm-5">
                     <div class=" back-g-white pad-20" ng-show="features_lists.length">
                         <form class="form-inline">
-                        <div class="first-compare compare">
-                            <div class="row">
-                                
-                                <div class="col-sm-3 feature" ng-repeat="feature in features_lists track by $index">
-                                    <input type="checkbox" id="{{feature+1}}" checked="checked" ng-disabled="true" aria-label=""><label for="{{feature+1}}">{{feature}}</label>
+                        <div class="height-250">
+                            <div class="first-compare compare">
+                                <div class="row">
+                                    <div class="col-sm-3 feature" ng-repeat="feature in features_lists track by $index">
+                                        <input type="checkbox" id="{{feature+1}}" checked="checked" ng-disabled="true" aria-label=""><label for="{{feature+1}}">{{feature}}</label>
+                                    </div>
+                                </div>
+                                <div class="mar-top-50 text-center">
+                                        <button  class="btn btn-dyna btn-profile" ng-click="postFeaturesList()"> COMPARE </button>
                                 </div>
                             </div>
-                            <div class="mar-top-50 text-center">
-                                    <button  class="btn btn-dyna" ng-click="postFeaturesList()"> COMPARE </button>
-                            </div>
+                        </div>
                         </form>
                         <div class="message-container" ng-if="error || successMsg" style="min-height:50px;">
                             <div class="pad-top-20 error-msg" ng-if="error">

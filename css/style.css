@@ -2,6 +2,12 @@
 
 .back-g-white{
     background-color: #fff;
+    -moz-box-shadow:    1px 3px 2px 1px #ccc;
+    -webkit-box-shadow: 1px 3px 2px 1px #ccc;
+    box-shadow:         1px 3px 2px 1px #ccc;
+}
+.height-250{
+    min-height: 200px;
 }
 .half-bordered{
     border-radius: 10px 10px 0px 0px;

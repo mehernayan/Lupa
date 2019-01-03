@@ -1,3 +1,4 @@
-lupaApp.controller("dashboardController",function($scope, $timeout) {
+lupaApp.controller("dashboardController",function($scope, $timeout,$route) {
+    
     
 });

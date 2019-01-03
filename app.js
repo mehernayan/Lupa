@@ -78,17 +78,19 @@
     };
     
 });
-lupaApp.controller('mainController',['$scope','$timeout','localStorageService','$location',
- function($scope,$timeout,localStorageService,$location) {
+lupaApp.controller('mainController',['$scope','$timeout','$window','localStorageService','$location',
+ function($scope,$timeout,$window,localStorageService,$location) {
 		// create a message to display in our view
 		$scope.message = 'Everyone come and see how good I look!';
 		$scope.username = "";
 		$scope.userType = "";
-		var user = localStorageService.get("user");
-		if(typeof user!=="undefined" && user !==[] && user !==null){
-			$scope.username = user[0].name;
-			$scope.userType = user[0].userType;
-		}
+		$scope.headInit = function(){
+			$scope.user = localStorageService.get('user');
+			if(typeof $scope.user!=="undefined" && $scope.user !==[] && $scope.user !==null){
+				$scope.username = $scope.user[0].name;
+				$scope.userType = $scope.user[0].userType;
+			}
+		};
 
 		$scope.expandNav = true;
 		$scope.collapseNav = false;  
@@ -113,6 +115,7 @@ lupaApp.controller('mainController',['$scope','$timeout','localStorageService','
 			localStorageService.clearAll();
 			$location.path('/');
 		};
+
 }]);
 
   lupaApp.constant('appConstants', {
