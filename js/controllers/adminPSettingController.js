@@ -1,38 +1,14 @@
 lupaApp.controller('adminPSettingController',['$scope','$location','lupaAdminService','adminProfileSettingData','localStorageService',
  function($scope,$location,lupaAdminService,adminProfileSettingData,localStorageService) {
-    var userId = localStorageService.get("user");
-    if(typeof userId ==="undefined" || userId == null) {
-        $location.path('/');
-    }
-      $scope.userLogged = localStorageService.get("user");
-      
-      $scope.profileData = {
+    $scope.profileData = {
         id : '',
         name : '',
         email : '',
         password : '',
         password_confirmation : ''
-      };
-      $scope.$watch('profileData', function (n, o) {
-        if (n !== o){
-            adminProfileSettingData.set(n.id,n.name,n.email,n.password,n.password_confirmation);
-        };
-      }, true);
-      /* set id */
-      if($scope.userLogged !== null){
-        $scope.profileData.id = $scope.userLogged[0].id;
-      }
-      $scope.emptyReqFields = function(){
-        $scope.profileData = {
-            id : $scope.userLogged.id,
-            name : '',
-            email : '',
-            password : '',
-            password_confirmation : ''
-        };
-      };
+    };
 
-      /**
+    /**
        * Get existing user profile details
        */
       $scope.fetchProfileSettings = function(){
@@ -51,7 +27,37 @@ lupaApp.controller('adminPSettingController',['$scope','$location','lupaAdminSer
         }
         });
       };
-      $scope.fetchProfileSettings();
+    
+      var userId = localStorageService.get("user");
+      if(typeof userId ==="undefined" || userId == null) {
+          $location.path('/');
+      }else{
+        $scope.userLogged = localStorageService.get("user")[0];
+        /* set id */
+        if($scope.userLogged !== null){
+          $scope.profileData.id = $scope.userLogged.id;
+        }
+        $scope.fetchProfileSettings();
+      }
+
+    
+      $scope.$watch('profileData', function (n, o) {
+        if (n !== o){
+            adminProfileSettingData.set(n.id,n.name,n.email,n.password,n.password_confirmation);
+        };
+      }, true);
+      
+      $scope.emptyReqFields = function(){
+        $scope.profileData = {
+            id : $scope.userLogged.id,
+            name : '',
+            email : '',
+            password : '',
+            password_confirmation : ''
+        };
+      };
+
+      
       /**
        * update user profile details
        */

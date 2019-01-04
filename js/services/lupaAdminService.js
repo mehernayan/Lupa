@@ -121,11 +121,11 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStor
        /*
 		 * fetch the user profile details
 		 */
-        var userLogged = null;
-        if(localStorageService.get("user") !==null){
-            userLogged = localStorageService.get("user")[0];
-        }
+        
         this.fetchUserProfileSettings = function() {
+         var userLogged = null;
+         if(localStorageService.get("user") !==null){
+            userLogged = localStorageService.get("user")[0];
             var deferred = $q.defer();
             $http({
                 method : 'GET',
@@ -136,6 +136,7 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStor
                 deferred.reject(error);
             });
             return deferred.promise;
+         }
         };
 
        /*
