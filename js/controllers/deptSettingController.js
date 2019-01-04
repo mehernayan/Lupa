@@ -23,13 +23,19 @@ function($scope,$location,lupaManagerService,transferUserData,localStorageServic
     $scope.errorTransDeptList ="";
     $scope.errorUsersList="";
 
+    
 
     /** 
        * Fetch Users list
        */
       $scope.getUsersList = function(){
         $('#loadergif').show();
-        lupaManagerService.fetchUsersList().then(function(response) {
+        $scope.loggedDept = "";
+        $scope.userLogged = localStorageService.get("user");
+        if(typeof $scope.userLogged!=="undefined" && $scope.userLogged!==null){
+          $scope.loggedDept = $scope.userLogged[0].department;
+        }
+        lupaManagerService.fetchUsersList($scope.loggedDept).then(function(response) {
           $scope.response = JSON.parse(response.data.status_response);
           $('#loadergif').hide();
           if(typeof $scope.response!=="undefined"){

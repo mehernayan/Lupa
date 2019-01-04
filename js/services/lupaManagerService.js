@@ -191,11 +191,11 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
 		 * Fetch User List
 		 */
         
-        this.fetchUsersList = function() {
+        this.fetchUsersList = function(deptName) {
             var deferred = $q.defer();
             $http({
                 method : 'GET',
-                url : appConstants.serviceAddress+'/departmentmanager/users_list?department=CRASH'
+                url : appConstants.serviceAddress+'/departmentmanager/users_list?department='+deptName
             }).then(function(response) {
                 deferred.resolve(response);
             }, function(error) {
