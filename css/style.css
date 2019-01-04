@@ -7,7 +7,7 @@
     box-shadow:         1px 3px 2px 1px #ccc;
 }
 .height-250{
-    min-height: 200px;
+    min-height: 150px;
 }
 .half-bordered{
     border-radius: 10px 10px 0px 0px;
@@ -325,11 +325,7 @@ a.active-main-nav:hover, a.active-main-nav:focus {
 }
 .btn-profile{
     background-color: #333;
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
     width: 150px;
-    margin-left: -75px;
 }
 .btn-smtp{
     background-color: #333;

@@ -44,13 +44,12 @@
                                         <input type="checkbox" id="{{feature+1}}" checked="checked" ng-disabled="true" aria-label=""><label for="{{feature+1}}">{{feature}}</label>
                                     </div>
                                 </div>
-                                <div class="mar-top-50 text-center">
-                                        <button  class="btn btn-dyna btn-profile" ng-click="postFeaturesList()"> COMPARE </button>
-                                </div>
+                                
                             </div>
+                            
                         </div>
-                        </form>
-                        <div class="message-container" ng-if="error || successMsg" style="min-height:50px;">
+                        <div class="message-container" ng-if="error || successMsg" style="min-height:50px;position: absolute;
+                            bottom: 70px;">
                             <div class="pad-top-20 error-msg" ng-if="error">
                                 <i class="fa fa-exclamation-triangle"></i>
                                 <span>{{error}}</span>
@@ -60,6 +59,11 @@
                                 <span>{{successMsg}}</span>
                             </div>
                         </div>
+                        <div class="mar-top-50 text-center">
+                                <button  class="btn btn-dyna btn-profile" ng-click="postFeaturesList()"> COMPARE </button>
+                        </div>
+                        </form>
+                        
                     </div> 
                 </div>
             </div>
