@@ -1,5 +1,5 @@
 	// create the module and name it lupaApp
-	var lupaApp = angular.module('lupaApp', ['ngRoute','lupaUserProvider','lupaAdminProvider','lupaManagerProvider','lupaSharedProvider','LocalStorageModule']);
+	var lupaApp = angular.module('lupaApp', ['ngRoute','lupaUserProvider','lupaAdminProvider','lupaManagerProvider','lupaSharedProvider','lupaUserDashboardProvider','LocalStorageModule']);
 
 	// configure our routes
 	lupaApp.config(function($routeProvider,$httpProvider) {
@@ -20,9 +20,9 @@
 		controller  : 'managerLoginController'
 	})
 			
-    .when('/dashboard', {
-      	templateUrl : 'views/dashboard.html',
-      	controller  : 'dashboardController'
+    .when('/userdashboard', {
+		templateUrl : 'views/userdashboard.html',
+		controller  : 'userDashboardController'
     })
 	.when('/userprofilesetting', {
 		templateUrl : 'views/userprofilesetting.html',
@@ -57,6 +57,10 @@
 	.when('/costcalculator', {
 		templateUrl : 'views/costcalculator.html',
 		controller  : 'costCalculatorController'
+	})
+	.when('/userreport', {
+		templateUrl : 'views/userreport.html',
+		controller  : 'userReportController'
 	})
 
 	$httpProvider.defaults.useXDomain = true;

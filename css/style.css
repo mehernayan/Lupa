@@ -429,6 +429,11 @@ a.active-main-nav:hover, a.active-main-nav:focus {
       margin-top: 50px;
       background: #ccc;
   }
+  .body-container.expand{
+      width: calc(100% - 170px);
+      margin-left: 150px;
+  }
+    
   .expand .sidenav {
       width: 200px;
   }
@@ -436,10 +441,7 @@ a.active-main-nav:hover, a.active-main-nav:focus {
       display: inline-block;
       width: 144px;
   }
-  .body-container.expand {
-      padding-left: 210px;
-      width: 98%;
-  }
+  
   .nav-slide {
       display: inline-block;
       padding-left: 10px;
@@ -577,4 +579,64 @@ input[type=checkbox] {
 .btn-drop:hover,.btn-drop:active{
     color: #000;
     background-color: #fff;
+}
+
+.recent-update {
+    background: #fff;
+}
+.dashboard-container #product-chart-monthly .svg-container, .dashboard-container #product-chart-monthly2 .svg-container, .dashboard-container #productarea .svg-container {
+    height: 253px !important;
+    overflow-y : hidden;
+}
+.plotly-box-shadow h5 {
+    font-weight: bold;
+}
+
+.plotly-box-shadow {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    -webkit-box-shadow: 1px 1px 2px 1px #ccc;
+    -moz-box-shadow: 1px 1px 2px 1px #ccc;
+    box-shadow: 1px 1px 2px 1px #ccc;
+    background: #fff;
+    margin-bottom: 10px;
+}
+.chart {
+    cursor: pointer;
+    padding-left: 5px;
+    margin-top: 10px;
+    display: inline-block;
+}
+.chart-dropdown {
+    float: right;
+    cursor: pointer;
+    padding-right: 20px;
+    padding-top: 7px;
+    right: 0px;
+    z-index: 100;
+}
+.fa-square:before {
+    content: "\f0c8";
+    background: #000;
+    font-size: 6px;
+}
+i.far.fa-square {
+    display: block;
+    padding-bottom: 5px;
+}
+.dropdown-content {
+  right: 0;
+}
+.chart-dropdown .dropdown-menu{
+    min-width: 20px;
+    /* padding: 0px; */
+    left: -45px;
+}
+
+.custom-plot-button{
+  background-color: lightblue;
+  height: 40px;
+}
+.expand .svg-container  {
+    margin-left: 90px;
 }

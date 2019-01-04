@@ -1,0 +1,67 @@
+<header ng-include="'views/partials/header.html'"></header>
+<div class="sidebar-panel" ng-class="{'expand': expandNav}">
+    <div ng-include="'views/partials/sidebar.html'"></div>
+</div>
+<script type="text/javascript">
+    function zoomOut() {
+             resetBtn = $('a[data-title*="Zoom out"]')[0];
+             resetBtn.click();
+             
+        }
+</script>
+<div class="report-container body-container" ng-class="{'expand':expandNav}">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-md-12 full-screen-view">
+                <div class="pie-chart-container back-g-white half-bordered">
+                    <div class="dropdown chart-dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-square"></i>
+                            <i class="far fa-square"></i>
+                            <i class="far fa-square"></i>
+
+                        </div>
+                        <div class="dropdown-menu">
+
+                            <li><a class="dropdown-item" ><i class="fa fa-window-close"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" onclick="zoomOut();"> <i class="fa fa-window-minimize"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" > <i class="fa fa-redo-alt"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" > <i class="fa fa-expand"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" > <i class="fa fa-heart"></i>
+                                </a>
+                            </li>
+
+                        </div>
+                    </div>
+                    <span class="chart bar-chart"><i class="fas fa-chart-bar" ng-click= "changeGraph(chartType[0])"></i></span>
+                    <span class="chart pie-chart"><i class="fas fa-chart-pie" ng-click= "changeGraph(chartType[1])"></i></span>
+                    <div id="product-chart-yearly"></div>
+                    <div class="download-icon"><i class="fa fa-arrow-circle-down"></i></div>
+                </div>
+            </div>
+            <!--<div class="col-sm-6 col-md-6 col-md-6 full-screen-view">
+                <div class="pie-chart-container plotly-box-shadow">
+                    <span class="chart bar-chart"><i class="fas fa-chart-bar" ng-click= "changeGraph(chartType[0])"></i></span>
+                    <span class="chart pie-chart"><i class="fas fa-chart-pie" ng-click= "changeGraph(chartType[1])"></i></span>
+                   
+                </div>
+            </div>-->
+        </div>
+    </div>
+
+</div>
+<footer ng-include="'views/partials/footer.html'"></footer>
