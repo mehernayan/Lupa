@@ -100,7 +100,7 @@
             if($scope.response.success){
               $scope.error ="";
               localStorageService.set("user",$scope.response.data);
-              $location.path('/dashboard');
+              $location.path('/userdashboard');
             }else{
               $scope.error = $scope.response.message;
               $scope.user.password = "";
