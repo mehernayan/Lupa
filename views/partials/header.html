@@ -1,7 +1,7 @@
 <div class="header-container" ng-init="headInit()">
     <div class="logo-section"> <img src="images/login-logo.png" width="135px"></div>
     <div class="main-navigation">
-        <a href="#/dashboard" class="main-nav-links active-main-nav"><i class="fa fa-bar-chart"></i> Dashboard</a>
+        <a href="#/{{userType}}dashboard" class="main-nav-links" ng-class="{'active-main-nav' : dashboardActive}"><i class="fa fa-bar-chart"></i> Dashboard</a>
         <a href="#" class="main-nav-links"><i class="fa fa-heart"></i> Favourites </a>
     </div>
 <div class="user-dropdown">

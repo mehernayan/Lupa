@@ -100,6 +100,7 @@
             if($scope.response.success){
               $scope.error ="";
               localStorageService.set("user",$scope.response.data);
+              localStorageService.set("productlist",$scope.response.products_list);
               $location.path('/userdashboard');
             }else{
               $scope.error = $scope.response.message;

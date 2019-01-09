@@ -640,3 +640,27 @@ i.far.fa-square {
 .expand .svg-container  {
     margin-left: 90px;
 }
+.download-icon {
+    font-size: 24px;
+    color: #385438;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+
+}
+.modebar-group {
+    visibility: hidden
+}
+.chart img {
+    height: 14px;
+}
+.weekly-section ul {
+    display: block;
+    position: absolute;
+    bottom: 20px;
+    left: 50px;
+}
+.weekly-section li {
+    float: left;
+    padding-left: 10px;
+}

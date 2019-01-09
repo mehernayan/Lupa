@@ -3,17 +3,13 @@
     <div ng-include="'views/partials/sidebar.html'"></div>
 </div>
 <script type="text/javascript">
-    function zoomOut() {
-             resetBtn = $('a[data-title*="Zoom out"]')[0];
-             resetBtn.click();
-             
-        }
+
 </script>
 <div class="report-container body-container" ng-class="{'expand':expandNav}">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-md-12 full-screen-view">
-                <div class="pie-chart-container back-g-white half-bordered">
+                <div class="pie-chart-container chart-container back-g-white half-bordered">
                     <div class="dropdown chart-dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="far fa-square"></i>
@@ -23,40 +19,61 @@
                         </div>
                         <div class="dropdown-menu">
 
-                            <li><a class="dropdown-item" ><i class="fa fa-window-close"></i>
+                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" onclick="zoomOut();"> <i class="fa fa-window-minimize"></i>
+                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" > <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" > <i class="fa fa-expand"></i>
+                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
                                 </a>
                             </li>
 
                             <li>
-                                <a class="dropdown-item" > <i class="fa fa-heart"></i>
+                                <a class="dropdown-item"> <i class="fa fa-expand"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item"> <i class="fa fa-heart"></i>
                                 </a>
                             </li>
 
                         </div>
                     </div>
-                    <span class="chart bar-chart"><i class="fas fa-chart-bar" ng-click= "changeGraph(chartType[0])"></i></span>
-                    <span class="chart pie-chart"><i class="fas fa-chart-pie" ng-click= "changeGraph(chartType[1])"></i></span>
+                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart')"></i></span>
+                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart')"></i></span>
+                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart')"></i></span>
+                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart')"></i></span>
+                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart')"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart')"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart')"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart')"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart')"></img></span>
+
+
                     <div id="product-chart-yearly"></div>
-                    <div class="download-icon"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="weekly-section" ng-if="report_type == 'weekly'">
+                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
+                        <ul>
+                            <li ng-repeat="item in reportyearlist">
+                                <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year)"  ng-model="selectedValue.year" value="{{item.year}}">
+                                {{item.year}}
+                            </li>
+                        </ul>
+                        
+
+
+                    </div>
+                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                 </div>
             </div>
             <!--<div class="col-sm-6 col-md-6 col-md-6 full-screen-view">
                 <div class="pie-chart-container plotly-box-shadow">
-                    <span class="chart bar-chart"><i class="fas fa-chart-bar" ng-click= "changeGraph(chartType[0])"></i></span>
-                    <span class="chart pie-chart"><i class="fas fa-chart-pie" ng-click= "changeGraph(chartType[1])"></i></span>
+                    <span class="chart bar-chart"><i class="fa fa-chart-bar" ng-click= "changeGraph(chartType[0])"></i></span>
+                    <span class="chart pie-chart"><i class="fa fa-chart-pie" ng-click= "changeGraph(chartType[1])"></i></span>
                    
                 </div>
             </div>-->
