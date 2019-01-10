@@ -3,16 +3,6 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
     $scope.reportSidebar = true;
     $scope.dashboardActive = false;
     $scope.chartType = ['vertical_bar_chart', 'pie_chart', 'line_chart', 'area_chart', 'horizontal_bar_chart'];
-    $scope.zoomOut = function ($event) {
-        $($event.target.closest('.chart-container')).find('a[data-title*="Zoom out"]')[0].click();
-    }
-    $scope.downloadChart = function ($event) {
-        $($event.target.closest('.chart-container')).find('a[data-title*="Download plot as a png"]')[0].click();
-    }
-
-
-
-
     //changeGraph($scope.chartType[0]);
     // common to all graph
 
@@ -146,7 +136,6 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         $('#loadergif').show();
         lupaUserDashboardService.changeGraphUrl(chartDuration, chartType, statisticsType).then(function (response) {
             
-
             var layout = {
                 title: 'LSDYNA / Yearly Report',
                 showlegend: true,
@@ -855,6 +844,27 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
 
     $scope.changeGraph('weekly', 'vertical_bar_chart', 'license_statistics');
+    $scope.addedFav = false;
+    $scope.addToFavourite = function(chartDuration, chartType, statisticsType) {
+        $scope.addedFav = true;
+        //$scope.userLogged = localStorageService.get("user");
+        //console.log($scope.chartType, $scope.statisticsType);
+         $scope.userLogged = localStorageService.get('user');
+
+         var user_id =  $scope.userLogged[0].id;
+         console.log(user_id);
+         var product_name = "LSDYNA";
+         var statisticsType = "license_statistics";
+         var report_type = "yearly";
+         var favourite = 1;
+         var role = "user";
+         var api = "";
+         lupaUserDashboardService.addFavouriteUrl(chartDuration, chartType, statisticsType).then(function (response) { 
+             console.log(response);
+             //debugger;
+         });
+    }
+    
 
 
 

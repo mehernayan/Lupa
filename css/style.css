@@ -353,6 +353,7 @@ a.active-main-nav:hover, a.active-main-nav:focus {
     -moz-box-shadow: 10px 10px 5px #888;
     -webkit-box-shadow: 10px 10px 5px #888;
     box-shadow: 2px 4px 5px #888;
+    margin-bottom: 78px;
 }
 .recent-update ul {
     list-style-type: none;
@@ -663,4 +664,10 @@ i.far.fa-square {
 .weekly-section li {
     float: left;
     padding-left: 10px;
+}
+.added-fav {
+    color: #f00;
+}
+.recent-update ul li {
+    font-size: 12px;
 }
