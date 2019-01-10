@@ -43,15 +43,15 @@
 
                         </div>
                     </div>
-                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart')"></i></span>
-                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart')"></i></span>
-                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart')"></i></span>
-                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart')"></i></span>
-                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart')"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart')"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart')"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart')"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart')"></img></span>
+                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
+                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
+                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
+                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
+                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
 
 
                     <div id="product-chart-yearly"></div>
@@ -59,7 +59,7 @@
                         <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
                         <ul>
                             <li ng-repeat="item in reportyearlist">
-                                <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year)"  ng-model="selectedValue.year" value="{{item.year}}">
+                                <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
                                 {{item.year}}
                             </li>
                         </ul>

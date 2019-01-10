@@ -25,17 +25,17 @@
 
                         </li>
                         <ul id="duration" class="collapse in">
-                             <li ng-click="loadReport('yearly')">
+                             <li ng-click="loadReport('yearly', 'license_statistics')">
                 <a><span class="circle yellow dot active"></span>YEARLY</a>
         </li>
-        <li ng-click="loadReport('monthly')">
+        <li ng-click="loadReport('yearly', 'license_statistics')">
             <a><span class="circle red dot"></span>MONTHLY</a>
         </li>
-        <li ng-click="loadReport('weekly')">
+        <li ng-click="loadReport('weekly', 'license_statistics')">
             <a><span class="circle green dot"></span>WEEKLY</a>
         </li>
 
-        <li ng-click="loadReport('this_week')">
+        <li ng-click="loadReport('this_week', 'license_statistics')">
             <a><span class="circle blue dot"></span>THIS WEEK</a>
         </li>
     </ul>
@@ -45,17 +45,17 @@
 
         </li>
         <ul id="timestatistics" class="collapse">
-             <li>
-                <a><span class="circle yellow dot"></span>YEARLY</a>
+            <li ng-click="loadReport('yearly', 'time_statistics')">
+                <a><span class="circle yellow dot active"></span>YEARLY</a>
             </li>
-            <li>
-                <a><span class="circle red dot active"></span>MONTHLY</a>
+            <li ng-click="loadReport('yearly', 'time_statistics')">
+                <a><span class="circle red dot"></span>MONTHLY</a>
             </li>
-            <li>
+            <li ng-click="loadReport('weekly', 'time_statistics')">
                 <a><span class="circle green dot"></span>WEEKLY</a>
             </li>
-           
-            <li>
+
+            <li ng-click="loadReport('this_week', 'time_statistics')">
                 <a><span class="circle blue dot"></span>THIS WEEK</a>
             </li>
         </ul>
