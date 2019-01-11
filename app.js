@@ -1,5 +1,5 @@
 // create the module and name it lupaApp
-var lupaApp = angular.module('lupaApp', ['ngRoute', 'lupaUserProvider', 'lupaAdminProvider', 'lupaManagerProvider', 'lupaSharedProvider', 'lupaUserDashboardProvider','lupaDeptDashboardProvider', 'lupaAdminDashboardProvider', 'LocalStorageModule','FBAngular']);
+var lupaApp = angular.module('lupaApp', ['ngRoute', 'lupaUserProvider', 'lupaAdminProvider', 'lupaManagerProvider', 'lupaSharedProvider', 'lupaUserDashboardProvider', 'lupaDeptDashboardProvider', 'lupaAdminDashboardProvider', 'LocalStorageModule', 'FBAngular']);
 
 // configure our routes
 lupaApp.config(function ($routeProvider, $httpProvider) {
@@ -20,7 +20,7 @@ lupaApp.config(function ($routeProvider, $httpProvider) {
 			controller: 'managerLoginController'
 		})
 
-		
+
 		.when('/userprofilesetting', {
 			templateUrl: 'views/userprofilesetting.html',
 			controller: 'userPSettingController'
@@ -111,8 +111,8 @@ lupaApp.config(function ($routeProvider, $httpProvider) {
 	};
 
 });
-lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localStorageService', '$location',
-	function ($scope, $timeout, $window, localStorageService, $location) {
+lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localStorageService', '$location','Fullscreen',
+	function ($scope, $timeout, $window, localStorageService, $location,Fullscreen) {
 		// create a message to display in our view
 		$scope.message = 'Everyone come and see how good I look!';
 		$scope.username = "";
@@ -142,6 +142,15 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		}
 		$scope.downloadChart = function ($event) {
 			$($event.target.closest('.chart-container')).find('a[data-title*="Download plot as a png"]')[0].click();
+		}
+		$scope.goFullscreen = function () {
+
+			if (Fullscreen.isEnabled())
+				Fullscreen.cancel();
+			else
+				//Fullscreen.all();
+				Fullscreen.enable(document.getElementById('full-screen-view'))
+
 		}
 
 		$timeout(function () {

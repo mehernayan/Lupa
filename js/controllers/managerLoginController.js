@@ -97,7 +97,7 @@ function($scope,userData,userRegData,lupaManagerService,$location,userRegOtpVal,
           if($scope.response.success){
             $scope.error ="";
             localStorageService.set("user",$scope.response.data);
-            $location.path('/userdashboard');
+            $location.path('/deptdashboard');
           }else{
             $scope.error = $scope.response.message;
             $scope.user.password = "";

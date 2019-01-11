@@ -124,6 +124,24 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         
         
        };
+       this.getLiveChartUrl = function() {
+        //$scope.userLogged = localStorageService.get("user");
+        var userObj = {"username": "training"}
+        var deferred = $q.defer();
+        $http({
+                    method : 'POST',
+                    url : appConstants.serviceAddress+'/user/live_chart',
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+           
+        
+        
+       };
 
        /* this.fetchUserDeptList = function() {
             var deferred = $q.defer();

@@ -7,80 +7,88 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="col-sm-12">
-                    <div id="chart"></div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="pie-chart-container">
-                    <div class="col-md-12">
-                        <h5>Recent Reports</h5>
-                        <div id="product-chart-yearly0" style="width: 100%"></div>
-                    </div>
-                    <div class="col-md-12">
-                        <h5>Recent Reports</h5>
-                        <div id="product-chart-yearly1" style="width: 100%"></div>
-                    </div>
-                     <div class="col-md-12">
-                        <h5>Recent Reports</h5>
-                        <div id="product-chart-yearly2" style="width: 100%"></div>
-                    </div>
+                    <div id="chart" style="height: 400px; min-width: 310px"></div>
+                    <ul class="live-chart-list">
+                        <li ng-repeat="item in productlistresponse">
+                                <input type="checkbox" ng-checked= "true" ng-model="selected[item.product_name]" ng-change="loadDashboardLiveChart()"> {{item.product_name}}
+                        </li>
+                    </ul>
+</div>
+<div class="col-sm-12">
+    <div class="col-sm-4">
+        <div class="recent-update">
+            <h4>Last 5 Minutes</h4>
 
-                </div>
-            </div>
+            <select class="form-control" id="last-5-minute" ng-model="selectedProductFiveMinutes" ng-change="getLastFiveMinutesReport(selectedProductFiveMinutes)">
+                            <option selected>Select Product</option>
+                            <option ng-repeat="item in productlist">{{item}}</option>
+                          </select>
+            <ul>
+                <li ng-repeat="item in fiveMinuteDataJobs">
+                    <span ng-class="{green_dot: $index == 0, blue_dot: $index == 1, red_dot: $index == 2, orange_dot: $index == 3 }"></span>
+                    <span ng-repeat="(key,value) in item">
+                                   <span class="job_status">{{key}}</span>: {{value}}
+                    </span>
+                </li>
+            </ul>
+
         </div>
-        <div class="row">
-            <div class="col-sm-8">
-                <div class="col-sm-4">
-                    <div class="recent-update">
-                        <h4>Last 5 Minutes</h4>
-                        
-                          <select  class="form-control" id="last-5-minute"  ng-model="selectedProductFiveMinutes" ng-change="getLastFiveMinutesReport(selectedProductFiveMinutes)">
+
+    </div>
+    <div class="col-sm-4">
+        <div class="recent-update">
+            <h4>Last 24 Hours</h4>
+            <select class="form-control" id="today-report" ng-model="selectedProductToday" ng-change="getTodayReport(selectedProductToday)">
                             <option selected>Select Product</option>
                             <option ng-repeat="item in productlist">{{item}}</option>
                           </select>
-                        <ul>
-                            <li ng-repeat="item in fiveMinuteDataJobs">
-                                <span ng-class="{green_dot: $index == 0, blue_dot: $index == 1, red_dot: $index == 2, orange_dot: $index == 3 }"></span>
-                                <span ng-repeat="(key,value) in item">
+            <ul>
+                <li ng-repeat="item in todayDataJobs">
+                    <span ng-class="{green_dot: $index == 0, blue_dot: $index == 1, red_dot: $index == 2, orange_dot: $index == 3 }"></span>
+                    <span ng-repeat="(key,value) in item">
                                    <span class="job_status">{{key}}</span>: {{value}}
-                                </span>
-                            </li>
-                        </ul>
+                    </span>
+                </li>
+            </ul>
 
-                    </div>
-
-                </div>
-                <div class="col-sm-4">
-                    <div class="recent-update">
-                        <h4>Last 24 Hours</h4>
-                         <select  class="form-control" id="today-report"  ng-model="selectedProductToday" ng-change="getTodayReport(selectedProductToday)">
-                            <option selected>Select Product</option>
-                            <option ng-repeat="item in productlist">{{item}}</option>
-                          </select>
-                        <ul>
-                            <li ng-repeat="item in todayDataJobs">
-                                <span ng-class="{green_dot: $index == 0, blue_dot: $index == 1, red_dot: $index == 2, orange_dot: $index == 3 }"></span>
-                                <span ng-repeat="(key,value) in item">
-                                   <span class="job_status">{{key}}</span>: {{value}}
-                                </span>
-                            </li>
-                        </ul>
-
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="recent-update">
-                        <h4>Saturation</h4>
-                       <select  class="form-control" id="saturation-report"  ng-model="saturationData" ng-change="getSaturationReport(selectedProductToday)">
-                            <option selected>Select Product</option>
-                            <option ng-repeat="item in productlist">{{item}}</option>
-                          </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4"></div>
         </div>
     </div>
+    <div class="col-sm-4">
+        <div class="recent-update">
+            <h4>Saturation</h4>
+            <select class="form-control" id="saturation-report" ng-model="saturationData" ng-change="getSaturationReport(selectedProductToday)">
+                            <option selected>Select Product</option>
+                            <option ng-repeat="item in productlist">{{item}}</option>
+                          </select>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-sm-4">
+    <div class="pie-chart-container">
+        <div class="col-md-12">
+            <h5>Recent Reports</h5>
+            <div id="product-chart-yearly0" style="width: 100%"></div>
+</div>
+<div class="col-md-12">
+    <h5>Recent Reports</h5>
+    <div id="product-chart-yearly1" style="width: 100%"></div>
+</div>
+<div class="col-md-12">
+    <h5>Recent Reports</h5>
+    <div id="product-chart-yearly2" style="width: 100%"></div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="row">
+    <div class="col-sm-8">
+
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+</div>
 </div>
 
 </div>

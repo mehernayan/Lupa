@@ -1,4 +1,8 @@
 lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaUserDashboardService, $location, localStorageService) {
+    var userId = localStorageService.get("user");
+    if(typeof userId ==="undefined" || userId == null) {
+        $location.path('/');
+    }
     $scope.productlist = localStorageService.get('productlist');
     $scope.reportSidebar = true;
     $scope.favouriteActive = true;

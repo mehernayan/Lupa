@@ -70,7 +70,7 @@ lupaUserDashboardService.service('lupaUserDashboardService', ['$http', '$q','$fi
         
        };
        this.getRecentReportUrl = function() {
-        var  user_id = localStorageService.get("user")[0].id;
+        //var  user_id = localStorageService.get("user")[0].id;
         var userObj = {"user_id": 26,"role" : "user"}
         //$scope.userLogged = localStorageService.get("user");
         var deferred = $q.defer();
@@ -124,6 +124,26 @@ lupaUserDashboardService.service('lupaUserDashboardService', ['$http', '$q','$fi
         
         
        };
+       this.getLiveChartUrl = function() {
+        //$scope.userLogged = localStorageService.get("user");
+        var userObj = {"username": "training"}
+        var deferred = $q.defer();
+        $http({
+                    method : 'POST',
+                    url : appConstants.serviceAddress+'/user/live_chart',
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+           
+        
+        
+       };
+
+       
 
        /* this.fetchUserDeptList = function() {
             var deferred = $q.defer();

@@ -353,7 +353,7 @@ a.active-main-nav:hover, a.active-main-nav:focus {
     -moz-box-shadow: 10px 10px 5px #888;
     -webkit-box-shadow: 10px 10px 5px #888;
     box-shadow: 2px 4px 5px #888;
-    margin-bottom: 78px;
+    margin-top: 50px
 }
 .recent-update ul {
     list-style-type: none;
@@ -408,7 +408,8 @@ a.active-main-nav:hover, a.active-main-nav:focus {
       transform: rotate(45deg);
       -webkit-transform: rotate(45deg);
   }
-  .collapsed .arrow-custom {
+  
+  .collapse.in .arrow-custom {
        transform: rotate(-45deg);
       -webkit-transform: rotate(-45deg)
   }
@@ -673,4 +674,8 @@ i.far.fa-square {
 }
 #duration .setActiveTab a, #timestatistics .setActiveTab a, #product .setActiveTab a {
     font-weight: bold;
+}
+.live-chart-list li {
+    list-style-type: none;
+    float: left;
 }

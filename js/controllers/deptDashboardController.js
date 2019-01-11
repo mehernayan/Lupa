@@ -1,8 +1,81 @@
 lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaDeptDashboardService, $location, localStorageService) {
+    var userId = localStorageService.get("user");
+    if(typeof userId ==="undefined" || userId == null) {
+        $location.path('/');
+    }
     $scope.productlist = localStorageService.get('productlist');
     $scope.reportSidebar = true;
     $scope.dashboardActive = true;
     $scope.productlist = localStorageService.get('productlist');
+    $scope.selected = {};
+    $scope.loadDashboardLiveChart = function(){
+        $scope.productlistresponse = $.grep($scope.productlistresponse, function( item ) {
+        return $scope.selected[ item.product_name ];
+      });
+        
+    };
+    
+    $scope.getLiveChart = function () {
+        $('#loadergif').show();
+        lupaDeptDashboardService.getLiveChartUrl().then(function (response) {
+            $scope.response = response.data;
+            $scope.productlistresponse = response.data;
+            var seriesOptions = [],
+                seriesCounter = 0;
+            
+            function createChart() {
+
+                Highcharts.stockChart('chart', {
+
+                    rangeSelector: {
+                        selected: 4
+                    },
+
+                    yAxis: {
+                        labels: {
+                            formatter: function () {
+                                return (this.value > 0 ? ' + ' : '') + this.value + '%';
+                            }
+                        },
+                        plotLines: [{
+                            value: 0,
+                            width: 2,
+                            color: 'silver'
+                        }]
+                    },
+
+                    plotOptions: {
+                        series: {
+                            compare: 'percent',
+                            showInNavigator: true
+                        }
+                    },
+
+                    tooltip: {
+                        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+                        valueDecimals: 2,
+                        split: true
+                    },
+
+                    series: seriesOptions
+                });
+            }
+
+            for (i = 0; i < $scope.response.length; i++) {
+                seriesOptions[i] = {
+                    name: $scope.response[i].product_name,
+                    data: $scope.response[i].values
+                };
+                seriesCounter += 1;
+
+                if (seriesCounter === $scope.response.length) {
+                    createChart();
+                }
+            }
+
+        });
+    }
+    $scope.getLiveChart();
     $scope.getRecentReport = function () {
         $('#loadergif').show();
         lupaDeptDashboardService.getRecentReportUrl().then(function (response) {

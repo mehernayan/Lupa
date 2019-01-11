@@ -1,4 +1,4 @@
-<div class="nav-sidebar sidenav">
+<div class="nav-sidebar sidenav" ng-init="headInit()">
     <div class="navIgation-header">
         <label ng-if="expandNav" class="nav-txt">Navigation</label>
         <span class="nav-switch" ng-if="!collapseNav" ng-click="navToggle()"><i class="fa fa-toggle-on fa-2x"></i></span>
@@ -6,7 +6,7 @@
     <ul class="navigation-links">
 
         <li data-toggle="collapse" class="collapsed" data-target="#product"><img src="images/product-icon.png" width="20px"><span class="nav-slide" ng-if="expandNav">
-                <a href="#/userreport" >Products</a></span><i class="arrow right arrow-custom" ng-if="expandNav"></i>
+                <a href="#/{{userType}}report" >Products</a></span><i class="arrow right arrow-custom" ng-if="expandNav"></i>
         </li>
 
         <ul id="product" class="collapse in" ng-if="expandNav">
@@ -18,10 +18,10 @@
         <li>
             <img src="images/report-icon.png" width="20px">
             <span class="nav-slide" ng-if="expandNav">
-                    <a data-toggle="collapse" class="report-link" ng-class="{'collapsed' : !reportSidebar}" data-target="#reports" href="#/userreport">Reports  <i class="arrow right arrow-custom active-menu" ng-if="expandNav"></i></a>
+                    <a data-toggle="collapse" class="report-link" ng-class="{'collapsed' : !reportSidebar}" data-target="#reports" href="#/{{userType}}report">Reports  <i class="arrow right arrow-custom active-menu" ng-if="expandNav"></i></a>
                     <div class="collapse" ng-class="{'in' : reportSidebar}" id="reports" parent-target="#reports">
                     <ul>
-                        <li data-toggle="collapse"  ng-class="{'collapsed' : !reportSidebar}" data-target="#duration" ng-if="expandNav">Licence <i class="arrow right arrow-custom" ng-if="expandNav"></i>
+                        <li data-toggle="collapse"  ng-class="{'collapsed' : !reportSidebar}" data-target="#duration" ng-if="expandNav">Licence <i class="arrow right arrow-custom active-menu" ng-if="expandNav"></i>
 
                         </li>
                         <ul id="duration" class="collapse in">

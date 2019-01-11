@@ -1,17 +1,14 @@
-lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashboardService', '$location', 'localStorageService', 'Fullscreen', function ($scope, userData, lupaUserDashboardService, $location, localStorageService, Fullscreen) {
+lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaUserDashboardService, $location, localStorageService) {
+    var userId = localStorageService.get("user");
+    if(typeof userId ==="undefined" || userId == null) {
+        $location.path('/');
+    }
     $scope.productlist = localStorageService.get('productlist');
-    $scope.reportSidebar = true;
+    $scope.reportSidebar = false;
     $scope.dashboardActive = false;
     $scope.chartType = ['vertical_bar_chart', 'pie_chart', 'line_chart', 'area_chart', 'horizontal_bar_chart'];
     // Full screen view
-    $scope.goFullscreen = function () {
-
-        if (Fullscreen.isEnabled())
-            Fullscreen.cancel();
-        else
-            Fullscreen.all();
-
-    }
+    
 
     // default report type
     $scope.report_type = "yearly";
