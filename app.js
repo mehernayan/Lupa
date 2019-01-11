@@ -1,5 +1,5 @@
 // create the module and name it lupaApp
-var lupaApp = angular.module('lupaApp', ['ngRoute', 'lupaUserProvider', 'lupaAdminProvider', 'lupaManagerProvider', 'lupaSharedProvider', 'lupaUserDashboardProvider', 'LocalStorageModule','FBAngular']);
+var lupaApp = angular.module('lupaApp', ['ngRoute', 'lupaUserProvider', 'lupaAdminProvider', 'lupaManagerProvider', 'lupaSharedProvider', 'lupaUserDashboardProvider','lupaDeptDashboardProvider', 'lupaAdminDashboardProvider', 'LocalStorageModule','FBAngular']);
 
 // configure our routes
 lupaApp.config(function ($routeProvider, $httpProvider) {
@@ -20,10 +20,7 @@ lupaApp.config(function ($routeProvider, $httpProvider) {
 			controller: 'managerLoginController'
 		})
 
-		.when('/userdashboard', {
-			templateUrl: 'views/userdashboard.html',
-			controller: 'userDashboardController'
-		})
+		
 		.when('/userprofilesetting', {
 			templateUrl: 'views/userprofilesetting.html',
 			controller: 'userPSettingController'
@@ -58,6 +55,10 @@ lupaApp.config(function ($routeProvider, $httpProvider) {
 			templateUrl: 'views/costcalculator.html',
 			controller: 'costCalculatorController'
 		})
+		.when('/userdashboard', {
+			templateUrl: 'views/userdashboard.html',
+			controller: 'userDashboardController'
+		})
 		.when('/userreport', {
 			templateUrl: 'views/userreport.html',
 			controller: 'userReportController'
@@ -65,6 +66,30 @@ lupaApp.config(function ($routeProvider, $httpProvider) {
 		.when('/userfavourite', {
 			templateUrl: 'views/userfavourite.html',
 			controller: 'userFavouriteController'
+		})
+		.when('/deptdashboard', {
+			templateUrl: 'views/deptdashboard.html',
+			controller: 'deptDashboardController'
+		})
+		.when('/deptreport', {
+			templateUrl: 'views/deptreport.html',
+			controller: 'deptReportController'
+		})
+		.when('/deptfavourite', {
+			templateUrl: 'views/deptfavourite.html',
+			controller: 'deptFavouriteController'
+		})
+		.when('/admindashboard', {
+			templateUrl: 'views/admindashboard.html',
+			controller: 'adminDashboardController'
+		})
+		.when('/adminreport', {
+			templateUrl: 'views/adminreport.html',
+			controller: 'adminReportController'
+		})
+		.when('/adminfavourite', {
+			templateUrl: 'views/adminfavourite.html',
+			controller: 'adminFavouriteController'
 		})
 
 	$httpProvider.defaults.useXDomain = true;

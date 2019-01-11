@@ -1,5 +1,5 @@
-var lupaUserDashboardService = angular.module('lupaUserDashboardProvider', ['lupaSharedProvider']);
-lupaUserDashboardService.service('lupaUserDashboardService', ['$http', '$q','$filter','localStorageService','appConstants','userData', '$rootScope',
+var lupaDeptDashboardService = angular.module('lupaDeptDashboardProvider', ['lupaSharedProvider']);
+lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$filter','localStorageService','appConstants','userData', '$rootScope',
     function ($http, $q, $filter, localStorageService,appConstants,userData, $rootScope) {
         //console.log(userData);
         //console.log(localStorageService.get("user")[0].id);

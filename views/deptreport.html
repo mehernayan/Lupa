@@ -2,7 +2,8 @@
 <div class="sidebar-panel" ng-class="{'expand': expandNav}">
     <div ng-include="'views/partials/sidebar.html'"></div>
 </div>
-<div class="favourite-container body-container" ng-class="{'expand':expandNav}">
+
+<div class="report-container body-container" ng-class="{'expand':expandNav}">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-md-12 full-screen-view">
@@ -29,15 +30,18 @@
                             </li>
 
                             <li>
-                                <a class="dropdown-item"> <i class="fa fa-expand"></i>
+                                <a class="dropdown-item" ng-click="goFullscreen()"> <i class="fa fa-expand"></i>
                                 </a>
                             </li>
 
-                            
+                            <li>
+                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                                </a>
+                            </li>
 
                         </div>
                     </div>
-                   <!-- <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
+                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
                     <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
                     <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
                     <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
@@ -46,10 +50,9 @@
                     <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
                     <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
                     <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
--->
 
-                    <div id="product-chart-yearly0"></div>
-                    <div id="product-chart-yearly1"></div>
+
+                    <div id="product-chart-yearly"></div>
                     <div class="weekly-section" ng-if="report_type == 'weekly'">
                         <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
                         <ul>
@@ -65,8 +68,15 @@
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                 </div>
             </div>
-           
+            <!--<div class="col-sm-6 col-md-6 col-md-6 full-screen-view">
+                <div class="pie-chart-container plotly-box-shadow">
+                    <span class="chart bar-chart"><i class="fa fa-chart-bar" ng-click= "changeGraph(chartType[0])"></i></span>
+                    <span class="chart pie-chart"><i class="fa fa-chart-pie" ng-click= "changeGraph(chartType[1])"></i></span>
+                   
+                </div>
+            </div>-->
         </div>
     </div>
 
 </div>
+<footer ng-include="'views/partials/footer.html'"></footer>

@@ -1,11 +1,11 @@
-lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaDeptDashboardService, $location, localStorageService) {
+lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdminDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaAdminDashboardService, $location, localStorageService) {
     $scope.productlist = localStorageService.get('productlist');
     $scope.reportSidebar = true;
     $scope.dashboardActive = true;
     $scope.productlist = localStorageService.get('productlist');
     $scope.getRecentReport = function () {
         $('#loadergif').show();
-        lupaDeptDashboardService.getRecentReportUrl().then(function (response) {
+        lupaAdminDashboardService.getRecentReportUrl().then(function (response) {
             $('#loadergif').hide();
             console.log(response);
             var plotDataBarY = [];
@@ -79,7 +79,7 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
      $scope.getLastFiveMinutesReport = function (product_name) {
         // debugger;
         $('#loadergif').show();
-        lupaDeptDashboardService.getLastFiveMinutesReportUrl(product_name).then(function (response) {
+        lupaAdminDashboardService.getLastFiveMinutesReportUrl(product_name).then(function (response) {
             $('#loadergif').hide();
             $scope.fiveMinuteDataJobs = response.data.jobs
             //debugger;
@@ -90,7 +90,7 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
      $scope.getTodayReport = function (product_name) {
         // debugger;
         $('#loadergif').show();
-        lupaDeptDashboardService.getTodayReportUrl(product_name).then(function (response) {
+        lupaAdminDashboardService.getTodayReportUrl(product_name).then(function (response) {
             $('#loadergif').hide();
             $scope.todayDataJobs = response.data.jobs
             //debugger;

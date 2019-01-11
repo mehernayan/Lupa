@@ -1,4 +1,4 @@
-lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaUserDashboardService, $location, localStorageService) {
+lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaDeptDashboardService, $location, localStorageService) {
     $scope.productlist = localStorageService.get('productlist');
     $scope.reportSidebar = true;
     $scope.favouriteActive = true;
@@ -9,7 +9,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
 
     $scope.getfavourite = function () {
         $('#loadergif').show();
-        lupaUserDashboardService.getFavouriteUrl().then(function (response) {
+        lupaDeptDashboardService.getFavouriteUrl().then(function (response) {
             $('#loadergif').hide();
             var plotDataBarY = [];
             var layout = {

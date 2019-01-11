@@ -1,4 +1,4 @@
-lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashboardService', '$location', 'localStorageService', 'Fullscreen', function ($scope, userData, lupaUserDashboardService, $location, localStorageService, Fullscreen) {
+lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDashboardService', '$location', 'localStorageService', 'Fullscreen', function ($scope, userData, lupaAdminDashboardService, $location, localStorageService, Fullscreen) {
     $scope.productlist = localStorageService.get('productlist');
     $scope.reportSidebar = true;
     $scope.dashboardActive = false;
@@ -147,7 +147,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         $scope.reportType = reportType;
         $scope.statisticsType = statisticsType;
         $('#loadergif').show();
-        lupaUserDashboardService.changeGraphUrl(reportType, chartType, statisticsType).then(function (response) {
+        lupaAdminDashboardService.changeGraphUrl(reportType, chartType, statisticsType).then(function (response) {
 
             // common to all graph
 
@@ -908,7 +908,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         var favourite = 1;
         var role = "user";
         var api = "";
-        lupaUserDashboardService.addFavouriteUrl(reportType, chartType, statisticsType).then(function (response) {
+        lupaAdminDashboardService.addFavouriteUrl(reportType, chartType, statisticsType).then(function (response) {
             console.log(response);
             //debugger;
         });
