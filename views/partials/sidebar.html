@@ -25,17 +25,17 @@
 
                         </li>
                         <ul id="duration" class="collapse in">
-                             <li ng-click="loadReport('yearly', 'license_statistics')">
+                             <li ng-click="loadReport('yearly', 'license_statistics')" ng-class="{'setActiveTab' : report_type == 'yearly'}">
                 <a><span class="circle yellow dot active"></span>YEARLY</a>
         </li>
-        <li ng-click="loadReport('yearly', 'license_statistics')">
+        <li ng-click="loadReport('yearly', 'license_statistics')" ng-class="{'setActiveTab' : report_type == 'monthly'}">
             <a><span class="circle red dot"></span>MONTHLY</a>
         </li>
-        <li ng-click="loadReport('weekly', 'license_statistics')">
+        <li ng-click="loadReport('weekly', 'license_statistics')" ng-class="{'setActiveTab' : report_type == 'weekly'}">
             <a><span class="circle green dot"></span>WEEKLY</a>
         </li>
 
-        <li ng-click="loadReport('this_week', 'license_statistics')">
+        <li ng-click="loadReport('this_week', 'license_statistics')" ng-class="{'setActiveTab' : report_type == 'this_week'}">
             <a><span class="circle blue dot"></span>THIS WEEK</a>
         </li>
     </ul>

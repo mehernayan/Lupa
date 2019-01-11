@@ -1,13 +1,14 @@
 var lupaUserDashboardService = angular.module('lupaUserDashboardProvider', ['lupaSharedProvider']);
 lupaUserDashboardService.service('lupaUserDashboardService', ['$http', '$q','$filter','localStorageService','appConstants','userData', '$rootScope',
     function ($http, $q, $filter, localStorageService,appConstants,userData, $rootScope) {
-        console.log(userData);
-        console.log(localStorageService.get("user")[0].id);
+        //console.log(userData);
+        //console.log(localStorageService.get("user")[0].id);
         //debugger;
 
         this.changeGraphUrl = function(chart_duration, chart_type, statistics_type) {
-        var userObj = {"username": "training", "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
+        
         //$scope.userLogged = localStorageService.get("user");
+        var userObj = {"username": "training", "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
         var deferred = $q.defer();
         $rootScope.url= appConstants.serviceAddress+'/user/'+chart_duration+'_licenses_used';
         

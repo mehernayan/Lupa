@@ -671,3 +671,6 @@ i.far.fa-square {
 .recent-update ul li {
     font-size: 12px;
 }
+#duration .setActiveTab a, #timestatistics .setActiveTab a, #product .setActiveTab a {
+    font-weight: bold;
+}
