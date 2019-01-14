@@ -1,40 +1,78 @@
 lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaUserDashboardService, $location, localStorageService) {
     var userId = localStorageService.get("user");
-    if(typeof userId ==="undefined" || userId == null) {
+    if (typeof userId === "undefined" || userId == null) {
         $location.path('/');
     }
     $scope.productlist = localStorageService.get('productlist');
     $scope.reportSidebar = false;
     $scope.dashboardActive = true;
     $scope.productlist = localStorageService.get('productlist');
-    $scope.selected = {};
-    $scope.loadDashboardLiveChart = function(){
-        $scope.productlistresponse = $.grep($scope.productlistresponse, function( item ) {
-        return $scope.selected[ item.product_name ];
-      });
-        
-    };
-    
+
     $scope.getLiveChart = function () {
         $('#loadergif').show();
         lupaUserDashboardService.getLiveChartUrl().then(function (response) {
             $scope.response = response.data;
             $scope.productlistresponse = response.data;
+            $scope.productListDashboard = [];
+            for (i = 0; i < $scope.response.length; i++) {
+                //debugger;
+                $scope.productListDashboard.push({
+                    "product_name": $scope.response[i].product_name,
+                    "value": true
+                })
+                //debugger;
+            }
+            $scope.changeProductDashboard = function (item, productlist) {
+                console.log($scope.response);
+                //debugger;
+                var filteredResponse = [];
+                for (i = 0; i < productlist.length; i++) {
+                    if (productlist[i].value == true && productlist[i].product_name == $scope.productlistresponse[i].product_name) {
+                        filteredResponse.push($scope.productlistresponse[i]);
+                        //debugger;
+                    }
+
+
+                }
+                $scope.response = filteredResponse;
+                var seriesCounter = 0;
+                for (i = 0; i < $scope.response.length; i++) {
+                    //debugger;
+                    seriesOptions[i] = {
+                        name: $scope.response[i].product_name,
+                        data: $scope.response[i].values
+                    };
+                    seriesCounter += 1;
+
+                    if (seriesCounter === $scope.response.length) {
+                        createChart();
+                    }
+                }
+
+            }
+
+
             var seriesOptions = [],
                 seriesCounter = 0;
-            
+
             function createChart() {
 
                 Highcharts.stockChart('chart', {
 
                     rangeSelector: {
-                        selected: 4
+                        selected: 4,
+                        inputEnabled: false,
+                        allButtonsEnabled: false,
+                        labelStyle: {
+                            visibility: 'hidden'
+                        }
+
                     },
 
                     yAxis: {
                         labels: {
                             formatter: function () {
-                                return (this.value > 0 ? ' + ' : '') + this.value + '%';
+                                return (this.value > 0 ? '  ' : '') + this.value;
                             }
                         },
                         plotLines: [{
@@ -43,16 +81,19 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
                             color: 'silver'
                         }]
                     },
+                    legend: {
+                        enabled: false
+                    },
 
                     plotOptions: {
                         series: {
-                            compare: 'percent',
+                            compare: 'value',
                             showInNavigator: true
                         }
                     },
 
                     tooltip: {
-                        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+                        pointFormat: '<span style="color:{series.color}">{series.name}</span>:  ({point.change})<br/>',
                         valueDecimals: 2,
                         split: true
                     },
@@ -62,6 +103,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
             }
 
             for (i = 0; i < $scope.response.length; i++) {
+
                 seriesOptions[i] = {
                     name: $scope.response[i].product_name,
                     data: $scope.response[i].values

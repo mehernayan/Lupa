@@ -4,7 +4,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         $location.path('/');
     }
     $scope.productlist = localStorageService.get('productlist');
-    $scope.reportSidebar = false;
+    $scope.reportSidebar = true;
     $scope.dashboardActive = false;
     $scope.chartType = ['vertical_bar_chart', 'pie_chart', 'line_chart', 'area_chart', 'horizontal_bar_chart'];
     // Full screen view

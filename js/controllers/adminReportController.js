@@ -1,13 +1,15 @@
-lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDashboardService', '$location', 'localStorageService',  function ($scope, userData, lupaAdminDashboardService, $location, localStorageService) {
+lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaAdminDashboardService, $location, localStorageService) {
     var userId = localStorageService.get("user");
-    if(typeof userId ==="undefined" || userId == null) {
+    if (typeof userId === "undefined" || userId == null) {
         $location.path('/');
     }
+    $scope.adminFilter = 'overall';
+    $scope.adminReport = 'Department'
     $scope.productlist = localStorageService.get('productlist');
     $scope.reportSidebar = true;
     $scope.dashboardActive = false;
     $scope.chartType = ['vertical_bar_chart', 'pie_chart', 'line_chart', 'area_chart', 'horizontal_bar_chart'];
-    
+
 
     // default report type
     $scope.report_type = "yearly";
@@ -62,6 +64,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             $scope.report_type = 'yearly';
             $scope.statisticsType = statisticsType;
             $scope.changeGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            
+
 
 
         } else if (report == 'monthly') {
@@ -74,12 +78,18 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             $scope.report_type = 'weekly';
             $scope.statisticsType = statisticsType;
             $scope.changeGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
-
+            $scope.getAdminReportUserList();
+            $scope.getAdminReportDeptList();
+            
 
         } else if (report == 'this_week') {
             $scope.report_type = 'this_week';
             $scope.statisticsType = statisticsType;
             $scope.changeGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.getAdminReportUserList();
+            $scope.getAdminReportDeptList();
+            //$scope.defaultFilterVal = $scope.adminReportUserList[0];
+
 
         }
     }
@@ -198,7 +208,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
 
             layout.title = 'LSDYNA / ' + $scope.reportType + ' Report';
-            
+
             $scope.response = response.data;
 
             if ($scope.response) {
@@ -909,6 +919,226 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             //debugger;
         });
     }
+
+
+    // Year filter for  Report to  get the year list 
+
+    $scope.getAdminReportYearList = function (userType, defaultFilterVal) {
+        $scope.userLogged = localStorageService.get('user');
+        var product_name = "LSDYNA";
+        //lupaAdminDashboardService.getAdminReportYearListUrl($scope.userLogged, "LSDYNA").then(function (response) {
+        lupaAdminDashboardService.getAdminReportYearListUrl("Admin", "LSDYNA").then(function (response) {
+            console.log(response.data);
+            $scope.adminReportYearList = response.data;
+            $scope.getAdminYearlyReportDepartmentFilter(userType, defaultFilterVal);
+
+
+        });
+
+    }
+    //load data to get year value
+    $scope.getAdminReportYearListLoad = function () {
+        $scope.userLogged = localStorageService.get('user');
+        var product_name = "LSDYNA";
+        //lupaAdminDashboardService.getAdminReportYearListUrl($scope.userLogged, "LSDYNA").then(function (response) {
+        lupaAdminDashboardService.getAdminReportYearListUrl("Admin", "LSDYNA").then(function (response) {
+            console.log(response.data);
+            $scope.adminReportYearList = response.data;
+            
+            $scope.defaultFilterVal = $scope.adminReportYearList[0].year;
+            
+
+
+        });
+
+    }
+    $scope.getAdminReportYearListLoad();
+    $scope.getAdminYearlyReportDepartmentFilter = function (userType, defaultFilterVal) {
+        lupaAdminDashboardService.getAdminYearlyReportDepartmentFilterUrl("Admin", "LSDYNA", "license_statistics", "vertical_bar_chart", userType, defaultFilterVal, $scope.report_type).then(function (response) {
+            console.log(response.data);
+            $scope.AdminYearlyReportDepartmentFilter = response.data;
+            $("#loadergif").hide();
+            //debugger;
+            
+            $scope.drawGraph($scope.AdminYearlyReportDepartmentFilter[0]);
+
+
+
+            // Graph starts here 
+
+            // common to all graph
+
+
+
+
+
+
+
+        });
+    }
+    $scope.drawGraph = function (chartData) {
+        //debugger;
+        var layout = {
+            title: 'LSDYNA / ' + $scope.report_type + ' Report',
+            showlegend: true,
+            legend: {
+                "orientation": "h",
+                x: 0.58,
+                y: 1.1
+            },
+            xaxis: {
+                type: 'category',
+                showgrid: false,
+                gridcolor: '#bdbdbd',
+                gridwidth: 1,
+                tickangle: -45,
+            },
+            yaxis: {
+                showgrid: true,
+                title: 'Total number of license',
+                showline: true
+            },
+            barmode: 'group',
+            bargroupgap: 0.5
+
+        };
+        //Bar chart Section goes here
+
+        var xAxisVal = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        // setting mode bar plotly
+        var plotlyDefaultConfigurationBar = {
+            responsive: true,
+            displaylogo: false,
+            showTips: true,
+            pan2d: true,
+            modeBarButtonsToRemove: ['sendDataToCloud', 'hoverClosestPie', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']
+        };
+
+
+        // Random color for marker (Bar)
+        var d3colors = Plotly.d3.scale.category10();
+
+
+        
+
+
+        var plotDataBarY = [];
+        //layout.title = 'LSDYNA / ' + $scope.reportType + ' Report';
+        if($scope.report_type == "yearly") {
+        plotDataBarY.push({
+            x: chartData.label,
+            y: chartData.value,
+            name: $scope.defaultFilterVal,
+            type: 'bar',
+            marker: {
+                color: d3colors(0)
+            }
+        });
+        } else if ($scope.reportType == 'this_week') {
+                        //debugger;
+                        //$scope.thisWeekCommonChartType($scope.response[0]);
+                        layout.title = 'LSDYNA / This Week Report';
+                        var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                        var plotDataBarY = [];
+                        //chartData = {"license" : [{"morning":[0,0,0,0,0,0,0]},{"afternoon":[0,0,0,0,0,0,0]},{"evening":[0,0,0,0,0,0,0]}]}
+                        for (var i = 0; i < chartData.license.length; i++) {
+                            //debugger;
+
+                            for (key in chartData.license[i]) {
+                                //debugger;
+
+                                plotDataBarY.push({
+                                    x: xAxisVal,
+                                    y: chartData.license[i][key],
+                                    name: key,
+                                    type: 'bar',
+                                    marker: {
+                                        color: d3colors(i)
+                                    }
+                                })
+
+
+                            }
+                        }
+                    }
+                else if ($scope.reportType == 'weekly') {
+                        layout.title = 'LSDYNA / ' + $scope.reportType + ' Report';
+                        $scope.weeklyresponse = $scope.response;
+                        
+
+
+                        var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
+
+                        for (i = 0; i < chartData.license.length; i++) {
+                            for (key in chartData.license[i]) {
+                                plotDataBarY.push({
+                                    x: xAxisVal,
+                                    y: chartData.license[i][key],
+                                    name: monthArray[i],
+                                    type: 'bar',
+                                    marker: {
+                                        color: d3colors(i)
+                                    }
+                                })
+
+                            }
+
+                        }
+                    } 
+        
+        //debugger;
+        Plotly.newPlot('product-chart-yearly2', plotDataBarY, layout, plotlyDefaultConfigurationBar);
+        
+
+
+
+    }
+    $scope.userType = 'dept';
+        $scope.reportAdminFilter = function (userType, defaultFilterVal) {
+        debugger;
+        $scope.defaultFilterVal = defaultFilterVal;
+        $("#loadergif").show();
+        if (userType == 'dept') {
+            $scope.userType = 'dept';
+        }
+        else {
+            $scope.userType = 'user';
+        }
+        if($scope.report_type == "yearly") {
+            $scope.getAdminReportYearList(userType, defaultFilterVal);
+        }
+        else {
+
+            $scope.getAdminYearlyReportDepartmentFilter(userType, defaultFilterVal);
+        }
+        
+        
+        //debugger;
+    }
+
+    $scope.getAdminReportUserList = function () {
+        lupaAdminDashboardService.getAdminReportUserListUrl().then(function (response) {
+            $scope.adminReportUserList = JSON.parse(response.data.status_response).data;
+
+            //debugger;
+        });
+    }
+    
+
+    $scope.selectedItem = "";
+    $scope.getAdminReportDeptList = function () {
+        lupaAdminDashboardService.getAdminReportDeptListUrl().then(function (response) {
+            $scope.adminReportDeptList = JSON.parse(response.data.status_response).data;
+            //debugger;
+            $scope.defaultFilterVal = $scope.adminReportDeptList[0];
+            
+        });
+
+    }
+    
+
 
 
 

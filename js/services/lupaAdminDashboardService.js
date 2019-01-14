@@ -142,6 +142,94 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
         
         
        };
+
+       this.getAdminReportYearListUrl = function(username, product_name) {
+        
+        //$scope.userLogged = localStorageService.get("user");
+        var userObj = {"username": username, "product_name" : "LSDYNA"}
+        var deferred = $q.defer();
+        $rootScope.url= appConstants.serviceAddress+'/admin/years_filter_list';
+        
+        $http({
+                    method : 'POST',
+                    url : $rootScope.url,
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+           
+        
+        
+       };
+       this.getAdminYearlyReportDepartmentFilterUrl = function(username, product_name, type, chart_type, userType, filter_year,report_type) {
+        //debugger;
+        //$scope.userLogged = localStorageService.get("user");
+        
+        
+        var deferred = $q.defer();
+        if(report_type == 'yearly') {
+            var year = "_year";
+            var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type, "filter_year": filter_year}
+        }
+        
+        else {
+            var year = "";
+            if(userType == 'dept') {
+                 var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type, "filter_department": filter_year}
+            }
+            else {
+                 var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type, "filter_user": filter_year}
+            }
+           
+
+        }
+        $rootScope.url= appConstants.serviceAddress+'/admin/' +report_type+ '_licenses_used'+year+'_'+userType+'_filter';
+        
+        $http({
+                    method : 'POST',
+                    url : $rootScope.url,
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+           
+        
+        
+       }
+
+       this.getAdminReportUserListUrl = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/filter_users_list'
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        this.getAdminReportDeptListUrl = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/filter_dept_list'
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+
+
        /* this.fetchUserDeptList = function() {
             var deferred = $q.defer();
             $http({

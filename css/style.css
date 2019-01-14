@@ -410,9 +410,10 @@ a.active-main-nav:hover, a.active-main-nav:focus {
   }
   
   .collapse.in .arrow-custom {
-       transform: rotate(-45deg);
-      -webkit-transform: rotate(-45deg)
+       transform: rotate(45deg);
+      -webkit-transform: rotate(45deg)
   }
+  
   
   .nav-switch .fa-toggle-on, .nav-switch .fa-toggle-off {
       font-size: 18px;
@@ -678,4 +679,18 @@ i.far.fa-square {
 .live-chart-list li {
     list-style-type: none;
     float: left;
+}
+.highcharts-button-disabled {
+    display: none;
+}
+.year-label, .user-label {
+    font-weight: bold;
+    padding-right: 10px;
+}
+.year-list {
+    float: left;
+    margin-right: 20px;
+}
+.admin-report-filter {
+
 }

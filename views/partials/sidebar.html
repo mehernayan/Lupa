@@ -18,8 +18,13 @@
         <li>
             <img src="images/report-icon.png" width="20px">
             <span class="nav-slide" ng-if="expandNav">
-                    <a data-toggle="collapse" class="report-link" ng-class="{'collapsed' : !reportSidebar}" data-target="#reports" href="#/{{userType}}report">Reports  <i class="arrow right arrow-custom active-menu" ng-if="expandNav"></i></a>
-                    <div class="collapse" ng-class="{'in' : reportSidebar}" id="reports" parent-target="#reports">
+                    
+                    <a data-toggle="collapse" class="report-link" ng-class="{'collapsed' : !reportSidebar}"  href="#/{{userType}}report">
+                        Reports  <i class="arrow right arrow-custom active-menu" ng-if="expandNav"></i>
+                    </a>
+                    
+                    
+                    <div class="collapse" ng-class="{'in' : reportSidebar}" id="reports">
                     <ul>
                         <li data-toggle="collapse"  ng-class="{'collapsed' : !reportSidebar}" data-target="#duration" ng-if="expandNav">Licence <i class="arrow right arrow-custom active-menu" ng-if="expandNav"></i>
 
