@@ -1,41 +1,79 @@
 lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdminDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaAdminDashboardService, $location, localStorageService) {
     var userId = localStorageService.get("user");
-    if(typeof userId ==="undefined" || userId == null) {
+    if (typeof userId === "undefined" || userId == null) {
         $location.path('/');
     }
     $scope.productlist = localStorageService.get('productlist');
-    $scope.reportSidebar = true;
+    $scope.reportSidebar = false;
     $scope.dashboardActive = true;
+    $scope.favouriteActive = false;
     $scope.productlist = localStorageService.get('productlist');
 
-    $scope.selected = {};
-    $scope.loadDashboardLiveChart = function(){
-        $scope.productlistresponse = $.grep($scope.productlistresponse, function( item ) {
-        return $scope.selected[ item.product_name ];
-      });
-        
-    };
-    
     $scope.getLiveChart = function () {
         $('#loadergif').show();
         lupaAdminDashboardService.getLiveChartUrl().then(function (response) {
             $scope.response = response.data;
             $scope.productlistresponse = response.data;
+            $scope.productListDashboard = [];
+            for (i = 0; i < $scope.response.length; i++) {
+                //debugger;
+                $scope.productListDashboard.push({
+                    "product_name": $scope.response[i].product_name,
+                    "value": true
+                })
+                //debugger;
+            }
+            $scope.changeProductDashboard = function (item, productlist) {
+                console.log($scope.response);
+                //debugger;
+                var filteredResponse = [];
+                for (i = 0; i < productlist.length; i++) {
+                    if (productlist[i].value == true && productlist[i].product_name == $scope.productlistresponse[i].product_name) {
+                        filteredResponse.push($scope.productlistresponse[i]);
+                        //debugger;
+                    }
+
+
+                }
+                $scope.response = filteredResponse;
+                var seriesCounter = 0;
+                for (i = 0; i < $scope.response.length; i++) {
+                    //debugger;
+                    seriesOptions[i] = {
+                        name: $scope.response[i].product_name,
+                        data: $scope.response[i].values
+                    };
+                    seriesCounter += 1;
+
+                    if (seriesCounter === $scope.response.length) {
+                        createChart();
+                    }
+                }
+
+            }
+
+
             var seriesOptions = [],
                 seriesCounter = 0;
-            
+
             function createChart() {
 
                 Highcharts.stockChart('chart', {
 
                     rangeSelector: {
-                        selected: 4
+                        selected: 4,
+                        inputEnabled: false,
+                        allButtonsEnabled: false,
+                        labelStyle: {
+                            visibility: 'hidden'
+                        }
+
                     },
 
                     yAxis: {
                         labels: {
                             formatter: function () {
-                                return (this.value > 0 ? ' + ' : '') + this.value + '%';
+                                return (this.value > 0 ? '  ' : '') + this.value;
                             }
                         },
                         plotLines: [{
@@ -44,16 +82,19 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                             color: 'silver'
                         }]
                     },
+                    legend: {
+                        enabled: false
+                    },
 
                     plotOptions: {
                         series: {
-                            compare: 'percent',
+                            compare: 'value',
                             showInNavigator: true
                         }
                     },
 
                     tooltip: {
-                        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+                        pointFormat: '<span style="color:{series.color}">{series.name}</span>:  ({point.change})<br/>',
                         valueDecimals: 2,
                         split: true
                     },
@@ -63,6 +104,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
             }
 
             for (i = 0; i < $scope.response.length; i++) {
+
                 seriesOptions[i] = {
                     name: $scope.response[i].product_name,
                     data: $scope.response[i].values
@@ -77,7 +119,6 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
         });
     }
     $scope.getLiveChart();
-
     $scope.getRecentReport = function () {
         $('#loadergif').show();
         lupaAdminDashboardService.getRecentReportUrl().then(function (response) {
@@ -128,30 +169,30 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
             for (i = 0; i < $scope.response.length; i++) {
                 var responseData = JSON.parse($scope.response[i].data);
                 var plotDataBarY = [];
-                for(j=0;j< responseData.length;j++) {
+                for (j = 0; j < responseData.length; j++) {
                     //debugger;
                     plotDataBarY.push({
-                    x: xAxisVal,
-                    y: responseData[j].license,
-                    name: responseData[j].year,
-                    type: 'bar',
-                    marker: {
-                        color: d3colors(j)
-                    }
-                })
+                        x: xAxisVal,
+                        y: responseData[j].license,
+                        name: responseData[j].year,
+                        type: 'bar',
+                        marker: {
+                            color: d3colors(j)
+                        }
+                    })
                 }
-                Plotly.newPlot('product-chart-yearly'+i, plotDataBarY, layout, plotlyDefaultConfigurationBar);
-                
+                Plotly.newPlot('product-chart-yearly' + i, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+
             }
-            
+
         });
     }
-     /*$scope.fiveMinuteData =  [{"product_name": "LSDYNA", "jobs" : [{"success" : 20},{"Jobs Qued" : 30}, {"Warning" : 20},{"Warning" : 30}]}];
-     $scope.fiveMinuteDataProd = $scope.fiveMinuteData[0].product_name;
-     $scope.fiveMinuteDataJobs = $scope.fiveMinuteData[0].jobs;*/
-     
-     // last 5 minutes
-     $scope.getLastFiveMinutesReport = function (product_name) {
+    /*$scope.fiveMinuteData =  [{"product_name": "LSDYNA", "jobs" : [{"success" : 20},{"Jobs Qued" : 30}, {"Warning" : 20},{"Warning" : 30}]}];
+    $scope.fiveMinuteDataProd = $scope.fiveMinuteData[0].product_name;
+    $scope.fiveMinuteDataJobs = $scope.fiveMinuteData[0].jobs;*/
+
+    // last 5 minutes
+    $scope.getLastFiveMinutesReport = function (product_name) {
         // debugger;
         $('#loadergif').show();
         lupaAdminDashboardService.getLastFiveMinutesReportUrl(product_name).then(function (response) {
@@ -159,10 +200,10 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
             $scope.fiveMinuteDataJobs = response.data.jobs
             //debugger;
         });
-     }
-     $scope.getLastFiveMinutesReport("LSDYNA");
-     // last 24 hours
-     $scope.getTodayReport = function (product_name) {
+    }
+    $scope.getLastFiveMinutesReport("LSDYNA");
+    // last 24 hours
+    $scope.getTodayReport = function (product_name) {
         // debugger;
         $('#loadergif').show();
         lupaAdminDashboardService.getTodayReportUrl(product_name).then(function (response) {
@@ -170,8 +211,8 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
             $scope.todayDataJobs = response.data.jobs
             //debugger;
         });
-     }
-     $scope.getTodayReport("LSDYNA");
+    }
+    $scope.getTodayReport("LSDYNA");
     $scope.getRecentReport();
 
 

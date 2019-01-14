@@ -8,9 +8,9 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
         this.changeGraphUrl = function(chart_duration, chart_type, statistics_type) {
         
         //$scope.userLogged = localStorageService.get("user");
-        var userObj = {"username": "training", "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
+        var userObj = {"username": "Admin", "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
         var deferred = $q.defer();
-        $rootScope.url= appConstants.serviceAddress+'/user/'+chart_duration+'_licenses_used';
+        $rootScope.url= appConstants.serviceAddress+'/admin/'+chart_duration+'_licenses_used';
         
         $http({
                     method : 'POST',
@@ -94,7 +94,7 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
         var deferred = $q.defer();
         $http({
                     method : 'POST',
-                    url : appConstants.serviceAddress+'/user/last_five_minutes',
+                    url : appConstants.serviceAddress+'/admin/last_five_minutes',
                     data : userObj
                 }).then(function(response) {
                     deferred.resolve(response);
@@ -112,7 +112,7 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
         var deferred = $q.defer();
         $http({
                     method : 'POST',
-                    url : appConstants.serviceAddress+'/user/todays_data',
+                    url : appConstants.serviceAddress+'/admin/todays_data',
                     data : userObj
                 }).then(function(response) {
                     deferred.resolve(response);
@@ -130,7 +130,7 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
         var deferred = $q.defer();
         $http({
                     method : 'POST',
-                    url : appConstants.serviceAddress+'/user/live_chart',
+                    url : appConstants.serviceAddress+'/admin/live_chart',
                     data : userObj
                 }).then(function(response) {
                     deferred.resolve(response);
@@ -164,7 +164,7 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
         
         
        };
-       this.getAdminYearlyReportDepartmentFilterUrl = function(username, product_name, type, chart_type, userType, filter_year,report_type) {
+       this.getAdminYearlyReportDepartmentFilterUrl = function(username, product_name, type, chart_type, userFilterType, filter_year,report_type) {
         //debugger;
         //$scope.userLogged = localStorageService.get("user");
         
@@ -177,7 +177,7 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
         
         else {
             var year = "";
-            if(userType == 'dept') {
+            if(userFilterType == 'dept') {
                  var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type, "filter_department": filter_year}
             }
             else {
@@ -186,7 +186,7 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
            
 
         }
-        $rootScope.url= appConstants.serviceAddress+'/admin/' +report_type+ '_licenses_used'+year+'_'+userType+'_filter';
+        $rootScope.url= appConstants.serviceAddress+'/admin/' +report_type+ '_licenses_used'+year+'_'+userFilterType+'_filter';
         
         $http({
                     method : 'POST',
@@ -228,7 +228,24 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
             return deferred.promise;
         };
 
-
+        this.getLiveChartUrl = function() {
+        //$scope.userLogged = localStorageService.get("user");
+        var userObj = {"username": "Admin"}
+        var deferred = $q.defer();
+        $http({
+                    method : 'GET',
+                    url : appConstants.serviceAddress+'/admin/live_chart',
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+           
+        
+        
+       };
 
        /* this.fetchUserDeptList = function() {
             var deferred = $q.defer();

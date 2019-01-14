@@ -6,12 +6,14 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
     $scope.productlist = localStorageService.get('productlist');
     $scope.reportSidebar = true;
     $scope.dashboardActive = false;
+    $scope.favouriteActive = false;
     $scope.chartType = ['vertical_bar_chart', 'pie_chart', 'line_chart', 'area_chart', 'horizontal_bar_chart'];
     // Full screen view
     
 
     // default report type
     $scope.report_type = "yearly";
+    $scope.license_statistics = "license_statistics";
 
     // default layout 
     var layout = {
@@ -145,7 +147,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         $scope.statisticsType = statisticsType;
         $('#loadergif').show();
         lupaUserDashboardService.changeGraphUrl(reportType, chartType, statisticsType).then(function (response) {
-
+            
             // common to all graph
 
             var layout = {
@@ -201,6 +203,9 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
             layout.title = 'LSDYNA / ' + $scope.reportType + ' Report';
             
             $scope.response = response.data;
+            if($scope.response[0] != "" || $scope.response[0] != undefined) {
+                $scope.addedFav = $scope.response[0].favourite;
+            }
 
             if ($scope.response) {
                 $('#loadergif').hide();

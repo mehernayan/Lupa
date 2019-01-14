@@ -8,8 +8,8 @@
         <div class="row">
             <div class="col-sm-12 col-md-12 col-md-12 full-screen-view" id="full-screen-view">
                 <div class="admin-report-filter">
-                    <input type="radio" name="reportAdminFilter" ng-checked="true" ng-model="adminFilter" value="overall">Overall
-                    <input type="radio" name="reportAdminFilter" ng-checked="false" ng-model="adminFilter" value="individual" ng-change="reportAdminFilter(userType,defaultFilterVal)">Individual
+                    <input type="radio" name="reportAdminFilter" ng-checked="true" ng-model="adminFilter" value="overall" ng-click="loadReport(report_type, license_statistics)">Overall
+                    <input type="radio" name="reportAdminFilter" ng-checked="false" ng-model="adminFilter" value="individual" ng-change="reportAdminFilter(userFilterType,defaultFilterVal)">Individual
                 </div>
 
                 <div ng-show="adminFilter  == 'overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
@@ -38,6 +38,10 @@
                                 <a class="dropdown-item" ng-click="goFullscreen()"> <i class="fa fa-expand"></i>
                                 </a>
                             </li>
+                            <li>
+                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
+                                </a>
+                            </li>
 
                             <li>
                                 <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
@@ -61,8 +65,8 @@
                     <div class="weekly-section" ng-if="report_type == 'weekly'">
                         <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
                         <ul>
-                            <li ng-repeat="item in reportyearlist">
-                                <input type="radio" ng-checked="item.checked" name="item" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
+                            <li ng-repeat="item in reportyearlist track by $index">
+                                <input type="radio" ng-checked="item.checked" name="item{{$index}}" ng-click="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
                                     value="{{item.year}}"> {{item.year}}
                             </li>
                         </ul>
@@ -76,7 +80,7 @@
                     <div class="year-list" ng-show="report_type =='yearly'">
                         <span class="year-label">Year : </span>
                         <span class="admin-year-label" ng-repeat="item in adminReportYearList track by $index">
-                            <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter(userType,item.year)"/>{{item.year}}
+                            <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter(userFilterType,item.year)"/>{{item.year}}
                          </span>
                     </div>
                     <div class="usertype-filter-year" ng-show="report_type =='yearly'">
@@ -96,14 +100,14 @@
                         <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
                             <label for="usertype-filter-dropdown">Department list:</label>
                             <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select a type</option>
+                            <option style="display:none" value="">select </option>
                             <option ng-repeat="item in adminReportDeptList">{{item}}</option>
                             </select>
                         </div>
                         <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
                             <label for="usertype-filter-dropdown">User list:</label>
                             <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select a type</option>
+                            <option style="display:none" value="">select </option>
                             <option ng-repeat="item in adminReportUserList">{{item}}</option>
                             </select>
                         </div>
@@ -118,14 +122,14 @@
                         <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
                             <label for="usertype-filter-dropdown">Department list:</label>
                             <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select a type</option>
+                            <option style="display:none" value="">select </option>
                             <option ng-repeat="item in adminReportDeptList">{{item}}</option>
                             </select>
                         </div>
                         <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
                             <label for="usertype-filter-dropdown">User list:</label>
                             <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select a type</option>
+                            <option style="display:none" value="">select </option>
                             <option ng-repeat="item in adminReportUserList">{{item}}</option>
                             </select>
                         </div>
@@ -153,6 +157,10 @@
 
                             <li>
                                 <a class="dropdown-item" ng-click="goFullscreen()"> <i class="fa fa-expand"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
                                 </a>
                             </li>
 

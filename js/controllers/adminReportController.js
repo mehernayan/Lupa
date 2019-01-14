@@ -8,9 +8,10 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     $scope.productlist = localStorageService.get('productlist');
     $scope.reportSidebar = true;
     $scope.dashboardActive = false;
+    $scope.favouriteActive = false;
     $scope.chartType = ['vertical_bar_chart', 'pie_chart', 'line_chart', 'area_chart', 'horizontal_bar_chart'];
-
-
+    $scope.license_statistics = "license_statistics";
+    
     // default report type
     $scope.report_type = "yearly";
 
@@ -210,6 +211,9 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             layout.title = 'LSDYNA / ' + $scope.reportType + ' Report';
 
             $scope.response = response.data;
+            if($scope.response[0] != "" || $scope.response[0] != undefined) {
+                $scope.addedFav = $scope.response[0].favourite;
+            }
 
             if ($scope.response) {
                 $('#loadergif').hide();
@@ -923,14 +927,14 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
     // Year filter for  Report to  get the year list 
 
-    $scope.getAdminReportYearList = function (userType, defaultFilterVal) {
+    $scope.getAdminReportYearList = function (userFilterType, defaultFilterVal) {
         $scope.userLogged = localStorageService.get('user');
         var product_name = "LSDYNA";
         //lupaAdminDashboardService.getAdminReportYearListUrl($scope.userLogged, "LSDYNA").then(function (response) {
         lupaAdminDashboardService.getAdminReportYearListUrl("Admin", "LSDYNA").then(function (response) {
             console.log(response.data);
             $scope.adminReportYearList = response.data;
-            $scope.getAdminYearlyReportDepartmentFilter(userType, defaultFilterVal);
+            $scope.getAdminYearlyReportDepartmentFilter(userFilterType, defaultFilterVal);
 
 
         });
@@ -953,8 +957,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
     }
     $scope.getAdminReportYearListLoad();
-    $scope.getAdminYearlyReportDepartmentFilter = function (userType, defaultFilterVal) {
-        lupaAdminDashboardService.getAdminYearlyReportDepartmentFilterUrl("Admin", "LSDYNA", "license_statistics", "vertical_bar_chart", userType, defaultFilterVal, $scope.report_type).then(function (response) {
+    $scope.getAdminYearlyReportDepartmentFilter = function (userFilterType, defaultFilterVal) {
+        lupaAdminDashboardService.getAdminYearlyReportDepartmentFilterUrl("Admin", "LSDYNA", "license_statistics", "vertical_bar_chart", userFilterType, defaultFilterVal, $scope.report_type).then(function (response) {
             console.log(response.data);
             $scope.AdminYearlyReportDepartmentFilter = response.data;
             $("#loadergif").hide();
@@ -977,7 +981,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         });
     }
     $scope.drawGraph = function (chartData) {
-        //debugger;
+        debugger;
         var layout = {
             title: 'LSDYNA / ' + $scope.report_type + ' Report',
             showlegend: true,
@@ -1095,23 +1099,23 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
 
     }
-    $scope.userType = 'dept';
-        $scope.reportAdminFilter = function (userType, defaultFilterVal) {
-        debugger;
+    $scope.userFilterType = 'dept';
+        $scope.reportAdminFilter = function (userFilterType, defaultFilterVal) {
+        //debugger;
         $scope.defaultFilterVal = defaultFilterVal;
         $("#loadergif").show();
-        if (userType == 'dept') {
-            $scope.userType = 'dept';
+        if (userFilterType == 'dept') {
+            $scope.userFilterType = 'dept';
         }
         else {
-            $scope.userType = 'user';
+            $scope.userFilterType = 'user';
         }
         if($scope.report_type == "yearly") {
-            $scope.getAdminReportYearList(userType, defaultFilterVal);
+            $scope.getAdminReportYearList(userFilterType, defaultFilterVal);
         }
         else {
 
-            $scope.getAdminYearlyReportDepartmentFilter(userType, defaultFilterVal);
+            $scope.getAdminYearlyReportDepartmentFilter(userFilterType, defaultFilterVal);
         }
         
         

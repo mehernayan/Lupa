@@ -197,7 +197,7 @@ table tr th,table tr td{
 }
 .logo-section {
     float: left;
-    width: 200px;
+    width: 181px;
     background-color: #e7e4ea;
 }
 .navigation-header {
@@ -433,12 +433,13 @@ a.active-main-nav:hover, a.active-main-nav:focus {
       background: #ccc;
   }
   .body-container.expand{
-      width: calc(100% - 170px);
-      margin-left: 150px;
+    width: calc(100% - 130px);
+    margin-left: 115px;
+    padding-left: 60px;
   }
     
   .expand .sidenav {
-      width: 200px;
+      width: 181px;
   }
   .expand .nav-txt {
       display: inline-block;
@@ -510,7 +511,7 @@ a.active-main-nav:hover, a.active-main-nav:focus {
   }
   .report-link {
       display: inline-block;
-      width: 155px;
+      width: 132px;
   }
   .navigation-links img {
       float: left;
@@ -690,7 +691,32 @@ i.far.fa-square {
 .year-list {
     float: left;
     margin-right: 20px;
-}
+    margin-left: 20px;
+    margin-top: 20px;
+}   
 .admin-report-filter {
 
+}
+.usertype-filter-year {
+    clear: both;
+    padding-left: 21px;
+}
+.usertype-filter-type {
+    padding-left: 21px;
+    padding-top: 20px;
+}
+.chart-type-container {
+    padding-left: 20px;
+}
+.usertype-filter-dropdown-dept {
+    width: 129px;
+    padding-left: 20px;
+}
+.arrow-right {
+    transform: rotate(-45deg) !important;
+    -webkit-transform: rotate(-45deg) !important;
+}
+.collapse.in .arrow-right {
+    transform: rotate(45deg) !important;
+    -webkit-transform: rotate(45deg) !important;
 }

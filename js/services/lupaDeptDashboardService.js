@@ -8,9 +8,9 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         this.changeGraphUrl = function(chart_duration, chart_type, statistics_type) {
         
         //$scope.userLogged = localStorageService.get("user");
-        var userObj = {"username": "training", "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
+        var userObj = {"username": "Harish", "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
         var deferred = $q.defer();
-        $rootScope.url= appConstants.serviceAddress+'/user/'+chart_duration+'_licenses_used';
+        $rootScope.url= appConstants.serviceAddress+'/departmentmanager/'+chart_duration+'_licenses_used';
         
         $http({
                     method : 'POST',
@@ -90,11 +90,11 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
        };
        this.getLastFiveMinutesReportUrl = function(product_name) {
         //$scope.userLogged = localStorageService.get("user");
-        var userObj = {"username": "training","product_name" : product_name}
+        var userObj = {"username": "Harish","product_name" : product_name}
         var deferred = $q.defer();
         $http({
                     method : 'POST',
-                    url : appConstants.serviceAddress+'/user/last_five_minutes',
+                    url : appConstants.serviceAddress+'/departmentmanager/last_five_minutes',
                     data : userObj
                 }).then(function(response) {
                     deferred.resolve(response);
@@ -112,7 +112,7 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         var deferred = $q.defer();
         $http({
                     method : 'POST',
-                    url : appConstants.serviceAddress+'/user/todays_data',
+                    url : appConstants.serviceAddress+'/departmentmanager/todays_data',
                     data : userObj
                 }).then(function(response) {
                     deferred.resolve(response);
@@ -126,11 +126,11 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
        };
        this.getLiveChartUrl = function() {
         //$scope.userLogged = localStorageService.get("user");
-        var userObj = {"username": "training"}
+        var userObj = {"username": "Harish"}
         var deferred = $q.defer();
         $http({
-                    method : 'POST',
-                    url : appConstants.serviceAddress+'/user/live_chart',
+                    method : 'GET',
+                    url : appConstants.serviceAddress+'/departmentmanager/live_chart',
                     data : userObj
                 }).then(function(response) {
                     deferred.resolve(response);

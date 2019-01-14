@@ -33,6 +33,10 @@
                                 <a class="dropdown-item" ng-click="goFullscreen()"> <i class="fa fa-expand"></i>
                                 </a>
                             </li>
+                            <li>
+                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
+                                </a>
+                            </li>
 
                             <li>
                                 <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
@@ -57,7 +61,7 @@
                         <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
                         <ul>
                             <li ng-repeat="item in reportyearlist">
-                                <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
+                                <input type="radio" ng-checked= "item.checked" name="item"   ng-click="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
                                 {{item.year}}
                             </li>
                         </ul>

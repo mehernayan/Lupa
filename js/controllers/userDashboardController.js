@@ -6,6 +6,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
     $scope.productlist = localStorageService.get('productlist');
     $scope.reportSidebar = false;
     $scope.dashboardActive = true;
+    $scope.favouriteActive = false;
     $scope.productlist = localStorageService.get('productlist');
 
     $scope.getLiveChart = function () {

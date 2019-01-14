@@ -8,6 +8,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
     $scope.favouriteActive = true;
     $scope.dashboardActive = false;
     $scope.reportSidebar = false;
+    $scope.favouriteActive = true;
 
 
 
