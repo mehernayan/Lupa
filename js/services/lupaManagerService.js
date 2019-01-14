@@ -1,6 +1,6 @@
 var lupaManagerService = angular.module('lupaManagerProvider', ['lupaSharedProvider']);
-lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','deptProfileSettingData','transferUserData','dynaCompData','dynaFeatureData',
-    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,deptProfileSettingData,transferUserData,dynaCompData,dynaFeatureData) {
+lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','deptProfileSettingData','transferUserData','dynaCompData','dynaFeatureData','notificationId',
+    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,deptProfileSettingData,transferUserData,dynaCompData,dynaFeatureData,notificationId) {
 
         
       
@@ -171,7 +171,7 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
         */
        
        this.updateProfileSettings = function() { 
-        var userObj = deptProfileSettingData.get();
+        var userObj = notificationId.get();
         var deferred = $q.defer();
         if(typeof userObj !== "undefined"){
             $http({
@@ -352,5 +352,27 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
             return deferred.promise;
         }
     };
+
+
+    /*
+        * Post Features List
+        */
        
-    }]);
+       this.getNotifications = function() {
+        var userObj = {id : "10"};
+        var deferred = $q.defer();
+        if(typeof userObj !== "undefined"){
+            $http({
+                method : 'POST',
+                url : appConstants.serviceAddress+'/departmentmanager/notifications',
+                data : userObj
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+    };
+       
+}]);

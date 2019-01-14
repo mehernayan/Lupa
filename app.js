@@ -111,8 +111,8 @@ lupaApp.config(function ($routeProvider, $httpProvider) {
 	};
 
 });
-lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localStorageService', '$location','Fullscreen',
-	function ($scope, $timeout, $window, localStorageService, $location,Fullscreen) {
+lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localStorageService', '$location','Fullscreen','lupaManagerService','notificationId',
+	function ($scope, $timeout, $window, localStorageService, $location,Fullscreen,lupaManagerService,notificationId) {
 		// create a message to display in our view
 		$scope.message = 'Everyone come and see how good I look!';
 		$scope.username = "";
@@ -158,6 +158,34 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 				event.stopPropagation();
 			})
 		}, 2000);
+
+		$scope.userLoggedId = {
+			id : ''
+		};
+		$scope.$watch('userLoggedId', function (n, o) {
+			if (n !== o){
+				notificationId.set(n.id);
+			};
+		}, true);
+
+		$scope.getDeptNotifications = function () {
+			$scope.error = "";
+			$('#loadergif').show();
+			lupaManagerService.getNotifications().then(function(response) {
+				$('#loadergif').hide();
+				//console.log(response.data,"register user");
+				$scope.response = JSON.parse(response.data.status_response);
+				//console.log($scope.response,"is success");
+				if(typeof $scope.response!=="undefined"){
+					if($scope.response.success){
+						$scope.error ="";
+						$scope.notifications = $scope.response.data;
+					}else{
+						$scope.error = $scope.response.message;
+					}
+				}
+			});
+		};
 
 		$scope.getSignOut = function () {
 			localStorageService.clearAll();

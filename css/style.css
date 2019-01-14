@@ -720,3 +720,18 @@ i.far.fa-square {
     transform: rotate(45deg) !important;
     -webkit-transform: rotate(45deg) !important;
 }
+
+
+.notification-counter{
+    border-radius: 10px;
+    color: red;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 0px 4px;
+    position: absolute;
+    z-index: 3333333333;
+    top: 10px;
+    left: 12px;
+    border: 1px solid red;
+    text-align: center;
+}
