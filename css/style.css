@@ -433,8 +433,8 @@ a.active-main-nav:hover, a.active-main-nav:focus {
       background: #ccc;
   }
   .body-container.expand{
-    width: calc(100% - 130px);
-    margin-left: 115px;
+    width: calc(100% - 205px);
+    margin-left: 180px;
     padding-left: 60px;
   }
     
@@ -680,6 +680,13 @@ i.far.fa-square {
 .live-chart-list li {
     list-style-type: none;
     float: left;
+    margin-right: 10px;
+
+}
+.live-chart-list li label {
+    position: relative;
+    top: -4px;
+    font-size: 14px;
 }
 .highcharts-button-disabled {
     display: none;

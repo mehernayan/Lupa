@@ -69,6 +69,9 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
                         }
 
                     },
+                    title: {
+                        text: 'Real Time Utilization'
+                    },
 
                     yAxis: {
                         labels: {
@@ -170,7 +173,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
                 var responseData = JSON.parse($scope.response[i].data);
                 var plotDataBarY = [];
                 for (j = 0; j < responseData.length; j++) {
-                    //debugger;
+                    debugger;
                     plotDataBarY.push({
                         x: xAxisVal,
                         y: responseData[j].license,

@@ -69,6 +69,9 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                         }
 
                     },
+                    title: {
+                        text: 'Real Time Utilization'
+                    },
 
                     yAxis: {
                         labels: {
