@@ -7,8 +7,8 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
 
         this.changeGraphUrl = function(chart_duration, chart_type, statistics_type) {
         
-        //$scope.userLogged = localStorageService.get("user");
-        var userObj = {"username": "Harish", "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
+        var userLogged = localStorageService.get("user")[0].name;
+        var userObj = {"username": userLogged, "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
         var deferred = $q.defer();
         $rootScope.url= appConstants.serviceAddress+'/departmentmanager/'+chart_duration+'_licenses_used';
         
@@ -89,8 +89,8 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         
        };
        this.getLastFiveMinutesReportUrl = function(product_name) {
-        //$scope.userLogged = localStorageService.get("user");
-        var userObj = {"username": "Harish","product_name" : product_name}
+        var user_id = localStorageService.get("user")[0].id;
+        var userObj = {"id": user_id, "product_name" : product_name}
         var deferred = $q.defer();
         $http({
                     method : 'POST',
@@ -107,8 +107,8 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         
        };
         this.getTodayReportUrl = function(product_name) {
-        //$scope.userLogged = localStorageService.get("user");
-        var userObj = {"username": "training","product_name" : product_name}
+        var user_id = localStorageService.get("user")[0].id;
+        var userObj = {"id": user_id, "product_name" : product_name};
         var deferred = $q.defer();
         $http({
                     method : 'POST',
@@ -125,11 +125,11 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         
        };
        this.getLiveChartUrl = function() {
-        //$scope.userLogged = localStorageService.get("user");
-        var userObj = {"username": "Harish"}
+        var userid = localStorageService.get("user")[0].id;
+        var userObj = {"id": userid}
         var deferred = $q.defer();
         $http({
-                    method : 'GET',
+                    method : 'POST',
                     url : appConstants.serviceAddress+'/departmentmanager/live_chart',
                     data : userObj
                 }).then(function(response) {

@@ -3,7 +3,6 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
     if(typeof userId ==="undefined" || userId == null) {
         $location.path('/');
     }
-    $scope.productlist = localStorageService.get('productlist');
     $scope.reportSidebar = true;
     $scope.dashboardActive = true;
     $scope.favouriteActive = false;

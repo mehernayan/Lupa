@@ -8,7 +8,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
     $scope.dashboardActive = true;
     $scope.favouriteActive = false;
     $scope.polarChartFlag = false;
-    $scope.productlist = localStorageService.get('productlist');
+    
 
     $scope.getLiveChart = function () {
         $('#loadergif').show();

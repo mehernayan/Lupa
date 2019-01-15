@@ -54,7 +54,8 @@
 
         </div>
     </div>
-    <div class="recent-update">
+    <div class="col-sm-4">
+        <div class="recent-update">
             <h4>Saturation</h4>
             <select class="form-control" id="saturation-report" ng-model="saturationData" ng-change="getSaturationReport(saturationData)">
                             <option style="display:none" value="">select a product</option>
@@ -63,6 +64,7 @@
 
 
         </div>
+    </div>
     <div class="col-sm-12">
         <div class="saturation-cont" ng-class="{'dashboard-box-shadow' : polarChartFlag}">
             <div id="saturation" >

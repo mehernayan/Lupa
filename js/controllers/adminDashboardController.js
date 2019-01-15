@@ -4,12 +4,12 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
         $location.path('/');
     }
     $scope.productlist = localStorageService.get('productlist');
+    debugger;
     $scope.reportSidebar = false;
     $scope.dashboardActive = true;
     $scope.favouriteActive = false;
     $scope.polarChartFlag = false;
-    $scope.productlist = localStorageService.get('productlist');
-
+    
     $scope.getLiveChart = function () {
         $('#loadergif').show();
         lupaAdminDashboardService.getLiveChartUrl().then(function (response) {

@@ -7,8 +7,8 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
 
         this.changeGraphUrl = function(chart_duration, chart_type, statistics_type) {
         
-        //$scope.userLogged = localStorageService.get("user");
-        var userObj = {"username": "Admin", "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
+        var userLogged = localStorageService.get("user")[0].name;
+        var userObj = {"username": userLogged, "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
         var deferred = $q.defer();
         $rootScope.url= appConstants.serviceAddress+'/admin/'+chart_duration+'_licenses_used';
         
@@ -89,8 +89,8 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
         
        };
        this.getLastFiveMinutesReportUrl = function(product_name) {
-        //$scope.userLogged = localStorageService.get("user");
-        var userObj = {"username": "training","product_name" : product_name}
+        var userLogged = localStorageService.get("user")[0].name;
+        var userObj = {"username": userLogged,"product_name" : product_name}
         var deferred = $q.defer();
         $http({
                     method : 'POST',
@@ -107,8 +107,8 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
         
        };
         this.getTodayReportUrl = function(product_name) {
-        //$scope.userLogged = localStorageService.get("user");
-        var userObj = {"username": "training","product_name" : product_name}
+        var userLogged = localStorageService.get("user")[0].name;
+        var userObj = {"username": userLogged,"product_name" : product_name}
         var deferred = $q.defer();
         $http({
                     method : 'POST',
@@ -125,8 +125,8 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
         
        };
        this.getLiveChartUrl = function() {
-        //$scope.userLogged = localStorageService.get("user");
-        var userObj = {"username": "training"}
+        var userLogged = localStorageService.get("user")[0].name;
+        var userObj = {"username": userLogged}
         var deferred = $q.defer();
         $http({
                     method : 'POST',
@@ -247,8 +247,8 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
        };
 
         this.getLiveChartUrl = function() {
-        //$scope.userLogged = localStorageService.get("user");
-        var userObj = {"username": "Admin"}
+        var userLogged = localStorageService.get("user")[0].name;
+        var userObj = {"username": userLogged}
         var deferred = $q.defer();
         $http({
                     method : 'GET',
