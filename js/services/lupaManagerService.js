@@ -355,12 +355,12 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
 
 
     /*
-        * Post Features List
-        */
-       
-       this.getNotifications = function() {
-        var userObj = {id : "10"};
-        var deferred = $q.defer();
+    * Get Notification
+    */
+    
+    this.getNotifications = function() {
+    var userObj = {id : "10"};
+    var deferred = $q.defer();
         if(typeof userObj !== "undefined"){
             $http({
                 method : 'POST',
@@ -373,6 +373,57 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
             });
             return deferred.promise;
         }
+    };
+
+    /**
+     * Approve the request
+     */
+
+    this.acceptRequest = function(id) {
+        var deferred = $q.defer();
+        $http({
+            method : 'GET',
+            url : appConstants.serviceAddress+'/departmentmanager/useraccept?notificationid='+id
+        }).then(function(response) {
+            deferred.resolve(response);
+        }, function(error) {
+            deferred.reject(error);
+        });
+        return deferred.promise;
+    };
+
+    /**
+     * Reject the request
+     */
+
+    this.rejectRequest = function(id) {
+        var deferred = $q.defer();
+        $http({
+            method : 'GET',
+            url : appConstants.serviceAddress+'/departmentmanager/userreject?notificationid='+id
+        }).then(function(response) {
+            deferred.resolve(response);
+        }, function(error) {
+            deferred.reject(error);
+        });
+        return deferred.promise;
+    };
+
+    /**
+     * Ack the request
+     */
+
+    this.ackRequest = function(id) {
+        var deferred = $q.defer();
+        $http({
+            method : 'GET',
+            url : appConstants.serviceAddress+'/departmentmanager/notification_ok?notificationid='+id
+        }).then(function(response) {
+            deferred.resolve(response);
+        }, function(error) {
+            deferred.reject(error);
+        });
+        return deferred.promise;
     };
        
 }]);

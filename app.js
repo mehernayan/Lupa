@@ -111,8 +111,8 @@ lupaApp.config(function ($routeProvider, $httpProvider) {
 	};
 
 });
-lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localStorageService', '$location','Fullscreen','lupaManagerService','notificationId',
-	function ($scope, $timeout, $window, localStorageService, $location,Fullscreen,lupaManagerService,notificationId) {
+lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localStorageService', '$location','Fullscreen','lupaManagerService','lupaAdminService','notificationId',
+	function ($scope, $timeout, $window, localStorageService, $location,Fullscreen,lupaManagerService,lupaAdminService,notificationId) {
 		// create a message to display in our view
 		$scope.message = 'Everyone come and see how good I look!';
 		$scope.username = "";
@@ -122,6 +122,12 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 			if (typeof $scope.user !== "undefined" && $scope.user !== [] && $scope.user !== null) {
 				$scope.username = $scope.user[0].name;
 				$scope.userType = $scope.user[0].userType;
+
+				if($scope.userType==="dept"){
+					$scope.getDeptNotifications();
+				}else if($scope.userType==="admin"){
+					$scope.getAdminNotifications();
+				}
 			}
 		};
 
@@ -167,7 +173,7 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 				notificationId.set(n.id);
 			};
 		}, true);
-
+		
 		$scope.getDeptNotifications = function () {
 			$scope.error = "";
 			$('#loadergif').show();
@@ -179,13 +185,128 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 				if(typeof $scope.response!=="undefined"){
 					if($scope.response.success){
 						$scope.error ="";
-						$scope.notifications = $scope.response.data;
+						$scope.deptnotifications = $scope.response.data;
 					}else{
 						$scope.error = $scope.response.message;
 					}
 				}
 			});
 		};
+
+		$scope.getAdminNotifications = function () {
+			$scope.error = "";
+			$('#loadergif').show();
+			lupaAdminService.getNotifications().then(function(response) {
+				$('#loadergif').hide();
+				//console.log(response.data,"register user");
+				$scope.response = JSON.parse(response.data.status_response);
+				//console.log($scope.response,"is success");
+				if(typeof $scope.response!=="undefined"){
+					if($scope.response.success){
+						$scope.error ="";
+						$scope.adminnotifications = $scope.response.data;
+					}else{
+						$scope.error = $scope.response.message;
+					}
+				}
+			});
+		};
+
+		/**
+		 * Accept Request
+		 */
+
+		$scope.acceptDeptRequest = function (id) {
+			$scope.errorAccMsg = "";
+			$('#loaderNotification').show();
+			lupaManagerService.acceptRequest(id).then(function(response) {
+				$('#loaderNotification').hide();
+				$scope.response = JSON.parse(response.data.status_response);
+				if(typeof $scope.response!=="undefined"){
+					if($scope.response.success){
+						$scope.errorAccMsg ="";
+						$scope.curId = id;
+						$scope.acceptMsg = $scope.response.message;
+					}else{
+						$scope.curId = id;
+						$scope.acceptMsg ="";
+						$scope.errorAccMsg = $scope.response.message;
+					}
+				}
+			});
+		};
+
+		/**
+		 * Reject Request
+		 */
+
+		$scope.rejectDeptRequest = function (id) {
+			$scope.errorAccMsg = "";
+			$('#loaderNotification').show();
+			lupaManagerService.rejectRequest(id).then(function(response) {
+				$('#loaderNotification').hide();
+				$scope.response = JSON.parse(response.data.status_response);
+				if(typeof $scope.response!=="undefined"){
+					if($scope.response.success){
+						$scope.errorAccMsg ="";
+						$scope.curId = id;
+						$scope.acceptMsg = $scope.response.message;
+					}else{
+						$scope.curId = id;
+						$scope.acceptMsg ="";
+						$scope.errorAccMsg = $scope.response.message;
+					}
+				}
+			});
+		};
+
+		/**
+		 * Acknowledgement Dept Request
+		 */
+
+		$scope.ackDeptRequest = function (id) {
+			$scope.errorAccMsg = "";
+			$('#loaderNotification').show();
+			lupaManagerService.ackRequest(id).then(function(response) {
+				$('#loaderNotification').hide();
+				$scope.response = JSON.parse(response.data.status_response);
+				if(typeof $scope.response!=="undefined"){
+					if($scope.response.Success){
+						$scope.errorAccMsg ="";
+						$scope.curId = id;
+						$scope.acceptMsg = $scope.response.message;
+					}else{
+						$scope.curId = id;
+						$scope.errorAccMsg = $scope.response.message;
+						$scope.acceptMsg ="";
+					}
+				}
+			});
+		};
+
+		/**
+		 * Acknowledgement Dept Request
+		 */
+
+		$scope.ackAdminRequest = function (id) {
+			$scope.errorAccMsg = "";
+			$('#loaderNotification').show();
+			lupaAdminService.ackRequest(id).then(function(response) {
+				$('#loaderNotification').hide();
+				$scope.response = JSON.parse(response.data.status_response);
+				if(typeof $scope.response!=="undefined"){
+					if($scope.response.Success){
+						$scope.errorAccMsg ="";
+						$scope.curId = id;
+						$scope.acceptMsg = $scope.response.message;
+					}else{
+						$scope.curId = id;
+						$scope.errorAccMsg = $scope.response.message;
+					}
+				}
+			});
+		};
+
 
 		$scope.getSignOut = function () {
 			localStorageService.clearAll();

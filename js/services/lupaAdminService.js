@@ -537,5 +537,44 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStor
             });
             return deferred.promise;
         };
+
+
+        /*
+        * Get Notification
+        */
+       
+       this.getNotifications = function() {
+        var userObj = {id : "1"};
+        var deferred = $q.defer();
+        if(typeof userObj !== "undefined"){
+            $http({
+                method : 'POST',
+                url : appConstants.serviceAddress+'/admin/notifications',
+                data : userObj
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+    };
+
+     /**
+     * Ack the request
+     */
+
+    this.ackRequest = function(id) {
+        var deferred = $q.defer();
+        $http({
+            method : 'GET',
+            url : appConstants.serviceAddress+'/admin/notification_ok?notificationid='+id
+        }).then(function(response) {
+            deferred.resolve(response);
+        }, function(error) {
+            deferred.reject(error);
+        });
+        return deferred.promise;
+    };
        
 }]);
