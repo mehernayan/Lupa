@@ -142,6 +142,63 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         
         
        };
+       this.getDepartmentManagerReportFilterUrl = function(username, product_name, type, chart_type, userFilterType, report_type) {
+        //debugger;
+        //$scope.userLogged = localStorageService.get("user");
+        
+        
+        var deferred = $q.defer();
+        if(report_type == 'yearly') {
+            //var year = "_year";
+            //var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type, "filter_year": filter_year}
+        }
+        
+        else if(report_type == 'monthly'){
+            var year = "";
+            var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type}
+            /*if(userFilterType == 'dept') {
+                 var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type, "filter_department": filter_year}
+            }
+            else {
+                 var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type, "filter_user": filter_year}
+            }*/
+           
+
+        }
+        $rootScope.url= appConstants.serviceAddress+'/departmentmanager/' +report_type+ '_licenses_used'+year+'_'+userFilterType+'_filter';
+        
+        $http({
+                    method : 'POST',
+                    url : $rootScope.url,
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+           
+        
+        
+       }
+       this.getSaturationReportUrl = function(product_name) {
+        var  user_id = localStorageService.get("user")[0].id;
+        var userObj = {"id": user_id,"product_name" : product_name};
+        var deferred = $q.defer();
+        $http({
+                    method : 'POST',
+                    url : appConstants.serviceAddress+'/departmentmanager/saturation',
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+           
+        
+        
+       };
 
        /* this.fetchUserDeptList = function() {
             var deferred = $q.defer();

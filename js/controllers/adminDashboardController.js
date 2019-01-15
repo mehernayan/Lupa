@@ -7,6 +7,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
     $scope.reportSidebar = false;
     $scope.dashboardActive = true;
     $scope.favouriteActive = false;
+    $scope.polarChartFlag = false;
     $scope.productlist = localStorageService.get('productlist');
 
     $scope.getLiveChart = function () {
@@ -217,6 +218,60 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
     }
     $scope.getTodayReport("LSDYNA");
     $scope.getRecentReport();
+    $scope.drawPolarChart = function(polarChartData) {
+        var data2 = [
+        {
+            type: "scatterpolar",
+            name: "license used in Every 30 minutes",
+            r: polarChartData.r,
+            theta: polarChartData.theta,
+            fill: "toself",
+            subplot: "polar2",
+            fillcolor: '#709BFF'
+        }
+    ];
+    debugger;
+    var layout = {
+
+
+        polar2: {
+
+            radialaxis: {
+                angle: 0,
+                visible: true,
+                 tickfont: {
+                    size: 10,
+                    color: '#000'
+                 }
+            },
+            angularaxis: {
+                visible: true,
+                direction: "clockwise",
+                tickfont: {
+                    size: 8,
+                    color: '#000'
+                }
+            }
+        },
+        title: "LSDYNA / License used in Every 30 minutes interval"
+
+
+    }
+
+    Plotly.newPlot('saturation', data2, layout);
+    
+    }
+    
+    $scope.getSaturationReport = function(product) {
+        $("#loadergif").show();
+        lupaAdminDashboardService.getSaturationReportUrl(product).then(function (response) {
+        $scope.drawPolarChart(response.data);
+        $("#loadergif").hide();
+        $scope.polarChartFlag = true;
+        
+        });
+
+    }
 
 
     //debugger;

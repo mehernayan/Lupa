@@ -1,6 +1,6 @@
-lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashboardService', '$location', 'localStorageService',  function ($scope, userData, lupaDeptDashboardService, $location, localStorageService) {
+lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaDeptDashboardService, $location, localStorageService) {
     var userId = localStorageService.get("user");
-    if(typeof userId ==="undefined" || userId == null) {
+    if (typeof userId === "undefined" || userId == null) {
         $location.path('/');
     }
     $scope.productlist = localStorageService.get('productlist');
@@ -8,7 +8,8 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
     $scope.dashboardActive = false;
     $scope.favouriteActive = false;
     $scope.chartType = ['vertical_bar_chart', 'pie_chart', 'line_chart', 'area_chart', 'horizontal_bar_chart'];
-    
+    $scope.userFilterType = 'user';
+
 
     // default report type
     $scope.report_type = "yearly";
@@ -200,9 +201,9 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
 
             layout.title = 'LSDYNA / ' + $scope.reportType + ' Report';
-            
+
             $scope.response = response.data;
-            if($scope.response[0] != "" || $scope.response[0] != undefined) {
+            if ($scope.response[0] != "" || $scope.response[0] != undefined) {
                 $scope.addedFav = $scope.response[0].favourite;
             }
 
@@ -913,6 +914,106 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
             console.log(response);
             //debugger;
         });
+    }
+    $scope.getDepartmentManagerReportFilter = function (userFilterType, report_type) {
+        $scope.userLogged = localStorageService.get('user');
+        lupaDeptDashboardService.getDepartmentManagerReportFilterUrl("Harish", "LSDYNA", "license_statistics", "vertical_bar_chart", userFilterType, report_type).then(function (response) {
+            $scope.departmentUserMonthlyData = response.data;
+            debugger;
+            $scope.drawGraph($scope.departmentUserMonthlyData);
+        });
+
+    }
+    $scope.drawGraph = function (chartData) {
+        debugger;
+        var layout = {
+            title: 'LSDYNA / ' + $scope.report_type + ' Report',
+            showlegend: true,
+            legend: {
+                "orientation": "h",
+                x: 0.58,
+                y: 1.1
+            },
+            xaxis: {
+                type: 'category',
+                showgrid: false,
+                gridcolor: '#bdbdbd',
+                gridwidth: 1,
+                tickangle: -45,
+            },
+            yaxis: {
+                showgrid: true,
+                title: 'Total number of license',
+                showline: true
+            },
+            barmode: 'group',
+            bargroupgap: 0.5
+
+        };
+        //Bar chart Section goes here
+
+        var xAxisVal = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        // setting mode bar plotly
+        var plotlyDefaultConfigurationBar = {
+            responsive: true,
+            displaylogo: false,
+            showTips: true,
+            pan2d: true,
+            modeBarButtonsToRemove: ['sendDataToCloud', 'hoverClosestPie', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']
+        };
+
+
+        // Random color for marker (Bar)
+        var d3colors = Plotly.d3.scale.category10();
+
+
+
+
+
+        var plotDataBarY = [];
+        //layout.title = 'LSDYNA / ' + $scope.reportType + ' Report';
+        if ($scope.report_type == "monthly") {
+            layout.barmode = 'group';
+            debugger;
+            for (i = 0; i < chartData.length; i++) {
+                plotDataBarY.push({
+                    x: monthArray,
+                    y: chartData[i].license,
+                    name: chartData[i].username,
+                    type: 'bar',
+                    marker: {
+                        color: d3colors(i)
+                    }
+                });
+            }
+            /*for (i = 0; i < chartData.length; i++) {
+
+
+                for (j = 0; j < chartData[i].license.length; j++) {
+                    plotDataBarY.push({
+                        x: chartData[i].username,
+                        y: chartData[i].license[j],
+                        name: monthArray[j],
+                        type: 'bar',
+                        marker: {
+                            color: d3colors(i)
+                        }
+                    });
+                }
+            }*/
+
+
+        }
+        Plotly.newPlot('product-chart-yearly', plotDataBarY, layout, plotlyDefaultConfigurationBar);
+
+        debugger;
+        //Plotly.newPlot('product-chart-yearly2', plotDataBarY, layout, plotlyDefaultConfigurationBar);
+
+
+
+
     }
 
 

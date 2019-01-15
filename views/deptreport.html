@@ -7,6 +7,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-md-12 full-screen-view" id="full-screen-view">
+                <div class="monthly-report-filter" ng-show="report_type== 'monthly'">
+                    <input type="radio" name="reportUserMonthlylFilter" ng-checked="true" ng-model="userMonthlylFilter" value="monthly" ng-click="loadReport(report_type, license_statistics)">Overall
+                    <input type="radio" name="reportUserMonthlylFilter" ng-checked="false" ng-model="userMonthlylFilter" value="monthlyFiveMinute" ng-click="getDepartmentManagerReportFilter(userFilterType, report_type)">Individual
+                </div>
                 <div class="pie-chart-container chart-container back-g-white half-bordered">
                     <div class="dropdown chart-dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -57,6 +61,7 @@
 
 
                     <div id="product-chart-yearly"></div>
+                    
                     <div class="weekly-section" ng-if="report_type == 'weekly'">
                         <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
                         <ul>

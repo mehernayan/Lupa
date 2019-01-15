@@ -3,17 +3,17 @@
     <div ng-include="'views/partials/sidebar.html'"></div>
 </div>
 <div class="dashboard-container body-container" ng-class="{'expand':expandNav}">
-    
-        <div class="row">
-            <div class="col-sm-8">
-                <div class="col-sm-12">
-                    <div id="chart" style="height: 400px; min-width: 310px"></div>
-                     <ul class="live-chart-list">
-                        <li ng-repeat="item in productListDashboard">
-                                <input type="checkbox"  ng-model="item.value"  ng-change="changeProductDashboard(item.product_name, productListDashboard)"> 
-                                <label>{{item.product_name}}</label>
-                        </li>
-                    </ul>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="col-sm-12">
+                <div id="chart" style="height: 400px; min-width: 310px"></div>
+<ul class="live-chart-list">
+    <li ng-repeat="item in productListDashboard">
+        <input type="checkbox" ng-model="item.value" ng-change="changeProductDashboard(item.product_name, productListDashboard)">
+        <label>{{item.product_name}}</label>
+    </li>
+</ul>
 </div>
 <div class="col-sm-12">
     <div class="col-sm-4">
@@ -21,7 +21,7 @@
             <h4>Last 5 Minutes</h4>
 
             <select class="form-control" id="last-5-minute" ng-model="selectedProductFiveMinutes" ng-change="getLastFiveMinutesReport(selectedProductFiveMinutes)">
-                            <option selected>Select Product</option>
+                            <option style="display:none" value="">select a product</option>
                             <option ng-repeat="item in productlist">{{item}}</option>
                           </select>
             <ul>
@@ -40,7 +40,7 @@
         <div class="recent-update">
             <h4>Last 24 Hours</h4>
             <select class="form-control" id="today-report" ng-model="selectedProductToday" ng-change="getTodayReport(selectedProductToday)">
-                            <option selected>Select Product</option>
+                            <option style="display:none" value="">select a product</option>
                             <option ng-repeat="item in productlist">{{item}}</option>
                           </select>
             <ul>
@@ -57,11 +57,21 @@
     <div class="col-sm-4">
         <div class="recent-update">
             <h4>Saturation</h4>
-            <select class="form-control" id="saturation-report" ng-model="saturationData" ng-change="getSaturationReport(selectedProductToday)">
-                            <option selected>Select Product</option>
+            <select class="form-control" id="saturation-report" ng-model="saturationData" ng-change="getSaturationReport(saturationData)">
+                            <option style="display:none" value="">select a product</option>
                             <option ng-repeat="item in productlist">{{item}}</option>
                           </select>
+
+
         </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="saturation-cont" ng-class="{'dashboard-box-shadow' : polarChartFlag}">
+            <div id="saturation" >
+
+            </div>
+        </div>
+
     </div>
 </div>
 </div>

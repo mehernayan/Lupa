@@ -783,3 +783,16 @@ i.far.fa-square {
     position: absolute;
 	
 }
+.dashboard-box-shadow {
+    border: 1px solid #ccc;
+    padding: 8px;
+    box-shadow: chocolate;
+    border-radius: 9px;
+    -moz-box-shadow: 10px 10px 5px #888;
+    -webkit-box-shadow: 10px 10px 5px #888;
+    box-shadow: 2px 4px 5px #888;
+    background: #fff;
+    padding-right: -1px;
+    margin-right: -10px;
+    margin-top: 10px;
+}

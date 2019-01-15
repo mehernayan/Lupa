@@ -227,6 +227,24 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
             });
             return deferred.promise;
         };
+        this.getSaturationReportUrl = function(product_name) {
+        var userLogged = localStorageService.get("user")[0].name;
+        var userObj = {"product_name" : product_name};
+        var deferred = $q.defer();
+        $http({
+                    method : 'POST',
+                    url : appConstants.serviceAddress+'/admin/saturation',
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+           
+        
+        
+       };
 
         this.getLiveChartUrl = function() {
         //$scope.userLogged = localStorageService.get("user");
