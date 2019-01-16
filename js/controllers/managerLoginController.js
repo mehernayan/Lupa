@@ -97,7 +97,7 @@ function($scope,userData,userRegData,lupaManagerService,$location,userRegOtpVal,
           if($scope.response.success){
             $scope.error ="";
             localStorageService.set("user",$scope.response.data);
-            notificationId.set("10");
+            notificationId.set($scope.response.data[0].id);
             $location.path('/deptdashboard');
           }else{
             $scope.error = $scope.response.message;

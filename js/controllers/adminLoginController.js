@@ -1,5 +1,5 @@
-lupaApp.controller('adminLoginController', ['$scope','userData','lupaAdminService','$location','userRegOtpVal','userEmailData','userResetData','localStorageService',
-function($scope,userData,lupaAdminService,$location,userRegOtpVal,userEmailData,userResetData,localStorageService) {
+lupaApp.controller('adminLoginController', ['$scope','userData','lupaAdminService','$location','userRegOtpVal','userEmailData','userResetData','localStorageService','notificationId',
+function($scope,userData,lupaAdminService,$location,userRegOtpVal,userEmailData,userResetData,localStorageService,notificationId) {
  
     $scope.isLogin = true;
     $scope.isReset = false;
@@ -82,6 +82,7 @@ function($scope,userData,lupaAdminService,$location,userRegOtpVal,userEmailData,
           if($scope.response.success){
             $scope.error ="";
             localStorageService.set("user",$scope.response.data);
+            notificationId.set($scope.response.data[0].id);
             $location.path('/admindashboard');
           }else{
             $scope.error = $scope.response.message;

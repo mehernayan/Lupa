@@ -359,7 +359,7 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
     */
     
     this.getNotifications = function() {
-    var userObj = {id : "10"};
+    var userObj = notificationId.get();
     var deferred = $q.defer();
         if(typeof userObj !== "undefined"){
             $http({

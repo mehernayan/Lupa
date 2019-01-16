@@ -1,6 +1,6 @@
 var lupaAdminService = angular.module('lupaAdminProvider', ['lupaSharedProvider']);
-lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','adminProfileSettingData','addDepartmentData','transferUserData','smtpData','smtpTestData','purchaseData',
-    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,adminProfileSettingData,addDepartmentData,transferUserData,smtpData,smtpTestData,purchaseData) {
+lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStorageService','appConstants','userData','userRegData','userRegOtpVal','userEmailData','userResetData','adminProfileSettingData','addDepartmentData','transferUserData','smtpData','smtpTestData','purchaseData','notificationId',
+    function ($http, $q, $filter, localStorageService,appConstants,userData,userRegData,userRegOtpVal,userEmailData,userResetData,adminProfileSettingData,addDepartmentData,transferUserData,smtpData,smtpTestData,purchaseData,notificationId) {
 
         
        /*
@@ -544,7 +544,7 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q','$filter','localStor
         */
        
        this.getNotifications = function() {
-        var userObj = {id : "1"};
+        var userObj = notificationId.get();
         var deferred = $q.defer();
         if(typeof userObj !== "undefined"){
             $http({
