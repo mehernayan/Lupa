@@ -4,7 +4,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
         $location.path('/');
     }
     $scope.productlist = localStorageService.get('productlist');
-    debugger;
+    //debugger;
     $scope.reportSidebar = false;
     $scope.dashboardActive = true;
     $scope.favouriteActive = false;
@@ -230,7 +230,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
             fillcolor: '#709BFF'
         }
     ];
-    debugger;
+    //debugger;
     var layout = {
 
 

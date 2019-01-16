@@ -1,6 +1,6 @@
 lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaUserDashboardService, $location, localStorageService) {
     var userId = localStorageService.get("user");
-    if(typeof userId ==="undefined" || userId == null) {
+    if (typeof userId === "undefined" || userId == null) {
         $location.path('/');
     }
     $scope.productlist = localStorageService.get('productlist');
@@ -9,11 +9,12 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
     $scope.favouriteActive = false;
     $scope.chartType = ['vertical_bar_chart', 'pie_chart', 'line_chart', 'area_chart', 'horizontal_bar_chart'];
     // Full screen view
-    
+
 
     // default report type
     $scope.report_type = "yearly";
     $scope.license_statistics = "license_statistics";
+
 
     // default layout 
     var layout = {
@@ -33,13 +34,15 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         },
         yaxis: {
             showgrid: true,
-            title: 'Total number of license',
+            title: "Total number of license used",
             showline: true
         },
         barmode: 'group',
         bargroupgap: 0.5
 
     };
+
+
 
     // default  month array
     var monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -61,6 +64,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
 
     $scope.loadReport = function (report, statisticsType) {
+
         if (report == 'yearly') {
             $scope.report_type = 'yearly';
             $scope.statisticsType = statisticsType;
@@ -147,7 +151,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         $scope.statisticsType = statisticsType;
         $('#loadergif').show();
         lupaUserDashboardService.changeGraphUrl(reportType, chartType, statisticsType).then(function (response) {
-            
+
             // common to all graph
 
             var layout = {
@@ -167,13 +171,21 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                 },
                 yaxis: {
                     showgrid: true,
-                    title: 'Total number of license',
+                    title: "Total number of license used",
                     showline: true
                 },
                 barmode: 'group',
                 bargroupgap: 0.5
 
             };
+            if ($scope.statisticsType == 'license_statistics') {
+                layout.yaxis.title = "Total number of license";
+                //debugger;
+            }
+            else if ($scope.statisticsType == 'time_statistics') {
+                layout.yaxis.title = "Total license used on hourly basis";
+                //debugger;
+            }
 
             // Pie chart
             var layoutTitle = {
@@ -201,9 +213,9 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
 
             layout.title = 'LSDYNA / ' + $scope.reportType + ' Report';
-            
+
             $scope.response = response.data;
-            if($scope.response[0] != "" || $scope.response[0] != undefined) {
+            if ($scope.response[0] != "" || $scope.response[0] != undefined) {
                 $scope.addedFav = $scope.response[0].favourite;
             }
 
@@ -480,13 +492,22 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                         },
                         xaxis: {
                             showgrid: true,
-                            title: 'Total number of license',
+                            title: "Total number of license used",
                             showline: true
                         },
                         barmode: 'group',
                         bargroupgap: 0.5
 
                     };
+
+                    if ($scope.statisticsType == 'license_statistics') {
+                        layout.yaxis.title = "Total number of license";
+                        //debugger;
+                    }
+                    else if ($scope.statisticsType == 'time_statistics') {
+                        layout.yaxis.title = "Total license used on hourly basis";
+                        //debugger;
+                    }
                     //var marker = ["#"]
                     var plotDataBarY = [];
                     if ($scope.reportType == 'this_week') {

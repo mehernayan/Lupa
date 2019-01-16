@@ -19,7 +19,7 @@
             <img src="images/report-icon.png" width="20px">
             <span class="nav-slide" ng-if="expandNav">
                     
-                    <a data-toggle="collapse" class="report-link" ng-class="{'collapsed' : !reportSidebar}"  href="#/{{userType}}report">
+                    <a data-toggle="collapse" data-target="#reports" class="report-link" ng-class="{'collapsed' : !reportSidebar}">
                         Reports  <i class="arrow right arrow-custom active-menu" ng-if="expandNav"></i>
                     </a>
                     
@@ -30,18 +30,18 @@
 
                         </li>
                         <ul id="duration" class="collapse in">
-                             <li ng-click="loadReport('yearly', license_statistics)" ng-class="{'setActiveTab' : report_type == 'yearly'}">
-                <a><span class="circle yellow dot active"></span>YEARLY</a>
+                             <li ng-click="loadReport('yearly', license_statistics)" ng-class="{'setActiveTab' : (report_type == 'yearly' && statisticsType == 'license_statistics')}">
+                <a  href="#/{{userType}}report"><span class="circle yellow dot active"></span>YEARLY</a>
         </li>
-        <li ng-click="loadReport('monthly', license_statistics)" ng-class="{'setActiveTab' : report_type == 'monthly'}">
-            <a><span class="circle red dot"></span>MONTHLY</a>
+        <li ng-click="loadReport('monthly', license_statistics)" ng-class="{'setActiveTab' : (report_type == 'monthly' && statisticsType == 'license_statistics')}">
+            <a href="#/{{userType}}report"><span class="circle red dot"></span>MONTHLY</a>
         </li>
-        <li ng-click="loadReport('weekly', license_statistics)" ng-class="{'setActiveTab' : report_type == 'weekly'}">
-            <a><span class="circle green dot"></span>WEEKLY</a>
+        <li ng-click="loadReport('weekly', license_statistics)" ng-class="{'setActiveTab' : (report_type == 'weekly' && statisticsType == 'license_statistics')}">
+            <a  href="#/{{userType}}report"><span class="circle green dot"></span>WEEKLY</a>
         </li>
 
-        <li ng-click="loadReport('this_week', license_statistics)" ng-class="{'setActiveTab' : report_type == 'this_week'}">
-            <a><span class="circle blue dot"></span>THIS WEEK</a>
+        <li ng-click="loadReport('this_week', license_statistics)" ng-class="{'setActiveTab' : (report_type == 'this_week' && statisticsType == 'license_statistics')}">
+            <a href="#/{{userType}}report"><span class="circle blue dot"></span>THIS WEEK</a>
         </li>
     </ul>
     </ul>
@@ -50,17 +50,17 @@
 
         </li>
         <ul id="timestatistics" class="collapse">
-            <li ng-click="loadReport('yearly', 'time_statistics')">
+            <li ng-click="loadReport('yearly', 'time_statistics')" ng-class="{'setActiveTab' : (report_type == 'yearly' && statisticsType =='time_statistics')}">
                 <a><span class="circle yellow dot active"></span>YEARLY</a>
             </li>
-            <li ng-click="loadReport('yearly', 'time_statistics')">
+            <li ng-click="loadReport('monthly', 'time_statistics')" ng-class="{'setActiveTab' : (report_type == 'monthly' && statisticsType == 'time_statistics')}">
                 <a><span class="circle red dot"></span>MONTHLY</a>
             </li>
-            <li ng-click="loadReport('weekly', 'time_statistics')">
+            <li ng-click="loadReport('weekly', 'time_statistics')" ng-class="{'setActiveTab' : (report_type == 'weekly' && statisticsType == 'time_statistics')}">
                 <a><span class="circle green dot"></span>WEEKLY</a>
             </li>
 
-            <li ng-click="loadReport('this_week', 'time_statistics')">
+            <li ng-click="loadReport('this_week', 'time_statistics')" ng-class="{'setActiveTab' : (report_type == 'this_week' && statisticsType == 'time_statistics')}">
                 <a><span class="circle blue dot"></span>THIS WEEK</a>
             </li>
         </ul>

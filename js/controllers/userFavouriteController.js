@@ -64,7 +64,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                     var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
                     for (j = 0; j < $scope.response[i].license.length; j++) {
                         for (key in $scope.response[i].license[j]) {
-                            debugger;
+                            //debugger;
                             plotDataBarY.push({
                                 x: xAxisVal,
                                 y: $scope.response[i].license[j][key],

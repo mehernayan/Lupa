@@ -199,6 +199,27 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         
         
        };
+       this.getDeptReportYearListUrl = function(username, product_name) {
+        
+        //$scope.userLogged = localStorageService.get("user");
+        var userObj = {"username": username, "product_name" : "LSDYNA"}
+        var deferred = $q.defer();
+        $rootScope.url= appConstants.serviceAddress+'/departmentmanager/years_filter_list';
+        
+        $http({
+                    method : 'POST',
+                    url : $rootScope.url,
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+           
+        
+        
+       };
 
        /* this.fetchUserDeptList = function() {
             var deferred = $q.defer();

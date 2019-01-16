@@ -237,7 +237,7 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
             fillcolor: '#709BFF'
         }
     ];
-    debugger;
+    //debugger;
     var layout = {
 
 

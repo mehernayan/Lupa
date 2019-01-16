@@ -919,13 +919,13 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         $scope.userLogged = localStorageService.get('user');
         lupaDeptDashboardService.getDepartmentManagerReportFilterUrl("Harish", "LSDYNA", "license_statistics", "vertical_bar_chart", userFilterType, report_type).then(function (response) {
             $scope.departmentUserMonthlyData = response.data;
-            debugger;
+            //debugger;
             $scope.drawGraph($scope.departmentUserMonthlyData);
         });
 
     }
     $scope.drawGraph = function (chartData) {
-        debugger;
+        //debugger;
         var layout = {
             title: 'LSDYNA / ' + $scope.report_type + ' Report',
             showlegend: true,
@@ -976,7 +976,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         //layout.title = 'LSDYNA / ' + $scope.reportType + ' Report';
         if ($scope.report_type == "monthly") {
             layout.barmode = 'group';
-            debugger;
+            //debugger;
             for (i = 0; i < chartData.length; i++) {
                 plotDataBarY.push({
                     x: monthArray,
@@ -1008,13 +1008,33 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         }
         Plotly.newPlot('product-chart-yearly', plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
-        debugger;
+        //debugger;
         //Plotly.newPlot('product-chart-yearly2', plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
 
 
 
     }
+
+    //load data to get year value
+    $scope.getDeptReportYearListLoad = function () {
+        $scope.userLogged = localStorageService.get("user")[0].name;
+        //debugger;
+        var product_name = "LSDYNA";
+        lupaDeptDashboardService.getDeptReportYearListUrl($scope.userLogged, "LSDYNA").then(function (response) {
+        //lupaDeptDashboardService.getDeptReportYearListUrl("Harish", "LSDYNA").then(function (response) {
+            if (response.data != undefined || response.data != '') {
+                $scope.deptReportYearList = response.data;
+
+                $scope.defaultFilterVal = $scope.deptReportYearList[0].year;
+            }
+
+
+
+        });
+
+    }
+    $scope.getDeptReportYearListLoad();
 
 
 
