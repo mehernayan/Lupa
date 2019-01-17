@@ -981,7 +981,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         });
     }
     $scope.drawGraph = function (chartData) {
-        debugger;
+        //debugger;
         var layout = {
             title: 'LSDYNA / ' + $scope.report_type + ' Report',
             showlegend: true,

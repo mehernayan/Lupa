@@ -279,6 +279,65 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
         });
 
     }
+    $scope.getLiveChartByProduct = function(item) {
+        $scope.activeMenu = item;
+        $scope.reportSidebar = true;
+        lupaDeptDashboardService.getLiveChartByProductUrl(item).then(function (response) {
+            $scope.response  = response.data;
+            $scope.individualProductChart = true;
+            //$scope.getLiveChart();
+            $('#loadergif').hide();
+            //var seriesCounter = 0;
+            var seriesOptions = [],
+                seriesCounter = 0;
+                for (i = 0; i < $scope.response.length; i++) {
+                    //debugger;
+                    seriesOptions[i] = {
+                        name: $scope.response[i].product_name,
+                        data: $scope.response[i].values
+                    };
+                    //debugger
+                    seriesCounter += 1;
+
+                    if (seriesCounter === $scope.response.length) {
+                        createChart();
+                    }
+                }
+                function createChart() {
+
+                Highcharts.stockChart('chart', {
+
+                    rangeSelector: {
+                        selected: 1,
+                        inputEnabled: false,
+                        allButtonsEnabled: false,
+                        labelStyle: {
+                            visibility: 'hidden'
+                        }
+
+                    },
+                    title: {
+                        text: 'Real Time Utilization'
+                    },
+
+                    yAxis: {
+                        plotLines: [{
+                            value: 0,
+                            width: 2,
+                            color: 'silver'
+                        }]
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    
+                    
+
+                    series: seriesOptions
+                });
+            }
+        });
+    }
 
 
     //debugger;

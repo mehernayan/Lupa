@@ -6,12 +6,12 @@
     <ul class="navigation-links">
 
         <li data-toggle="collapse" class="collapsed" data-target="#product"><img src="images/product-icon.png" width="20px"><span class="nav-slide" ng-if="expandNav">
-                <a href="#/{{userType}}report" >Products</a></span><i class="arrow right arrow-custom" ng-if="expandNav"></i>
+                <a href="#/{{userType}}dashboard" >Products</a></span><i class="arrow right arrow-custom" ng-if="expandNav"></i>
         </li>
 
         <ul id="product" class="collapse in" ng-if="expandNav">
             <li ng-repeat="item in productlist">
-                <a><span class="circle red dot active"></span>{{item}}</a>
+                <a ng-click="getLiveChartByProduct(item)"><span class="circle red dot" ng-class="{'active' : activeMenu === item}"></span>{{item}}</a>
             </li>
 
         </ul>

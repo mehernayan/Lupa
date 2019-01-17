@@ -312,6 +312,7 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 			localStorageService.clearAll();
 			$location.path('/');
 		};
+			
 
 	}]);
 
@@ -328,7 +329,18 @@ lupaApp.constant('appConstants', {
 		}
 	},
 	'serviceAddress': 'http://kaizenat.com/LUPA'
-})
+}).filter('emptyFilter', function() {
+  return function(array) {
+    var filteredArray = [];
+      angular.forEach(array, function(item) {
+		//debugger;
+        if (item.product_name != "" && item.product_name != undefined) {
+			filteredArray.push(item);
+		} 
+      });
+    return filteredArray;  
+  };
+});
 
 
 

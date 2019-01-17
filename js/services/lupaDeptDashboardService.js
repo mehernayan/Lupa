@@ -220,6 +220,25 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         
         
        };
+       this.getLiveChartByProductUrl = function(item) {
+        var userLogged = localStorageService.get("user")[0].name;
+        //debugger;
+        var userObj = {"username": userLogged, "product_name" : item}
+        var deferred = $q.defer();
+        $http({
+                    method : 'POST',
+                    url : appConstants.serviceAddress+'/departmentmanager/product_click',
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+           
+        
+        
+       };
 
        /* this.fetchUserDeptList = function() {
             var deferred = $q.defer();

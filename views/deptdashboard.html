@@ -8,12 +8,12 @@
             <div class="col-sm-8">
                 <div class="col-sm-12">
                     <div id="chart" style="height: 400px; min-width: 310px"></div>
-                    <ul class="live-chart-list">
-                        <li ng-repeat="item in productListDashboard">
-                                <input type="checkbox"  ng-model="item.value"  ng-change="changeProductDashboard(item.product_name, productListDashboard)"> 
-                                <label>{{item.product_name}}</label>
-                        </li>
-                    </ul>
+                   <ul class="live-chart-list" ng-show="!individualProductChart">
+    <li ng-repeat="item in productListDashboard | emptyFilter">
+        <input type="checkbox" ng-model="item.value" ng-change="changeProductDashboard(item.product_name, productListDashboard)">
+        <label>{{item.product_name}}</label>
+    </li>
+</ul>
 </div>
 <div class="col-sm-12">
     <div class="col-sm-4">

@@ -106,5 +106,11 @@ function($scope,$location,lupaManagerService,dynaCompData,dynaFeatureData,localS
             }
           });
         };
+        $scope.dynaCompareGraph = function() {
+            lupaManagerService.dynaCompareGraphUrl().then(function(response) {
+              
+
+            });
+        }
 }]);
    
