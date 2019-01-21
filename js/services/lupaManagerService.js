@@ -425,5 +425,19 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
         });
         return deferred.promise;
     };
+    this.dynaCompareGraphUrl = function() {
+        var deferred = $q.defer();
+        $http({
+            method : 'GET',
+            url : appConstants.serviceAddress+'/departmentmanager/dyna_compares_chart'
+        }).then(function(response) {
+            deferred.resolve(response);
+        }, function(error) {
+            deferred.reject(error);
+        });
+        return deferred.promise;
+    };
+    
+
        
 }]);

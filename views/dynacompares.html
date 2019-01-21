@@ -3,50 +3,53 @@
     <div ng-include="'views/partials/sidebar.html'"></div>
 </div>
 <div class="setting-container body-container dyna" ng-class="{'expand':expandNav}">
-    <div class="mar-bot-20"><button class="btn btn-primary"><i class="fa fa-columns"></i></button>
-         <label class="setting-header">Dyna Compares</label></div>
-        <div class="pad-bot-20">
-            <div class="row">
-                <div class="col-sm-7">
-                    <div class=" back-g-white pad-20">
+    <div class="mar-bot-20">
+        <button class="btn btn-primary"><i class="fa fa-columns"></i></button>
+        <label class="setting-header">Dyna Compares</label>
+    </div>
+    <div class="pad-bot-20">
+        <div class="row">
+            <div class="col-sm-7">
+                <div class=" back-g-white pad-20">
                     <form class="form-inline">
-                     <div class="height-250">
-                        <div class="first-compare compare calculator">
-                            <div class="form-group">
-                                <select class="form-control mar-top-20" ng-options="product.product_name for product in productsList track by product.product_name"
-                                    ng-model="dynaObj">
-                                    <option value="" disabled selected="selected">Select Product</option>
-                                </select>
+                        <div class="height-250">
+                            <div class="first-compare compare calculator">
+                                <div class="form-group">
+                                    <select class="form-control mar-top-20" ng-options="product.product_name for product in productsList track by product.product_name" ng-model="dynaObj">
+                                        <option value="" disabled selected="selected">Select Product</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="first-compare compare">
-                            <div class="row">
-                                <div class="col-sm-3 mar-top-20 feature" ng-repeat="feature in prodFeatures track by feature.feature_name">
-                                    <input type="checkbox" id="{{feature.feature_name+1}}" ng-model="feature.status" checked="{{feature.status}}" aria-label=""><label for="{{feature.feature_name+1}}">{{feature.feature_name}}</label>
+
+                            <div class="first-compare compare">
+                                <div class="row">
+                                    <div class="col-sm-3 mar-top-20 feature" ng-repeat="feature in prodFeatures track by feature.feature_name">
+                                        <input type="checkbox" id="{{feature.feature_name+1}}" ng-model="feature.status" checked="{{feature.status}}" aria-label="">
+                                        <label for="{{feature.feature_name+1}}">{{feature.feature_name}}</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="mar-top-50 text-center">
-                        <button  class="btn btn-dyna btn-profile" ng-click="addFeatures()" > ADD </button>
-                    </div>
+                        <div class="mar-top-50 text-center">
+                            <button class="btn btn-dyna btn-profile" ng-click="addFeatures()"> ADD </button>
+                        </div>
                     </form>
-                    </div>
                 </div>
-                <div class="col-sm-5">
-                    <div class=" back-g-white pad-20" ng-show="features_lists.length">
-                        <form class="form-inline">
+            </div>
+            <div class="col-sm-5">
+                <div class=" back-g-white pad-20" ng-show="features_lists.length">
+                    <form class="form-inline">
                         <div class="height-250">
                             <div class="first-compare compare">
                                 <div class="row">
                                     <div class="col-sm-3 feature" ng-repeat="feature in features_lists track by $index">
-                                        <input type="checkbox" id="{{feature+1}}" checked="checked" ng-disabled="true" aria-label=""><label for="{{feature+1}}">{{feature}}</label>
+                                        <input type="checkbox" id="{{feature+1}}" checked="checked" ng-disabled="true" aria-label="">
+                                        <label for="{{feature+1}}">{{feature}}</label>
                                     </div>
                                 </div>
-                                
+
                             </div>
-                            
+
                         </div>
                         <div class="message-container" ng-if="error || successMsg" style="min-height:50px;position: absolute;
                             bottom: 55px;">
@@ -55,19 +58,29 @@
                                 <span>{{error}}</span>
                             </div>
                             <div class="pad-top-20 success-msg" ng-if="successMsg">
-                                    <i class="fa fa-check"></i>
+                                <i class="fa fa-check"></i>
                                 <span>{{successMsg}}</span>
                             </div>
                         </div>
                         <div class="mar-top-50 text-center">
-                                <button  class="btn btn-dyna btn-profile" ng-click="postFeaturesList()"> COMPARE </button>
+                            <button class="btn btn-dyna btn-profile" ng-click="postFeaturesList()"> COMPARE </button>
                         </div>
-                        </form>
-                        
-                    </div> 
+                    </form>
+
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-sm-12 col-md-12 col-md-12 full-screen-view dyna-compare-chart" id="full-screen-view" ng-repeat="item in dynaCompareList track by $index" ng-if="dynaCompareList.length"> 
+
+        <div class="pie-chart-container overall-report chart-container back-g-white half-bordered dashboard-box-shadow">
+            <div id="{{ 'dyna-compare-chart-'+ $index}}" ></div>
+        </div>
+    </div>
 </div>
-<footer ng-include="'views/partials/footer.html'"></footer>
+
+
+    
+
+    
+    <footer ng-include="'views/partials/footer.html'"></footer>

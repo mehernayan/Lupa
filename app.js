@@ -91,6 +91,10 @@ lupaApp.config(function ($routeProvider, $httpProvider) {
 			templateUrl: 'views/adminfavourite.html',
 			controller: 'adminFavouriteController'
 		})
+		.when('/admincostanalytics', {
+			templateUrl: 'views/admincostanalytics.html',
+			controller: 'adminCostAnalyticsController'
+		})
 
 	$httpProvider.defaults.useXDomain = true;
 	$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
@@ -130,6 +134,12 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 				}
 			}
 		};
+		setTimeout(function() {
+			$("#full-screen-view").draggable();
+    		$( "#full-screen-view").resizable();
+		}, 3000)
+		
+
 
 		$scope.expandNav = true;
 		$scope.collapseNav = false;

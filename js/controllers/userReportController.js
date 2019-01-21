@@ -62,9 +62,9 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
     //  left panel navigation links
 
-
+    $scope.chartId = 0;
     $scope.loadReport = function (report, statisticsType) {
-
+        $scope.chartId++;
         if (report == 'yearly') {
             $scope.report_type = 'yearly';
             $scope.statisticsType = statisticsType;
@@ -140,7 +140,8 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
             }
 
         }
-        Plotly.newPlot('product-chart-yearly', plotDataBarY, layout, plotlyDefaultConfigurationBar);
+        $('.chart-render-' + $scope.chartId).show();  
+        Plotly.newPlot('product-chart-yearly' + $scope.chartId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
     };
 
@@ -302,8 +303,8 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
                     //var marker = ["#"]
 
-
-                    Plotly.newPlot('product-chart-yearly', plotDataBarY, layout, plotlyDefaultConfigurationBar);
+                    $('.chart-render-' + $scope.chartId).show();
+                    Plotly.newPlot('product-chart-yearly' + $scope.chartId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
                 }
 
@@ -313,8 +314,8 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                         labels: $scope.response[0].label,
                         type: 'pie'
                     }];
-
-                    Plotly.newPlot('product-chart-yearly', plotDataBarY, layoutTitle, plotlyDefaultConfigurationBar);
+                    $('.chart-render-' + $scope.chartId).show();
+                    Plotly.newPlot('product-chart-yearly'+$scope.chartId, plotDataBarY, layoutTitle, plotlyDefaultConfigurationBar);
 
 
                 }
@@ -394,8 +395,8 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                         }
 
                     }
-
-                    Plotly.newPlot('product-chart-yearly', plotDataBarY, layout, plotlyDefaultConfigurationBar);
+                    $('.chart-render-' + $scope.chartId).show();
+                    Plotly.newPlot('product-chart-yearly'+$scope.chartId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
                 }
                 if (chartType == "area_chart") {
 
@@ -471,8 +472,8 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                             })
                         }
                     }
-
-                    Plotly.newPlot('product-chart-yearly', plotDataBarY, {}, plotlyDefaultConfigurationBar);
+                    $('.chart-render-' + $scope.chartId).show();
+                    Plotly.newPlot('product-chart-yearly'+$scope.chartId, plotDataBarY, {}, plotlyDefaultConfigurationBar);
 
                 }
                 if (chartType == "horizontal_bar_chart") {
@@ -583,8 +584,8 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                         }
                     }
 
-
-                    Plotly.newPlot('product-chart-yearly', plotDataBarY, layout, plotlyDefaultConfigurationBar);
+                    $('.chart-render-' + $scope.chartId).show();
+                    Plotly.newPlot('product-chart-yearly' + $scope.chartId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
                 }
                 if (chartType == "stacked_bar_chart") {
@@ -666,8 +667,8 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
 
 
-
-                    Plotly.newPlot('product-chart-yearly', plotDataBarY, layout, plotlyDefaultConfigurationBar);
+                    $('.chart-render-' + $scope.chartId).show();
+                    Plotly.newPlot('product-chart-yearly'+$scope.chartId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
                 }
 
@@ -701,8 +702,8 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
 
 
-
-                    Plotly.newPlot('product-chart-yearly', plotDataBarY, plotlyDefaultConfigurationBar);
+                    $('.chart-render-' + $scope.chartId).show();
+                    Plotly.newPlot('product-chart-yearly'+$scope.chartId, plotDataBarY, plotlyDefaultConfigurationBar);
 
                 }
                 if (chartType == "bubble_chart") {
@@ -797,9 +798,9 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
 
 
+                    $('.chart-render-' + $scope.chartId).show();
 
-
-                    Plotly.newPlot('product-chart-yearly', plotDataBarY, layout, {
+                    Plotly.newPlot('product-chart-yearly'+$scope.chartId, plotDataBarY, layout, {
                         showSendToCloud: true
                     });
 
@@ -880,8 +881,9 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                             })
                         }
                     }
+                    $('.chart-render-' + $scope.chartId).show();
 
-                    Plotly.newPlot('product-chart-yearly', plotDataBarY, layout, plotlyDefaultConfigurationBar);
+                    Plotly.newPlot('product-chart-yearly'+ $scope.chartId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
                 }
 
             } else {

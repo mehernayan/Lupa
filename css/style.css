@@ -429,7 +429,7 @@ a.active-main-nav:hover, a.active-main-nav:focus {
   .body-container.expand{
     width: calc(100% - 205px);
     margin-left: 180px;
-    padding-left: 60px;
+    padding-left: 3px;
   }
     
   .expand .sidenav {
@@ -795,4 +795,73 @@ i.far.fa-square {
     padding-right: -1px;
     margin-right: -10px;
     margin-top: 10px;
+}
+.chart-render {
+    display: none;
+    margin-bottom: 20px;
+}
+
+.circle-bg {
+    width: 26px;
+    height: 26px;
+    display: inline-block;
+    background: #75927A;
+    border-radius: 13px;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 6px;
+}
+.cost-analytics-dropdown {
+    width: 172px;
+    z-index: 1006;
+    float: right;
+    position: absolute;
+    right: 10px;
+    
+}
+.cost-analytics-dropdown ul li {
+    float: left;
+    list-style-type: none;
+    padding-right: 10px;
+    font-size: 12px;
+    cursor: pointer;
+
+}
+.cost-analytics-dropdown ul li a{
+    color: #000;
+}
+.cost-chart-title {
+    padding: 10px;
+    width: 100%;
+    height: 33px;
+    border-bottom: 1px solid #ccc;
+}
+.chart-title-left {
+    float: left;
+    font-size: 12px;
+    font-family: verdana;
+    position: relative;
+    bottom: 10px;
+}
+.year-filter, .month-filter, .license-filter {
+    display: inline-block
+    
+}
+.cost-chart-filter {
+    width: 100%;
+    text-align: center; 
+    float: left;
+    position: relative;
+    z-index: 10;
+    margin: 10px auto;
+}
+.body-container.expand.dyna {
+    width: calc(100% - 205px);
+    margin-left: 180px;
+    padding-left: 23px;
+}
+.dyna-compare-chart {
+    padding-left: 0px;
+    padding-right: 0px;
 }
