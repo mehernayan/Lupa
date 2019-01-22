@@ -38,9 +38,11 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
             showline: true
         },
         barmode: 'group',
-        bargroupgap: 0.5
+        bargroupgap: 0.5,
+        autosize: true
 
     };
+    
 
 
 
@@ -176,7 +178,8 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     showline: true
                 },
                 barmode: 'group',
-                bargroupgap: 0.5
+                bargroupgap: 0.5,
+                autosize: true
 
             };
             if ($scope.statisticsType == 'license_statistics') {
@@ -497,7 +500,8 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                             showline: true
                         },
                         barmode: 'group',
-                        bargroupgap: 0.5
+                        bargroupgap: 0.5,
+                        autosize: true
 
                     };
 

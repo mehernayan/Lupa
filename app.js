@@ -115,8 +115,8 @@ lupaApp.config(function ($routeProvider, $httpProvider) {
 	};
 
 });
-lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localStorageService', '$location','Fullscreen','lupaManagerService','lupaAdminService','notificationId',
-	function ($scope, $timeout, $window, localStorageService, $location,Fullscreen,lupaManagerService,lupaAdminService,notificationId) {
+lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localStorageService', '$location', 'Fullscreen', 'lupaManagerService', 'lupaAdminService', 'notificationId',
+	function ($scope, $timeout, $window, localStorageService, $location, Fullscreen, lupaManagerService, lupaAdminService, notificationId) {
 		// create a message to display in our view
 		$scope.message = 'Everyone come and see how good I look!';
 		$scope.username = "";
@@ -127,18 +127,29 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 				$scope.username = $scope.user[0].name;
 				$scope.userType = $scope.user[0].userType;
 
-				if($scope.userType==="dept"){
+				if ($scope.userType === "dept") {
 					$scope.getDeptNotifications();
-				}else if($scope.userType==="admin"){
+				} else if ($scope.userType === "admin") {
 					$scope.getAdminNotifications();
 				}
 			}
 		};
-		setTimeout(function() {
+		setTimeout(function () {
 			$("#full-screen-view").draggable();
-    		$( "#full-screen-view").resizable();
-		}, 3000)
-		
+			$("#full-screen-view").resizable();
+			$("#full-screen-view").resizable({
+				minWidth: 500,
+				minHeight: 511
+			}).on('resize', function (e) {
+				var resizeGraph = $(e.target).find('.js-plotly-plot').attr('id');
+				var gd1 = document.getElementById(resizeGraph);
+				Plotly.Plots.resize(gd1);
+			});
+
+		}, 1000);
+
+
+
 
 
 		$scope.expandNav = true;
@@ -176,27 +187,27 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		}, 2000);
 
 		$scope.userLoggedId = {
-			id : ''
+			id: ''
 		};
 		$scope.$watch('userLoggedId', function (n, o) {
-			if (n !== o){
+			if (n !== o) {
 				notificationId.set(n.id);
 			};
 		}, true);
-		
+
 		$scope.getDeptNotifications = function () {
 			$scope.error = "";
 			$('#loadergif').show();
-			lupaManagerService.getNotifications().then(function(response) {
+			lupaManagerService.getNotifications().then(function (response) {
 				$('#loadergif').hide();
 				//console.log(response.data,"register user");
 				$scope.response = JSON.parse(response.data.status_response);
 				//console.log($scope.response,"is success");
-				if(typeof $scope.response!=="undefined"){
-					if($scope.response.success){
-						$scope.error ="";
+				if (typeof $scope.response !== "undefined") {
+					if ($scope.response.success) {
+						$scope.error = "";
 						$scope.deptnotifications = $scope.response.data;
-					}else{
+					} else {
 						$scope.error = $scope.response.message;
 					}
 				}
@@ -206,16 +217,16 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		$scope.getAdminNotifications = function () {
 			$scope.error = "";
 			$('#loadergif').show();
-			lupaAdminService.getNotifications().then(function(response) {
+			lupaAdminService.getNotifications().then(function (response) {
 				$('#loadergif').hide();
 				//console.log(response.data,"register user");
 				$scope.response = JSON.parse(response.data.status_response);
 				//console.log($scope.response,"is success");
-				if(typeof $scope.response!=="undefined"){
-					if($scope.response.success){
-						$scope.error ="";
+				if (typeof $scope.response !== "undefined") {
+					if ($scope.response.success) {
+						$scope.error = "";
 						$scope.adminnotifications = $scope.response.data;
-					}else{
+					} else {
 						$scope.error = $scope.response.message;
 					}
 				}
@@ -229,17 +240,17 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		$scope.acceptDeptRequest = function (id) {
 			$scope.errorAccMsg = "";
 			$('#loaderNotification').show();
-			lupaManagerService.acceptRequest(id).then(function(response) {
+			lupaManagerService.acceptRequest(id).then(function (response) {
 				$('#loaderNotification').hide();
 				$scope.response = JSON.parse(response.data.status_response);
-				if(typeof $scope.response!=="undefined"){
-					if($scope.response.success){
-						$scope.errorAccMsg ="";
+				if (typeof $scope.response !== "undefined") {
+					if ($scope.response.success) {
+						$scope.errorAccMsg = "";
 						$scope.curId = id;
 						$scope.acceptMsg = $scope.response.message;
-					}else{
+					} else {
 						$scope.curId = id;
-						$scope.acceptMsg ="";
+						$scope.acceptMsg = "";
 						$scope.errorAccMsg = $scope.response.message;
 					}
 				}
@@ -253,17 +264,17 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		$scope.rejectDeptRequest = function (id) {
 			$scope.errorAccMsg = "";
 			$('#loaderNotification').show();
-			lupaManagerService.rejectRequest(id).then(function(response) {
+			lupaManagerService.rejectRequest(id).then(function (response) {
 				$('#loaderNotification').hide();
 				$scope.response = JSON.parse(response.data.status_response);
-				if(typeof $scope.response!=="undefined"){
-					if($scope.response.success){
-						$scope.errorAccMsg ="";
+				if (typeof $scope.response !== "undefined") {
+					if ($scope.response.success) {
+						$scope.errorAccMsg = "";
 						$scope.curId = id;
 						$scope.acceptMsg = $scope.response.message;
-					}else{
+					} else {
 						$scope.curId = id;
-						$scope.acceptMsg ="";
+						$scope.acceptMsg = "";
 						$scope.errorAccMsg = $scope.response.message;
 					}
 				}
@@ -277,18 +288,18 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		$scope.ackDeptRequest = function (id) {
 			$scope.errorAccMsg = "";
 			$('#loaderNotification').show();
-			lupaManagerService.ackRequest(id).then(function(response) {
+			lupaManagerService.ackRequest(id).then(function (response) {
 				$('#loaderNotification').hide();
 				$scope.response = JSON.parse(response.data.status_response);
-				if(typeof $scope.response!=="undefined"){
-					if($scope.response.Success){
-						$scope.errorAccMsg ="";
+				if (typeof $scope.response !== "undefined") {
+					if ($scope.response.Success) {
+						$scope.errorAccMsg = "";
 						$scope.curId = id;
 						$scope.acceptMsg = $scope.response.message;
-					}else{
+					} else {
 						$scope.curId = id;
 						$scope.errorAccMsg = $scope.response.message;
-						$scope.acceptMsg ="";
+						$scope.acceptMsg = "";
 					}
 				}
 			});
@@ -301,15 +312,15 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		$scope.ackAdminRequest = function (id) {
 			$scope.errorAccMsg = "";
 			$('#loaderNotification').show();
-			lupaAdminService.ackRequest(id).then(function(response) {
+			lupaAdminService.ackRequest(id).then(function (response) {
 				$('#loaderNotification').hide();
 				$scope.response = JSON.parse(response.data.status_response);
-				if(typeof $scope.response!=="undefined"){
-					if($scope.response.Success){
-						$scope.errorAccMsg ="";
+				if (typeof $scope.response !== "undefined") {
+					if ($scope.response.Success) {
+						$scope.errorAccMsg = "";
 						$scope.curId = id;
 						$scope.acceptMsg = $scope.response.message;
-					}else{
+					} else {
 						$scope.curId = id;
 						$scope.errorAccMsg = $scope.response.message;
 					}
@@ -322,7 +333,7 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 			localStorageService.clearAll();
 			$location.path('/');
 		};
-			
+
 
 	}]);
 
@@ -339,17 +350,17 @@ lupaApp.constant('appConstants', {
 		}
 	},
 	'serviceAddress': 'http://kaizenat.com/LUPA'
-}).filter('emptyFilter', function() {
-  return function(array) {
-    var filteredArray = [];
-      angular.forEach(array, function(item) {
-		//debugger;
-        if (item.product_name != "" && item.product_name != undefined) {
-			filteredArray.push(item);
-		} 
-      });
-    return filteredArray;  
-  };
+}).filter('emptyFilter', function () {
+	return function (array) {
+		var filteredArray = [];
+		angular.forEach(array, function (item) {
+			//debugger;
+			if (item.product_name != "" && item.product_name != undefined) {
+				filteredArray.push(item);
+			}
+		});
+		return filteredArray;
+	};
 });
 
 
