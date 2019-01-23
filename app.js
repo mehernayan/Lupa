@@ -135,11 +135,37 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 			}
 		};
 		setTimeout(function () {
-			$("#full-screen-view").draggable();
-			$("#full-screen-view").resizable();
-			$("#full-screen-view").resizable({
+			$("#full-screen-view-1").draggable({ containment: "parent", cursor: "move", cursorAt: { top: -5, left: -5 } , zIndex : 100 });
+			$("#full-screen-view-2").draggable({ containment: "parent" ,cursor: "move", cursorAt: { top: -5, left: -5 }, zIndex : 100 });
+			$("#full-screen-view-3").draggable({ containment: "parent" , cursor: "move", cursorAt: { top: -5, left: -5 }, zIndex : 100 });
+			$("#full-screen-view-4").draggable({ containment: "parent" , cursor: "move", cursorAt: { top: -5, left: -5 }, zIndex : 100 });
+			$("#full-screen-view-1").resizable({
 				minWidth: 500,
-				minHeight: 511
+				minHeight: 532
+			}).on('resize', function (e) {
+				var resizeGraph = $(e.target).find('.js-plotly-plot').attr('id');
+				var gd1 = document.getElementById(resizeGraph);
+				Plotly.Plots.resize(gd1);
+			});
+			$("#full-screen-view-2").resizable({
+				minWidth: 500,
+				minHeight: 532
+			}).on('resize', function (e) {
+				var resizeGraph = $(e.target).find('.js-plotly-plot').attr('id');
+				var gd1 = document.getElementById(resizeGraph);
+				Plotly.Plots.resize(gd1);
+			});
+			$("#full-screen-view-3").resizable({
+				minWidth: 500,
+				minHeight: 532
+			}).on('resize', function (e) {
+				var resizeGraph = $(e.target).find('.js-plotly-plot').attr('id');
+				var gd1 = document.getElementById(resizeGraph);
+				Plotly.Plots.resize(gd1);
+			});
+			$("#full-screen-view-4").resizable({
+				minWidth: 500,
+				minHeight: 532
 			}).on('resize', function (e) {
 				var resizeGraph = $(e.target).find('.js-plotly-plot').attr('id');
 				var gd1 = document.getElementById(resizeGraph);
@@ -170,13 +196,18 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		$scope.downloadChart = function ($event) {
 			$($event.target.closest('.chart-container')).find('a[data-title*="Download plot as a png"]')[0].click();
 		}
-		$scope.goFullscreen = function () {
-
-			if (Fullscreen.isEnabled())
+		$scope.goFullscreen = function (e) {
+			
+			if (Fullscreen.isEnabled()) {
 				Fullscreen.cancel();
-			else
+			}
+			else {
 				//Fullscreen.all();
-				Fullscreen.enable(document.getElementById('full-screen-view'))
+				debugger;
+				Fullscreen.enable($(e.target).closest('.chart-render')[0]);
+				//Fullscreen.enable(document.getElementById('full-screen-view'));
+			}
+				
 
 		}
 

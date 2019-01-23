@@ -427,7 +427,7 @@ a.active-main-nav:hover, a.active-main-nav:focus {
       background: #ccc;
   }
   .body-container.expand{
-    width: calc(100% - 205px);
+    width: calc(100% - 187px);
     margin-left: 180px;
     padding-left: 3px;
   }
@@ -611,7 +611,7 @@ input[type=checkbox] {
     padding-right: 20px;
     padding-top: 7px;
     right: 0px;
-    z-index: 100;
+    z-index: 8;
 }
 .fa-square:before {
     content: "\f0c8";
@@ -865,4 +865,17 @@ i.far.fa-square {
     padding-left: 0px;
     padding-right: 0px;
 }
+.report-container {
+    padding-bottom: 50px;
+}
+.js-plotly-plot {
+    overflow-x: hidden;
+}
+.ui-icon-gripsmall-diagonal-se {
+    right: 14px;
 
+}
+.collapsed .arrow-custom {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
