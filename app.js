@@ -135,11 +135,10 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 			}
 		};
 		setTimeout(function () {
-			$("#full-screen-view-1").draggable({ containment: "parent", cursor: "move", cursorAt: { top: -5, left: -5 } , zIndex : 100 });
-			$("#full-screen-view-2").draggable({ containment: "parent" ,cursor: "move", cursorAt: { top: -5, left: -5 }, zIndex : 100 });
-			$("#full-screen-view-3").draggable({ containment: "parent" , cursor: "move", cursorAt: { top: -5, left: -5 }, zIndex : 100 });
-			$("#full-screen-view-4").draggable({ containment: "parent" , cursor: "move", cursorAt: { top: -5, left: -5 }, zIndex : 100 });
-			$("#full-screen-view-1").resizable({
+			$(".resize-move").mouseover(function() {
+			var id = $(this).closest(".chart-render").attr("id");
+			$("#"+id).draggable({ containment: "parent", cursor: "move", cursorAt: { top: -5, left: -5 } , zIndex : 1000 });
+			$("#"+id).resizable({
 				minWidth: 500,
 				minHeight: 532
 			}).on('resize', function (e) {
@@ -147,7 +146,12 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 				var gd1 = document.getElementById(resizeGraph);
 				Plotly.Plots.resize(gd1);
 			});
-			$("#full-screen-view-2").resizable({
+			
+			});
+			$(".resize-move-analytics").mouseover(function() {
+			var id = $(this).closest(".full-screen-view").attr("id");
+			$("#"+id).draggable({ containment: "parent", cursor: "move", cursorAt: { top: -5, left: -5 } , zIndex : 1000 });
+			$("#"+id).resizable({
 				minWidth: 500,
 				minHeight: 532
 			}).on('resize', function (e) {
@@ -155,22 +159,9 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 				var gd1 = document.getElementById(resizeGraph);
 				Plotly.Plots.resize(gd1);
 			});
-			$("#full-screen-view-3").resizable({
-				minWidth: 500,
-				minHeight: 532
-			}).on('resize', function (e) {
-				var resizeGraph = $(e.target).find('.js-plotly-plot').attr('id');
-				var gd1 = document.getElementById(resizeGraph);
-				Plotly.Plots.resize(gd1);
+			
 			});
-			$("#full-screen-view-4").resizable({
-				minWidth: 500,
-				minHeight: 532
-			}).on('resize', function (e) {
-				var resizeGraph = $(e.target).find('.js-plotly-plot').attr('id');
-				var gd1 = document.getElementById(resizeGraph);
-				Plotly.Plots.resize(gd1);
-			});
+			
 
 		}, 1000);
 
@@ -203,8 +194,20 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 			}
 			else {
 				//Fullscreen.all();
-				debugger;
 				Fullscreen.enable($(e.target).closest('.chart-render')[0]);
+				//Fullscreen.enable(document.getElementById('full-screen-view'));
+			}
+				
+
+		}
+		$scope.goFullscreenOther = function (e) {
+			
+			if (Fullscreen.isEnabled()) {
+				Fullscreen.cancel();
+			}
+			else {
+				//Fullscreen.all();
+				Fullscreen.enable($(e.target).closest('.full-screen-view')[0]);
 				//Fullscreen.enable(document.getElementById('full-screen-view'));
 			}
 				

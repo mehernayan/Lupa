@@ -10,6 +10,9 @@ lupaUserDashboardService.service('lupaUserDashboardService', ['$http', '$q','$fi
         //$scope.userLogged = localStorageService.get("user");
         var userLogged = localStorageService.get("user")[0].name;
         var userObj = {"username": userLogged, "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
+        if(chart_duration ==="thisweek"){ 
+            chart_duration = "this_week";
+        }
         var deferred = $q.defer();
         $rootScope.url= appConstants.serviceAddress+'/user/'+chart_duration+'_licenses_used';
         
@@ -71,8 +74,8 @@ lupaUserDashboardService.service('lupaUserDashboardService', ['$http', '$q','$fi
         
        };
        this.getRecentReportUrl = function() {
-        //var  user_id = localStorageService.get("user")[0].id;
-        var userObj = {"user_id": 26,"role" : "user"}
+        var  user_id = localStorageService.get("user")[0].id;
+        var userObj = {"user_id": user_id,"role" : "user"}
         //$scope.userLogged = localStorageService.get("user");
         var deferred = $q.defer();
         $http({
@@ -165,7 +168,7 @@ lupaUserDashboardService.service('lupaUserDashboardService', ['$http', '$q','$fi
        this.getLiveChartByProductUrl = function(item) {
         var userLogged = localStorageService.get("user")[0].name;
         //debugger;
-        var userObj = {"username": "training", "product_name" : item}
+        var userObj = {"username": userLogged, "product_name" : item}
         var deferred = $q.defer();
         $http({
                     method : 'POST',

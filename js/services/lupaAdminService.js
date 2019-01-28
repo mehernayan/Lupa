@@ -589,6 +589,23 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q', '$filter', 'localSt
                 return deferred.promise;
 
         };
+        this.overallCostAnalyticsUrl = function(product_name, year, month) {
+        var userObj = {"year": year,"month" : month};
+        var deferred = $q.defer();
+        $http({
+                    method : 'POST',
+                    url : appConstants.serviceAddress+'/admin/overall_cost_anlytics_filter',
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+           
+        
+        
+       };
         this.getAllFeatureListUrl = function () {
                 var deferred = $q.defer();
                 $http({

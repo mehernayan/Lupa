@@ -8,7 +8,11 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         this.changeGraphUrl = function(chart_duration, chart_type, statistics_type) {
         
         var userLogged = localStorageService.get("user")[0].name;
-        var userObj = {"username": userLogged, "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
+        if(chart_duration ==="thisweek"){
+            chart_duration = "this_week";
+        }
+        //var userObj = {"username": userLogged, "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
+        var userObj = {"username": "Harish", "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
         var deferred = $q.defer();
         $rootScope.url= appConstants.serviceAddress+'/departmentmanager/'+chart_duration+'_licenses_used';
         
@@ -142,20 +146,27 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         
         
        };
-       this.getDepartmentManagerReportFilterUrl = function(username, product_name, type, chart_type, userFilterType, report_type) {
+       this.getDepartmentManagerReportFilterUrl = function(username, product_name, type, chart_type, userFilterType, filter_year, report_type) {
         //debugger;
         //$scope.userLogged = localStorageService.get("user");
-        
+        if(report_type ==="thisweek"){
+            report_type = "this_week";
+        }
         
         var deferred = $q.defer();
         if(report_type == 'yearly') {
-            //var year = "_year";
-            //var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type, "filter_year": filter_year}
-        }
+            
+            var year = "year";
+            var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type, "filter_year": filter_year}
+            $rootScope.url= appConstants.serviceAddress+'/departmentmanager/' +report_type+ '_licenses_used_'+year+'_filter';
+            
+         }
         
         else if(report_type == 'monthly'){
             var year = "";
-            var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type}
+            var userObj = {"username": "Harish", "product_name" : "LSDYNA", "type": type, "chart_type": chart_type}
+            $rootScope.url= appConstants.serviceAddress+'/departmentmanager/' +report_type+ '_licenses_used_'+userFilterType+'_filter';
+            //var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type}
             /*if(userFilterType == 'dept') {
                  var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type, "filter_department": filter_year}
             }
@@ -165,7 +176,17 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
            
 
         }
-        $rootScope.url= appConstants.serviceAddress+'/departmentmanager/' +report_type+ '_licenses_used'+year+'_'+userFilterType+'_filter';
+        else if(report_type == 'weekly' || report_type == 'this_week') {
+            var year = "";
+            var userObj = {"username": "Harish", "product_name" : "LSDYNA", "type": type, "chart_type": chart_type, "filter_user": filter_year}
+            $rootScope.url= appConstants.serviceAddress+'/departmentmanager/' +report_type+ '_licenses_used_'+userFilterType+'_filter';
+            
+        }
+        else {
+             $rootScope.url= appConstants.serviceAddress+'/departmentmanager/' +report_type+ '_licenses_used'+year+'_filter';
+        }
+       
+        //debugger;
         
         $http({
                     method : 'POST',
@@ -202,9 +223,32 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
        this.getDeptReportYearListUrl = function(username, product_name) {
         
         //$scope.userLogged = localStorageService.get("user");
-        var userObj = {"username": username, "product_name" : "LSDYNA"}
+        //var userObj = {"username": username, "product_name" : "LSDYNA"}
+        var userObj = {"username": "Harish", "product_name" : "LSDYNA"}
         var deferred = $q.defer();
         $rootScope.url= appConstants.serviceAddress+'/departmentmanager/years_filter_list';
+        
+        $http({
+                    method : 'POST',
+                    url : $rootScope.url,
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+           
+        
+        
+       };
+       this.getDeptReportFilterUserListUrl = function(id) {
+        
+        //$scope.userLogged = localStorageService.get("user");
+        //var userObj = {"username": username, "product_name" : "LSDYNA"}
+        var userObj = {"id": 10}
+        var deferred = $q.defer();
+        $rootScope.url= appConstants.serviceAddress+'/departmentmanager/filter_users_list';
         
         $http({
                     method : 'POST',
@@ -223,7 +267,8 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
        this.getLiveChartByProductUrl = function(item) {
         var userLogged = localStorageService.get("user")[0].name;
         //debugger;
-        var userObj = {"username": userLogged, "product_name" : item}
+        //var userObj = {"username": userLogged, "product_name" : item}
+        var userObj = {"username": "Harish", "product_name" : item}
         var deferred = $q.defer();
         $http({
                     method : 'POST',
@@ -240,18 +285,6 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         
        };
 
-       /* this.fetchUserDeptList = function() {
-            var deferred = $q.defer();
-            $http({
-                method : 'GET',
-                url : appConstants.serviceAddress+'/user/registration_page_data'
-            }).then(function(response) {
-                deferred.resolve(response);
-            }, function(error) {
-                deferred.reject(error);
-            });
-            return deferred.promise;
-        };*/
 
       
 }]);

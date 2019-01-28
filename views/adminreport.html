@@ -8,11 +8,11 @@
         <div class="row">
             <div class="col-sm-12  full-screen-view chart-render chart-render-0" ng-class="{'col-sm-6' : chartId>0 }" id="full-screen-view-1">
                 <div class="admin-report-filter">
-                    <input type="radio" name="reportAdminFilter" ng-checked="true" ng-model="adminFilter" value="overall" ng-click="loadReport(report_type, license_statistics)">Overall
-                    <input type="radio" name="reportAdminFilter" ng-checked="false" ng-model="adminFilter" value="individual" ng-change="reportAdminFilter(userFilterType,defaultFilterVal)">Individual
+                    <input type="radio" name="adminFilterYearly" ng-checked="true" ng-model="adminFilterYearly" value="yearly_overall"  ng-click="loadReport(adminFilterYearly, license_statistics)">Overall
+                    <input type="radio" name="adminFilterYearly" ng-checked="false" ng-model="adminFilterYearly" value="yearly_individual"   data-ng-click="reportAdminFilter($event,adminFilterYearly,userFilterType,defaultFilterVal)">Individual
                 </div>
 
-                <div ng-show="adminFilter  == 'overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
+                <div ng-if="adminFilterYearly  == 'yearly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
                     <div class="dropdown chart-dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="far fa-square"></i>
@@ -50,164 +50,105 @@
 
                         </div>
                     </div>
-                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
+                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('yearly_change', $event , report_type,'vertical_bar_chart',statisticsType)"></i></span>
+                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph('yearly_change', $event,report_type,'pie_chart',statisticsType)"></i></span>
+                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph('yearly_change', $event,report_type,'line_chart',statisticsType)"></i></span>
+                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph('yearly_change', $event,report_type,'area_chart',statisticsType)"></i></span>
+                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph('yearly_change', $event,report_type,'horizontal_bar_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph('yearly_change', $event,report_type,'stacked_bar_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph('yearly_change', $event,report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph('yearly_change', $event,report_type,'bubble_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph('yearly_change', $event,report_type,'scatter_chart',statisticsType)"></img></span>
 
 
-                    <div id="product-chart-yearly0"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist track by $index">
-                                <input type="radio" ng-checked="item.checked" name="item{{$index}}" ng-click="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
+                    <div id="product-chart-yearly0" class="chart-graph"></div>
+                    
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move"><i class="fa fa-arrows-alt"></i></div>
                 </div>
-                <div ng-show="adminFilter  == 'individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
+                <div ng-if="adminFilterYearly  == 'yearly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
+                    <div class="dropdown chart-dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-square"></i>
+                            <i class="far fa-square"></i>
+                            <i class="far fa-square"></i>
+
+                        </div>
+                        <div class="dropdown-menu">
+
+                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                                </a>
+                            </li>
+
+                        </div>
+                    </div>
                     <div class="year-list" ng-show="report_type =='yearly'">
                         <span class="year-label">Year : </span>
                         <span class="admin-year-label" ng-repeat="item in adminReportYearList track by $index">
-                            <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter(userFilterType,item.year)"/>{{item.year}}
+                            <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter($event,adminFilterYearly,userFilterType,item.year)"/>{{item.year}}
                          </span>
                     </div>
                     <div class="usertype-filter-year" ng-show="report_type =='yearly'">
                         <span class="user-label">User Type : </span>
-                        <input type="radio" name="adminReportUserType" ng-checked="true" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                        <input type="radio" name="adminReportUserType" ng-checked="false" ng-click="reportAdminFilter('user', defaultFilterVal)" />User
+                        <input type="radio" name="adminReportUserType" ng-checked="true" ng-click="reportAdminFilter($event,adminFilterYearly,'dept', defaultFilterVal)" />Department
+                        <input type="radio" name="adminReportUserType" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterYearly,'user', defaultFilterVal)" />User
 
 
                     </div>
 
-                    <div class="usertype-filter-weekly" ng-show="report_type =='weekly'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
+                    
 
-                    <div class="usertype-filter-thisweek" ng-show="report_type =='this_week'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
-                                </a>
-                            </li>
-
-                        </div>
-                    </div>
+                    
+                    
                     <div class="chart-type-container clearfix">
-                        <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                        <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                        <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                        <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                        <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
+                        <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('yearly_change', $event,report_type,'vertical_bar_chart',statisticsType)"></i></span>
+                        <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph('yearly_change', $event,report_type,'pie_chart',statisticsType)"></i></span>
+                        <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph('yearly_change', $event,report_type,'line_chart',statisticsType)"></i></span>
+                        <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph('yearly_change', $event,report_type,'area_chart',statisticsType)"></i></span>
+                        <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph('yearly_change', $event,report_type,'horizontal_bar_chart',statisticsType)"></img></span>
+                        <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph('yearly_change', $event,report_type,'stacked_bar_chart',statisticsType)"></img></span>
+                        <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph('yearly_change', $event,report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
+                        <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph('yearly_change', $event,report_type,'bubble_chart',statisticsType)"></img></span>
+                        <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph('yearly_change', $event,report_type,'scatter_chart',statisticsType)"></img></span>
 
                     </div>
 
 
-                    <div id="product-chart-yearly2"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilter == 'overall'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist">
-                                <input type="radio" ng-checked="item.checked" name="item" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
+                    <div id="product-chart-yearly0" class="chart-graph"></div>
+                    
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move"><i class="fa fa-arrows-alt"></i></div>
                 </div>
             </div>
             <div class="col-sm-12  full-screen-view chart-render chart-render-1" ng-class="{'col-sm-6' : chartId>0 }" id="full-screen-view-2">
                 <div class="admin-report-filter">
-                    <input type="radio" name="reportAdminFilter" ng-checked="true" ng-model="adminFilter" value="overall" ng-click="loadReport(report_type, license_statistics)">Overall
-                    <input type="radio" name="reportAdminFilter" ng-checked="false" ng-model="adminFilter" value="individual" ng-change="reportAdminFilter(userFilterType,defaultFilterVal)">Individual
+                    <input type="radio" name="adminFilterMonthly" ng-checked="true" ng-model="adminFilterMonthly" value="monthly_overall" ng-click="loadReport(adminFilterMonthly, license_statistics)">Overall
+                    <input type="radio" name="adminFilterMonthly" ng-checked="false" ng-model="adminFilterMonthly" value="monthly_individual" ng-click="reportAdminFilter($event,adminFilterMonthly,userFilterType,defaultFilterVal)">Individual
                 </div>
 
-                <div ng-show="adminFilter  == 'overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
+                <div ng-if="adminFilterMonthly  == 'monthly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
                     <div class="dropdown chart-dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="far fa-square"></i>
@@ -245,90 +186,23 @@
 
                         </div>
                     </div>
-                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
+                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('monthly_change', $event,report_type,'vertical_bar_chart',statisticsType)"></i></span>
+                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph('monthly_change', $event,report_type,'pie_chart',statisticsType)"></i></span>
+                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph('monthly_change', $event,report_type,'line_chart',statisticsType)"></i></span>
+                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph('monthly_change', $event,report_type,'area_chart',statisticsType)"></i></span>
+                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph('monthly_change', $event,report_type,'horizontal_bar_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph('monthly_change', $event,report_type,'stacked_bar_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph('monthly_change', $event,report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph('monthly_change', $event,report_type,'bubble_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph('monthly_change', $event,report_type,'scatter_chart',statisticsType)"></img></span>
 
 
-                    <div id="product-chart-yearly1"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist track by $index">
-                                <input type="radio" ng-checked="item.checked" name="item{{$index}}" ng-click="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
+                    <div id="product-chart-yearly1" class="chart-graph"></div>
+                    
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move"><i class="fa fa-arrows-alt"></i></div>
                 </div>
-                <div ng-show="adminFilter  == 'individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
-                    <div class="year-list" ng-show="report_type =='yearly'">
-                        <span class="year-label">Year : </span>
-                        <span class="admin-year-label" ng-repeat="item in adminReportYearList track by $index">
-                            <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter(userFilterType,item.year)"/>{{item.year}}
-                         </span>
-                    </div>
-                    <div class="usertype-filter-year" ng-show="report_type =='yearly'">
-                        <span class="user-label">User Type : </span>
-                        <input type="radio" name="adminReportUserType" ng-checked="true" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                        <input type="radio" name="adminReportUserType" ng-checked="false" ng-click="reportAdminFilter('user', defaultFilterVal)" />User
-
-
-                    </div>
-
-                    <div class="usertype-filter-weekly" ng-show="report_type =='weekly'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="usertype-filter-thisweek" ng-show="report_type =='this_week'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
+                <div ng-if="adminFilterMonthly  == 'monthly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
                     <div class="dropdown chart-dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="far fa-square"></i>
@@ -366,23 +240,32 @@
 
                         </div>
                     </div>
-                    <div class="chart-type-container clearfix">
-                        <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                        <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                        <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                        <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                        <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
+                     <div class="chart-type-container clearfix">
+                        <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('monthly_change', $event,report_type,'vertical_bar_chart',statisticsType)"></i></span>
+                        <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph('monthly_change', $event,report_type,'pie_chart',statisticsType)"></i></span>
+                        <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph('monthly_change', $event,report_type,'line_chart',statisticsType)"></i></span>
+                        <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph('monthly_change', $event,report_type,'area_chart',statisticsType)"></i></span>
+                        <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph('monthly_change', $event,report_type,'horizontal_bar_chart',statisticsType)"></img></span>
+                        <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph('monthly_change', $event,report_type,'stacked_bar_chart',statisticsType)"></img></span>
+                        <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph('monthly_change', $event,report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
+                        <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph('monthly_change', $event,report_type,'bubble_chart',statisticsType)"></img></span>
+                        <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph('monthly_change', $event,report_type,'scatter_chart',statisticsType)"></img></span>
 
                     </div>
+                    <div class="usertype-filter-year" ng-show="report_type =='monthly'">
+                        <span class="user-label">User Type : </span>
+                        <input type="radio" name="adminReportUserType" ng-checked="true" ng-click="reportAdminFilter($event,adminFilterMonthly,'dept', defaultFilterVal)" />Department
+                        <input type="radio" name="adminReportUserType" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterMonthly,'user', defaultFilterVal)" />User
 
 
-                    <div id="product-chart-yearly2"></div>
+                    </div>
+                    
+                    
+                   
+
+
+                    <div id="product-chart-yearly1" class="chart-graph"></div>
                     <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilter == 'overall'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
                         <ul>
                             <li ng-repeat="item in reportyearlist">
                                 <input type="radio" ng-checked="item.checked" name="item" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
@@ -394,16 +277,15 @@
 
                     </div>
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move"><i class="fa fa-arrows-alt"></i></div>
                 </div>
             </div>
             <div class="col-sm-12  full-screen-view chart-render chart-render-2" ng-class="{'col-sm-6' : chartId>0 }" id="full-screen-view-3">
                 <div class="admin-report-filter">
-                    <input type="radio" name="reportAdminFilter" ng-checked="true" ng-model="adminFilter" value="overall" ng-click="loadReport(report_type, license_statistics)">Overall
-                    <input type="radio" name="reportAdminFilter" ng-checked="false" ng-model="adminFilter" value="individual" ng-change="reportAdminFilter(userFilterType,defaultFilterVal)">Individual
+                    <input type="radio" name="adminFilterWeekly" ng-checked="true" ng-model="adminFilterWeekly" value="weekly_overall" ng-click="loadReport(adminFilterWeekly, license_statistics)">Overall
+                    <input type="radio" name="adminFilterWeekly" ng-checked="false" ng-model="adminFilterWeekly" value="weekly_individual" ng-click="reportAdminFilter($event,adminFilterWeekly,userFilterType,defaultFilterVal)">Individual
                 </div>
-
-                <div ng-show="adminFilter  == 'overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
-                    <div class="dropdown chart-dropdown">
+                <div class="dropdown chart-dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="far fa-square"></i>
                             <i class="far fa-square"></i>
@@ -440,23 +322,25 @@
 
                         </div>
                     </div>
-                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
+                <div ng-if="adminFilterWeekly  == 'weekly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
+                    
+                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'vertical_bar_chart',statisticsType)"></i></span>
+                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'pie_chart',statisticsType)"></i></span>
+                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'line_chart',statisticsType)"></i></span>
+                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'area_chart',statisticsType)"></i></span>
+                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph('weekly_change', $event,report_type,'horizontal_bar_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph('weekly_change', $event,report_type,'stacked_bar_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph('weekly_change', $event,report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph('weekly_change', $event,report_type,'bubble_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph('weekly_change', $event,report_type,'scatter_chart',statisticsType)"></img></span>
 
 
-                    <div id="product-chart-yearly2"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly'">
+                    <div id="product-chart-yearly2" class="chart-graph"></div>
+                    <div class="weekly-section" ng-if="adminFilterWeekly  == 'weekly_overall'">
                         <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
                         <ul>
                             <li ng-repeat="item in reportyearlist track by $index">
-                                <input type="radio" ng-checked="item.checked" name="item{{$index}}" ng-click="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
+                                <input type="radio" ng-checked="item.checked" name="item" ng-click="weeklyYearChange($event,item.year, chartType)" ng-model="selectedValue.year"
                                     value="{{item.year}}"> {{item.year}}
                             </li>
                         </ul>
@@ -465,119 +349,49 @@
 
                     </div>
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move"><i class="fa fa-arrows-alt"></i></div>
                 </div>
-                <div ng-show="adminFilter  == 'individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
-                    <div class="year-list" ng-show="report_type =='yearly'">
-                        <span class="year-label">Year : </span>
-                        <span class="admin-year-label" ng-repeat="item in adminReportYearList track by $index">
-                            <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter(userFilterType,item.year)"/>{{item.year}}
-                         </span>
-                    </div>
-                    <div class="usertype-filter-year" ng-show="report_type =='yearly'">
-                        <span class="user-label">User Type : </span>
-                        <input type="radio" name="adminReportUserType" ng-checked="true" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                        <input type="radio" name="adminReportUserType" ng-checked="false" ng-click="reportAdminFilter('user', defaultFilterVal)" />User
-
-
-                    </div>
-
+                <div ng-if="adminFilterWeekly  == 'weekly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
+                    
                     <div class="usertype-filter-weekly" ng-show="report_type =='weekly'">
                         <div class="usertype-filter-type">
                             <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
+                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter($event,adminFilterWeekly,'dept', defaultFilterVal)" />Department
+                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter($event,adminFilterWeekly,'dept', defaultFilterVal)" />User
                         </div>
                         <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
                             <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
+                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter($event,adminFilterWeekly,'dept', selectedItem)">
                             <option style="display:none" value="">select </option>
                             <option ng-repeat="item in adminReportDeptList">{{item}}</option>
                             </select>
                         </div>
                         <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
                             <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
+                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter($event,adminFilterWeekly,'user', selectedItem)">
                             <option style="display:none" value="">select </option>
                             <option ng-repeat="item in adminReportUserList">{{item}}</option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="usertype-filter-thisweek" ng-show="report_type =='this_week'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
-                                </a>
-                            </li>
-
-                        </div>
-                    </div>
+                    
                     <div class="chart-type-container clearfix">
-                        <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                        <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                        <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                        <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                        <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
+                        <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'vertical_bar_chart',statisticsType)"></i></span>
+                        <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'pie_chart',statisticsType)"></i></span>
+                        <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'line_chart',statisticsType)"></i></span>
+                        <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'area_chart',statisticsType)"></i></span>
+                        <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph('weekly_change', $event,report_type,'horizontal_bar_chart',statisticsType)"></img></span>
+                        <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph('weekly_change', $event,report_type,'stacked_bar_chart',statisticsType)"></img></span>
+                        <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph('weekly_change', $event,report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
+                        <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph('weekly_change', $event,report_type,'bubble_chart',statisticsType)"></img></span>
+                        <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph('weekly_change', $event,report_type,'scatter_chart',statisticsType)"></img></span>
 
                     </div>
 
 
-                    <div id="product-chart-yearly2"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilter == 'overall'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
+                    <div id="product-chart-yearly2" class="chart-graph"></div>
+                    <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilterWeekly == 'weekly_overall'">
                         <ul>
                             <li ng-repeat="item in reportyearlist">
                                 <input type="radio" ng-checked="item.checked" name="item" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
@@ -589,15 +403,16 @@
 
                     </div>
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move"><i class="fa fa-arrows-alt"></i></div>
                 </div>
             </div>
             <div class="col-sm-12  full-screen-view chart-render chart-render-3" ng-class="{'col-sm-6' : chartId>0 }" id="full-screen-view-4">
                 <div class="admin-report-filter">
-                    <input type="radio" name="reportAdminFilter" ng-checked="true" ng-model="adminFilter" value="overall" ng-click="loadReport(report_type, license_statistics)">Overall
-                    <input type="radio" name="reportAdminFilter" ng-checked="false" ng-model="adminFilter" value="individual" ng-change="reportAdminFilter(userFilterType,defaultFilterVal)">Individual
+                    <input type="radio" name="adminFilterThisWeek" ng-checked="true" ng-model="adminFilterThisWeek" value="thisweek_overall" ng-click="loadReport(adminFilterThisWeek, license_statistics)">Overall
+                    <input type="radio" name="adminFilterThisWeek" ng-checked="false" ng-model="adminFilterThisWeek" value="thisweek_individual" ng-click="reportAdminFilter($event,adminFilterThisWeek,userFilterType,defaultFilterVal)">Individual
                 </div>
 
-                <div ng-show="adminFilter  == 'overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
+                <div ng-if="adminFilterThisWeek  == 'thisweek_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
                     <div class="dropdown chart-dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="far fa-square"></i>
@@ -635,43 +450,70 @@
 
                         </div>
                     </div>
-                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
+                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'vertical_bar_chart',statisticsType)"></i></span>
+                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'pie_chart',statisticsType)"></i></span>
+                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'line_chart',statisticsType)"></i></span>
+                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'area_chart',statisticsType)"></i></span>
+                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'horizontal_bar_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'stacked_bar_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'bubble_chart',statisticsType)"></img></span>
+                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'scatter_chart',statisticsType)"></img></span>
 
 
-                    <div id="product-chart-yearly3"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist track by $index">
-                                <input type="radio" ng-checked="item.checked" name="item{{$index}}" ng-click="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
+                    <div id="product-chart-yearly3" class="chart-graph"></div>
+                    
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move"><i class="fa fa-arrows-alt"></i></div>
                 </div>
-                <div ng-show="adminFilter  == 'individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
+                <div ng-if="adminFilterThisWeek  == 'thisweek_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
+                    <div class="dropdown chart-dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-square"></i>
+                            <i class="far fa-square"></i>
+                            <i class="far fa-square"></i>
+
+                        </div>
+                        <div class="dropdown-menu">
+
+                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                                </a>
+                            </li>
+
+                        </div>
+                    </div>
                     <div class="year-list" ng-show="report_type =='yearly'">
                         <span class="year-label">Year : </span>
                         <span class="admin-year-label" ng-repeat="item in adminReportYearList track by $index">
-                            <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter(userFilterType,item.year)"/>{{item.year}}
+                            <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter($event,adminFilterThisWeek,userFilterType,item.year)"/>{{item.year}}
                          </span>
                     </div>
                     <div class="usertype-filter-year" ng-show="report_type =='yearly'">
                         <span class="user-label">User Type : </span>
-                        <input type="radio" name="adminReportUserType" ng-checked="true" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                        <input type="radio" name="adminReportUserType" ng-checked="false" ng-click="reportAdminFilter('user', defaultFilterVal)" />User
+                        <input type="radio" name="adminReportUserType" ng-checked="true" ng-click="reportAdminFilter($event,adminFilterThisWeek,'dept', defaultFilterVal)" />Department
+                        <input type="radio" name="adminReportUserType" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterThisWeek,'user', defaultFilterVal)" />User
 
 
                     </div>
@@ -698,1267 +540,58 @@
                         </div>
                     </div>
 
-                    <div class="usertype-filter-thisweek" ng-show="report_type =='this_week'">
+                    <div class="usertype-filter-thisweek" ng-show="report_type =='thisweek'">
                         <div class="usertype-filter-type">
                             <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
+                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter($event,adminFilterThisWeek,'dept', defaultFilterVal)" />Department
+                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter($event,adminFilterThisWeek,'dept', defaultFilterVal)" />User
                         </div>
                         <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
                             <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
+                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter($event,adminFilterThisWeek,'dept', selectedItem)">
                             <option style="display:none" value="">select </option>
                             <option ng-repeat="item in adminReportDeptList">{{item}}</option>
                             </select>
                         </div>
                         <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
                             <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
+                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter($event,adminFilterThisWeek,'user', selectedItem)">
                             <option style="display:none" value="">select </option>
                             <option ng-repeat="item in adminReportUserList">{{item}}</option>
                             </select>
                         </div>
                     </div>
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
-                                </a>
-                            </li>
-
-                        </div>
-                    </div>
+                    
                     <div class="chart-type-container clearfix">
-                        <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                        <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                        <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                        <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                        <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
+                        <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'vertical_bar_chart',statisticsType)"></i></span>
+                        <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'pie_chart',statisticsType)"></i></span>
+                        <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'line_chart',statisticsType)"></i></span>
+                        <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'area_chart',statisticsType)"></i></span>
+                        <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'horizontal_bar_chart',statisticsType)"></img></span>
+                        <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'stacked_bar_chart',statisticsType)"></img></span>
+                        <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
+                        <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'bubble_chart',statisticsType)"></img></span>
+                        <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'scatter_chart',statisticsType)"></img></span>
 
                     </div>
 
 
-                    <div id="product-chart-yearly2"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilter == 'overall'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist">
-                                <input type="radio" ng-checked="item.checked" name="item" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
+                    <div id="product-chart-yearly3" class="chart-graph"></div>
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
-                </div>
-            </div>
-            <div class="col-sm-12  full-screen-view chart-render chart-render-4" ng-class="{'col-sm-6' : chartId>0 }" id="full-screen-view-5">
-                <div class="admin-report-filter">
-                    <input type="radio" name="reportAdminFilter" ng-checked="true" ng-model="adminFilter" value="overall" ng-click="loadReport(report_type, license_statistics)">Overall
-                    <input type="radio" name="reportAdminFilter" ng-checked="false" ng-model="adminFilter" value="individual" ng-change="reportAdminFilter(userFilterType,defaultFilterVal)">Individual
-                </div>
-
-                <div ng-show="adminFilter  == 'overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
-                                </a>
-                            </li>
-
-                        </div>
-                    </div>
-                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
-
-
-                    <div id="product-chart-yearly4"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist track by $index">
-                                <input type="radio" ng-checked="item.checked" name="item{{$index}}" ng-click="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
-                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
-                </div>
-                <div ng-show="adminFilter  == 'individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
-                    <div class="year-list" ng-show="report_type =='yearly'">
-                        <span class="year-label">Year : </span>
-                        <span class="admin-year-label" ng-repeat="item in adminReportYearList track by $index">
-                            <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter(userFilterType,item.year)"/>{{item.year}}
-                         </span>
-                    </div>
-                    <div class="usertype-filter-year" ng-show="report_type =='yearly'">
-                        <span class="user-label">User Type : </span>
-                        <input type="radio" name="adminReportUserType" ng-checked="true" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                        <input type="radio" name="adminReportUserType" ng-checked="false" ng-click="reportAdminFilter('user', defaultFilterVal)" />User
-
-
-                    </div>
-
-                    <div class="usertype-filter-weekly" ng-show="report_type =='weekly'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="usertype-filter-thisweek" ng-show="report_type =='this_week'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
-                                </a>
-                            </li>
-
-                        </div>
-                    </div>
-                    <div class="chart-type-container clearfix">
-                        <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                        <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                        <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                        <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                        <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
-
-                    </div>
-
-
-                    <div id="product-chart-yearly2"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilter == 'overall'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist">
-                                <input type="radio" ng-checked="item.checked" name="item" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
-                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
-                </div>
-            </div>
-            <div class="col-sm-12  full-screen-view chart-render chart-render-5"  ng-class="{'col-sm-6' : chartId>0 }" id="full-screen-view-6">
-                <div class="admin-report-filter">
-                    <input type="radio" name="reportAdminFilter" ng-checked="true" ng-model="adminFilter" value="overall" ng-click="loadReport(report_type, license_statistics)">Overall
-                    <input type="radio" name="reportAdminFilter" ng-checked="false" ng-model="adminFilter" value="individual" ng-change="reportAdminFilter(userFilterType,defaultFilterVal)">Individual
-                </div>
-
-                <div ng-show="adminFilter  == 'overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
-                                </a>
-                            </li>
-
-                        </div>
-                    </div>
-                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
-
-
-                    <div id="product-chart-yearly5"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist track by $index">
-                                <input type="radio" ng-checked="item.checked" name="item{{$index}}" ng-click="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
-                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
-                </div>
-                <div ng-show="adminFilter  == 'individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
-                    <div class="year-list" ng-show="report_type =='yearly'">
-                        <span class="year-label">Year : </span>
-                        <span class="admin-year-label" ng-repeat="item in adminReportYearList track by $index">
-                            <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter(userFilterType,item.year)"/>{{item.year}}
-                         </span>
-                    </div>
-                    <div class="usertype-filter-year" ng-show="report_type =='yearly'">
-                        <span class="user-label">User Type : </span>
-                        <input type="radio" name="adminReportUserType" ng-checked="true" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                        <input type="radio" name="adminReportUserType" ng-checked="false" ng-click="reportAdminFilter('user', defaultFilterVal)" />User
-
-
-                    </div>
-
-                    <div class="usertype-filter-weekly" ng-show="report_type =='weekly'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="usertype-filter-thisweek" ng-show="report_type =='this_week'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
-                                </a>
-                            </li>
-
-                        </div>
-                    </div>
-                    <div class="chart-type-container clearfix">
-                        <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                        <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                        <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                        <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                        <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
-
-                    </div>
-
-
-                    <div id="product-chart-yearly2"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilter == 'overall'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist">
-                                <input type="radio" ng-checked="item.checked" name="item" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
-                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
-                </div>
-            </div>
-            <div class="col-sm-12  full-screen-view chart-render chart-render-6" ng-class="{'col-sm-6' : chartId>0 }" id="full-screen-view-7">
-                <div class="admin-report-filter">
-                    <input type="radio" name="reportAdminFilter" ng-checked="true" ng-model="adminFilter" value="overall" ng-click="loadReport(report_type, license_statistics)">Overall
-                    <input type="radio" name="reportAdminFilter" ng-checked="false" ng-model="adminFilter" value="individual" ng-change="reportAdminFilter(userFilterType,defaultFilterVal)">Individual
-                </div>
-
-                <div ng-show="adminFilter  == 'overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
-                                </a>
-                            </li>
-
-                        </div>
-                    </div>
-                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
-
-
-                    <div id="product-chart-yearly6"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist track by $index">
-                                <input type="radio" ng-checked="item.checked" name="item{{$index}}" ng-click="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
-                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
-                </div>
-                <div ng-show="adminFilter  == 'individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
-                    <div class="year-list" ng-show="report_type =='yearly'">
-                        <span class="year-label">Year : </span>
-                        <span class="admin-year-label" ng-repeat="item in adminReportYearList track by $index">
-                            <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter(userFilterType,item.year)"/>{{item.year}}
-                         </span>
-                    </div>
-                    <div class="usertype-filter-year" ng-show="report_type =='yearly'">
-                        <span class="user-label">User Type : </span>
-                        <input type="radio" name="adminReportUserType" ng-checked="true" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                        <input type="radio" name="adminReportUserType" ng-checked="false" ng-click="reportAdminFilter('user', defaultFilterVal)" />User
-
-
-                    </div>
-
-                    <div class="usertype-filter-weekly" ng-show="report_type =='weekly'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="usertype-filter-thisweek" ng-show="report_type =='this_week'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
-                                </a>
-                            </li>
-
-                        </div>
-                    </div>
-                    <div class="chart-type-container clearfix">
-                        <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                        <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                        <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                        <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                        <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
-
-                    </div>
-
-
-                    <div id="product-chart-yearly2"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilter == 'overall'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist">
-                                <input type="radio" ng-checked="item.checked" name="item" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
-                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
-                </div>
-            </div>
-            <div class="col-sm-12  full-screen-view chart-render chart-render-7"  ng-class="{'col-sm-6' : chartId>0 }" id="full-screen-view-8">
-                <div class="admin-report-filter">
-                    <input type="radio" name="reportAdminFilter" ng-checked="true" ng-model="adminFilter" value="overall" ng-click="loadReport(report_type, license_statistics)">Overall
-                    <input type="radio" name="reportAdminFilter" ng-checked="false" ng-model="adminFilter" value="individual" ng-change="reportAdminFilter(userFilterType,defaultFilterVal)">Individual
-                </div>
-
-                <div ng-show="adminFilter  == 'overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
-                                </a>
-                            </li>
-
-                        </div>
-                    </div>
-                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
-
-
-                    <div id="product-chart-yearly7"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist track by $index">
-                                <input type="radio" ng-checked="item.checked" name="item{{$index}}" ng-click="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
-                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
-                </div>
-                <div ng-show="adminFilter  == 'individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
-                    <div class="year-list" ng-show="report_type =='yearly'">
-                        <span class="year-label">Year : </span>
-                        <span class="admin-year-label" ng-repeat="item in adminReportYearList track by $index">
-                            <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter(userFilterType,item.year)"/>{{item.year}}
-                         </span>
-                    </div>
-                    <div class="usertype-filter-year" ng-show="report_type =='yearly'">
-                        <span class="user-label">User Type : </span>
-                        <input type="radio" name="adminReportUserType" ng-checked="true" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                        <input type="radio" name="adminReportUserType" ng-checked="false" ng-click="reportAdminFilter('user', defaultFilterVal)" />User
-
-
-                    </div>
-
-                    <div class="usertype-filter-weekly" ng-show="report_type =='weekly'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="usertype-filter-thisweek" ng-show="report_type =='this_week'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
-                                </a>
-                            </li>
-
-                        </div>
-                    </div>
-                    <div class="chart-type-container clearfix">
-                        <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                        <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                        <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                        <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                        <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
-
-                    </div>
-
-
-                    <div id="product-chart-yearly2"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilter == 'overall'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist">
-                                <input type="radio" ng-checked="item.checked" name="item" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
-                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
-                </div>
-            </div>
-            <div class="col-sm-12  full-screen-view chart-render chart-render-8"  ng-class="{'col-sm-6' : chartId>0 }" id="full-screen-view-9">
-                <div class="admin-report-filter">
-                    <input type="radio" name="reportAdminFilter" ng-checked="true" ng-model="adminFilter" value="overall" ng-click="loadReport(report_type, license_statistics)">Overall
-                    <input type="radio" name="reportAdminFilter" ng-checked="false" ng-model="adminFilter" value="individual" ng-change="reportAdminFilter(userFilterType,defaultFilterVal)">Individual
-                </div>
-
-                <div ng-show="adminFilter  == 'overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
-                                </a>
-                            </li>
-
-                        </div>
-                    </div>
-                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
-
-
-                    <div id="product-chart-yearly"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist track by $index">
-                                <input type="radio" ng-checked="item.checked" name="item{{$index}}" ng-click="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
-                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
-                </div>
-                <div ng-show="adminFilter  == 'individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
-                    <div class="year-list" ng-show="report_type =='yearly'">
-                        <span class="year-label">Year : </span>
-                        <span class="admin-year-label" ng-repeat="item in adminReportYearList track by $index">
-                            <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter(userFilterType,item.year)"/>{{item.year}}
-                         </span>
-                    </div>
-                    <div class="usertype-filter-year" ng-show="report_type =='yearly'">
-                        <span class="user-label">User Type : </span>
-                        <input type="radio" name="adminReportUserType" ng-checked="true" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                        <input type="radio" name="adminReportUserType" ng-checked="false" ng-click="reportAdminFilter('user', defaultFilterVal)" />User
-
-
-                    </div>
-
-                    <div class="usertype-filter-weekly" ng-show="report_type =='weekly'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="usertype-filter-thisweek" ng-show="report_type =='this_week'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
-                                </a>
-                            </li>
-
-                        </div>
-                    </div>
-                    <div class="chart-type-container clearfix">
-                        <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                        <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                        <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                        <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                        <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
-
-                    </div>
-
-
-                    <div id="product-chart-yearly8"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilter == 'overall'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist">
-                                <input type="radio" ng-checked="item.checked" name="item" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
-                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
-                </div>
-            </div>
-            <div class="col-sm-12  full-screen-view chart-render chart-render-9"  ng-class="{'col-sm-6' : chartId>0 }" id="full-screen-view-10">
-                <div class="admin-report-filter">
-                    <input type="radio" name="reportAdminFilter" ng-checked="true" ng-model="adminFilter" value="overall" ng-click="loadReport(report_type, license_statistics)">Overall
-                    <input type="radio" name="reportAdminFilter" ng-checked="false" ng-model="adminFilter" value="individual" ng-change="reportAdminFilter(userFilterType,defaultFilterVal)">Individual
-                </div>
-
-                <div ng-show="adminFilter  == 'overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
-                                </a>
-                            </li>
-
-                        </div>
-                    </div>
-                    <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                    <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                    <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                    <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                    <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                    <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
-
-
-                    <div id="product-chart-yearly9"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist track by $index">
-                                <input type="radio" ng-checked="item.checked" name="item{{$index}}" ng-click="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
-                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
-                </div>
-                <div ng-show="adminFilter  == 'individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
-                    <div class="year-list" ng-show="report_type =='yearly'">
-                        <span class="year-label">Year : </span>
-                        <span class="admin-year-label" ng-repeat="item in adminReportYearList track by $index">
-                            <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter(userFilterType,item.year)"/>{{item.year}}
-                         </span>
-                    </div>
-                    <div class="usertype-filter-year" ng-show="report_type =='yearly'">
-                        <span class="user-label">User Type : </span>
-                        <input type="radio" name="adminReportUserType" ng-checked="true" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                        <input type="radio" name="adminReportUserType" ng-checked="false" ng-click="reportAdminFilter('user', defaultFilterVal)" />User
-
-
-                    </div>
-
-                    <div class="usertype-filter-weekly" ng-show="report_type =='weekly'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeWeekly" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="usertype-filter-thisweek" ng-show="report_type =='this_week'">
-                        <div class="usertype-filter-type">
-                            <span class="user-label">User Type : </span>
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter('dept', defaultFilterVal)" />Department
-                            <input type="radio" name="adminReportUserTypeThisWeek" ng-checked="false" ng-model= "adminReport" value="User" ng-click="reportAdminFilter('dept', defaultFilterVal)" />User
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
-                            <label for="usertype-filter-dropdown">Department list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('dept', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
-                            <label for="usertype-filter-dropdown">User list:</label>
-                            <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-change="reportAdminFilter('user', selectedItem)">
-                            <option style="display:none" value="">select </option>
-                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="loadReport(report_type, license_statistics)"> <i class="fa fa-refresh"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
-                                </a>
-                            </li>
-
-                        </div>
-                    </div>
-                    <div class="chart-type-container clearfix">
-                        <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph(report_type,'vertical_bar_chart',statisticsType)"></i></span>
-                        <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph(report_type,'pie_chart',statisticsType)"></i></span>
-                        <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph(report_type,'line_chart',statisticsType)"></i></span>
-                        <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph(report_type,'area_chart',statisticsType)"></i></span>
-                        <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph(report_type,'horizontal_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph(report_type,'stacked_bar_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph(report_type,'box_plot_styling_outliers_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph(report_type,'bubble_chart',statisticsType)"></img></span>
-                        <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph(report_type,'scatter_chart',statisticsType)"></img></span>
-
-                    </div>
-
-
-                    <div id="product-chart-yearly2"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilter == 'overall'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist">
-                                <input type="radio" ng-checked="item.checked" name="item" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
-                                    value="{{item.year}}"> {{item.year}}
-                            </li>
-                        </ul>
-
-
-
-                    </div>
-                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move"><i class="fa fa-arrows-alt"></i></div>
                 </div>
             </div>
             
+            
+            
         </div>
-    </div>
+        <!--<label for="shift_start_time">shift start time:</label>
+        <input type="time" id="shift_start_time" ng-model="shift_start_time"  ng-change="validateShiftTime()"  min="0:00" max="24:00" required>
+        <label for="shift_end_time">shift end time:</label>
+        <input type="time" id="shift_end_time" ng-model="shift_end_time" ng-value="shift_end_time" ng-change="validateShiftTime(shift_end_time)" required>
+        <input type="time" id="exampleInput" name="input" ng-model="shift_end_time" ng-change="validateShiftTime(shift_end_time)"
+       placeholder="HH:mm:ss" min="08:00:00" max="17:00:00" required />-->
+</div>
 
 </div>
 <footer ng-include="'views/partials/footer.html'"></footer>

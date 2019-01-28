@@ -644,6 +644,10 @@ i.far.fa-square {
     padding-left: 10px;
     padding-bottom: 10px;
     cursor: pointer;
+    width: 39px;
+    float: left;
+    position: relative;
+    bottom: 28px;
 
 }
 .modebar-group {
@@ -655,7 +659,7 @@ i.far.fa-square {
 .weekly-section ul {
     display: block;
     position: absolute;
-    bottom: 20px;
+    bottom: 29px;
     left: 50px;
 }
 .weekly-section li {
@@ -701,6 +705,7 @@ i.far.fa-square {
 .usertype-filter-year {
     clear: both;
     padding-left: 21px;
+    
 }
 .usertype-filter-type {
     padding-left: 21px;
@@ -851,7 +856,6 @@ i.far.fa-square {
 .cost-chart-filter {
     width: 100%;
     text-align: center; 
-    float: left;
     position: relative;
     z-index: 3;
     margin: 10px auto;
@@ -872,10 +876,32 @@ i.far.fa-square {
     overflow-x: hidden;
 }
 .ui-icon-gripsmall-diagonal-se {
-    right: 14px;
+    right: 12px;
+    bottom: 30px;
 
 }
 .collapsed .arrow-custom {
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
+}
+.resize-move, .resize-move-analytics {
+    float: right;
+    position: relative;
+    bottom: 17px;
+    right: 6px;
+    width: 16px;
+    cursor: pointer;
+}
+#reports .collapsed .arrow-custom {
+    transform: rotate(-45deg) !important;
+    -webkit-transform: rotate(-45deg) !important;
+}
+
+.setting-container.body-container.expand {
+    width: calc(100% - 187px);
+    margin-left: 169px;
+    padding-left: 30px;
+}
+.dashboard-container.body-container.expand { 
+    margin-left: 172px;
 }

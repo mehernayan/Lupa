@@ -9,6 +9,9 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
         
         var userLogged = localStorageService.get("user")[0].name;
         var userObj = {"username": userLogged, "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
+        if(chart_duration ==="thisweek"){
+            chart_duration = "this_week";
+        }
         var deferred = $q.defer();
         $rootScope.url= appConstants.serviceAddress+'/admin/'+chart_duration+'_licenses_used';
         
@@ -167,7 +170,9 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
        this.getAdminYearlyReportDepartmentFilterUrl = function(username, product_name, type, chart_type, userFilterType, filter_year,report_type) {
         //debugger;
         //$scope.userLogged = localStorageService.get("user");
-        
+        if(report_type == "thisweek"){
+            report_type = "this_week";
+        }
         
         var deferred = $q.defer();
         if(report_type == 'yearly') {
@@ -283,6 +288,33 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
         
         
        };
+       
+       this.getfetchShiftListUrl = function() {
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : appConstants.serviceAddress+'/admin/get_shifts'
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        this.addShiftTimeUrl = function(shift_name, start_time, end_time) {
+            var userObj = {"shift_name": shift_name, "start_time" : start_time, "end_time": end_time};
+            var deferred = $q.defer();
+            $http({
+                method : 'POST',
+                url : appConstants.serviceAddress+'/admin/add_shift',
+                data : userObj
+            }).then(function(response) {
+                deferred.resolve(response);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
 
        /* this.fetchUserDeptList = function() {
             var deferred = $q.defer();

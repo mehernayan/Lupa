@@ -6,16 +6,16 @@
 <div class="report-container body-container" ng-class="{'expand':expandNav}">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-6 col-md-6 col-md-6 full-screen-view" id="full-screen-view">
+            <div class="col-sm-6 col-md-6 col-md-6 full-screen-view" id="full-screen-view-1">
 
                 <div class="pie-chart-container overall-report chart-container back-g-white half-bordered dashboard-box-shadow">
                     <div class="cost-chart-title">
                         <div class="chart-title-left">Total Expenditure
-                            <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeCostAnalyticsGraph('vertical_bar_chart')"></i></span>
-                            <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeCostAnalyticsGraph('pie_chart')"></i></span>
-                            <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeCostAnalyticsGraph('line_chart')"></i></span>
-                            <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeCostAnalyticsGraph('area_chart')"></i></span>
-                            <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeCostAnalyticsGraph('horizontal_bar_chart')"></img></span>
+                            <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeCostAnalyticsGraph($event, 'vertical_bar_chart')"></i></span>
+                            <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeCostAnalyticsGraph($event, 'pie_chart')"></i></span>
+                            <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeCostAnalyticsGraph($event, 'line_chart')"></i></span>
+                            <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeCostAnalyticsGraph($event, 'area_chart')"></i></span>
+                            <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeCostAnalyticsGraph($event, 'horizontal_bar_chart')"></img></span>
 
                         </div>
                         <div class="dropdown cost-analytics-dropdown">
@@ -31,7 +31,7 @@
                                 </li>
 
                                 <li>
-                                    <a ng-click="goFullscreen()"> <i class="fa fa-expand"></i>
+                                    <a ng-click="goFullscreenOther($event)"> <i class="fa fa-expand"></i>
                                     </a>
                                 </li>
                                 <li ng-click="getOverallCostAnalytics()">
@@ -49,25 +49,25 @@
                     </div>
                     <div class="cost-chart-filter">
                         <div class="year-filter">
-                            <input type="radio" name ="chart-filter-1" ng-model="selectedRadio1" />
-                            <label>Yearly</label>
-                            <select class="form-control" id="year1" ng-model="selectedYear1" data-attr={{selectedRadio1}}  ng-change="changeCostAnalyticsGraph1(selectedYear1, selectedMonth1, typeOfLicense)">
+                            <input type="radio" name ="chart-filter-1"  ng-click="changeYearlyExpenditureBtn('year',selectedYear1, selectedMonth1, typeOfLicense)" />
+                            <label>Year</label>
+                            <select class="form-control" id="year1" ng-model="selectedYear1" ng-disabled="!selectedRadio1"  ng-change="yearlyExpenditure(selectedYear1, selectedMonth1, typeOfLicense)">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getYearlyList">{{item}}</option>
                             </select>
                         </div>
                         <div class="month-filter">
-                            <input type="radio" name ="chart-filter-1" ng-model="selectedRadio2" />
-                            <label>Monthly</label>
-                            <select class="form-control" id="month1" ng-model="selectedMonth1" ng-change="changeCostAnalyticsGraph1(selectedYear1, selectedMonth1, typeOfLicense)">
+                            <input type="radio" name ="chart-filter-1" ng-click="changeYearlyExpenditureBtn('month',selectedYear1, selectedMonth1, typeOfLicense)" />
+                            <label>Month</label>
+                            <select class="form-control" id="month1" ng-model="selectedMonth1" ng-disabled="!selectedRadio2" ng-change="yearlyExpenditure(selectedYear1, selectedMonth1, typeOfLicense)">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getMonthList">{{item}}</option>
                             </select>
                         </div>
                          <div class="license-filter">
-                            <input type="radio" name ="chart-filter-1" ng-model="selectedRadio3"/>
+                            <input type="radio" name ="chart-filter-1" ng-click="changeYearlyExpenditureBtn('license',selectedYear1, selectedMonth1, typeOfLicense)"/>
                             <label>Type of License</label>
-                            <select class="form-control" id="typeOfLicense" ng-model="typeOfLicense" ng-change="changeCostAnalyticsGraph1(selectedYear1, selectedMonth1, typeOfLicense)">
+                            <select class="form-control" id="typeOfLicense" ng-model="typeOfLicense" ng-disabled="!selectedRadio3" ng-change="yearlyExpenditure(selectedYear1, selectedMonth1, typeOfLicense)">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getLicenseList">{{item}}</option>
                             </select>
@@ -76,22 +76,23 @@
 
                     </div>
 
-                    <div id="cost-analytics-chart-1"></div>
+                    <div id="yearly-expenditure-bar" class="chart-data-analytics"></div>
 
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move-analytics"><i class="fa fa-arrows-alt"></i></div>
                 </div>
 
             </div>
-            <div class="col-sm-6 col-md-6 col-md-6 full-screen-view" id="full-screen-view">
+            <div class="col-sm-6 col-md-6 col-md-6 full-screen-view" id="full-screen-view-2">
 
                 <div class="pie-chart-container overall-report chart-container back-g-white half-bordered dashboard-box-shadow">
                     <div class="cost-chart-title">
                         <div class="chart-title-left">Total Expenditure
-                            <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click="changeCostAnalyticsGraph('vertical_bar_chart','2')"></i></span>
-                            <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click="changeCostAnalyticsGraph('pie_chart','2')"></i></span>
-                            <span class="chart line-chart"><i class="fa fa-line-chart" ng-click="changeCostAnalyticsGraph('line_chart', '2')"></i></span>
-                            <span class="chart area-chart"><i class="fa fa-area-chart" ng-click="changeCostAnalyticsGraph('area_chart', '2')"></i></span>
-                            <span class="chart hbar-chart"><img src="images/horizontal-bar.png"  ng-click="changeCostAnalyticsGraph('horizontal_bar_chart', '2')"></img></span>
+                            <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeCostAnalyticsGraph($event, 'vertical_bar_chart')"></i></span>
+                            <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeCostAnalyticsGraph($event, 'pie_chart')"></i></span>
+                            <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeCostAnalyticsGraph($event, 'line_chart')"></i></span>
+                            <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeCostAnalyticsGraph($event, 'area_chart')"></i></span>
+                            <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeCostAnalyticsGraph($event, 'horizontal_bar_chart')"></img></span>
                         </div>
                         <div class="dropdown cost-analytics-dropdown">
                             <ul>
@@ -106,55 +107,7 @@
                                 </li>
 
                                 <li>
-                                    <a ng-click="goFullscreen()"> <i class="fa fa-expand"></i>
-                                    </a>
-                                </li>
-                                <li ng-click="getOverallCostAnalytics()">
-                                    <a> <i class="fa fa-refresh"></i>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
-                                    </a>
-                                </li>
-                            </ul>
-
-                        </div>
-                    </div>
-
-                    <div id="cost-analytics-chart-2"></div>
-                    
-                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
-                </div>
-
-            </div>
-
-            <div class="col-sm-6 col-md-6 col-md-6 full-screen-view" id="full-screen-view" ng-repeat="item in getProductList track by $index" ng-if="getProductList.length">
-
-                <div class="pie-chart-container overall-report chart-container back-g-white half-bordered dashboard-box-shadow">
-                    <div class="cost-chart-title">
-                        <div class="chart-title-left">Total Expenditure
-                            <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click="changeCostAnalyticsGraph('vertical_bar_chart','2')"></i></span>
-                            <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click="changeCostAnalyticsGraph('pie_chart','2')"></i></span>
-                            <span class="chart line-chart"><i class="fa fa-line-chart" ng-click="changeCostAnalyticsGraph('line_chart', '2')"></i></span>
-                            <span class="chart area-chart"><i class="fa fa-area-chart" ng-click="changeCostAnalyticsGraph('area_chart', '2')"></i></span>
-                            <span class="chart hbar-chart"><img src="images/horizontal-bar.png"  ng-click="changeCostAnalyticsGraph('horizontal_bar_chart', '2')"></img></span>
-                        </div>
-                        <div class="dropdown cost-analytics-dropdown">
-                            <ul>
-
-                                <li>
-                                    <a ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a> <i class="fa fa-redo-alt"></i>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a ng-click="goFullscreen()"> <i class="fa fa-expand"></i>
+                                    <a ng-click="goFullscreenOther($event)"> <i class="fa fa-expand"></i>
                                     </a>
                                 </li>
                                 <li ng-click="getOverallCostAnalytics()">
@@ -172,17 +125,87 @@
                     </div>
                     <div class="cost-chart-filter">
                         <div class="year-filter">
-                            <input type="radio" name ="chart-filter-1" ng-model="selectedRadio1" />
-                            <label>Yearly</label>
-                            <select class="form-control" id="year1" ng-model="selectedYear1" data-attr={{selectedRadio1}}  ng-change="changeFeatureAnalyticsGraph(selectedYear1, selectedMonth1, $index)">
+                            <input type="radio" name ="chart-filter-2"  ng-click="changeOverallCostAnalyticsBtn('year', selectedYear2, selectedMonth2)" />
+                            <label>Year</label>
+                            <select class="form-control" id="year2" ng-model="selectedYear2" ng-disabled="!selectedRadio4"  ng-change="overallCostAnalyticsChange('LSDYNA', selectedYear2, selectedMonth2)">
+                                <option style="display:none" value="">Overall</option>
+                                <option ng-repeat="item in getCostAnalyticsYearList">{{item}}</option>
+                            </select>
+                        </div>
+                        <div class="month-filter">
+                            <input type="radio" name ="chart-filter-2" ng-click="changeOverallCostAnalyticsBtn('month', selectedYear2, selectedMonth2)" />
+                            <label>Month</label>
+                            <select class="form-control" id="month2" ng-model="selectedMonth2" ng-disabled="!selectedRadio5" ng-change="overallCostAnalyticsChange('LSDYNA', selectedYear2, selectedMonth2)">
+                                <option style="display:none" value="">Overall</option>
+                                <option ng-repeat="item in getCostAnalyticsMonthList">{{item}}</option>
+                            </select>
+                        </div>
+                         
+                        
+
+                    </div>
+
+                    <div id="overall-cost-analytics" class="chart-data-analytics"></div>
+                    
+                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move-analytics"><i class="fa fa-arrows-alt"></i></div>
+                </div>
+
+            </div>
+
+            <div class="col-sm-6 col-md-6 col-md-6 full-screen-view feature-chart"  data-ng-repeat="item in featureProd track by $index">
+
+                <div class="pie-chart-container overall-report chart-container back-g-white half-bordered dashboard-box-shadow">
+                    <div class="cost-chart-title">
+                        <div class="chart-title-left">Total Expenditure
+                            <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click="changeCostAnalyticsGraph('vertical_bar_chart','2')"></i></span>
+                            <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click="changeCostAnalyticsGraph('pie_chart','2')"></i></span>
+                            <span class="chart line-chart"><i class="fa fa-line-chart" ng-click="changeCostAnalyticsGraph('line_chart', '2')"></i></span>
+                            <span class="chart area-chart"><i class="fa fa-area-chart" ng-click="changeCostAnalyticsGraph('area_chart', '2')"></i></span>
+                            <span class="chart hbar-chart"><img src="images/horizontal-bar.png"  ng-click="changeCostAnalyticsGraph('horizontal_bar_chart', '2')"></img></span>
+                        </div>
+                        <div class="dropdown cost-analytics-dropdown">
+                            <ul>
+
+                                <li>
+                                    <a ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a> <i class="fa fa-redo-alt"></i>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a ng-click="goFullscreenOther($event)"> <i class="fa fa-expand"></i>
+                                    </a>
+                                </li>
+                                <li ng-click="getOverallCostAnalytics()">
+                                    <a> <i class="fa fa-refresh"></i>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="cost-chart-filter">
+                        <div class="year-filter">
+                            <input type="radio" name = "{{'feature-chart-filter-' + $index}}" ng-model="selectedFeatureRadio1.item" />
+                            <label>Year</label>
+                            <select class="form-control" id="{{'FeatureYear' + $index}}" ng-model="selectedFeatureYear1.item"   ng-change="changeFeatureAnalyticsGraph(selectedFeatureYear1.item, selectedFeatureMonth1.item, item)">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getYearlyList">{{item}}</option>
                             </select>
                         </div>
                         <div class="month-filter">
-                            <input type="radio" name ="chart-filter-1" ng-model="selectedRadio2" />
-                            <label>Monthly</label>
-                            <select class="form-control" id="month1" ng-model="selectedMonth1" ng-change="changeFeatureAnalyticsGraph(selectedYear1, selectedMonth1, $index)">
+                            <input type="radio" name = "{{'feature-chart-filter-' + $index}}" ng-model="selectedFeatureRadio2.item" />
+                            <label>Month</label>
+                            <select class="form-control" id="{{'FeatureMonth' + $index}}" ng-model="selectedFeaturedMonth1.item" ng-change="changeFeatureAnalyticsGraph(selectedFeatureYear1.item, selectedFeaturedMonth1.item, item)">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getMonthList">{{item}}</option>
                             </select>
@@ -191,13 +214,80 @@
                         
 
                     </div>
+                    <div id="{{ 'cost-analytics-feature-chart-' + $index }}"></div>
+                    
+                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move-analytics"><i class="fa fa-arrows-alt"></i></div>
+                </div>
 
+            </div>
+            <!--<div class="col-sm-6 col-md-6 col-md-6 full-screen-view feature-chart" >
+
+                <div class="pie-chart-container overall-report chart-container back-g-white half-bordered dashboard-box-shadow">
+                    <div class="cost-chart-title">
+                        <div class="chart-title-left">Total Expenditure
+                            <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click="changeCostAnalyticsGraph('vertical_bar_chart','2')"></i></span>
+                            <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click="changeCostAnalyticsGraph('pie_chart','2')"></i></span>
+                            <span class="chart line-chart"><i class="fa fa-line-chart" ng-click="changeCostAnalyticsGraph('line_chart', '2')"></i></span>
+                            <span class="chart area-chart"><i class="fa fa-area-chart" ng-click="changeCostAnalyticsGraph('area_chart', '2')"></i></span>
+                            <span class="chart hbar-chart"><img src="images/horizontal-bar.png"  ng-click="changeCostAnalyticsGraph('horizontal_bar_chart', '2')"></img></span>
+                        </div>
+                        <div class="dropdown cost-analytics-dropdown">
+                            <ul>
+
+                                <li>
+                                    <a ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a> <i class="fa fa-redo-alt"></i>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a ng-click="goFullscreenOther($event)"> <i class="fa fa-expand"></i>
+                                    </a>
+                                </li>
+                                <li ng-click="getOverallCostAnalytics()">
+                                    <a> <i class="fa fa-refresh"></i>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="cost-chart-filter">
+                        <div class="year-filter">
+                            <input type="radio" name ="feature-chart-filter-1" ng-model="selectedFeatureRadio1" />
+                            <label>Year</label>
+                            <select class="form-control" id="FeatureYear1" ng-model="selectedFeatureYear1"   ng-change="changeFeatureAnalyticsGraph(selectedFeatureYear1, selectedFeatureMonth1)">
+                                <option style="display:none" value="">Overall</option>
+                                <option ng-repeat="item in getYearlyList">{{item}}</option>
+                            </select>
+                        </div>
+                        <div class="month-filter">
+                            <input type="radio" name ="chart-filter-1" ng-model="selectedFeatureRadio2" />
+                            <label>Month</label>
+                            <select class="form-control" id="month1" ng-model="selectedFeaturedMonth1" ng-change="changeFeatureAnalyticsGraph(selectedFeatureYear1, selectedFeatureMonth1)">
+                                <option style="display:none" value="">Overall</option>
+                                <option ng-repeat="item in getMonthList">{{item}}</option>
+                            </select>
+                        </div>
+                         
+                        
+
+                    </div>
                     <div id="{{ 'cost-analytics-feature-chart-' + $index }}"></div>
                     
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                 </div>
 
-            </div>
+            </div>-->
 
         </div>
     </div>
