@@ -134,7 +134,19 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 				}
 			}
 		};
-		setTimeout(function () {
+		$scope.resizeMouseOver = function(event) {
+			var id = $(event.target).closest(".chart-render").attr("id");
+			$("#"+id).draggable({ containment: "parent", cursor: "move", cursorAt: { top: -5, left: -5 } , zIndex : 1000 });
+			$("#"+id).resizable({
+				minWidth: 500,
+				minHeight: 532
+			}).on('resize', function (e) {
+				var resizeGraph = $(e.target).find('.js-plotly-plot').attr('id');
+				var gd1 = document.getElementById(resizeGraph);
+				Plotly.Plots.resize(gd1);
+			});
+		}
+		/*setTimeout(function () {
 			$(".resize-move").mouseover(function() {
 			var id = $(this).closest(".chart-render").attr("id");
 			$("#"+id).draggable({ containment: "parent", cursor: "move", cursorAt: { top: -5, left: -5 } , zIndex : 1000 });
@@ -151,7 +163,7 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 			
 			
 
-		}, 1000);
+		}, 10000);*/
 
 
 
