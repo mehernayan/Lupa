@@ -22,6 +22,11 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
     $scope.report_type = "yearly";
     $scope.license_statistics = "license_statistics";
     $scope.chartId = 0;
+    setTimeout(function() {
+        $("#product").removeClass("in").prev("li").addClass("collapsed");
+    }, 1000)
+    
+    
 
 
     // default layout 
@@ -600,6 +605,8 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         }
         $scope.statisticsType = statisticsType;
         $('#loadergif').show();
+        $(".chart-container .chart").removeClass("active-chart");
+        $(event.target).closest(".chart").addClass("active-chart");
         $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-graph").attr('id');
         lupaUserDashboardService.changeGraphUrl($scope.report_type, chartType, statisticsType).then(function (response) {
 
@@ -765,7 +772,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                         labels: $scope.response[0].label,
                         type: 'pie'
                     }];
-                    Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+                    Plotly.newPlot($scope.chartRenderId, plotDataBarY, {}, plotlyDefaultConfigurationBar);
 
 
                 }
@@ -1380,6 +1387,8 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
             //debugger;
         });
     }
+
+    
 
 
 

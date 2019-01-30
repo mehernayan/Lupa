@@ -3,16 +3,18 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
     if (typeof userId === "undefined" || userId == null) {
         $location.path('/');
     }
+
     $scope.productlist = localStorageService.get('productlist');
     //$scope.productlist = ["LSDYNA", "MSC", "ALTAIR"]
-    
+
     $scope.reportSidebar = false;
     $scope.dashboardActive = true;
     $scope.favouriteActive = false;
     $scope.polarChartFlag = false;
-    
+    $scope.arrayItem = 0;
 
     $scope.getLiveChart = function () {
+
         $('#loadergif').show();
         lupaUserDashboardService.getLiveChartUrl().then(function (response) {
             $scope.response = response.data;
@@ -20,12 +22,18 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
             $scope.productListDashboard = [];
             for (i = 0; i < $scope.response.length; i++) {
                 //debugger;
+                if ($scope.response[i].length != 0) {
+                    $scope.arrayItem++;
+                }
+
+
                 $scope.productListDashboard.push({
                     "product_name": $scope.response[i].product_name,
                     "value": true
                 })
                 //debugger;
             }
+
             $scope.changeProductDashboard = function (item, productlist) {
                 console.log($scope.response);
                 //debugger;
@@ -38,10 +46,11 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
 
 
                 }
+
                 $scope.response = filteredResponse;
                 var seriesCounter = 0;
                 for (i = 0; i < $scope.response.length; i++) {
-                    //debugger;
+                    debugger;
                     seriesOptions[i] = {
                         name: $scope.response[i].product_name,
                         data: $scope.response[i].values
@@ -63,7 +72,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
 
                 Highcharts.stockChart('chart', {
 
-                      rangeSelector: {
+                    rangeSelector: {
                         selected: 1,
                         inputEnabled: false,
                         allButtonsEnabled: false,
@@ -86,7 +95,10 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
                     legend: {
                         enabled: false
                     },
-                    
+                    credits: {
+                        enabled: false
+                    },
+
 
                     series: seriesOptions
                 });
@@ -178,26 +190,34 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
                         })
                     }
                 }
-                else if($scope.response[i].report_type == "this_week") {
-                        layout.title = 'LSDYNA / This Week Report';
-                        var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-                        for (j = 0; j < responseData[0].license.length; j++) {
-                            for (key in responseData[0].license[j]) {
-                                plotDataBarY.push({
-                                    x: xAxisVal,
-                                    y: responseData[0].license[j][key],
-                                    name: key,
-                                    type: 'bar',
-                                    marker: {
-                                        color: d3colors(j)
-                                    }
-                                })
-                            }
+                else if ($scope.response[i].report_type == "this_week") {
+                    layout.title = 'LSDYNA / This Week Report';
+                    var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                    for (j = 0; j < responseData[0].license.length; j++) {
+                        for (key in responseData[0].license[j]) {
+                            plotDataBarY.push({
+                                x: xAxisVal,
+                                y: responseData[0].license[j][key],
+                                name: key,
+                                type: 'bar',
+                                marker: {
+                                    color: d3colors(j)
+                                }
+                            })
                         }
+                    }
                 }
 
-                else if($scope.response[i].report_type == "monthly") { 
+                else if ($scope.response[i].report_type == "monthly") {
 
+                }
+                if (!$scope.arrayItem) {
+                    /* labels = 'product-chart-yearly' + i.renderer.text('No Data Available', 140, 120)
+                         .css({
+                             color: '#4572A7',
+                             fontSize: '16px'
+                         })
+                         .add();*/
                 }
 
 
@@ -237,86 +257,88 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
 
 
 
-    $scope.drawPolarChart = function(polarChartData) {
+    $scope.drawPolarChart = function (polarChartData) {
         var data2 = [
-        {
-            type: "scatterpolar",
-            name: "license used in Every 30 minutes",
-            r: polarChartData.r,
-            theta: polarChartData.theta,
-            fill: "toself",
-            subplot: "polar2",
-            fillcolor: '#709BFF'
-        }
-    ];
-    //debugger;
-    var layout = {
-
-
-        polar2: {
-
-            radialaxis: {
-                angle: 0,
-                visible: true,
-                 tickfont: {
-                    size: 10,
-                    color: '#000'
-                 }
-            },
-            angularaxis: {
-                visible: true,
-                direction: "clockwise",
-                tickfont: {
-                    size: 8,
-                    color: '#000'
-                }
+            {
+                type: "scatterpolar",
+                name: "license used in Every 30 minutes",
+                r: polarChartData.r,
+                theta: polarChartData.theta,
+                fill: "toself",
+                subplot: "polar2",
+                fillcolor: '#709BFF'
             }
-        },
-        title: "LSDYNA / License used in Every 30 minutes interval"
+        ];
+        //debugger;
+        var layout = {
 
+
+            polar2: {
+
+                radialaxis: {
+                    angle: 0,
+                    visible: true,
+                    tickfont: {
+                        size: 10,
+                        color: '#000'
+                    }
+                },
+                angularaxis: {
+                    visible: true,
+                    direction: "clockwise",
+                    tickfont: {
+                        size: 8,
+                        color: '#000'
+                    }
+                }
+            },
+            title: "LSDYNA / License used in Every 30 minutes interval"
+
+
+        }
+
+        Plotly.newPlot('saturation', data2, layout);
 
     }
 
-    Plotly.newPlot('saturation', data2, layout);
-    
-    }
-    
-    $scope.getSaturationReport = function(product) {
+    $scope.getSaturationReport = function (product) {
         $("#loadergif").show();
         lupaUserDashboardService.getSaturationReportUrl(product).then(function (response) {
-        $scope.drawPolarChart(response.data);
-        $("#loadergif").hide();
-        $scope.polarChartFlag = true;
-        
+            $scope.drawPolarChart(response.data);
+            $("#loadergif").hide();
+            $scope.polarChartFlag = true;
+
         });
 
     }
     
-    $scope.getLiveChartByProduct = function(item) {
+    $scope.getLiveChartByProduct = function (item) {
+        $("#product").removeClass("in").prev("li").addClass("collapsed");
         $scope.activeMenu = item;
         $scope.reportSidebar = true;
         lupaUserDashboardService.getLiveChartByProductUrl(item).then(function (response) {
-            $scope.response  = response.data;
+            $scope.response = response.data;
             $scope.individualProductChart = true;
+
             //$scope.getLiveChart();
             $('#loadergif').hide();
             //var seriesCounter = 0;
             var seriesOptions = [],
                 seriesCounter = 0;
-                for (i = 0; i < $scope.response.length; i++) {
-                    //debugger;
-                    seriesOptions[i] = {
-                        name: $scope.response[i].product_name,
-                        data: $scope.response[i].values
-                    };
-                    //debugger
-                    seriesCounter += 1;
+            for (i = 0; i < $scope.response.length; i++) {
+                //debugger;
+                seriesOptions[i] = {
+                    name: $scope.response[i].product_name,
+                    data: $scope.response[i].values
+                };
+                //debugger
+                seriesCounter += 1;
 
-                    if (seriesCounter === $scope.response.length) {
-                        createChart();
-                    }
+                if (seriesCounter === $scope.response.length) {
+                    createChart();
                 }
-                function createChart() {
+            }
+            function createChart() {
 
                 Highcharts.stockChart('chart', {
 
@@ -343,8 +365,8 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
                     legend: {
                         enabled: false
                     },
-                    
-                    
+
+
 
                     series: seriesOptions
                 });

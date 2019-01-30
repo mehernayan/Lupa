@@ -599,6 +599,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         }
         $scope.statisticsType = statisticsType;
         $('#loadergif').show();
+        $(".chart-container .chart").removeClass("active-chart");
+        $(event.target).closest(".chart").addClass("active-chart");
         $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-graph").attr('id');
         lupaAdminDashboardService.changeGraphUrl(reportType, chartType, statisticsType).then(function (response) {
 

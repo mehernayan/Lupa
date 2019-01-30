@@ -338,6 +338,9 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
        
        this.postFeaturesList = function() {
         var userObj = dynaFeatureData.get();
+        var  user_id = localStorageService.get("user")[0].id;
+        userObj.id = user_id;
+        debugger;
         var deferred = $q.defer();
         if(typeof userObj !== "undefined"){
             $http({
@@ -427,9 +430,12 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
     };
     this.dynaCompareGraphUrl = function() {
         var deferred = $q.defer();
+        var  user_id = localStorageService.get("user")[0].id;
+        var userObj = {"id" : user_id};
         $http({
-            method : 'GET',
-            url : appConstants.serviceAddress+'/departmentmanager/dyna_compares_chart'
+            method : 'POST',
+            url : appConstants.serviceAddress+'/departmentmanager/dyna_compares_chart',
+            data: userObj
         }).then(function(response) {
             deferred.resolve(response);
         }, function(error) {

@@ -602,6 +602,8 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         }
         $scope.statisticsType = statisticsType;
         $('#loadergif').show();
+        $(".chart-container .chart").removeClass("active-chart");
+        $(event.target).closest(".chart").addClass("active-chart");
         lupaDeptDashboardService.changeGraphUrl($scope.report_type, chartType, statisticsType).then(function (response) {
 
             // common to all graph

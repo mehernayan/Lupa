@@ -213,6 +213,9 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 				
 
 		}
+		$scope.removeReport = function(event) {
+			$(event.target).closest(".full-screen-view").hide();
+		}
 
 		$timeout(function () {
 			$("#product li").on("click", function (event) {

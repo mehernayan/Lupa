@@ -5,18 +5,18 @@
         <span class="nav-switch" ng-if="!expandNav" ng-click="navToggle()"><i class="fa fa-toggle-off fa-2x"></i></span></div>
     <ul class="navigation-links">
 
-        <li data-toggle="collapse" data-target="#product"><img src="images/product-icon.png" width="20px"><span class="nav-slide" ng-if="expandNav">
+        <li data-toggle="collapse" data-target="#product"><img ng-click="navToggle()" src="images/product-icon.png" width="20px"><span class="nav-slide" ng-if="expandNav">
                 <a href="#/{{userType}}dashboard" >Products</a></span><i class="arrow right arrow-custom" ng-if="expandNav"></i>
         </li>
 
         <ul id="product" class="collapse in" ng-if="expandNav">
-            <li ng-repeat="item in productlist">
-                <a ng-click="getLiveChartByProduct(item)"><span class="circle red dot" ng-class="{'active' : activeMenu === item}"></span>{{item}}</a>
+            <li ng-repeat="item in productlist" ng-click="getLiveChartByProduct(item)">
+                <span class="circle red dot" ng-class="{'active' : activeMenu === item}"></span>{{item}}
             </li>
 
         </ul>
         <li>
-            <img src="images/report-icon.png" width="20px">
+            <img  ng-click="navToggle()" src="images/report-icon.png" width="20px">
             <span class="nav-slide" ng-if="expandNav">
                     
                     <a data-toggle="collapse" data-target="#reports" class="report-link" ng-class="{'collapsed' : !reportSidebar}">
