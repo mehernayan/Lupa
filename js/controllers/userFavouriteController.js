@@ -56,19 +56,18 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
             $scope.response = JSON.parse(response.data.status_response);
             $scope.response = $scope.response.favourites_list[0].data;
             $scope.response = JSON.parse($scope.response);
-            console.log("favourite", $scope.response);
             for (i = 0; i < $scope.response.length; i++) {
-
+                 plotDataBarY = [];
                 console.log("favourite item", $scope.response[i]);
-                /*if ($scope.response[i].reportType == 'weekly') {*/
+                if ($scope.response[i].report_type == 'weekly') {
+                    layout.title = 'LSDYNA ' + $scope.response[i].report_type + ' / report'
                     var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
                     for (j = 0; j < $scope.response[i].license.length; j++) {
                         for (key in $scope.response[i].license[j]) {
-                            //debugger;
                             plotDataBarY.push({
                                 x: xAxisVal,
                                 y: $scope.response[i].license[j][key],
-                                name: monthArray[j],
+                                name: key,
                                 type: 'bar',
                                 marker: {
                                     color: d3colors(j)
@@ -78,9 +77,8 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                         }
 
                     }
-               /* }*/
-                /*else if(reportType == "yearly") {
-                    debugger;
+                }
+                else if(report_type == "yearly" || report_type == "monthly") {
                     for (i = 0; i < $scope.response.length; i++) {
                     plotDataBarY.push({
                         x: xAxisVal,
@@ -92,7 +90,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                         }
                     })
                 }
-                }*/
+                }
 
                 
 

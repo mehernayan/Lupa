@@ -2,7 +2,10 @@ var lupaAdminService = angular.module('lupaAdminProvider', ['lupaSharedProvider'
 lupaAdminService.service('lupaAdminService', ['$http', '$q', '$filter', 'localStorageService', 'appConstants', 'userData', 'userRegData', 'userRegOtpVal', 'userEmailData', 'userResetData', 'adminProfileSettingData', 'addDepartmentData', 'transferUserData', 'smtpData', 'smtpTestData', 'purchaseData', 'notificationId',
     function ($http, $q, $filter, localStorageService, appConstants, userData, userRegData, userRegOtpVal, userEmailData, userResetData, adminProfileSettingData, addDepartmentData, transferUserData, smtpData, smtpTestData, purchaseData, notificationId) {
 
-
+        var product_name = localStorageService.get("product_name");
+        if(product_name == "" || product_name == "undefined" || product_name == null) {
+            product_name = "LSDYNA"
+        }
         /*
           * fetch the user department list
           */
@@ -637,7 +640,7 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q', '$filter', 'localSt
         
        };
        this.getFeaturePercentageUrl = function() {
-        var userObj = {"year": "2018","month" : "Jan", "product_name": "LSDYNA"};
+        var userObj = {"year": "2018","month" : "Jan", "product_name": product_name};
         var deferred = $q.defer();
         $http({
                     method : 'POST',

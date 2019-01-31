@@ -1,5 +1,9 @@
 lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaDeptDashboardService, $location, localStorageService) {
     var userId = localStorageService.get("user");
+    var product_name = localStorageService.get("product_name");
+    if(product_name == "" || product_name == "undefined" || product_name == null) {
+        product_name = "LSDYNA"
+    }
     if (typeof userId === "undefined" || userId == null) {
         $location.path('/');
     }
@@ -23,7 +27,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
     // default layout 
     var layout = {
-        title: 'LSDYNA / ' + $scope.report_type + ' Report',
+        title: product_name +  ' / ' + $scope.report_type + ' Report',
         showlegend: true,
         legend: {
             "orientation": "h",
@@ -158,7 +162,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         }
         //$scope.response = response;
         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
-        layout.title = 'LSDYNA / ' + $scope.report_type + ' Report';
+        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
         for (var i = 0; i < response[0].license.length; i++) {
             for (key in response[0].license[i]) {
                 plotDataBarY.push({
@@ -187,7 +191,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         $scope.statisticsType = statisticsType;
         lupaDeptDashboardService.changeGraphUrl(reportType, chartType, statisticsType).then(function (response) {
             var layout = {
-                title: 'LSDYNA / ' + $scope.report_type + ' Report',
+                title: product_name +  ' / ' + $scope.report_type + ' Report',
                 showlegend: true,
                 legend: {
                     "orientation": "h",
@@ -223,7 +227,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
             // Pie chart
             var layoutTitle = {
-                title: 'LSDYNA / ' + $scope.report_type + ' Report'
+                title: product_name +  ' / ' + $scope.report_type + ' Report'
             }
 
             //Bar chart Section goes here
@@ -246,7 +250,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
 
 
-            layout.title = 'LSDYNA / ' + $scope.report_type + ' Report';
+            layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
 
             $scope.response = response.data;
             if ($scope.response[0] != "" || $scope.response[0] != undefined) {
@@ -281,7 +285,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         $scope.statisticsType = statisticsType;
         lupaDeptDashboardService.changeGraphUrl(reportType, chartType, statisticsType).then(function (response) {
             var layout = {
-                title: 'LSDYNA / ' + $scope.report_type + ' Report',
+                title: product_name +  ' / ' + $scope.report_type + ' Report',
                 showlegend: true,
                 legend: {
                     "orientation": "h",
@@ -317,7 +321,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
             // Pie chart
             var layoutTitle = {
-                title: 'LSDYNA / ' + $scope.report_type + ' Report'
+                title: product_name +  ' / ' + $scope.report_type + ' Report'
             }
 
             //Bar chart Section goes here
@@ -340,7 +344,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
 
 
-            layout.title = 'LSDYNA / ' + $scope.report_type + ' Report';
+            layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
 
             $scope.response = response.data;
             if ($scope.response[0] != "" || $scope.response[0] != undefined) {
@@ -373,7 +377,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         $scope.statisticsType = statisticsType;
         lupaDeptDashboardService.changeGraphUrl(reportType, chartType, statisticsType).then(function (response) {
             var layout = {
-                title: 'LSDYNA / ' + $scope.report_type + ' Report',
+                title: product_name +  ' / ' + $scope.report_type + ' Report',
                 showlegend: true,
                 legend: {
                     "orientation": "h",
@@ -409,7 +413,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
             // Pie chart
             var layoutTitle = {
-                title: 'LSDYNA / ' + $scope.report_type + ' Report'
+                title: product_name +  ' / ' + $scope.report_type + ' Report'
             }
 
             //Bar chart Section goes here
@@ -432,7 +436,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
 
 
-            layout.title = 'LSDYNA / ' + $scope.report_type + ' Report';
+            layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
 
             $scope.response = response.data;
             if ($scope.response[0] != "" || $scope.response[0] != undefined) {
@@ -441,7 +445,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
             if ($scope.response) {
                 $('#loadergif').hide();
                 var plotDataBarY = [];
-                layout.title = 'LSDYNA / ' + $scope.report_type + ' Report';
+                layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
                 $scope.weeklyresponse = $scope.response;
                 $scope.reportyearlist = [];
                 for (i = 0; i < $scope.response.length; i++) {
@@ -491,7 +495,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         $scope.statisticsType = statisticsType;
         lupaDeptDashboardService.changeGraphUrl(reportType, chartType, statisticsType).then(function (response) {
             var layout = {
-                title: 'LSDYNA / ' + $scope.report_type + ' Report',
+                title: product_name +  ' / ' + $scope.report_type + ' Report',
                 showlegend: true,
                 legend: {
                     "orientation": "h",
@@ -527,7 +531,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
             // Pie chart
             var layoutTitle = {
-                title: 'LSDYNA / ' + $scope.report_type + ' Report'
+                title: product_name +  ' / ' + $scope.report_type + ' Report'
             }
 
             //Bar chart Section goes here
@@ -550,7 +554,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
 
 
-            layout.title = 'LSDYNA / ' + $scope.report_type + ' Report';
+            layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
 
             $scope.response = response.data;
             if ($scope.response[0] != "" || $scope.response[0] != undefined) {
@@ -561,7 +565,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                 var plotDataBarY = [];
                 
                 //$scope.thisWeekCommonChartType($scope.response[0]);
-                layout.title = 'LSDYNA / This Week Report';
+                layout.title = product_name +  ' / This Week Report';
                 var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                 var plotDataBarY = [];
                 for (var i = 0; i < $scope.response[0].license.length; i++) {
@@ -609,7 +613,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
             // common to all graph
 
             var layout = {
-                title: 'LSDYNA / ' + $scope.report_type + ' Report',
+                title: product_name +  ' / ' + $scope.report_type + ' Report',
                 showlegend: true,
                 legend: {
                     "orientation": "h",
@@ -645,7 +649,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
             // Pie chart
             var layoutTitle = {
-                title: 'LSDYNA / ' + $scope.report_type + ' Report'
+                title: product_name +  ' / ' + $scope.report_type + ' Report'
             }
 
             //Bar chart Section goes here
@@ -668,7 +672,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
 
 
-            layout.title = 'LSDYNA / ' + $scope.report_type + ' Report';
+            layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
 
             $scope.response = response.data;
             if ($scope.response[0] != "" || $scope.response[0] != undefined) {
@@ -682,7 +686,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     if ($scope.report_type == 'thisweek') {
                         
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = 'LSDYNA / This Week Report';
+                        layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         var plotDataBarY = [];
                         for (var i = 0; i < $scope.response[0].license.length; i++) {
@@ -706,7 +710,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         }
                     }
                     if ($scope.report_type == 'weekly') {
-                        layout.title = 'LSDYNA / ' + $scope.report_type + ' Report';
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
                         $scope.weeklyresponse = $scope.response;
                         $scope.reportyearlist = [];
                         for (i = 0; i < $scope.response.length; i++) {
@@ -779,7 +783,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     //var marker = ["#"]
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek') {
-                        layout.title = 'LSDYNA / This Week Report';
+                        layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -796,7 +800,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         }
                     }
                     if ($scope.report_type == 'weekly') {
-                        layout.title = 'LSDYNA / ' + $scope.report_type + ' Report';
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
                         $scope.weeklyresponse = $scope.response;
                         $scope.reportyearlist = [];
                         for (i = 0; i < $scope.response.length; i++) {
@@ -859,7 +863,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = 'LSDYNA / This Week Report';
+                        layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -877,7 +881,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         }
                     }
                     if ($scope.report_type == 'weekly') {
-                        layout.title = 'LSDYNA / ' + $scope.report_type + ' Report';
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
                         $scope.weeklyresponse = $scope.response;
                         $scope.reportyearlist = [];
                         for (i = 0; i < $scope.response.length; i++) {
@@ -933,7 +937,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                 }
                 if (chartType == "horizontal_bar_chart") {
                     var layout = {
-                        title: 'LSDYNA / Yearly Report',
+                        title: product_name +  ' / Yearly Report',
                         showlegend: true,
                         legend: {
                             "orientation": "h",
@@ -959,7 +963,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = 'LSDYNA / This Week Report';
+                        layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -977,7 +981,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         }
                     }
                     if ($scope.report_type == 'weekly') {
-                        layout.title = 'LSDYNA / ' + $scope.report_type + ' Report';
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
                         $scope.weeklyresponse = $scope.response;
                         $scope.reportyearlist = [];
                         for (i = 0; i < $scope.response.length; i++) {
@@ -1043,7 +1047,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = 'LSDYNA / This Week Report';
+                        layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -1060,7 +1064,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         }
                     }
                     if ($scope.report_type == 'weekly') {
-                        layout.title = 'LSDYNA / ' + $scope.report_type + ' Report';
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
                         $scope.weeklyresponse = $scope.response;
                         $scope.reportyearlist = [];
                         for (i = 0; i < $scope.response.length; i++) {
@@ -1126,7 +1130,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = 'LSDYNA / This Week Report';
+                        layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -1157,7 +1161,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                 }
                 if (chartType == "bubble_chart") {
                     var layout = {
-                        title: 'LSDYNA / Yearly Report',
+                        title: product_name +  ' / Yearly Report',
                         showlegend: true,
 
                     };
@@ -1166,7 +1170,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
                     if ($scope.report_type == 'thisweek') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = 'LSDYNA / This Week Report';
+                        layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -1183,7 +1187,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         }
                     }
                     if ($scope.report_type == 'weekly') {
-                        layout.title = 'LSDYNA / ' + $scope.report_type + ' Report';
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
                         $scope.weeklyresponse = $scope.response;
                         $scope.reportyearlist = [];
                         for (i = 0; i < $scope.response.length; i++) {
@@ -1261,7 +1265,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = 'LSDYNA / This Week Report';
+                        layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -1279,7 +1283,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         }
                     }
                     if ($scope.report_type == 'weekly') {
-                        layout.title = 'LSDYNA / ' + $scope.report_type + ' Report';
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
                         $scope.weeklyresponse = $scope.response;
                         $scope.reportyearlist = [];
                         for (i = 0; i < $scope.response.length; i++) {
@@ -1348,7 +1352,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
     /*$scope.thisWeekCommonChartType =  function(response) {
          var plotDataBarY = [];
-         layout.title = 'LSDYNA / This Week Report';
+         layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < response.license.length; i++) {
                             for (key in response.license[i]) {
@@ -1412,7 +1416,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
     $scope.drawGraph = function (chartData) {
         $("#loadergif").hide();
         var layout = {
-            title: 'LSDYNA / ' + $scope.report_type + ' Report',
+            title: product_name +  ' / ' + $scope.report_type + ' Report',
             showlegend: true,
             legend: {
                 "orientation": "h",
@@ -1458,7 +1462,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
 
         var plotDataBarY = [];
-        //layout.title = 'LSDYNA / ' + $scope.report_type + ' Report';
+        //layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
         if ($scope.report_type == "yearly") {
             plotDataBarY.push({
                 x: chartData.label,
@@ -1485,7 +1489,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         } else if ($scope.report_type == 'thisweek') {
             
             //$scope.thisWeekCommonChartType($scope.response[0]);
-            layout.title = 'LSDYNA / This Week Report';
+            layout.title = product_name +  ' / This Week Report';
             var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
             var plotDataBarY = [];
             //chartData = {"license" : [{"morning":[0,0,0,0,0,0,0]},{"afternoon":[0,0,0,0,0,0,0]},{"evening":[0,0,0,0,0,0,0]}]}
@@ -1510,7 +1514,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
             }
         }
         else if ($scope.report_type == 'weekly') {
-            layout.title = 'LSDYNA / ' + $scope.report_type + ' Report';
+            layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
             $scope.weeklyresponse = $scope.response;
 
 

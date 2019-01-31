@@ -5,7 +5,7 @@
 
 <div class="report-container body-container" ng-class="{'expand':expandNav}">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" id="sortable">
              <div class="col-sm-12  full-screen-view chart-render chart-render-0" ng-class="{'col-sm-6' : chartId>0 }" id="full-screen-view-1">
                 <div class="pie-chart-container chart-container back-g-white half-bordered" >
                     <div class="dropdown chart-dropdown">
@@ -105,7 +105,7 @@
 
                         </div>
                     </div>
-                    <span class="chart vbar-chart" active-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('monthly_change', $event,report_type,'vertical_bar_chart',statisticsType)"></i></span>
+                    <span class="chart vbar-chart active-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('monthly_change', $event,report_type,'vertical_bar_chart',statisticsType)"></i></span>
                     <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph('monthly_change', $event,report_type,'pie_chart',statisticsType)"></i></span>
                     <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph('monthly_change', $event,report_type,'line_chart',statisticsType)"></i></span>
                     <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph('monthly_change', $event,report_type,'area_chart',statisticsType)"></i></span>
@@ -165,7 +165,7 @@
 
                         </div>
                     </div>
-                    <span class="chart vbar-chart" active-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'vertical_bar_chart',statisticsType)"></i></span>
+                    <span class="chart vbar-chart active-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'vertical_bar_chart',statisticsType)"></i></span>
                     <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'pie_chart',statisticsType)"></i></span>
                     <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'line_chart',statisticsType)"></i></span>
                     <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'area_chart',statisticsType)"></i></span>
@@ -175,8 +175,6 @@
                     <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph('weekly_change', $event,report_type,'bubble_chart',statisticsType)"></img></span>
                     <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph('weekly_change', $event,report_type,'scatter_chart',statisticsType)"></img></span>
 
-
-                    <div id="product-chart-yearly2" class="chart-graph"></div>
                     <div class="weekly-section" ng-if="report_type == 'weekly'">
                         <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
                         <ul>
@@ -189,6 +187,8 @@
 
 
                     </div>
+                    <div id="product-chart-yearly2" class="chart-graph"></div>
+                    
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                     <div class="resize-move" ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                 </div>
@@ -236,7 +236,7 @@
 
                         </div>
                     </div>
-                    <span class="chart vbar-chart" active-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'vertical_bar_chart',statisticsType)"></i></span>
+                    <span class="chart vbar-chart active-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'vertical_bar_chart',statisticsType)"></i></span>
                     <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'pie_chart',statisticsType)"></i></span>
                     <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'line_chart',statisticsType)"></i></span>
                     <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'area_chart',statisticsType)"></i></span>

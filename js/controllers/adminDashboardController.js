@@ -1,5 +1,9 @@
 lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdminDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaAdminDashboardService, $location, localStorageService) {
     var userId = localStorageService.get("user");
+    var product_name = localStorageService.get("product_name");
+    if(product_name == "" || product_name == "undefined" || product_name == null) {
+        product_name = "LSDYNA"
+    }
     if (typeof userId === "undefined" || userId == null) {
         $location.path('/');
     }
@@ -130,7 +134,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
             console.log(response);
             var plotDataBarY = [];
             var layout = {
-                title: 'LSDYNA / Yearly Report',
+                title: product_name + ' / Yearly Report',
                 showlegend: true,
                 legend: {
                     "orientation": "h",

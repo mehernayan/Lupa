@@ -4,6 +4,10 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         //console.log(userData);
         //console.log(localStorageService.get("user")[0].id);
         //debugger;
+        var product_name = localStorageService.get("product_name");
+        if(product_name == "" || product_name == "undefined" || product_name == null) {
+            product_name = "LSDYNA"
+        }
 
         this.changeGraphUrl = function(chart_duration, chart_type, statistics_type) {
         
@@ -11,8 +15,8 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         if(chart_duration ==="thisweek"){
             chart_duration = "this_week";
         }
-        //var userObj = {"username": userLogged, "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
-        var userObj = {"username": "Harish", "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
+        //var userObj = {"username": userLogged, "product_name" : product_name, "type": statistics_type, "chart_type" : chart_type}
+        var userObj = {"username": "Harish", "product_name" : product_name, "type": statistics_type, "chart_type" : chart_type}
         var deferred = $q.defer();
         $rootScope.url= appConstants.serviceAddress+'/departmentmanager/'+chart_duration+'_licenses_used';
         
@@ -32,7 +36,7 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
        };
        this.addFavouriteUrl = function(report_type, chart_type, statisticsType) {
         var  user_id = localStorageService.get("user")[0].id;
-        var product_name = "LSDYNA";
+        var product_name = product_name;
 
         var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "user", "api": $rootScope.url}
         //$scope.userLogged = localStorageService.get("user");
@@ -157,28 +161,28 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         if(report_type == 'yearly') {
             
             var year = "year";
-            var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type, "filter_year": filter_year}
+            var userObj = {"username": username, "product_name" : product_name, "type": type, "chart_type": chart_type, "filter_year": filter_year}
             $rootScope.url= appConstants.serviceAddress+'/departmentmanager/' +report_type+ '_licenses_used_'+year+'_filter';
             
          }
         
         else if(report_type == 'monthly'){
             var year = "";
-            var userObj = {"username": "Harish", "product_name" : "LSDYNA", "type": type, "chart_type": chart_type}
+            var userObj = {"username": "Harish", "product_name" : product_name, "type": type, "chart_type": chart_type}
             $rootScope.url= appConstants.serviceAddress+'/departmentmanager/' +report_type+ '_licenses_used_'+userFilterType+'_filter';
-            //var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type}
+            //var userObj = {"username": username, "product_name" : product_name, "type": type, "chart_type": chart_type}
             /*if(userFilterType == 'dept') {
-                 var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type, "filter_department": filter_year}
+                 var userObj = {"username": username, "product_name" : product_name, "type": type, "chart_type": chart_type, "filter_department": filter_year}
             }
             else {
-                 var userObj = {"username": username, "product_name" : "LSDYNA", "type": type, "chart_type": chart_type, "filter_user": filter_year}
+                 var userObj = {"username": username, "product_name" : product_name, "type": type, "chart_type": chart_type, "filter_user": filter_year}
             }*/
            
 
         }
         else if(report_type == 'weekly' || report_type == 'this_week') {
             var year = "";
-            var userObj = {"username": "Harish", "product_name" : "LSDYNA", "type": type, "chart_type": chart_type, "filter_user": filter_year}
+            var userObj = {"username": "Harish", "product_name" : product_name, "type": type, "chart_type": chart_type, "filter_user": filter_year}
             $rootScope.url= appConstants.serviceAddress+'/departmentmanager/' +report_type+ '_licenses_used_'+userFilterType+'_filter';
             
         }
@@ -223,8 +227,8 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
        this.getDeptReportYearListUrl = function(username, product_name) {
         
         //$scope.userLogged = localStorageService.get("user");
-        //var userObj = {"username": username, "product_name" : "LSDYNA"}
-        var userObj = {"username": "Harish", "product_name" : "LSDYNA"}
+        //var userObj = {"username": username, "product_name" : product_name}
+        var userObj = {"username": "Harish", "product_name" : product_name}
         var deferred = $q.defer();
         $rootScope.url= appConstants.serviceAddress+'/departmentmanager/years_filter_list';
         
@@ -245,7 +249,7 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
        this.getDeptReportFilterUserListUrl = function(id) {
         
         //$scope.userLogged = localStorageService.get("user");
-        //var userObj = {"username": username, "product_name" : "LSDYNA"}
+        //var userObj = {"username": username, "product_name" : product_name}
         var userObj = {"id": 10}
         var deferred = $q.defer();
         $rootScope.url= appConstants.serviceAddress+'/departmentmanager/filter_users_list';

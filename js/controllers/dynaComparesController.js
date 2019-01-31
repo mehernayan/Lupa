@@ -142,10 +142,10 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
       lupaManagerService.postFeaturesList().then(function (response) {
         $('#loadergif').hide();
         $scope.response = JSON.parse(response.data.status_response);
-        debugger;
+        //debugger;
         if (typeof $scope.response !== "undefined") {
           if ($scope.response.success) {
-            debugger;
+            //debugger;
             $scope.error = "";
             $scope.successMsg = $scope.response.message;
             $scope.showCompareChart = true;
@@ -153,7 +153,7 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
 
           } else {
             $scope.successMsg = "";
-            debugger;
+            //debugger;
             $scope.error = $scope.response.message;
           }
         }
@@ -162,12 +162,12 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
 
 
     $scope.dynaCompareGraph = function () {
-      debugger;
+      //debugger;
       var plotDataBarY = [];
       $("#loadergif").show();
       lupaManagerService.dynaCompareGraphUrl().then(function (response) {
         $scope.dynaCompareList = response.data;
-        debugger;
+        //debugger;
         var markerColor = ['rgb(49,130,189)', 'rgb(204,204,204)']
 
         setTimeout(function () {

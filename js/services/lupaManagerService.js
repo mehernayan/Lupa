@@ -340,7 +340,7 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
         var userObj = dynaFeatureData.get();
         var  user_id = localStorageService.get("user")[0].id;
         userObj.id = user_id;
-        debugger;
+        //debugger;
         var deferred = $q.defer();
         if(typeof userObj !== "undefined"){
             $http({
@@ -363,6 +363,7 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
     
     this.getNotifications = function() {
     var userObj = notificationId.get();
+    
     var deferred = $q.defer();
         if(typeof userObj !== "undefined"){
             $http({

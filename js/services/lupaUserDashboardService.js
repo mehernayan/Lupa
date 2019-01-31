@@ -4,12 +4,15 @@ lupaUserDashboardService.service('lupaUserDashboardService', ['$http', '$q','$fi
         //console.log(userData);
         //console.log(localStorageService.get("user")[0].id);
         //debugger;
-
+        var product_name = localStorageService.get("product_name");
+        if(product_name == "" || product_name == "undefined" || product_name == null) {
+            product_name = "LSDYNA"
+        }
         this.changeGraphUrl = function(chart_duration, chart_type, statistics_type) {
         
         //$scope.userLogged = localStorageService.get("user");
         var userLogged = localStorageService.get("user")[0].name;
-        var userObj = {"username": userLogged, "product_name" : "LSDYNA", "type": statistics_type, "chart_type" : chart_type}
+        var userObj = {"username": userLogged, "product_name" : product_name, "type": statistics_type, "chart_type" : chart_type}
         if(chart_duration ==="thisweek"){ 
             chart_duration = "this_week";
         }
@@ -32,7 +35,7 @@ lupaUserDashboardService.service('lupaUserDashboardService', ['$http', '$q','$fi
        };
        this.addFavouriteUrl = function(report_type, chart_type, statisticsType) {
         var  user_id = localStorageService.get("user")[0].id;
-        var product_name = "LSDYNA";
+        var product_name = product_name;
 
         var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "user", "api": $rootScope.url}
         //$scope.userLogged = localStorageService.get("user");

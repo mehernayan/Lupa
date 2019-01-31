@@ -136,7 +136,7 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		};
 		$scope.resizeMouseOver = function(event) {
 			var id = $(event.target).closest(".chart-render").attr("id");
-			$("#"+id).draggable({ containment: "parent", cursor: "move", cursorAt: { top: -5, left: -5 } , zIndex : 1000 });
+			//$("#"+id).draggable({ containment: "parent", cursor: "move", cursorAt: { top: -5, left: -5 } , zIndex : 1000 });
 			$("#"+id).resizable({
 				minWidth: 500,
 				minHeight: 532
@@ -145,6 +145,8 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 				var gd1 = document.getElementById(resizeGraph);
 				Plotly.Plots.resize(gd1);
 			});
+			$("#sortable").sortable();
+			$( "#sortable" ).disableSelection();
 		}
 		/*setTimeout(function () {
 			$(".resize-move").mouseover(function() {

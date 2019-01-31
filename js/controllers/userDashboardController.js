@@ -1,5 +1,9 @@
 lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaUserDashboardService, $location, localStorageService) {
     var userId = localStorageService.get("user");
+    var product_name = localStorageService.get("product_name");
+    if(product_name == "" || product_name == "undefined" || product_name == null) {
+        product_name = "LSDYNA"
+    }
     if (typeof userId === "undefined" || userId == null) {
         $location.path('/');
     }
@@ -131,7 +135,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
             console.log(response);
             var plotDataBarY = [];
             var layout = {
-                title: 'LSDYNA / Yearly Report',
+                title: product_name + ' / Yearly Report',
                 showlegend: true,
                 legend: {
                     "orientation": "h",
@@ -175,7 +179,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
                 var responseData = JSON.parse($scope.response[i].data);
                 var plotDataBarY = [];
                 if ($scope.response[i].report_type == "yearly" || $scope.response[i].report_type == "monthly") {
-                    layout.title = 'LSDYNA / Yearly Report';
+                    layout.title = product_name + ' / Yearly Report';
                     var xAxisVal = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                     for (j = 0; j < responseData.length; j++) {
                         //debugger;
@@ -191,7 +195,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
                     }
                 }
                 else if ($scope.response[i].report_type == "this_week") {
-                    layout.title = 'LSDYNA / This Week Report';
+                    layout.title = product_name + ' / This Week Report';
                     var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                     for (j = 0; j < responseData[0].license.length; j++) {
                         for (key in responseData[0].license[j]) {
@@ -316,6 +320,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
         $("#product").removeClass("in").prev("li").addClass("collapsed");
         $scope.activeMenu = item;
         $scope.reportSidebar = true;
+        localStorageService.set("product_name",item);
         lupaUserDashboardService.getLiveChartByProductUrl(item).then(function (response) {
             $scope.response = response.data;
             $scope.individualProductChart = true;
