@@ -13,8 +13,8 @@
         <div class="dropdown">
             <button class="dropdown-toggle head-btn" type="button" data-toggle="dropdown">
             <span class="fa fa-bell"></span></button>
-            <ul class="dropdown-menu no-notification">
-                <li ng-if="!deptnotifications.length" class="notification-msg"> <p>No New Notifications Available</p></li>
+            <ul class="dropdown-menu no-notification" ng-if="!deptnotifications.length">
+                <li class="notification-msg">No new notifications available</li>
             </ul>
             <ul class="dropdown-menu" ng-if="deptnotifications.length">
                     <li ng-repeat="notification in deptnotifications">
@@ -36,9 +36,12 @@
     </div>
     <div class="notification-dropdown" style="display: inline-block" ng-if="userType ==='admin'">
         <div class="dropdown">
-            <button class="dropdown-toggle head-btn" type="button" data-toggle="dropdown" ng-disabled="!adminnotifications.length">
+            <button class="dropdown-toggle head-btn" type="button" data-toggle="dropdown">
             <span class="fa fa-bell"></span></button>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu no-notification" ng-if="!adminnotifications.length">
+                <li class="notification-msg">No new notifications available</li>
+            </ul>
+            <ul class="dropdown-menu" ng-if="adminnotifications.length">
                 <li ng-repeat="notification in adminnotifications">
                     <div class="notification-msg"><p>{{notification.title}}</p>
                             <p ng-if="acceptMsg && notification.id===curId"" style="color:green">{{acceptMsg}}</p>

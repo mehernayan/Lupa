@@ -763,10 +763,14 @@ i.far.fa-square {
 .notification-msg{
     display: inline-block;
     width: 70%;
+    vertical-align: text-bottom;
 }
 .notification-btns{
     display: inline-block;
     width: 27%;
+}
+.notification-btns .btn-table{
+    margin: 2px;
 }
 .head-btn {
     background: none;
