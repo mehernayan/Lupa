@@ -614,7 +614,7 @@ input[type=checkbox] {
 .chart-dropdown {
     float: right;
     cursor: pointer;
-    padding-right: 20px;
+    padding-right: 12px;
     padding-top: 7px;
     right: 0px;
     z-index: 8;
@@ -632,7 +632,7 @@ i.far.fa-square {
   right: 0;
 }
 .chart-dropdown .dropdown-menu{
-    min-width: 12px;
+    min-width: 20px;
     /* padding: 0px; */
     left: -45px;
 }
