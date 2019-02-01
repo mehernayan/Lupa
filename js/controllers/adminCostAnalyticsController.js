@@ -9,6 +9,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
     $scope.reportSidebar = true;
     $scope.dashboardActive = false;
     $scope.favouriteActive = false;
+    $scope.costAnalyticsActive = true;
 
     //layout 
     var layout = {
