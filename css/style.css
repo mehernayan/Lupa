@@ -400,9 +400,6 @@ a.active-main-nav:hover, a.active-main-nav:focus {
       font-size: 12px;
       vertical-align: top;
   }
-  .navigation-links #timestatistics {
-      padding-left: 0px;
-  }
   .arrow-custom {
       transform: rotate(45deg);
       -webkit-transform: rotate(45deg);
@@ -442,7 +439,8 @@ a.active-main-nav:hover, a.active-main-nav:focus {
   }
   .expand .nav-txt {
       display: inline-block;
-      width: 144px;
+      width: 133px;
+      padding-left: 25px;
   }
   
   .nav-slide {
@@ -450,7 +448,7 @@ a.active-main-nav:hover, a.active-main-nav:focus {
       padding-left: 4px;
   }
   #product, #duration, #timestatistics {
-      padding-left: 0px;
+      padding-left: 10px;
   }
   .nav-switch .nav-icon{
       font-size: 30px;
@@ -510,7 +508,6 @@ a.active-main-nav:hover, a.active-main-nav:focus {
   }
   .report-link {
       display: inline-block;
-      width: 132px;
   }
   .navigation-links img {
       float: left;

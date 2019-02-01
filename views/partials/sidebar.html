@@ -5,49 +5,49 @@
         <span class="nav-switch" ng-if="!expandNav" ng-click="navToggle()"><i class="fa fa-toggle-off fa-2x"></i></span></div>
     <ul class="navigation-links">
 
-        <li data-toggle="collapse" data-target="#product"><img ng-click="navToggle()" src="images/product-icon.png" width="20px"><span class="nav-slide" ng-if="expandNav">
-                <a href="#/{{userType}}dashboard" >Products</a></span><i class="arrow right arrow-custom" ng-if="expandNav"></i>
+        <li data-toggle="collapse" data-target="#product">
+            <img ng-click="navToggle()" src="images/product-icon.png" width="20px">
+            <span class="nav-slide" ng-if="expandNav">
+            <a href="#/{{userType}}dashboard" >Products</a></span><i class="arrow right arrow-custom" ng-if="expandNav"></i>
         </li>
-
-        <ul id="product" class="collapse in" ng-if="expandNav">
-            <li ng-repeat="item in productlist" ng-click="getLiveChartByProduct(item)">
-                <span class="circle red dot" ng-class="{'active' : activeMenu === item}"></span>{{item}}
-            </li>
-
-        </ul>
+        <li ng-if="productlist.length">
+            <ul id="product" class="collapse in" ng-if="expandNav">
+                <li ng-repeat="item in productlist" ng-click="getLiveChartByProduct(item)">
+                    <span class="circle red dot" ng-class="{'active' : activeMenu === item}"></span>{{item}}
+                </li>
+            </ul>
+        </li>
         <li>
             <img  ng-click="navToggle()" src="images/report-icon.png" width="20px">
             <span class="nav-slide" ng-if="expandNav">
-                    
-                    <a data-toggle="collapse" data-target="#reports" class="report-link" ng-class="{'collapsed' : !reportSidebar}">
-                        Reports  <i class="arrow right arrow-custom active-menu" ng-if="expandNav"></i>
-                    </a>
-                    
-                    
-                    <div class="collapse" ng-class="{'in' : reportSidebar}" id="reports">
-                    <ul>
-                        <li data-toggle="collapse"  ng-class="{'collapsed' : !reportSidebar}" data-target="#duration" ng-if="expandNav">Licence <i class="arrow right arrow-custom active-menu" ng-if="expandNav"></i>
+            <a data-toggle="collapse" data-target="#reports" class="report-link" ng-class="{'collapsed' : !reportSidebar}">
+                        Reports</a></span><i class="arrow right arrow-custom active-menu"  ng-if="expandNav"></i>
+        </li>
+        <li>
+                 
+        <ul class="collapse" ng-class="{'in' : reportSidebar}" id="reports" style="margin-left:25px;">
+            <li data-toggle="collapse"  ng-class="{'collapsed' : !reportSidebar}" data-target="#duration" ng-if="expandNav">
+                Licence <i class="arrow right arrow-custom active-menu" ng-if="expandNav"></i>
+            </li>
+            <ul id="duration" class="collapse in">
+                <li ng-click="loadReport('yearly_overall', license_statistics)" ng-class="{'setActiveTab' : (report_type == 'yearly' && statisticsType == 'license_statistics')}">
+                    <a  href="#/{{userType}}report"><span class="circle yellow dot active"></span>YEARLY</a>
+                </li>
+                <li ng-click="loadReport('monthly_overall', license_statistics)" ng-class="{'setActiveTab' : (report_type == 'monthly' && statisticsType == 'license_statistics')}">
+                    <a href="#/{{userType}}report"><span class="circle red dot"></span>MONTHLY</a>
+                </li>
+                <li ng-click="loadReport('weekly_overall', license_statistics)" ng-class="{'setActiveTab' : (report_type == 'weekly' && statisticsType == 'license_statistics')}">
+                    <a  href="#/{{userType}}report"><span class="circle green dot"></span>WEEKLY</a>
+                </li>
 
-                        </li>
-                        <ul id="duration" class="collapse in">
-                             <li ng-click="loadReport('yearly_overall', license_statistics)" ng-class="{'setActiveTab' : (report_type == 'yearly' && statisticsType == 'license_statistics')}">
-                <a  href="#/{{userType}}report"><span class="circle yellow dot active"></span>YEARLY</a>
-        </li>
-        <li ng-click="loadReport('monthly_overall', license_statistics)" ng-class="{'setActiveTab' : (report_type == 'monthly' && statisticsType == 'license_statistics')}">
-            <a href="#/{{userType}}report"><span class="circle red dot"></span>MONTHLY</a>
-        </li>
-        <li ng-click="loadReport('weekly_overall', license_statistics)" ng-class="{'setActiveTab' : (report_type == 'weekly' && statisticsType == 'license_statistics')}">
-            <a  href="#/{{userType}}report"><span class="circle green dot"></span>WEEKLY</a>
-        </li>
-
-        <li ng-click="loadReport('thisweek_overall', license_statistics)" ng-class="{'setActiveTab' : (report_type == 'thisweek' && statisticsType == 'license_statistics')}">
-            <a href="#/{{userType}}report"><span class="circle blue dot"></span>THIS WEEK</a>
-        </li>
-    </ul>
-    </ul>
-    <ul>
-        <li data-toggle="collapse" class="collapsed" data-target="#timestatistics" ng-if="expandNav">Time Statistics <i class="arrow right arrow-custom arrow-right" ng-if="expandNav"></i>
-
+                <li ng-click="loadReport('thisweek_overall', license_statistics)" ng-class="{'setActiveTab' : (report_type == 'thisweek' && statisticsType == 'license_statistics')}">
+                    <a href="#/{{userType}}report"><span class="circle blue dot"></span>THIS WEEK</a>
+                </li>
+            </ul>
+        </ul>
+        <ul style="margin-left:25px;">
+        <li data-toggle="collapse" class="collapsed" data-target="#timestatistics" ng-if="expandNav" style="font-weight:bold">
+            Time Statistics <i class="arrow right arrow-custom arrow-right" ng-if="expandNav"></i>
         </li>
         <ul id="timestatistics" class="collapse">
             <li ng-click="loadReport('yearly_overall', 'time_statistics')" ng-class="{'setActiveTab' : (report_type == 'yearly' && statisticsType =='time_statistics')}">
@@ -65,9 +65,6 @@
             </li>
         </ul>
     </ul>
-</div>
-</span>
-
 </li>
 
 </ul>
