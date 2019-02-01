@@ -255,7 +255,6 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 $scope.addedFav = $scope.response[0].favourite;
             }
             if ($scope.response) {
-                $('#loadergif').hide();
                 var plotDataBarY = [];
                 for (i = 0; i < $scope.response.length; i++) {
                     plotDataBarY.push({
