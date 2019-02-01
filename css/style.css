@@ -632,7 +632,7 @@ i.far.fa-square {
   right: 0;
 }
 .chart-dropdown .dropdown-menu{
-    min-width: 20px;
+    min-width: 12px;
     /* padding: 0px; */
     left: -45px;
 }
