@@ -1,0 +1,39 @@
+<div class="lupa-login-container">
+        <div class="lupa-logo-container  text-center mar-bot-10">
+            <img class="" src="images/login-logo.png" title="Logo" alt="Logo" />
+        </div>
+        <div class="container login-container pad-top-50 pad-bot-50">
+            <div class="row">
+                <div class="col-sm-6 login-right right-vertical" >
+                    <div class="login-label mar-top-10">
+                            <span class="label-top"></span>
+                            <label>Downlaod the certificate</label>
+                    </div>
+                    <div class="text-center">
+                        <button  class="btn login-submit" style="margin-top:120px;" ng-click="downloadCert()" >
+                                <i class="fa fa-download"></i> DOWNLOAD </button>
+                    </div>
+                </div>
+                <div class="col-sm-6 login-right">
+                    <div class="login-label mar-top-10">
+                        <span class="label-top"></span>
+                        <label>Validate the certificate</label>
+                    </div>
+                    <div class="form-container text-center">
+                        <form>
+                            <div class="form-group  mar-top-50 text-center">
+                                <input type="file"  ng-model="certificate" class="form-control-file" id="fileForm">
+                                <button  class="btn login-submit mar-top-50" ng-click="userValidate()" > VALIDATE </button><br/><br/>
+                            </div>
+                        </form>
+                    </div>
+                     <!--<div class="error-container" style="height:50px;">
+                        <div class="pad-top-20" ng-show="error.length">
+                            <i class="fa fa-exclamation-triangle" style="color:red"></i>
+                            <span style="color:red"></span>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+</div>

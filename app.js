@@ -4,8 +4,11 @@ var lupaApp = angular.module('lupaApp', ['ngRoute', 'lupaUserProvider', 'lupaAdm
 // configure our routes
 lupaApp.config(function ($routeProvider, $httpProvider) {
 	$routeProvider
-
 		.when('/', {
+			templateUrl: 'views/uservalidate.html',
+			controller: 'userValidateController'
+		})
+		.when('/user', {
 			templateUrl: 'views/userlogin.html',
 			controller: 'userLoginController'
 		})
