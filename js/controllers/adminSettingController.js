@@ -115,23 +115,33 @@ function($scope,$location,lupaAdminService,addDepartmentData,transferUserData,lo
     };
 
     /**Delete department */
-    $scope.deleteDepartment = function(id){
+    $scope.deleteId = undefined;
+    $scope.deleteDept = undefined;
+    $scope.deleteDepartmentConf = function(id,deptName){
+        $scope.deleteId = id;
+        $scope.deleteDept = deptName;
+    }
+
+    $scope.deleteDepartment = function(){
         $('#loadergif').show();
-        lupaAdminService.delteDepartment(id).then(function(response) {
-          //console.log(response.data,"register user");
-          $scope.response = JSON.parse(response.data.status_response);
-          $('#loadergif').hide();
-          if(typeof $scope.response!=="undefined"){
-            if($scope.response.Success){
-              $scope.error ="";
-              $scope.successMsg = $scope.response.message;
-            }else{
-              $scope.successMsg = "";
-              $scope.error = $scope.response.message;
+        if($scope.deleteId !== undefined){
+          lupaAdminService.delteDepartment($scope.deleteId).then(function(response) {
+            //console.log(response.data,"register user");
+            $scope.response = JSON.parse(response.data.status_response);
+            $('#loadergif').hide();
+            if(typeof $scope.response!=="undefined"){
+              if($scope.response.Success){
+                $scope.error ="";
+                $scope.successMsg = $scope.response.message;
+              }else{
+                $scope.successMsg = "";
+                $scope.error = $scope.response.message;
+              }
+              $scope.getDepartmentList();
             }
-            $scope.getDepartmentList();
-          }
-        });
+            $("#deleteDeptModal").modal('hide');
+          });
+        }
       };
 
       /** 
@@ -201,23 +211,33 @@ function($scope,$location,lupaAdminService,addDepartmentData,transferUserData,lo
       /** 
        * Delete Dept manager
        */
-      $scope.deleteDeptManager = function(id){
+      $scope.deleteManagerId = undefined;
+      $scope.deleteDeptManagerName = undefined;
+      $scope.deleteDeptManagerConf = function(id,managerName){
+          $scope.deleteManagerId = id;
+          $scope.deleteDeptManagerName = managerName;
+      }
+      $scope.deleteDeptManager = function(){
         $('#loadergif').show();
-        lupaAdminService.deleteDeptManager(id).then(function(response) {
-          //console.log(response.data,"register user");
-          $scope.response = JSON.parse(response.data.status_response);
-          $('#loadergif').hide();
-          if(typeof $scope.response!=="undefined"){
-            if($scope.response.Success){
-              $scope.error ="";
+        if($scope.deleteManagerId !== undefined){
+          lupaAdminService.deleteDeptManager($scope.deleteManagerId).then(function(response) {
+            //console.log(response.data,"register user");
+            $scope.response = JSON.parse(response.data.status_response);
+            $('#loadergif').hide();
+            if(typeof $scope.response!=="undefined"){
+              if($scope.response.Success){
+                $scope.error ="";
+                $scope.getDeptManagersList();
+                $scope.successMsg =$scope.response.message;
+              }else{
+                $scope.successMsg ="";
+                $scope.error = $scope.response.message;
+              }
               $scope.getDeptManagersList();
-              $scope.successMsg =$scope.response.message;
-            }else{
-              $scope.successMsg ="";
-              $scope.error = $scope.response.message;
             }
-          }
-        });
+            $("#deleteManagerModal").modal('hide');
+          });
+        }
       };
 
        /** 
@@ -288,24 +308,33 @@ function($scope,$location,lupaAdminService,addDepartmentData,transferUserData,lo
       /** 
        * Delete user from Users list
        */
-      $scope.deleteUser = function(id){
+      $scope.deleteUserId = undefined;
+      $scope.deleteUserName = undefined;
+      $scope.deleteUserConf = function(id,userName){
+          $scope.deleteUserId = id;
+          $scope.deleteUserName = userName;
+      }
+      $scope.deleteUser = function(){
         $('#loadergif').show();
         $scope.error ="";
         $scope.successMsg = "";
-        lupaAdminService.deleteUser(id).then(function(response) {
-          $scope.response = JSON.parse(response.data.status_response);
-          $('#loadergif').hide();
-          if(typeof $scope.response!=="undefined"){
-            if($scope.response.Success){
-              $scope.error ="";
-              $scope.successMsg = $scope.response.message;
-            }else{
-              $scope.successMsg = "";
-              $scope.error = $scope.response.message;
+        if($scope.deleteUserId !== undefined){
+          lupaAdminService.deleteUser($scope.deleteUserId).then(function(response) {
+            $scope.response = JSON.parse(response.data.status_response);
+            $('#loadergif').hide();
+            if(typeof $scope.response!=="undefined"){
+              if($scope.response.Success){
+                $scope.error ="";
+                $scope.successMsg = $scope.response.message;
+              }else{
+                $scope.successMsg = "";
+                $scope.error = $scope.response.message;
+              }
+              $scope.getUsersList();
             }
-            $scope.getUsersList();
-          }
-        });
+            $("#deleteUserModal").modal('hide');
+          });
+        }
       };
 
       /** 
@@ -420,19 +449,25 @@ function($scope,$location,lupaAdminService,addDepartmentData,transferUserData,lo
       $scope.deletedId = selectedShift.id;
     }
     var deletedId  = $scope.deletedId;
-    $scope.deleteShiftById = function (deletedId) {
-          if(deletedId != "" && deletedId != undefined) {
-          $('#loadergif').show();
-          lupaAdminService.deleteThisWeekShiftUrl(deletedId).then(function(response) {
-              $('#loadergif').hide();
-              if(response.data) {
-                $scope.getThisWeekShifts();
-                $scope.shiftDeleted = true;
-              }
-              
-          });
-          }
-          else {
+      $scope.deleteShiftId = undefined;
+      $scope.deleteShiftName = undefined;
+      $scope.deleteShiftByIdConf = function(id,shiftName){
+          $scope.deleteShiftId = id;
+          $scope.deleteShiftName = shiftName;
+      }
+    $scope.deleteShiftById = function () {
+          if($scope.deleteShiftId !== undefined) {
+            $('#loadergif').show();
+            lupaAdminService.deleteThisWeekShiftUrl($scope.deleteShiftId).then(function(response) {
+                $('#loadergif').hide();
+                if(response.data) {
+                  $scope.getThisWeekShifts();
+                  $scope.shiftDeleted = true;
+                }
+                
+            });
+            $("#deleteShiftModal").modal('hide');
+          }else {
             $scope.shiftDeleted = false;     
           }
     }
