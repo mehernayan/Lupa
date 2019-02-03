@@ -97,6 +97,9 @@ lupaApp.config(function ($routeProvider, $httpProvider) {
 		.when('/admincostanalytics', {
 			templateUrl: 'views/admincostanalytics.html',
 			controller: 'adminCostAnalyticsController'
+		}).otherwise('/', {
+			templateUrl: 'views/uservalidate.html',
+			controller: 'userValidateController'
 		})
 
 	$httpProvider.defaults.useXDomain = true;
