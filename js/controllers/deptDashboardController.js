@@ -26,6 +26,10 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
             $scope.response = response.data;
             $scope.productlistresponse = response.data;
             $scope.productListDashboard = [];
+            if(!$scope.productlistresponse.length) {
+                $scope.response = [[],[],[],[]];
+
+            }
             for (i = 0; i < $scope.response.length; i++) {
                 //debugger;
                 $scope.productListDashboard.push({
@@ -95,6 +99,9 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
                             width: 2,
                             color: 'silver'
                         }]
+                    },
+                    credits: {
+                        enabled: false
                     },
                     legend: {
                         enabled: false

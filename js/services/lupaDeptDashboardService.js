@@ -34,6 +34,30 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         
         
        };
+       this.loadThisWeekShiftGraphUrl = function(chart_duration, chart_type, statistics_type) {
+        
+        var userLogged = localStorageService.get("user")[0].name;
+        var userObj = {"username": userLogged, "product_name" : product_name, "type": statistics_type, "chart_type" : chart_type}
+        if(chart_duration ==="thisweek"){
+            chart_duration = "this_week";
+        }
+        var deferred = $q.defer();
+        $rootScope.url= appConstants.serviceAddress+'/departmentmanager/'+chart_duration+'_licenses_used_shifts';
+        
+        $http({
+                    method : 'POST',
+                    url : $rootScope.url,
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+           
+        
+        
+       };
        this.addFavouriteUrl = function(report_type, chart_type, statisticsType) {
         var  user_id = localStorageService.get("user")[0].id;
         var product_name = product_name;

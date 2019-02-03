@@ -54,7 +54,6 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
                 $scope.response = filteredResponse;
                 var seriesCounter = 0;
                 for (i = 0; i < $scope.response.length; i++) {
-                    debugger;
                     seriesOptions[i] = {
                         name: $scope.response[i].product_name,
                         data: $scope.response[i].values

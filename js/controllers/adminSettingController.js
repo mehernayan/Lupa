@@ -1,5 +1,5 @@
-lupaApp.controller('adminSettingController',['$scope','$location','lupaAdminService','addDepartmentData','transferUserData','localStorageService',
-function($scope,$location,lupaAdminService,addDepartmentData,transferUserData,localStorageService){
+lupaApp.controller('adminSettingController',['$scope','$location','lupaAdminService','addDepartmentData','transferUserData','localStorageService','$filter',
+function($scope,$location,lupaAdminService,addDepartmentData,transferUserData,localStorageService, $filter){
     var userId = localStorageService.get("user");
     if(typeof userId ==="undefined" || userId == null) {
         $location.path('/');
@@ -371,5 +371,70 @@ function($scope,$location,lupaAdminService,addDepartmentData,transferUserData,lo
     $scope.showDept = function(dept){
         $(".deptbtn .btnvalue").text(dept);
     };
+    $scope.addThisWeekShift = function(shiftName,shiftStart,shiftEnd) {
+      if(shiftStart != "" && shiftStart != undefined && shiftEnd != "" && shiftEnd != undefined && shiftName != "" && shiftName != undefined) {
+      shiftStart = $filter("date")(shiftStart, 'HH:mm:ss');
+      shiftEnd = $filter("date")(shiftEnd, 'HH:mm:ss');
+      $('#loadergif').show();
+      lupaAdminService.addThisWeekShiftUrl(shiftName,shiftStart,shiftEnd).then(function(response) {
+          $('#loadergif').hide();
+          if(typeof $scope.response!=="undefined"){
+            if($scope.response.Success){
+              $scope.shiftCreated = true;
+              $scope.shiftFieldValidation =  false;
+              }else{
+              
+            }
+          }
+      });
+      }
+      else {
+        $scope.shiftCreated = false;
+        $scope.shiftFieldValidation =  true;     
+       }
+      
+    };
+
+   
+
+    $scope.getThisWeekShifts = function() {
+      $('#loadergif').show();
+      lupaAdminService.getThisWeekShiftsUrl().then(function(response) {
+          $('#loadergif').hide();
+          $scope.response = JSON.parse(response.data.status_response);
+          if(typeof $scope.response!=="undefined"){
+            if($scope.response.Success){
+               $scope.shiftList = $scope.response.data;
+               $scope.deletedId = $scope.shiftList[0].id;
+               $scope.selectedShift = $scope.shiftList[0].shift_name;
+               //debugger;
+             
+            }else{
+              
+            }
+          }
+      });      
+    };
+    $scope.getThisWeekShifts();
+    $scope.thisWeekShiftChange = function (selectedShift) {
+      $scope.deletedId = selectedShift.id;
+    }
+    var deletedId  = $scope.deletedId;
+    $scope.deleteShiftById = function (deletedId) {
+          if(deletedId != "" && deletedId != undefined) {
+          $('#loadergif').show();
+          lupaAdminService.deleteThisWeekShiftUrl(deletedId).then(function(response) {
+              $('#loadergif').hide();
+              if(response.data) {
+                $scope.getThisWeekShifts();
+                $scope.shiftDeleted = true;
+              }
+              
+          });
+          }
+          else {
+            $scope.shiftDeleted = false;     
+          }
+    }
 }]);
    

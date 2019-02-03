@@ -90,6 +90,9 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                             color: 'silver'
                         }]
                     },
+                    credits: {
+                        enabled: false
+                    },
                     legend: {
                         enabled: false
                     },

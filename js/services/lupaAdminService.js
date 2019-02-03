@@ -656,6 +656,53 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q', '$filter', 'localSt
         
         
        };
+       this.addThisWeekShiftUrl  = function(shift_name, start_time, end_time) {
+        var userObj = {"shift_name": shift_name,"start_time" : start_time, "end_time": end_time};
+        var deferred = $q.defer();
+        $http({
+                    method : 'POST',
+                    url : appConstants.serviceAddress+'/admin/add_shift',
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+           
+        
+        
+       };
+       this.deleteThisWeekShiftUrl  = function(id) {
+        var userObj = {"id": id};
+        var deferred = $q.defer();
+        $http({
+                    method : 'POST',
+                    url : appConstants.serviceAddress+'/admin/delete_shifts',
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+           
+        
+        
+       };
+       this.getThisWeekShiftsUrl = function () {
+                var deferred = $q.defer();
+                $http({
+                    method: 'GET',
+                    url: appConstants.serviceAddress + '/admin/get_shifts'
+                }).then(function (response) {
+                    deferred.resolve(response);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+
+        };
 
 
 

@@ -12,7 +12,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
 
 
 
-    $scope.getfavourite = function () {
+     $scope.getfavourite = function () {
         $('#loadergif').show();
         lupaAdminDashboardService.getFavouriteUrl().then(function (response) {
             $('#loadergif').hide();
@@ -79,7 +79,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
 
                     }
                 }
-                else if(report_type == "yearly" || report_type == "monthly") {
+                else if($scope.response[i].report_type == "yearly" || $scope.response[i].report_type == "monthly") {
                     for (i = 0; i < $scope.response.length; i++) {
                     plotDataBarY.push({
                         x: xAxisVal,
@@ -95,8 +95,10 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
 
                 
 
-
+                $(".chart-render-"+i).show();
                 Plotly.newPlot('product-chart-yearly' + i, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+                var gd1 = document.getElementById("product-chart-yearly"+i);
+                Plotly.Plots.resize(gd1);
 
 
             }

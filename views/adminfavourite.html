@@ -4,8 +4,8 @@
 </div>
 <div class="favourite-container body-container" ng-class="{'expand':expandNav}">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12 col-md-12 col-md-12 full-screen-view">
+        <div class="row" id="sortable">
+            <div class="col-sm-12 chart-render chart-render-0 full-screen-view" id="full-screen-view-1" ng-class="{'col-sm-6' : response.length>0 }">
                 <div class="pie-chart-container chart-container back-g-white half-bordered">
                     <div class="dropdown chart-dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -16,7 +16,7 @@
                         </div>
                         <div class="dropdown-menu">
 
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
+                            <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
                                 </a>
                             </li>
                             <li>
@@ -29,7 +29,7 @@
                             </li>
 
                             <li>
-                                <a class="dropdown-item"> <i class="fa fa-expand"></i>
+                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
                                 </a>
                             </li>
 
@@ -52,9 +52,10 @@
 
                     </div>
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move"  ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-12 col-md-12 full-screen-view mar-top-20">
+            <div class="col-sm-12  chart-render chart-render-1 full-screen-view" id="full-screen-view-2" ng-class="{'col-sm-6' : response.length>0 }">
                 <div class="pie-chart-container chart-container back-g-white half-bordered">
                     <div class="dropdown chart-dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -65,7 +66,7 @@
                         </div>
                         <div class="dropdown-menu">
 
-                            <li><a class="dropdown-item"><i class="fa fa-window-close"></i>
+                            <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
                                 </a>
                             </li>
                             <li>
@@ -78,7 +79,7 @@
                             </li>
 
                             <li>
-                                <a class="dropdown-item"> <i class="fa fa-expand"></i>
+                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
                                 </a>
                             </li>
 
@@ -87,6 +88,56 @@
                         </div>
                     </div>
                     <div id="product-chart-yearly1"></div>
+                    <div class="weekly-section" ng-if="report_type == 'weekly'">
+                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
+                        <ul>
+                            <li ng-repeat="item in reportyearlist">
+                                <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
+                                {{item.year}}
+                            </li>
+                        </ul>
+                        
+
+
+                    </div>
+                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move"  ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
+                </div>
+            </div>
+            
+            <div class="col-sm-12 col-md-12 col-md-12 chart-render chart-render-2 full-screen-view" id="full-screen-view-3" ng-class="{'col-sm-6' : response.length>0 }">
+                <div class="pie-chart-container chart-container back-g-white half-bordered">
+                    <div class="dropdown chart-dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-square"></i>
+                            <i class="far fa-square"></i>
+                            <i class="far fa-square"></i>
+
+                        </div>
+                        <div class="dropdown-menu">
+
+                            <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
+                                </a>
+                            </li>
+
+                            
+
+                        </div>
+                    </div>
+                    <div id="product-chart-yearly2"></div>
                     
                     <div class="weekly-section" ng-if="report_type == 'weekly'">
                         <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
@@ -101,8 +152,160 @@
 
                     </div>
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move"  ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                 </div>
             </div>
+            <div class="col-sm-12 col-md-12 col-md-12 chart-render chart-render-3 full-screen-view" id="full-screen-view-4" ng-class="{'col-sm-6' : response.length>0 }">
+                <div class="pie-chart-container chart-container back-g-white half-bordered">
+                    <div class="dropdown chart-dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-square"></i>
+                            <i class="far fa-square"></i>
+                            <i class="far fa-square"></i>
+
+                        </div>
+                        <div class="dropdown-menu">
+
+                            <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
+                                </a>
+                            </li>
+
+                            
+
+                        </div>
+                    </div>
+                    <div id="product-chart-yearly3"></div>
+                    <div class="weekly-section" ng-if="report_type == 'weekly'">
+                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
+                        <ul>
+                            <li ng-repeat="item in reportyearlist">
+                                <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
+                                {{item.year}}
+                            </li>
+                        </ul>
+                        
+
+
+                    </div>
+                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move"  ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
+                </div>
+            </div>
+            
+            <div class="col-sm-12 col-md-12 col-md-12 chart-render chart-render-4 full-screen-view" id="full-screen-view-5" ng-class="{'col-sm-6' : response.length>0 }">
+                <div class="pie-chart-container chart-container back-g-white half-bordered">
+                    <div class="dropdown chart-dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-square"></i>
+                            <i class="far fa-square"></i>
+                            <i class="far fa-square"></i>
+
+                        </div>
+                        <div class="dropdown-menu">
+
+                            <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
+                                </a>
+                            </li>
+
+                            
+
+                        </div>
+                    </div>
+                    <div id="product-chart-yearly4"></div>
+                    
+                    <div class="weekly-section" ng-if="report_type == 'weekly'">
+                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
+                        <ul>
+                            <li ng-repeat="item in reportyearlist">
+                                <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
+                                {{item.year}}
+                            </li>
+                        </ul>
+                        
+
+
+                    </div>
+                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move"  ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-md-12 chart-render chart-render-5 full-screen-view" id="full-screen-view-6" ng-class="{'col-sm-6' : response.length>0 }">
+                <div class="pie-chart-container chart-container back-g-white half-bordered">
+                    <div class="dropdown chart-dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-square"></i>
+                            <i class="far fa-square"></i>
+                            <i class="far fa-square"></i>
+
+                        </div>
+                        <div class="dropdown-menu">
+
+                            <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
+                                </a>
+                            </li>
+
+                            
+
+                        </div>
+                    </div>
+                    <div id="product-chart-yearly5"></div>
+                    <div class="weekly-section" ng-if="report_type == 'weekly'">
+                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
+                        <ul>
+                            <li ng-repeat="item in reportyearlist">
+                                <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
+                                {{item.year}}
+                            </li>
+                        </ul>
+                        
+
+
+                    </div>
+                    <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
+                    <div class="resize-move"  ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
+                </div>
+            </div>
+
+
            
         </div>
     </div>

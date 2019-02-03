@@ -11,6 +11,8 @@
                         <li ng-class="{active:tab==1}"><a href ng-click="setTab(1)">Add Department</a></li>
                         <li ng-class="{active:tab==2}"><a href ng-click="setTab(2)">Department Manager</a></li>
                         <li ng-class="{active:tab==3}"><a href ng-click="setTab(3)">Total Users</a></li>
+                        <li ng-class="{active:tab==4}"><a href ng-click="setTab(4)">Add Shift Time</a></li>
+                        <li ng-class="{active:tab==5}"><a href ng-click="setTab(5)">Delete a Shift </a></li>
                     </ul>
                     <div class="message-container pad-left-20">
                         <div class="pad-top-20 error-msg" ng-if="error">
@@ -76,7 +78,7 @@
                             <table class="table table-striped table-bordered">
                                 <thead class="thead-dark">
                                     <tr>
-                                    <th scope="col" class="text-center"">Name</th>
+                                    <th scope="col" class="text-center">Name</th>
                                     <th scope="col" class="text-center">Email ID</th>
                                     <th scope="col" class="text-center">Department</th>
                                     <th scope="col" class="text-center">Status</th>
@@ -116,7 +118,7 @@
                             <table class="table table-striped table-bordered">
                                 <thead class="thead-dark">
                                     <tr>
-                                    <th scope="col" class="text-center"">Name</th>
+                                    <th scope="col" class="text-center">Name</th>
                                     <th scope="col" class="text-center">Email ID</th>
                                     <th scope="col" class="text-center">Department</th>
                                     <th scope="col" class="text-center">Action</th>
@@ -157,7 +159,65 @@
                             </table>
                         </div>
                     </div>
+                    <div ng-show="tab==4">
+                        <div class="mar-top-20 col-sm-9">
+                            <div class="mar-top-20 col-sm-12 pad-bot-20">
+                                <div class="well">
+                                    <p>
+                                        Use arrow keys (Up,Down,Left,Right,TAB) to navigate and change time.
+                                    </p>
+                                </div>
+
+                                <label>
+                                    Shift Name
+                                    <input class="form-control" ng-model="shiftName" placeholder="Enter Shift Name"  required>
+                                </label>
+                                <label>
+                                    Start Time
+                                    <input class="form-control"  ng-model="shiftStart" ps-input-time required>
+                                </label>
+                                <label>
+                                    End Time
+                                    <input class="form-control" min="shiftStart" ng-model="shiftEnd" ps-input-time required>
+                                </label>
+                                <button type="button" class="btn btn-primary" ng-click="addThisWeekShift(shiftName,shiftStart,shiftEnd)">Submit</button>
+                                <div class="alert alert-danger mar-top-20" ng-if="shiftFieldValidation">
+                                   Please Enter Shift Name / Shift Start / Shift End Date
+                                </div>
+                                <div class="alert alert-success mar-top-20" ng-if="shiftCreated">
+                                    Shift Added Successfully.
+                                </div>
+                            
+                        </div>
+                    </div>
+                    
                 </div>
+                <div ng-show="tab==5">
+                        <div class="mar-top-20 col-sm-9">
+                            <div class="mar-top-20 col-sm-12 pad-bot-20">
+                                <!--<div class="well">
+                                    <p>
+                                        Use arrow keys (Up,Down,Left,Right,TAB) to navigate and change time.
+                                    </p>
+                                </div>-->
+
+                                <label>
+                                    Select a  Shift
+                                    <select class="form-control" ng-model="selectedShift" ng-options="item.shift_name for item in shiftList" ng-change="thisWeekShiftChange(selectedShift)">
+                                    </select>
+                                    
+                                </label>
+                               
+                                <button type="button" class="btn btn-primary" ng-click="deleteShiftById(deletedId)">Submit</button>
+                                <!--<div class="alert alert-danger mar-top-20" ng-if="shiftFieldValidation">
+                                   Please Enter Shift Name / Shift Start / Shift End Date
+                                </div>-->
+                                <div class="alert alert-success mar-top-20" ng-if="shiftDeleted">
+                                    Selected shift is Deleted
+                                </div>
+                            
+                        </div>
+                 </div>
             </div>
         </div>
     </div>
