@@ -957,3 +957,11 @@ footer {
     border-right: 2px solid #8754ef;
     min-height: 300px;
 }
+.shift-filter {
+    position: absolute;
+    bottom: 37px;
+    left: 30px;
+}
+.active-chart img {
+    border: 2px solid #59D659;
+}
