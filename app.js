@@ -241,7 +241,7 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		}, true);
 
 		$scope.getDeptNotifications = function () {
-			$scope.error = "";
+			$scope.errorNot = "";
 			$('#loadergif').show();
 			lupaManagerService.getNotifications().then(function (response) {
 				$('#loadergif').hide();
@@ -250,17 +250,17 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 				//console.log($scope.response,"is success");
 				if (typeof $scope.response !== "undefined") {
 					if ($scope.response.success) {
-						$scope.error = "";
+						$scope.errorNot = "";
 						$scope.deptnotifications = $scope.response.data;
 					} else {
-						$scope.error = $scope.response.message;
+						$scope.errorNot = $scope.response.message;
 					}
 				}
 			});
 		};
 
 		$scope.getAdminNotifications = function () {
-			$scope.error = "";
+			$scope.errorNot = "";
 			$('#loadergif').show();
 			lupaAdminService.getNotifications().then(function (response) {
 				$('#loadergif').hide();
@@ -269,10 +269,10 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 				//console.log($scope.response,"is success");
 				if (typeof $scope.response !== "undefined") {
 					if ($scope.response.success) {
-						$scope.error = "";
+						$scope.errorNot = "";
 						$scope.adminnotifications = $scope.response.data;
 					} else {
-						$scope.error = $scope.response.message;
+						$scope.errorNot = $scope.response.message;
 					}
 				}
 			});
