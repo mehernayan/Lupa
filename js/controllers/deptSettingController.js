@@ -98,11 +98,18 @@ function($scope,$location,lupaManagerService,transferUserData,localStorageServic
       /** 
        * Delete user from Users list
        */
-      $scope.deleteUser = function(id){
+      $scope.deleteUserId = undefined;
+      $scope.deleteUserName = undefined;
+      $scope.deleteUserConf = function(id,userName){
+          $scope.deleteUserId = id;
+          $scope.deleteUserName = userName;
+      }
+      $scope.deleteUser = function(){
         $('#loadergif').show();
         $scope.error ="";
         $scope.successMsg = "";
-        lupaManagerService.deleteUser(id).then(function(response) {
+        if($scope.deleteUserId !== undefined){
+        lupaManagerService.deleteUser($scope.deleteUserId).then(function(response) {
           $scope.response = JSON.parse(response.data.status_response);
           $('#loadergif').hide();
           if(typeof $scope.response!=="undefined"){
@@ -115,7 +122,9 @@ function($scope,$location,lupaManagerService,transferUserData,localStorageServic
             }
             $scope.getUsersList();
           }
+          $("#deleteUserModal").modal('hide');
         });
+      }
       };
 
       /** 
