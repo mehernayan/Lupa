@@ -639,8 +639,8 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q', '$filter', 'localSt
         
         
        };
-       this.getFeaturePercentageUrl = function() {
-        var userObj = {"year": "2018","month" : "Jan", "product_name": product_name};
+       this.getFeaturePercentageUrl = function(year,month,product_name) {
+        var userObj = {"year": year,"month" : month, "product_name": product_name};
         var deferred = $q.defer();
         $http({
                     method : 'POST',

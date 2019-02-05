@@ -317,6 +317,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
     
     $scope.getLiveChartByProduct = function (item) {
         $("#product").removeClass("in").prev("li").addClass("collapsed");
+        $(".prod-nav").toggleClass('reportToggleFlag');
         $scope.activeMenu = item;
         $scope.reportSidebar = true;
         localStorageService.set("product_name",item);
