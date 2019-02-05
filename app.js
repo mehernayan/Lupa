@@ -192,6 +192,23 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		$scope.zoomOut = function ($event) {
 			$($event.target.closest('.chart-container')).find('a[data-title*="Zoom out"]')[0].click();
 		}
+		$scope.reportToggleFlag = false;
+		$scope.reportToggle = function(e) {
+			$(e.target).closest(".navigation-links").find("#reports").slideToggle();
+			$(e.target).closest(".navigation-links").find("#duration").slideToggle();
+			if(!$scope.reportToggleFlag) {
+				$scope.reportToggleFlag = true;
+
+			}
+			else {
+				$scope.reportToggleFlag = false;
+			}
+			
+			
+		}
+		$scope.slideInnerNav = function(e) {
+			$(e.target).closest("li").next("ul").slideToggle();
+		} 
 		$scope.downloadChart = function ($event) {
 			$($event.target.closest('.chart-container')).find('a[data-title*="Download plot as a png"]')[0].click();
 		}
