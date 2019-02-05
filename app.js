@@ -1,5 +1,5 @@
 // create the module and name it lupaApp
-var lupaApp = angular.module('lupaApp', ['ngRoute', 'lupaUserProvider', 'lupaAdminProvider', 'lupaManagerProvider', 'lupaSharedProvider', 'lupaUserDashboardProvider', 'lupaDeptDashboardProvider', 'lupaAdminDashboardProvider', 'LocalStorageModule', 'FBAngular', 'ps.inputTime']);
+var lupaApp = angular.module('lupaApp', ['ngRoute', 'lupaUserProvider', 'lupaAdminProvider', 'lupaManagerProvider', 'lupaSharedProvider', 'lupaUserDashboardProvider', 'lupaDeptDashboardProvider', 'lupaAdminDashboardProvider', 'lupaLicenceProvider','LocalStorageModule', 'FBAngular', 'ps.inputTime']);
 
 // configure our routes
 lupaApp.config(function ($routeProvider, $httpProvider) {
@@ -97,6 +97,9 @@ lupaApp.config(function ($routeProvider, $httpProvider) {
 		.when('/admincostanalytics', {
 			templateUrl: 'views/admincostanalytics.html',
 			controller: 'adminCostAnalyticsController'
+		}).otherwise('/', {
+			templateUrl: 'views/uservalidate.html',
+			controller: 'userValidateController'
 		})
 
 	$httpProvider.defaults.useXDomain = true;
@@ -238,7 +241,7 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		}, true);
 
 		$scope.getDeptNotifications = function () {
-			$scope.error = "";
+			$scope.errorNot = "";
 			$('#loadergif').show();
 			lupaManagerService.getNotifications().then(function (response) {
 				$('#loadergif').hide();
@@ -247,17 +250,17 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 				//console.log($scope.response,"is success");
 				if (typeof $scope.response !== "undefined") {
 					if ($scope.response.success) {
-						$scope.error = "";
+						$scope.errorNot = "";
 						$scope.deptnotifications = $scope.response.data;
 					} else {
-						$scope.error = $scope.response.message;
+						$scope.errorNot = $scope.response.message;
 					}
 				}
 			});
 		};
 
 		$scope.getAdminNotifications = function () {
-			$scope.error = "";
+			$scope.errorNot = "";
 			$('#loadergif').show();
 			lupaAdminService.getNotifications().then(function (response) {
 				$('#loadergif').hide();
@@ -266,10 +269,10 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 				//console.log($scope.response,"is success");
 				if (typeof $scope.response !== "undefined") {
 					if ($scope.response.success) {
-						$scope.error = "";
+						$scope.errorNot = "";
 						$scope.adminnotifications = $scope.response.data;
 					} else {
-						$scope.error = $scope.response.message;
+						$scope.errorNot = $scope.response.message;
 					}
 				}
 			});

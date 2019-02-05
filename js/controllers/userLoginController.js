@@ -1,6 +1,14 @@
   lupaApp.controller('userLoginController', ['$scope','userData','userRegData','lupaUserService','$location','userRegOtpVal','userEmailData','userResetData','localStorageService',
   function($scope,userData,userRegData,lupaUserService,$location,userRegOtpVal,userEmailData,userResetData,localStorageService) {
-
+      $scope.expirationMsg ="";
+      var licence = localStorageService.get("licence_days");
+      if(typeof licence ==="undefined" || licence == null) {
+          $location.path('/');
+      }else{
+        if(licence <= 5){
+          $scope.expirationMsg = licence +"days to expire your licence!"
+        } 
+      }
       
       $scope.isLogin = true;
       $scope.isRegister = false;

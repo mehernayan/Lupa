@@ -47,7 +47,7 @@
                                     <td>{{department.department_name}}</td>
                                     <td>
                                         <button class="btn  btn-primary btn-table" ng-click="editDepartment(department.id)">Edit</button>
-                                        <button class="btn  btn-danger btn-table" ng-click="deleteDepartment(department.id)">Delete</button>
+                                        <button class="btn  btn-danger btn-table" data-toggle="modal" data-target="#deleteDeptModal" ng-click="deleteDepartmentConf(department.id,department.department_name    )">Delete</button>
                                     </td>
                                     </tr>
                                 </tbody>
@@ -102,7 +102,7 @@
                                                     <button class="btn  btn-warning btn-table" ng-click="blockDeptManager(deptManager.id)" ng-disabled="!deptManager.admin_approved">Block</button>
                                                 </td>
                                                 <td>
-                                                    <button class="btn  btn-danger btn-table" ng-click="deleteDeptManager(deptManager.id)">Delete</button>
+                                                    <button class="btn  btn-danger btn-table" data-toggle="modal" data-target="#deleteManagerModal" ng-click="deleteDeptManagerConf(deptManager.id,deptManager.name)">Delete</button>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -148,7 +148,7 @@
                                                 </td>
                                                 <td>
                                                     <button class="btn  btn-primary btn-table" ng-click="transferUser(user)">Transfer</button><br/>
-                                                    <button class="btn  btn-danger btn-table mar-top-10" ng-click="deleteUser(user.id)">Delete</button>
+                                                    <button class="btn  btn-danger btn-table mar-top-10" data-toggle="modal" data-target="#deleteUserModal" ng-click="deleteUserConf(user.id,user.name)">Delete</button>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -208,11 +208,11 @@
                                     
                                 </label>
                                
-                                <button type="button" class="btn btn-primary" ng-click="deleteShiftById(deletedId)">Submit</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteShiftModal" ng-click="deleteShiftByIdConf(selectedShift.id,selectedShift.shift_name)">Submit</button>
                                 <!--<div class="alert alert-danger mar-top-20" ng-if="shiftFieldValidation">
                                    Please Enter Shift Name / Shift Start / Shift End Date
                                 </div>-->
-                                <div class="alert alert-success mar-top-20" ng-if="shiftDeleted">
+                                <div class="alert alert-danger mar-top-20" ng-if="shiftDeleted">
                                     Selected shift is Deleted
                                 </div>
                             
@@ -223,3 +223,75 @@
     </div>
 </div>
 <footer ng-include="'views/partials/footer.html'"></footer>
+<!-- Modal -->
+<div class="modal fade" id="deleteDeptModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header" style="border:none;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Delete Department</h4>
+        </div>
+        <div class="modal-body">
+            Are you sure to delete the department {{deleteDept}} ?
+        </div>
+        <div class="modal-footer" style="border:none;">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" ng-click="deleteDepartment()">Delete</button>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteManagerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header" style="border:none;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Delete Department Manager</h4>
+        </div>
+        <div class="modal-body">
+            Are you sure to delete the department manager {{deleteDeptManagerName}} ?
+        </div>
+        <div class="modal-footer" style="border:none;">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" ng-click="deleteDeptManager()">Delete</button>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header" style="border:none;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Delete User</h4>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete the user {{deleteUserName}} ?
+            </div>
+            <div class="modal-footer" style="border:none;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" ng-click="deleteUser()">Delete</button>
+            </div>
+            </div>
+        </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteShiftModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header" style="border:none;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Delete Shift</h4>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete the shift {{deleteShiftName}} ?
+            </div>
+            <div class="modal-footer" style="border:none;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" ng-click="deleteShiftById()">Delete</button>
+            </div>
+            </div>
+        </div>
+    </div>

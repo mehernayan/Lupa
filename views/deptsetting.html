@@ -55,7 +55,7 @@
                                                     </td>
                                                     <td>
                                                         <button class="btn  btn-primary btn-table" ng-click="transferUser(user)">Transfer</button><br/>
-                                                        <button class="btn  btn-danger btn-table mar-top-10" ng-click="deleteUser(user.id)">Delete</button>
+                                                        <button class="btn  btn-danger btn-table mar-top-10" data-toggle="modal" data-target="#deleteUserModal" ng-click="deleteUserConf(user.id,user.name)">Delete</button>
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -72,3 +72,21 @@
     </div>
 </div>
 <footer ng-include="'views/partials/footer.html'"></footer>
+<!-- Modal -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header" style="border:none;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Delete User</h4>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete the user {{deleteUserName}} ?
+            </div>
+            <div class="modal-footer" style="border:none;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" ng-click="deleteUser()">Delete</button>
+            </div>
+            </div>
+        </div>
+</div>
