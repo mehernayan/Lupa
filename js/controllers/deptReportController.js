@@ -1580,7 +1580,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
     }
     $scope.getDeptReportFilter = function (userFilterType, defaultFilterVal) {
         defaultFilterVal = defaultFilterVal.toString();
-        $scope.userLogged = localStorageService.get('user')[0].name;;
+        $scope.userLogged = localStorageService.get('user')[0].name;
         lupaDeptDashboardService.getDepartmentManagerReportFilterUrl($scope.userLogged, product_name, "license_statistics", "vertical_bar_chart", userFilterType, defaultFilterVal, $scope.report_type).then(function (response) {
             $scope.departmentUserMonthlyData = response.data;
             
