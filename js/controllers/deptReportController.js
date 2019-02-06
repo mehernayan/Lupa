@@ -1580,7 +1580,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
     }
     $scope.getDeptReportFilter = function (userFilterType, defaultFilterVal) {
         defaultFilterVal = defaultFilterVal.toString();
-        $scope.userLogged = localStorageService.get('user');
+        $scope.userLogged = localStorageService.get('user')[0].name;;
         lupaDeptDashboardService.getDepartmentManagerReportFilterUrl($scope.userLogged, product_name, "license_statistics", "vertical_bar_chart", userFilterType, defaultFilterVal, $scope.report_type).then(function (response) {
             $scope.departmentUserMonthlyData = response.data;
             
@@ -1765,7 +1765,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
     };
     $scope.getDeptReportYearList = function (userFilterType, defaultFilterVal) {
         $scope.userLogged = localStorageService.get("user")[0].name;
-        var product_name = product_name;
+        //var product_name = product_name;
         lupaDeptDashboardService.getDeptReportYearListUrl($scope.userLogged, product_name).then(function (response) {
         //lupaDeptDashboardService.getDeptReportYearListUrl("Harish", "LSDYNA").then(function (response) {
             if (response.data != undefined || response.data != '') {
@@ -1789,7 +1789,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
     $scope.getDeptReportYearListLoad = function () {
         $scope.userLogged = localStorageService.get("user")[0].name;
         
-        var product_name = product_name;
+        //var product_name = product_name;
         lupaDeptDashboardService.getDeptReportYearListUrl($scope.userLogged, product_name).then(function (response) {
         //lupaDeptDashboardService.getDeptReportYearListUrl("Harish", "LSDYNA").then(function (response) {
             if (response.data != undefined || response.data != '') {
@@ -1807,7 +1807,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
     $scope.getDeptReportFilterUserListLoad = function () {
         $scope.userLogged = localStorageService.get("user")[0].name;
         $scope.userFilterId = localStorageService.get("user")[0].id;
-        var product_name = product_name;
+        //var product_name = product_name;
         lupaDeptDashboardService.getDeptReportFilterUserListUrl($scope.userFilterId).then(function (response) {
         //lupaDeptDashboardService.getDeptReportYearListUrl("Harish", "LSDYNA").then(function (response) {
             if (response.data != undefined || response.data != '') {

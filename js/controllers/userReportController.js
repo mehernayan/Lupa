@@ -1468,7 +1468,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
         var user_id = $scope.userLogged[0].id;
         console.log(user_id);
-        var product_name = product_name;
+        //var product_name = product_name;
         var statisticsType = "license_statistics";
         var report_type = "yearly";
         var favourite = 1;

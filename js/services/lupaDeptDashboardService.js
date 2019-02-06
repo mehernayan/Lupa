@@ -63,7 +63,7 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         var  user_id = localStorageService.get("user")[0].id;
         //var product_name = product_name;
 
-        var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "user", "api": $rootScope.url}
+        var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "dept", "api": $rootScope.url}
         //$scope.userLogged = localStorageService.get("user");
         console.log("user obj", userObj);
         //debugger;
@@ -85,7 +85,7 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
        this.getFavouriteUrl = function() {
         var  user_id = localStorageService.get("user")[0].id;
         //var userObj = {"user_id": user_id,"role" : "user"};
-        var userObj = {"user_id": user_id,"role" : "user"};
+        var userObj = {"user_id": user_id,"role" : "dept"};
         //$scope.userLogged = localStorageService.get("user");
         var deferred = $q.defer();
         $http({
@@ -104,7 +104,9 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
        };
        this.getRecentReportUrl = function() {
         var  user_id = localStorageService.get("user")[0].id;
-        var userObj = {"user_id": user_id,"role" : "user"}
+        var userrole = localStorageService.get("user")[0].userType;
+
+        var userObj = {"user_id": user_id,"role" : userrole}
         //$scope.userLogged = localStorageService.get("user");
         var deferred = $q.defer();
         $http({
@@ -251,7 +253,7 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         
        };
        this.getDeptReportYearListUrl = function(username, product_name) {
-        
+        debugger;
         //$scope.userLogged = localStorageService.get("user");
         var userObj = {"username": username, "product_name" : product_name}
         //var userObj = {"username": "Harish", "product_name" : product_name}
