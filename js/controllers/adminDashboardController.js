@@ -280,6 +280,10 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
 
     }
     $scope.getLiveChartByProduct = function(item) {
+        $("#product").removeClass("in").prev("li").addClass("collapsed");
+        $(".prod-nav").toggleClass('reportToggleFlag');
+        $("#reports, #duration").slideDown();
+        localStorageService.set("product_name",item);
         $scope.activeMenu = item;
         $scope.reportSidebar = true;
         lupaAdminDashboardService.getLiveChartByProductUrl(item).then(function (response) {

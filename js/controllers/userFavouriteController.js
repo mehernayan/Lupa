@@ -57,7 +57,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
             $scope.response = $scope.response.favourites_list[0].data;
             $scope.response = JSON.parse($scope.response);
             for (i = 0; i < $scope.response.length; i++) {
-                 plotDataBarY = [];
+                plotDataBarY = [];
                 console.log("favourite item", $scope.response[i]);
                 if ($scope.response[i].report_type == 'weekly') {
                     layout.title = 'LSDYNA ' + $scope.response[i].report_type + ' / report'
@@ -79,6 +79,8 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                     }
                 }
                 else if($scope.response[i].report_type == "yearly" || $scope.response[i].report_type == "monthly") {
+                    layout.title = 'LSDYNA ' + $scope.response[i].report_type + ' / report'
+                    
                     for (i = 0; i < $scope.response.length; i++) {
                     plotDataBarY.push({
                         x: xAxisVal,
@@ -91,10 +93,35 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                     })
                 }
                 }
+                else  if($scope.response[i].report_type == "this_week"){
+                     var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                    var plotDataBarY = [];
+                    layout.title = 'LSDYNA ' + $scope.response[i].report_type + ' / report';
+                    for (var i = 0; i < $scope.response[0].license.length; i++) {
+                        //debugger;
+
+                        for (key in $scope.response[0].license[i]) {
+                            //debugger;
+
+                            plotDataBarY.push({
+                                x: xAxisVal,
+                                y: $scope.response[0].license[i][key],
+                                name: key,
+                                type: 'bar',
+                                marker: {
+                                    color: d3colors(i)
+                                }
+                            })
+
+
+                        }
+                    }
+                }
 
                 
 
                 $(".chart-render-"+i).show();
+                layout.title = 
                 Plotly.newPlot('product-chart-yearly' + i, plotDataBarY, layout, plotlyDefaultConfigurationBar);
                 var gd1 = document.getElementById("product-chart-yearly"+i);
                 Plotly.Plots.resize(gd1);

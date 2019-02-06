@@ -90,6 +90,7 @@ function($scope,userData,lupaAdminService,$location,userRegOtpVal,userEmailData,
           if($scope.response.success){
             $scope.error ="";
             localStorageService.set("user",$scope.response.data);
+            localStorageService.set("productlist",$scope.response.products_list);
             notificationId.set($scope.response.data[0].id);
             $location.path('/admindashboard');
           }else{

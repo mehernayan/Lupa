@@ -852,7 +852,13 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                         labels: $scope.response[0].label,
                         type: 'pie'
                     }];
-                    Plotly.newPlot($scope.chartRenderId, plotDataBarY, {}, plotlyDefaultConfigurationBar);
+                    if($scope.report_type == "yearly") {
+                            layout.title = product_name +  ' / Yearly Report';
+                        }
+                        else {
+                             layout.title = product_name +  ' / Monthly Report';
+                    }
+                    Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
 
                 }
@@ -997,6 +1003,12 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                         }
                     }
                     else {
+                        if($scope.report_type == "yearly") {
+                            layout.title = product_name +  ' / Yearly Report';
+                        }
+                        else {
+                             layout.title = product_name +  ' / Monthly Report';
+                        }
                         for (i = 0; i < $scope.response.length; i++) {
                             plotDataBarY.push({
                                 x: xAxisVal,
@@ -1008,7 +1020,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                             })
                         }
                     }
-                    Plotly.newPlot($scope.chartRenderId, plotDataBarY, {}, plotlyDefaultConfigurationBar);
+                    Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
                     
 
                 }
