@@ -23,9 +23,9 @@
 
                             <div class="first-compare compare">
                                 <div class="row">
-                                    <div class="col-sm-3 mar-top-20 feature" ng-repeat="feature in prodFeatures track by feature.feature_name">
+                                    <div class="col-sm-4 mar-top-20 feature" ng-repeat="feature in prodFeatures track by $index">
                                         <input type="checkbox" id="{{feature.feature_name+1}}" ng-model="feature.status" checked="{{feature.status}}" aria-label="">
-                                        <label for="{{feature.feature_name+1}}">{{feature.feature_name}}</label>
+                                        <label style="max-width:82%;overflow-wrap: break-word;" for="{{feature.feature_name+1}}">{{feature.feature_name}}</label>
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                         <div class="height-250">
                             <div class="first-compare compare">
                                 <div class="row">
-                                    <div class="col-sm-3 feature" ng-repeat="feature in features_lists track by $index">
+                                    <div class="col-sm-4 feature" ng-repeat="feature in features_lists track by $index">
                                         <input type="checkbox" id="{{feature+1}}" checked="checked" ng-disabled="true" aria-label="">
                                         <label for="{{feature+1}}">{{feature}}</label>
                                     </div>
