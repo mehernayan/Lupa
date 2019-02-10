@@ -248,6 +248,15 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 			})
 		}, 2000);
 
+		$scope.userLoggedId = {
+			id: ''
+		};
+		$scope.$watch('userLoggedId', function (n, o) {
+			if (n !== o) {
+				notificationId.set(n.id);
+			};
+		}, true);
+
 		$scope.getDeptNotifications = function () {
 			$scope.user = localStorageService.get('user');
 			if (typeof $scope.user !== "undefined" && $scope.user !== [] && $scope.user !== null) {
