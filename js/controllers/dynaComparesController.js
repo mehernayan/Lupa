@@ -121,8 +121,9 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
     /**
      * Add features to list
      */
+    $scope.features_lists = [];
     $scope.addFeatures = function () {
-      $scope.features_lists = [];
+      //$scope.features_lists = [];
       if (typeof $scope.prodFeatures !== "undefined" && $scope.prodFeatures.length !== 0) {
         $scope.prodFeatures.forEach(element => {
           if (typeof element.status !== "undefined" && element.status) {
