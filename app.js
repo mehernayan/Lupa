@@ -248,32 +248,29 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 			})
 		}, 2000);
 
-		$scope.userLoggedId = {
-			id: ''
-		};
-		$scope.$watch('userLoggedId', function (n, o) {
-			if (n !== o) {
-				notificationId.set(n.id);
-			};
-		}, true);
-
 		$scope.getDeptNotifications = function () {
-			$scope.errorNot = "";
-			$('#loadergif').show();
-			lupaManagerService.getNotifications().then(function (response) {
-				$('#loadergif').hide();
-				//console.log(response.data,"register user");
-				$scope.response = JSON.parse(response.data.status_response);
-				//console.log($scope.response,"is success");
-				if (typeof $scope.response !== "undefined") {
-					if ($scope.response.success) {
-						$scope.errorNot = "";
-						$scope.deptnotifications = $scope.response.data;
-					} else {
-						$scope.errorNot = $scope.response.message;
+			$scope.user = localStorageService.get('user');
+			if (typeof $scope.user !== "undefined" && $scope.user !== [] && $scope.user !== null) {
+				var notificationId = $scope.user[0].id;
+				$scope.errorNot = "";
+				$('#loadergif').show();
+				lupaManagerService.getNotifications(notificationId).then(function (response) {
+					$('#loadergif').hide();
+					//console.log(response.data,"register user");
+					$scope.response = JSON.parse(response.data.status_response);
+					//console.log($scope.response,"is success");
+					if (typeof $scope.response !== "undefined") {
+						if ($scope.response.success) {
+							$scope.errorNot = "";
+							$scope.deptnotifications = $scope.response.data;
+						} else {
+							$scope.errorNot = $scope.response.message;
+						}
 					}
-				}
-			});
+				});
+			}else{
+				$scope.errorNot = "There is an error fetching notification.";
+			}
 		};
 
 		$scope.getAdminNotifications = function () {

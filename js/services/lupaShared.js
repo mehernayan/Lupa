@@ -242,16 +242,4 @@ angular.module('lupaSharedProvider', [])
             dynaFeatureObj.features_lists = features_lists;
         }
     };
-}).factory('notificationId', function () {
-    var notificationId = {
-        id : ''
-    };
-    return {
-        get: function () {
-            return notificationId;
-        },
-        set: function (id) {
-            notificationId.id = id;
-        }
-    };
 });

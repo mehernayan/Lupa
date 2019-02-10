@@ -361,8 +361,8 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
     * Get Notification
     */
     
-    this.getNotifications = function() {
-    var userObj = notificationId.get();
+    this.getNotifications = function(notiId) {
+    var userObj = { id : notiId};
     
     var deferred = $q.defer();
         if(typeof userObj !== "undefined"){
