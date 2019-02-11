@@ -5,31 +5,32 @@
         <span class="nav-switch" ng-if="!expandNav" ng-click="navToggle()"><i class="fa fa-toggle-off fa-2x"></i></span></div>
     <ul class="navigation-links">
 
-        <li data-toggle="collapse" data-target="#product">
+        <li data-toggle="collapse" data-target="#product" class="product-header">
             <img ng-click="navToggle()" src="images/product-icon.png" width="20px">
             <span class="nav-slide" ng-if="expandNav">
-            <a href="#/{{userType}}dashboard" >Products</a></span><i class="right prod-nav arrow-right" ng-if="expandNav"></i>
+            <!--<a href="#/{{userType}}dashboard" >Products</a></span><i class="arrow-down" ng-if="expandNav"></i>-->
+            <a>Products</a></span><i class="arrow-down" ng-if="expandNav"></i>
         </li>
         <li ng-if="productlist.length">
             <ul id="product" class="collapse in" ng-if="expandNav">
-                <li ng-repeat="item in productlist" ng-click="getLiveChartByProduct(item)">
+                <li ng-repeat="item in productlist" ng-click="getLiveChartByProduct(item, $event)">
                     <span class="circle red dot" ng-class="{'active' : activeMenu === item}"></span>{{item}}
                 </li>
             </ul>
         </li>
-        <li ng-class="{'reportToggleFlag' : reportToggleFlag}">
+        <li ng-class="{'collapsed' : reportToggleFlag}">
             <img  ng-click="navToggle()" src="images/report-icon.png" width="20px">
-            <span class="nav-slide" ng-if="expandNav" ng-click="reportToggle($event)">
+            <span class="nav-slide" id="report-click" ng-if="expandNav" ng-click="reportToggle($event)">
             <a  class="report-link">
-                        Reports</a></span><i class="arrow-right"  ng-if="expandNav"></i>
+                        Reports</a></span><i class="arrow-down"  ng-if="expandNav"></i>
         </li>
         <li>
                  
-         <ul class="collapse" id="reports">
-                <li ng-if="expandNav" ng-class="{'reportToggleFlag' : reportToggleFlag}" ng-click="slideInnerNav($event)">
-                    Licence <i class="arrow-right" ng-if="expandNav"></i>
+         <ul ng-class="{'collapse': !reportSidebar}" id="reports">
+                <li ng-if="expandNav" ng-click="slideInnerNav($event)" ng-class="{'collapsed' : innerCollapse}">
+                    Licence <i class="arrow-down" ng-if="expandNav"></i>
                 </li>
-                <ul id="duration" class="collapse">
+                <ul id="duration" ng-class="{'collapse': !reportSidebar}">
                     <li ng-click="loadReport('yearly_overall', license_statistics)" ng-class="{'setActiveTab' : (report_type == 'yearly' && statisticsType == 'license_statistics')}">
                         <a  href="#/{{userType}}report"><span class="circle yellow dot active"></span>YEARLY</a>
                     </li>
@@ -44,8 +45,8 @@
                         <a href="#/{{userType}}report"><span class="circle blue dot"></span>THIS WEEK</a>
                     </li>
                 </ul>
-                <li  ng-if="expandNav" style="font-weight:bold" ng-click="slideInnerNav($event)">
-                    Time Statistics <i class="arrow-right" ng-if="expandNav"></i>
+                <li  ng-if="expandNav" style="font-weight:bold" ng-class="{'collapsed' : !innerCollapseTime}" ng-click="slideInnerNavTime($event)">
+                    Time Statistics <i class="arrow-down" ng-if="expandNav"></i>
                 </li>
                 <ul id="timestatistics" class="collapse">
                     <li ng-click="loadReport('yearly_overall', 'time_statistics')" ng-class="{'setActiveTab' : (report_type == 'yearly' && statisticsType =='time_statistics')}">

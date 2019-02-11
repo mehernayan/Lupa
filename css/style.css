@@ -669,6 +669,7 @@ i.far.fa-square {
 .weekly-section li {
     float: left;
     padding-left: 10px;
+    list-style-type: none;
 }
 .added-fav {
     color: #f00;
@@ -725,6 +726,22 @@ i.far.fa-square {
 .arrow-right {
     transform: rotate(-45deg) !important;
     -webkit-transform: rotate(-45deg) !important;
+    float: right;
+    position: relative;
+    top: 6px;
+    right: 17px;
+}
+.collapsed .arrow-down {
+    transform: rotate(-45deg) !important;
+    -webkit-transform: rotate(-45deg) !important;
+    float: right;
+    position: relative;
+    top: 6px;
+    right: 17px;
+}
+.arrow-down {
+    transform: rotate(45deg) !important;
+    -webkit-transform: rotate(45deg) !important;
     float: right;
     position: relative;
     top: 6px;
@@ -984,4 +1001,15 @@ footer {
 
 .analytics-container .chart-render {
     display: block
+}
+.recent-report-heading {
+    padding: 10px 10px;
+    width: 91%;
+    background: #fff;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 18px;
+}
+.chart-hide {
+    display: none;
 }

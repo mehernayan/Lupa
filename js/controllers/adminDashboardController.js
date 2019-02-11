@@ -133,11 +133,35 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
     $scope.getRecentReport = function () {
         $('#loadergif').show();
         lupaAdminDashboardService.getRecentReportUrl().then(function (response) {
-            $('#loadergif').hide();
-            console.log(response);
+            
             var plotDataBarY = [];
-            var layout = {
-                title: product_name + ' / Yearly Report',
+            
+
+            var xAxisVal = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            var monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+
+            var plotlyDefaultConfigurationBar = {
+                responsive: true,
+                displaylogo: false,
+                showTips: true,
+                pan2d: true,
+                modeBarButtonsToRemove: ['sendDataToCloud', 'hoverClosestPie', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']
+            };
+            var d3colors = Plotly.d3.scale.category10();
+            $scope.response = response.data;
+            if($scope.response.status_response) {
+                var emptyResponseCheck = JSON.parse($scope.response.status_response);
+                if(!emptyResponseCheck.success) {
+                 $scope.showNoRecentSection = true;
+                }
+            }
+            $scope.recentReportLength = $scope.response.length;
+            
+           
+            //$scope.response = JSON.parse($scope.response);
+            for (i = 0; i < $scope.response.length; i++) {
+                var layout = {
                 showlegend: true,
                 legend: {
                     "orientation": "h",
@@ -160,41 +184,97 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                 bargroupgap: 0.5
 
             };
+                var chartFavouriteIndex = i;  
+                plotDataBarY = [];
+                 if ($scope.response[i].report_type == 'weekly') {
+                     $scope.chartresponse = JSON.parse($scope.response[i].data);
+                     layout.title = $scope.response[i].product_name + ' ' + $scope.response[i].report_type + ' / report'
+                    var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
+                    for (j = 0; j < $scope.chartresponse[0].license.length; j++) {
+                        for (key in $scope.chartresponse[0].license[j]) {
+                            plotDataBarY.push({
+                                x: xAxisVal,
+                                y: $scope.chartresponse[0].license[j][key],
+                                name: key,
+                                type: 'bar',
+                                marker: {
+                                    color: d3colors(j)
+                                }
+                            })
 
-            var xAxisVal = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            var monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                        }
 
-
-            var plotlyDefaultConfigurationBar = {
-                responsive: true,
-                displaylogo: false,
-                showTips: true,
-                pan2d: true,
-                modeBarButtonsToRemove: ['sendDataToCloud', 'hoverClosestPie', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']
-            };
-            var d3colors = Plotly.d3.scale.category10();
-            $scope.response = response.data;
-            console.log("dashboard response", $scope.response);
-
-
-            for (i = 0; i < $scope.response.length; i++) {
-                var responseData = JSON.parse($scope.response[i].data);
-                var plotDataBarY = [];
-                for (j = 0; j < responseData.length; j++) {
-                    //debugger;
+                    }
+                    $(".chart-render-"+chartFavouriteIndex).show();
+                    Plotly.newPlot('product-chart-yearly'+chartFavouriteIndex, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+                    var gd1 = document.getElementById("product-chart-yearly"+chartFavouriteIndex);
+                    Plotly.Plots.resize(gd1);
+                }
+                else if($scope.response[i].report_type == "yearly" || $scope.response[i].report_type == "monthly") {
+                    $scope.chartresponse = JSON.parse($scope.response[i].data);
+                    
+                    for (j = 0; j < $scope.chartresponse.length; j++) {
                     plotDataBarY.push({
                         x: xAxisVal,
-                        y: responseData[j].license,
-                        name: responseData[j].year,
+                        y: $scope.chartresponse[j].license,
+                        name: $scope.chartresponse[j].year,
                         type: 'bar',
                         marker: {
                             color: d3colors(j)
                         }
                     })
                 }
-                Plotly.newPlot('product-chart-yearly' + i, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+                $(".chart-render-"+chartFavouriteIndex).show();
+                layout.title = $scope.response[i].product_name + ' ' + $scope.response[i].report_type + ' / report';
+                Plotly.newPlot('product-chart-yearly'+chartFavouriteIndex, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+                var gd1 = document.getElementById("product-chart-yearly"+chartFavouriteIndex);
+                Plotly.Plots.resize(gd1);
+                
+                }
+                else  if($scope.response[i].report_type == "this_week"){
+                    var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                    var plotDataBarY = [];
+                    layout.title = $scope.response[i].product_name+ ' ' + 'This Week' + ' / report';
+                    $scope.chartresponse = JSON.parse($scope.response[i].data);
+                    for (var j = 0; j < $scope.chartresponse[0].license.length; j++) {
+                        //debugger;
+                        
+                        for (key in $scope.chartresponse[0].license[j]) {
+                            //debugger;
+
+                            plotDataBarY.push({
+                                x: xAxisVal,
+                                y: $scope.chartresponse[0].license[j][key],
+                                name: key,
+                                type: 'bar',
+                                marker: {
+                                    color: d3colors(j)
+                                }
+                            })
+
+
+                        }
+                    }
+                    $(".chart-render-"+chartFavouriteIndex).show();
+                    Plotly.newPlot('product-chart-yearly'+chartFavouriteIndex, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+                    var gd1 = document.getElementById("product-chart-yearly"+chartFavouriteIndex);
+                    Plotly.Plots.resize(gd1);
+                }
+                
+
+                
+
+                
+
 
             }
+            
+
+
+
+
+            $('#loadergif').hide();
+
 
         });
     }
@@ -225,7 +305,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
     }
     $scope.getTodayReport("LSDYNA");
     $scope.getRecentReport();
-    $scope.drawPolarChart = function(polarChartData) {
+    $scope.drawPolarChart = function(polarChartData, product) {
         var data2 = [
         {
             type: "scatterpolar",
@@ -260,7 +340,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                 }
             }
         },
-        title: "LSDYNA / License used in Every 30 minutes interval"
+        title: product + " / License used in Every 30 minutes interval"
 
 
     }
@@ -272,9 +352,10 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
     $scope.getSaturationReport = function(product) {
         $("#loadergif").show();
         lupaAdminDashboardService.getSaturationReportUrl(product).then(function (response) {
-        $scope.drawPolarChart(response.data);
+        $scope.drawPolarChart(response.data, product);
         $("#loadergif").hide();
         $scope.polarChartFlag = true;
+        $(".saturation-cont").show();
         
         });
 

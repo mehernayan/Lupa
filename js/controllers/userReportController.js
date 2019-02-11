@@ -16,6 +16,9 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
     $scope.reportSidebar = true;
     $scope.dashboardActive = false;
     $scope.favouriteActive = false;
+
+    
+    
     $scope.chartType = ['vertical_bar_chart', 'pie_chart', 'line_chart', 'area_chart', 'horizontal_bar_chart'];
     // Full screen view
 
@@ -26,9 +29,9 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
     $scope.report_type = "yearly";
     $scope.license_statistics = "license_statistics";
     $scope.chartId = 0;
-    setTimeout(function() {
+    /*setTimeout(function() {
         $("#product").removeClass("in").prev("li").addClass("collapsed");
-    }, 1000)
+    }, 1000)*/
     
     
 
@@ -87,6 +90,10 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
     $scope.chartId = 0;
     $scope.loadReport = function (adminFilter, statisticsType) {
+        var product_name = localStorageService.get("product_name");
+        if(product_name == "" || product_name == "undefined" || product_name == null) {
+            product_name = "LSDYNA"
+        }
         if(statisticsType == "license_statistics") {
         $("#loadergif").show();
         var report_dur = adminFilter.split("_");
@@ -241,6 +248,10 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
     };
     $scope.loadYearlyGraph = function (reportType, chartType, statisticsType) {
+        var product_name = localStorageService.get("product_name");
+        if(product_name == "" || product_name == "undefined" || product_name == null) {
+            product_name = "LSDYNA"
+        }
         $scope.chartType = chartType;
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
@@ -341,6 +352,10 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
     }
     $scope.loadMonthlyGraph = function (reportType, chartType, statisticsType) {
+        var product_name = localStorageService.get("product_name");
+        if(product_name == "" || product_name == "undefined" || product_name == null) {
+            product_name = "LSDYNA"
+        }
         $scope.chartType = chartType;
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
@@ -439,6 +454,10 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         });
     }
     $scope.loadWeeklyGraph = function (reportType, chartType, statisticsType) {
+        var product_name = localStorageService.get("product_name");
+        if(product_name == "" || product_name == "undefined" || product_name == null) {
+            product_name = "LSDYNA"
+        }
         $scope.chartType = chartType;
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
@@ -562,6 +581,10 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         });
     }
     $scope.loadThisWeekGraph = function (reportType, chartType, statisticsType) {
+        var product_name = localStorageService.get("product_name");
+        if(product_name == "" || product_name == "undefined" || product_name == null) {
+            product_name = "LSDYNA"
+        }
         //debugger;
         $scope.chartType = chartType;
         $scope.report_type = reportType;
@@ -689,6 +712,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         $(event.target).closest(".chart").addClass("active-chart");
         $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-graph").attr('id');
         lupaUserDashboardService.changeGraphUrl($scope.report_type, chartType, statisticsType).then(function (response) {
+            
 
             // common to all graph
 
@@ -754,9 +778,12 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
             layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
 
             $scope.response = response.data;
-            if ($scope.response[0] != "" || $scope.response[0] != undefined) {
-                $scope.addedFav = $scope.response[0].favourite;
+            if(chartType != "polar_chart") {
+                if ($scope.response[0] != "" || $scope.response[0] != undefined) {
+                    $scope.addedFav = $scope.response[0].favourite;
+                }
             }
+            
 
             if ($scope.response) {
                 $('#loadergif').hide();
@@ -1425,6 +1452,11 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     }
                     Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
                 }
+                if(chartType == 'polar_chart') {
+                    $scope.chartRenderId;
+                    $scope.drawReportPolarChart($scope.response,$scope.chartRenderId, reportType);
+
+                }
 
             } else {
                 $scope.error = $scope.response.message;
@@ -1498,6 +1530,73 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         $scope.val =   $filter('date')($scope.shiftstarttime, 'HH:mm:ss');
         alert($scope.val);
 
+    }
+    $scope.getLiveChartByProduct = function(item) {
+        localStorageService.set("product_name",item);
+        $scope.activeMenu = item;
+        //$("#reports, #duration").slideDown();
+    }
+    $scope.drawReportPolarChart = function(polarChartData,chartRenderPolarId, reportType) {
+        var polarData = [];
+        if (reportType == "yearly") {
+            for (key in polarChartData) {
+                polarChartRenderData = polarChartData[key];
+                polarData.push({
+                    type: "scatterpolar",
+                    name: "license used in " + key,
+                    r: polarChartRenderData.r,
+                    theta: polarChartRenderData.theta,
+                    fill: "toself",
+                    subplot: "polar2",
+                    fillcolor: '#709BFF'
+                })
+            }
+
+        }
+        else if(reportType == "monthly"){
+            polarData.push({
+                    type: "scatterpolar",
+                    name: "license used in this year",
+                    r: polarChartData.r,
+                    theta: polarChartData.theta,
+                    fill: "toself",
+                    subplot: "polar2",
+                    fillcolor: '#709BFF'
+                })
+            
+            
+        }
+        
+       
+    var layout = {
+
+
+        polar2: {
+
+            radialaxis: {
+                angle: 0,
+                visible: true,
+                 tickfont: {
+                    size: 10,
+                    color: '#000'
+                 }
+            },
+            angularaxis: {
+                visible: true,
+                direction: "clockwise",
+                tickfont: {
+                    size: 8,
+                    color: '#000'
+                }
+            }
+        },
+        title: product_name + " / License used in Every Month"
+
+
+    }
+
+    Plotly.newPlot(chartRenderPolarId, polarData, layout);
+    
     }
 
 
