@@ -9,7 +9,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
     }
     $scope.productlist = localStorageService.get('productlist');
     //debugger;
-    $scope.reportSidebar = false;
+    $scope.reportSidebar = true;
     $scope.dashboardActive = true;
     $scope.favouriteActive = false;
     $scope.polarChartFlag = false;
