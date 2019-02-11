@@ -317,6 +317,8 @@ lupaManagerService.service('lupaManagerService', ['$http', '$q','$filter','local
        
        this.getFeaturesList = function() {
         var userObj = dynaCompData.get();
+        var  user_id = localStorageService.get("user")[0].id;
+        userObj.id = user_id;
         var deferred = $q.defer();
         if(typeof userObj !== "undefined"){
             $http({

@@ -208,7 +208,15 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		}
 		$scope.slideInnerNav = function(e) {
 			$(e.target).closest("li").next("ul").slideToggle();
+			$scope.innerCollapse = !$scope.innerCollapse;
 		} 
+		$scope.slideInnerNavTime = function(e) {
+			$("#duration").slideUp();
+			$(e.target).closest("li").next("ul").slideToggle();
+			$scope.innerCollapseTime = !$scope.innerCollapseTime;
+			$scope.innerCollapse = true;
+		} 
+ 
 		$scope.downloadChart = function ($event) {
 			$($event.target.closest('.chart-container')).find('a[data-title*="Download plot as a png"]')[0].click();
 		}

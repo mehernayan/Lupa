@@ -78,6 +78,11 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
 
     $scope.loadReport = function (deptFilter, statisticsType) {
+        var product_name = localStorageService.get("product_name");
+        if(product_name == "" || product_name == "undefined" || product_name == null) {
+            product_name = "LSDYNA"
+        }
+
         if(statisticsType == "license_statistics") {
             $("#loadergif").show();
         var report_dur = deptFilter.split("_");
@@ -239,6 +244,11 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
     };
     
     $scope.loadYearlyGraph = function (reportType, chartType, statisticsType) {
+        var product_name = localStorageService.get("product_name");
+        if(product_name == "" || product_name == "undefined" || product_name == null) {
+            product_name = "LSDYNA"
+        }
+
         $scope.chartType = chartType;
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
@@ -339,6 +349,11 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
     }
     $scope.loadMonthlyGraph = function (reportType, chartType, statisticsType) {
+        var product_name = localStorageService.get("product_name");
+        if(product_name == "" || product_name == "undefined" || product_name == null) {
+            product_name = "LSDYNA"
+        }
+
         $scope.chartType = chartType;
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
@@ -437,6 +452,11 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         });
     }
     $scope.loadWeeklyGraph = function (reportType, chartType, statisticsType) {
+        var product_name = localStorageService.get("product_name");
+        if(product_name == "" || product_name == "undefined" || product_name == null) {
+            product_name = "LSDYNA"
+        }
+
         $scope.chartType = chartType;
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
@@ -560,7 +580,11 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         });
     }
     $scope.loadThisWeekGraph = function (reportType, chartType, statisticsType) {
-        
+        var product_name = localStorageService.get("product_name");
+        if(product_name == "" || product_name == "undefined" || product_name == null) {
+            product_name = "LSDYNA"
+        }
+
         $scope.chartType = chartType;
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
@@ -1824,6 +1848,12 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         });
 
     }
+     $scope.getLiveChartByProduct = function(item) {
+        localStorageService.set("product_name",item);
+        $scope.activeMenu = item;
+        $("#reports, #duration").slideDown();
+    } 
+
     $scope.getDeptReportFilterUserListLoad();
     $scope.getDeptReportYearListLoad();
 

@@ -71,12 +71,35 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-md-12 col-md-12 full-screen-view dyna-compare-chart" id="full-screen-view" ng-repeat="item in dynaCompareList track by $index" ng-if="dynaCompareList.length"> 
+    <div class="col-sm-12 full-screen-view dyna-compare-chart chart-hide chart-show-0" id="full-screen-view" ng-show="dynaCompareList.length"> 
 
-        <div class="pie-chart-container overall-report chart-container back-g-white half-bordered dashboard-box-shadow">
-            <div id="{{ 'dyna-compare-chart-'+ $index}}" ></div>
+        <div class="pie-chart-container chart-container back-g-white half-bordered">
+            <!--<div id="{{ 'dyna-compare-chart-'+ $index}}" ></div>-->
+            <div id="dyna-compare-chart-0"></div>
+            
+
         </div>
     </div>
+    <div class="col-sm-12 full-screen-view dyna-compare-chart chart-hide chart-show-1" id="full-screen-view" ng-show="dynaCompareList.length"> 
+
+        <div class="pie-chart-container chart-container back-g-white half-bordered">
+            <!--<div id="{{ 'dyna-compare-chart-'+ $index}}" ></div>-->
+            <div id="dyna-compare-chart-1"></div>
+            
+
+        </div>
+    </div>
+    <div class="col-sm-12 full-screen-view dyna-compare-chart chart-hide chart-show-2" id="full-screen-view" ng-show="dynaCompareList.length"> 
+
+        <div class="pie-chart-container chart-container back-g-white half-bordered">
+            <!--<div id="{{ 'dyna-compare-chart-'+ $index}}" ></div>-->
+            <div id="dyna-compare-chart-2"></div>
+            
+
+        </div>
+    </div>
+
+
 </div>
 
 

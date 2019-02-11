@@ -49,13 +49,14 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
 
 
 
-    var plotlyDefaultConfigurationBar = {
+   var plotlyDefaultConfigurationBar = {
       responsive: true,
       displaylogo: false,
       showTips: true,
       pan2d: true,
       modeBarButtonsToRemove: ['sendDataToCloud', 'hoverClosestPie', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']
     };
+
 
 
     /** 
@@ -164,33 +165,71 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
 
     $scope.dynaCompareGraph = function () {
       //debugger;
+      var plotlyDefaultConfigurationBar = {
+        responsive: true,
+        displaylogo: false,
+        showTips: true,
+        pan2d: true,
+        modeBarButtonsToRemove: ['sendDataToCloud', 'hoverClosestPie', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']
+      };
       var plotDataBarY = [];
       $("#loadergif").show();
       lupaManagerService.dynaCompareGraphUrl().then(function (response) {
+        
         $scope.dynaCompareList = response.data;
-        //debugger;
+        $scope.dynaCompareList = [{
+          "category": ["feature2/dyna", "nvh/dyna", "HyperWorks/dyna", "feature3/dyna"],
+          "featureVal": [10, 20, 40, 50],
+          "dynaval": [20, 40, 60, 80]
+        },
+        {
+          "category": ["feature3/dyna", "nvh2/dyna", "HyperWorks4/dyna", "feature3/dyna"],
+          "featureVal": [10, 20, 40, 50],
+          "dynaval": [20, 40, 60, 80]
+        }];
+        var plotlyDefaultConfigurationBar = {
+          responsive: true,
+          displaylogo: false,
+          showTips: true,
+          pan2d: true,
+          responsive: true,
+          modeBarButtonsToRemove: ['sendDataToCloud', 'hoverClosestPie', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']
+        };
+        
+       
         var markerColor = ['rgb(49,130,189)', 'rgb(204,204,204)']
+        
+        for (i = 0; i < $scope.dynaCompareList.length; i++) {
+              $scope.chartIndex = i;
+              $('.chart-show-' + i).show();
+              plotDataBarY = [];
+              var trace1 = {
+                x: $scope.dynaCompareList[i].category,
+                y: $scope.dynaCompareList[i].featureVal,
+                name: 'other software',
+                type: 'bar'
+              };
 
-        setTimeout(function () {
-          $("#loadergif").hide();
-          for (i = 0; i < $scope.dynaCompareList.length; i++) {
-            customd3Colors.push(d3colors(i));
-            for (j = 0; j < 2; j++) {
-              plotDataBarY.push({
-                x: $scope.dynaCompareList[i].charts_data[j].product_list,
-                y: $scope.dynaCompareList[i].charts_data[j].value,
-                name: $scope.dynaCompareList[i].charts_data[j].name,
-                type: 'bar',
-                marker: {
-                  color: markerColor[i],
-                  opacity: 0.7
-                }
-              })
+              var trace2 = {
+                x: $scope.dynaCompareList[i].category,
+                y: $scope.dynaCompareList[i].dynaval,
+                name: 'Dyna',
+                type: 'bar'
+              };
+            plotDataBarY = [trace1, trace2];
+            var layout = {
+               bargroupgap: 0.5,
+               autosize: true
             }
-           Plotly.newPlot('dyna-compare-chart-' + i, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+            layout.barmode = "stack";
+            
+         
+            Plotly.newPlot('dyna-compare-chart-' + $scope.chartIndex, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+          
+           
             
           }
-        }, 1000)
+         $("#loadergif").hide();
 
       });
     }
