@@ -177,55 +177,7 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
       lupaManagerService.dynaCompareGraphUrl().then(function (response) {
         
         $scope.dynaCompareList = response.data;
-        $scope.dynaCompareList = [
-    {
-        "category": [
-            "HyperWorks/dyna",
-            "HWAIFPBS/dyna"
-        ],
-        "featureVal": [
-            0,
-            0
-        ],
-        "dynaVal": [
-            12426,
-            0
-        ]
-    },
-    {
-        "category": [
-            "HWAWPF/dyna"
-        ],
-        "featureVal": [
-            0
-        ],
-        "dynaVal": [
-            0
-        ]
-    },
-    {
-        "category": [
-            "HWAWPF/dyna"
-        ],
-        "featureVal": [
-            0
-        ],
-        "dynaVal": [
-            0
-        ]
-    },
-    {
-        "category": [
-            "HWActivate/dyna"
-        ],
-        "featureVal": [
-            0
-        ],
-        "dynaVal": [
-            0
-        ]
-    }
-];
+        
         /*var plotlyDefaultConfigurationBar = {
           responsive: true,
           displaylogo: false,
