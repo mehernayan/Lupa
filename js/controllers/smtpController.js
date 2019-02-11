@@ -8,7 +8,10 @@ function($scope,$location,lupaAdminService,smtpData,smtpTestData,localStorageSer
     $scope.error ="";
     $scope.successMsg ="";
 
-
+    $scope.reportSidebar = true;
+    $scope.favouriteActive = false;
+    $scope.dashboardActive = false;
+    
     $scope.smtpObj = {
         mail_driver : '',
         host : '',
@@ -99,5 +102,10 @@ function($scope,$location,lupaAdminService,smtpData,smtpTestData,localStorageSer
            }
         });
       };
+      $scope.getLiveChartByProduct = function(item,e) {
+        localStorageService.set("product_name",item);
+        $scope.activeMenu = item;
+        //$("#reports, #duration").slideDown();
+    }
 }]);
    

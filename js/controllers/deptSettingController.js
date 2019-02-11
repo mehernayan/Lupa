@@ -4,6 +4,9 @@ function($scope,$location,lupaManagerService,transferUserData,localStorageServic
   if(typeof userId ==="undefined" || userId == null) {
       $location.path('/');
   }
+    $scope.reportSidebar = true;
+    $scope.favouriteActive = false;
+    $scope.dashboardActive = false;
     $scope.tab = 3;
     $scope.setTab = function (tabId) {
         $scope.tab = tabId;
@@ -186,5 +189,10 @@ function($scope,$location,lupaManagerService,transferUserData,localStorageServic
         });
       }
     };
+    $scope.getLiveChartByProduct = function(item,e) {
+        localStorageService.set("product_name",item);
+        $scope.activeMenu = item;
+        //$("#reports, #duration").slideDown();
+    }
 }]);
    

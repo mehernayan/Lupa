@@ -6,6 +6,9 @@ lupaApp.controller('userPSettingController',['$scope','$location','lupaUserServi
             npassword : '',
             ncpassword : ''
         };  
+    $scope.reportSidebar = true;
+    $scope.favouriteActive = false;
+    $scope.dashboardActive = false;
       /**
        * Get existing user profile details
        */

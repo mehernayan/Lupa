@@ -61,7 +61,7 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
         var  user_id = localStorageService.get("user")[0].id;
         //var product_name = product_name;
 
-        var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "user", "api": $rootScope.url}
+        var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url}
         //$scope.userLogged = localStorageService.get("user");
         console.log("user obj", userObj);
         //debugger;
@@ -81,9 +81,9 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
         
        };
        this.getFavouriteUrl = function() {
-        //var  user_id = localStorageService.get("user")[0].id;
-        //var userObj = {"user_id": user_id,"role" : "user"};
-        var userObj = {"user_id": user_id,"role" : "user"};
+        var  user_id = localStorageService.get("user")[0].id;
+        //var userObj = {"user_id": user_id,"role" : "admin"};
+        var userObj = {"user_id": user_id,"role" : "admin"};
         //$scope.userLogged = localStorageService.get("user");
         var deferred = $q.defer();
         $http({
@@ -102,7 +102,7 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
        };
        this.getRecentReportUrl = function() {
         var  user_id = localStorageService.get("user")[0].id;
-        var userObj = {"user_id": user_id,"role" : "user"}
+        var userObj = {"user_id": user_id,"role" : "admin"}
         //$scope.userLogged = localStorageService.get("user");
         var deferred = $q.defer();
         $http({

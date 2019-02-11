@@ -360,10 +360,11 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
         });
 
     }
-    $scope.getLiveChartByProduct = function(item) {
-        $("#product").removeClass("in").prev("li").addClass("collapsed");
+    $scope.getLiveChartByProduct = function(item,e) {
+        //$("#product").removeClass("in").prev("li").addClass("collapsed");
         $(".prod-nav").toggleClass('reportToggleFlag');
         $("#reports, #duration").slideDown();
+        //$(e.target).closest(".navigation-links").find(".product-header").toggleClass("collapsed");
         localStorageService.set("product_name",item);
         $scope.activeMenu = item;
         $scope.reportSidebar = true;

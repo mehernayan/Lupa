@@ -7,7 +7,7 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
     $scope.reportSidebar = true;
     $scope.favouriteActive = true;
     $scope.dashboardActive = false;
-    $scope.reportSidebar = false;
+    
 
 
 
@@ -155,4 +155,9 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
         });
     }
     $scope.getfavourite();
+    $scope.getLiveChartByProduct = function(item,e) {
+        localStorageService.set("product_name",item);
+        $scope.activeMenu = item;
+        //$("#reports, #duration").slideDown();
+    }
 }]);

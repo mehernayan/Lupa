@@ -7,7 +7,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
     $scope.reportSidebar = true;
     $scope.favouriteActive = true;
     $scope.dashboardActive = false;
-    $scope.reportSidebar = false;
+   
     
 
 
@@ -153,6 +153,11 @@ $scope.getfavourite = function () {
 
 
         });
+    }
+    $scope.getLiveChartByProduct = function(item,e) {
+        localStorageService.set("product_name",item);
+        $scope.activeMenu = item;
+        //$("#reports, #duration").slideDown();
     }
     $scope.getfavourite();
 }]);

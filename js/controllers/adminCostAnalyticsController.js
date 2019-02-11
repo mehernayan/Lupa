@@ -619,6 +619,11 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
 
 
     }
+    $scope.getLiveChartByProduct = function(item,e) {
+        localStorageService.set("product_name",item);
+        $scope.activeMenu = item;
+        //$("#reports, #duration").slideDown();
+    }
     $scope.getAllFeatureList();
 
     

@@ -218,6 +218,37 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         var plotDataBarY = [];
         var response = [];
         var reportyear = reportyear;
+        if(chartType == 'polar_chart') {
+            for (j = 0; j < $scope.weeklyresponse.length; j++) {
+            if (reportyear == $scope.weeklyresponse[j].year) {
+                response.push($scope.weeklyresponse[j]);
+
+            }
+
+        }
+        //$scope.response = response;
+        var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
+        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+        for (var i = 0; i < response[0].license.length; i++) {
+            for (key in response[0].license[i]) {
+                plotDataBarY.push({
+                            type: "scatterpolar",
+                            name: monthArray[i],
+                            r: response[0].license[i][key].r,
+                            theta: response[0].license[i][key].theta,
+                            fill: "toself",
+                            subplot: "polar2",
+                            fillcolor: '#709BFF'
+                })
+                
+                
+
+            }
+
+        }
+
+        }
+        else {
         for (j = 0; j < $scope.weeklyresponse.length; j++) {
             if (reportyear == $scope.weeklyresponse[j].year) {
                 response.push($scope.weeklyresponse[j]);
@@ -243,6 +274,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
             }
 
+        }
         }
         Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
@@ -1453,8 +1485,8 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
                 }
                 if(chartType == 'polar_chart') {
-                    $scope.chartRenderId;
                     $scope.drawReportPolarChart($scope.response,$scope.chartRenderId, reportType);
+                    $scope.weeklyresponse = $scope.response;
 
                 }
 
@@ -1553,7 +1585,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
             }
 
         }
-        else if(reportType == "monthly"){
+        else if(reportType == "monthly") {
             polarData.push({
                     type: "scatterpolar",
                     name: "license used in this year",
@@ -1566,6 +1598,58 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
             
             
         }
+        else if(reportType == "weekly") { 
+                $scope.reportyearlist = [];
+                for (i = 0; i < $scope.response.length; i++) {
+                    if (i == 0) {
+                        $scope.reportyearlist.push({
+                            "year": $scope.response[i].year,
+                            "checked": true
+                        });
+                    } else {
+                        $scope.reportyearlist.push({
+                            "year": $scope.response[i].year,
+                            "checked": false
+                        });
+                    }
+
+                };
+
+
+                var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
+
+                for (i = 0; i < $scope.response[0].license.length; i++) {
+                    for (key in $scope.response[0].license[i]) {
+                        polarData.push({
+                            type: "scatterpolar",
+                            name: monthArray[i],
+                            r: $scope.response[0].license[i][key].r,
+                            theta: $scope.response[0].license[i][key].theta,
+                            fill: "toself",
+                            subplot: "polar2",
+                            fillcolor: '#709BFF'
+                        })
+                        
+
+                    }
+                    
+
+                }
+                
+        }
+        else if(reportType == "this_week" || reportType == "thisweek") {
+            var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                                polarData.push({
+                                type: "scatterpolar",
+                                name: "This week chart",
+                                r: polarChartData.r,
+                                theta: polarChartData.theta,
+                                fill: "toself",
+                                subplot: "polar2",
+                                fillcolor: '#709BFF'
+                            })        
+                                
+    }
         
        
     var layout = {
@@ -1593,6 +1677,10 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         title: product_name + " / License used in Every Month"
 
 
+    }
+    if(reportType == "thisweek") {
+        layout.title = product_name + " / License used in this week";
+        
     }
 
     Plotly.newPlot(chartRenderPolarId, polarData, layout);

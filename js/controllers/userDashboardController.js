@@ -364,10 +364,10 @@ $scope.drawPolarChart = function(polarChartData, product) {
     }
     
     $scope.getLiveChartByProduct = function (item,e) {
-        $("#product").removeClass("in").prev("li").addClass("collapsed");
+        //$("#product").removeClass("in").prev("li").addClass("collapsed");
         $(".prod-nav").toggleClass('reportToggleFlag');
         $("#reports, #duration").slideDown();
-        $(e.target).closest(".navigation-links").find(".product-header").toggleClass("collapsed");
+        //$(e.target).closest(".navigation-links").find(".product-header").toggleClass("collapsed");
         $scope.activeMenu = item;
         localStorageService.set("product_name",item);
         lupaUserDashboardService.getLiveChartByProductUrl(item).then(function (response) {

@@ -7,6 +7,9 @@ lupaApp.controller('adminPSettingController',['$scope','$location','lupaAdminSer
         password : '',
         password_confirmation : ''
     };
+    $scope.reportSidebar = true;
+    $scope.favouriteActive = false;
+    $scope.dashboardActive = false;
 
     /**
        * Get existing user profile details
@@ -82,6 +85,11 @@ lupaApp.controller('adminPSettingController',['$scope','$location','lupaAdminSer
         }
         });
       };
+      $scope.getLiveChartByProduct = function(item,e) {
+        localStorageService.set("product_name",item);
+        $scope.activeMenu = item;
+        //$("#reports, #duration").slideDown();
+        };
 }]);
    
    

@@ -49,13 +49,13 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
 
 
 
-   var plotlyDefaultConfigurationBar = {
+   /*var plotlyDefaultConfigurationBar = {
       responsive: true,
       displaylogo: false,
       showTips: true,
       pan2d: true,
       modeBarButtonsToRemove: ['sendDataToCloud', 'hoverClosestPie', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']
-    };
+    };*/
 
 
 
@@ -162,39 +162,77 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
       });
     };
 
-
+    
     $scope.dynaCompareGraph = function () {
       //debugger;
-      var plotlyDefaultConfigurationBar = {
+      /*var plotlyDefaultConfigurationBar = {
         responsive: true,
         displaylogo: false,
         showTips: true,
         pan2d: true,
         modeBarButtonsToRemove: ['sendDataToCloud', 'hoverClosestPie', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']
-      };
+      };*/
       var plotDataBarY = [];
       $("#loadergif").show();
       lupaManagerService.dynaCompareGraphUrl().then(function (response) {
         
         $scope.dynaCompareList = response.data;
-        $scope.dynaCompareList = [{
-          "category": ["feature2/dyna", "nvh/dyna", "HyperWorks/dyna", "feature3/dyna"],
-          "featureVal": [10, 20, 40, 50],
-          "dynaval": [20, 40, 60, 80]
-        },
-        {
-          "category": ["feature3/dyna", "nvh2/dyna", "HyperWorks4/dyna", "feature3/dyna"],
-          "featureVal": [10, 20, 40, 50],
-          "dynaval": [20, 40, 60, 80]
-        }];
-        var plotlyDefaultConfigurationBar = {
+        $scope.dynaCompareList = [
+    {
+        "category": [
+            "HyperWorks/dyna",
+            "HWAIFPBS/dyna"
+        ],
+        "featureVal": [
+            0,
+            0
+        ],
+        "dynaVal": [
+            12426,
+            0
+        ]
+    },
+    {
+        "category": [
+            "HWAWPF/dyna"
+        ],
+        "featureVal": [
+            0
+        ],
+        "dynaVal": [
+            0
+        ]
+    },
+    {
+        "category": [
+            "HWAWPF/dyna"
+        ],
+        "featureVal": [
+            0
+        ],
+        "dynaVal": [
+            0
+        ]
+    },
+    {
+        "category": [
+            "HWActivate/dyna"
+        ],
+        "featureVal": [
+            0
+        ],
+        "dynaVal": [
+            0
+        ]
+    }
+];
+        /*var plotlyDefaultConfigurationBar = {
           responsive: true,
           displaylogo: false,
           showTips: true,
           pan2d: true,
-          responsive: true,
           modeBarButtonsToRemove: ['sendDataToCloud', 'hoverClosestPie', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']
-        };
+        };*/
         
        
         var markerColor = ['rgb(49,130,189)', 'rgb(204,204,204)']
@@ -212,20 +250,43 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
 
               var trace2 = {
                 x: $scope.dynaCompareList[i].category,
-                y: $scope.dynaCompareList[i].dynaval,
+                y: $scope.dynaCompareList[i].dynaVal,
                 name: 'Dyna',
                 type: 'bar'
               };
             plotDataBarY = [trace1, trace2];
-            var layout = {
-               bargroupgap: 0.5,
-               autosize: true
-            }
-            layout.barmode = "stack";
+            /*var layout = {
+            showlegend: true,
+            legend: {
+                "orientation": "h",
+                x: 0.58,
+                y: 1.1
+            },
+            xaxis: {
+                type: 'category',
+                showgrid: false,
+                gridcolor: '#bdbdbd',
+                gridwidth: 1,
+                tickangle: -45,
+            },
+            yaxis: {
+                showgrid: true,
+                title: "Total number of license used",
+                showline: true
+            },
+            barmode: 'stack',
+            bargroupgap: 0.5,
+            autosize: true
+
+        };*/
+        var layout = {
+
+        }
+        layout.barmode = "stack";
             
          
-            Plotly.newPlot('dyna-compare-chart-' + $scope.chartIndex, plotDataBarY, layout, plotlyDefaultConfigurationBar);
-          
+            Plotly.newPlot('dyna-compare-chart-' + $scope.chartIndex, plotDataBarY, layout);
+            
            
             
           }
@@ -233,5 +294,11 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
 
       });
     }
+    $scope.getLiveChartByProduct = function(item,e) {
+        localStorageService.set("product_name",item);
+        $scope.activeMenu = item;
+        //$("#reports, #duration").slideDown();
+    }
+    //$scope.dynaCompareGraph();
 
   }]);
