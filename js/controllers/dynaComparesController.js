@@ -246,6 +246,7 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
 
       });
     }
+    $scope.dynaCompareGraph();
     $scope.getLiveChartByProduct = function(item,e) {
         localStorageService.set("product_name",item);
         $scope.activeMenu = item;

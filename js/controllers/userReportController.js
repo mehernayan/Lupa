@@ -26,7 +26,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
     $(".chart-render-2").hide();
     $(".chart-render-3").hide();
     // default report type
-    $scope.report_type = "yearly";
+    //$scope.report_type = "yearly";
     $scope.license_statistics = "license_statistics";
     $scope.chartId = 0;
     /*setTimeout(function() {
@@ -106,36 +106,63 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
             $scope.loadYearlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
             $scope.yearlyFlag = true;
             $('.chart-render-0').show();
+            setTimeout(function() {
+                $(".full-screen-view").each(function() {
+                if($(this).is(':visible')) {
+                    var gd1 = $(this).find('.chart-graph').attr('id');
+                    Plotly.Plots.resize(gd1);
+                }
+            });
+            }, 3000)
            
 
 
         } else if (report == 'monthly') {
-            var gd1 = document.getElementById("product-chart-yearly0");
-            Plotly.Plots.resize(gd1);
             $scope.report_type = 'monthly';
             $scope.statisticsType = statisticsType;
             $scope.loadMonthlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
             $scope.monthlyFlag = true;
             $('.chart-render-1').show();
+            setTimeout(function() {
+                $(".full-screen-view").each(function() {
+                if($(this).is(':visible')) {
+                    var gd1 = $(this).find('.chart-graph').attr('id');
+                    Plotly.Plots.resize(gd1);
+                }
+            });
+            }, 3000)
             
 
 
         } else if (report == 'weekly') {
-            var gd1 = document.getElementById("product-chart-yearly0");
             $scope.report_type = 'weekly';
             $scope.statisticsType = statisticsType;
             $scope.loadWeeklyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
             $scope.weeklyFlag = true;
             $('.chart-render-2').show();
+            setTimeout(function() {
+                $(".full-screen-view").each(function() {
+                if($(this).is(':visible')) {
+                    var gd1 = $(this).find('.chart-graph').attr('id');
+                    Plotly.Plots.resize(gd1);
+                }
+            });
+            }, 3000)
 
 
         } else if (report == 'thisweek') {
-            var gd1 = document.getElementById("product-chart-yearly0");
-            Plotly.Plots.resize(gd1);
             $scope.thisweekFlag = true;
             $scope.statisticsType = statisticsType;
             $scope.loadThisWeekGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType)
             $('.chart-render-3').show();
+            setTimeout(function() {
+                $(".full-screen-view").each(function() {
+                if($(this).is(':visible')) {
+                    var gd1 = $(this).find('.chart-graph').attr('id');
+                    Plotly.Plots.resize(gd1);
+                }
+            });
+            }, 3000)
         }
         }
         else {
@@ -150,36 +177,63 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                 $scope.loadYearlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
                 $scope.yearlyFlag = true;
                 $('.chart-render-4').show();
+                setTimeout(function () {
+                    $(".full-screen-view").each(function () {
+                        if ($(this).is(':visible')) {
+                            var gd1 = $(this).find('.chart-graph').attr('id');
+                            Plotly.Plots.resize(gd1);
+                        }
+                    });
+                }, 3000);
             
 
 
             } else if (report == 'monthly') {
-                var gd1 = document.getElementById("product-chart-yearly0");
-                Plotly.Plots.resize(gd1);
                 $scope.report_type = 'monthly';
                 $scope.statisticsType = statisticsType;
                 $scope.loadMonthlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
                 $scope.monthlyFlag = true;
                 $('.chart-render-5').show();
+                setTimeout(function () {
+                    $(".full-screen-view").each(function () {
+                        if ($(this).is(':visible')) {
+                            var gd1 = $(this).find('.chart-graph').attr('id');
+                            Plotly.Plots.resize(gd1);
+                        }
+                    });
+                }, 3000);
                 
 
 
             } else if (report == 'weekly') {
-                var gd1 = document.getElementById("product-chart-yearly0");
                 $scope.report_type = 'weekly';
                 $scope.statisticsType = statisticsType;
                 $scope.loadWeeklyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
                 $scope.weeklyFlag = true;
                 $('.chart-render-6').show();
+                setTimeout(function () {
+                    $(".full-screen-view").each(function () {
+                        if ($(this).is(':visible')) {
+                            var gd1 = $(this).find('.chart-graph').attr('id');
+                            Plotly.Plots.resize(gd1);
+                        }
+                    });
+                }, 3000);
 
 
             } else if (report == 'thisweek') {
-                var gd1 = document.getElementById("product-chart-yearly0");
-                Plotly.Plots.resize(gd1);
                 $scope.thisweekFlag = true;
                 $scope.statisticsType = statisticsType;
                 $scope.loadThisWeekGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType)
                 $('.chart-render-7').show();
+                setTimeout(function () {
+                    $(".full-screen-view").each(function () {
+                        if ($(this).is(':visible')) {
+                            var gd1 = $(this).find('.chart-graph').attr('id');
+                            Plotly.Plots.resize(gd1);
+                        }
+                    });
+                }, 3000);
             }   
         }
     }
@@ -909,8 +963,10 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     var plotDataBarY = [{
                         values: $scope.response[0].value,
                         labels: $scope.response[0].label,
-                        type: 'pie'
+                        type: 'pie',
+                        textinfo: 'none'
                     }];
+                    var layout = {};
                     if($scope.report_type == "yearly") {
                             layout.title = product_name +  ' / Yearly Report';
                         }
@@ -1522,7 +1578,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
 
     //$scope.changeGraph('yearly', 'vertical_bar_chart', 'license_statistics');
-    $scope.loadReport("yearly_overall", "license_statistics");
+    //$scope.loadReport("yearly_overall", "license_statistics");
     $scope.addedFav = false;
     $scope.addToFavourite = function (reportType, chartType, statisticsType) {
         $scope.addedFav = true;
@@ -1686,8 +1742,18 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
     Plotly.newPlot(chartRenderPolarId, polarData, layout);
     
     }
-
-
+    if($scope.report_type == 'yearly') {
+        $scope.loadReport("yearly_overall", "license_statistics");
+    }
+    else if($scope.report_type == 'weekly') {
+        $scope.loadReport("weekly_overall", "license_statistics");
+    }
+    else if($scope.report_type == 'thisweek') {
+        $scope.loadReport("thisweek_overall", "license_statistics");
+    }
+    else {
+        $scope.loadReport("monthly_overall", "license_statistics");
+    }
 
 
 }]);

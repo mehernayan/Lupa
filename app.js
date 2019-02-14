@@ -145,7 +145,9 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 			//$("#"+id).draggable({ containment: "parent", cursor: "move", cursorAt: { top: -5, left: -5 } , zIndex : 1000 });
 			$("#"+id).resizable({
 				minWidth: 500,
-				minHeight: 532
+				minHeight: 532,
+				maxHeight: 532,
+
 			}).on('resize', function (e) {
 				var resizeGraph = $(e.target).find('.js-plotly-plot').attr('id');
 				var gd1 = document.getElementById(resizeGraph);
@@ -215,7 +217,13 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 			$(e.target).closest("li").next("ul").slideToggle();
 			$scope.innerCollapseTime = !$scope.innerCollapseTime;
 			$scope.innerCollapse = true;
-		} 
+		}
+		$scope.loadReport = function(deptFilter, statisticsType) {
+			var report_dur = deptFilter.split("_");
+			var report = report_dur[0];
+			$scope.report_type = report_dur[0];
+			
+		}
  
 		$scope.downloadChart = function ($event) {
 			$($event.target.closest('.chart-container')).find('a[data-title*="Download plot as a png"]')[0].click();
