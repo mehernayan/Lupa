@@ -127,6 +127,7 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		$scope.message = 'Everyone come and see how good I look!';
 		$scope.username = "";
 		$scope.userType = "";
+		$scope.currentProducts  = ['LSDYNA'];
 		$scope.headInit = function () {
 			$scope.user = localStorageService.get('user');
 			if (typeof $scope.user !== "undefined" && $scope.user !== [] && $scope.user !== null) {
@@ -153,8 +154,8 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 				var gd1 = document.getElementById(resizeGraph);
 				Plotly.Plots.resize(gd1);
 			});
-			$("#sortable").sortable();
-			$( "#sortable" ).disableSelection();
+			$("#sortable").children().sortable();
+			$( "#sortable" ).children().disableSelection();
 		}
 		/*setTimeout(function () {
 			$(".resize-move").mouseover(function() {
@@ -222,6 +223,7 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 			var report_dur = deptFilter.split("_");
 			var report = report_dur[0];
 			$scope.report_type = report_dur[0];
+			
 			
 		}
  

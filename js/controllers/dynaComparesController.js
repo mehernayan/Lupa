@@ -231,13 +231,33 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
             autosize: true
 
         };*/
-        var layout = {
+            var layout = {
+              showlegend: true,
+              legend: {
+                "orientation": "h",
+                x: 0.58,
+                y: 1.1
+              },
+              xaxis: {
+                type: 'category',
+                showgrid: false,
+                gridcolor: '#bdbdbd',
+                gridwidth: 0.5
+              },
+              yaxis: {
+                showgrid: true,
+                title: "Total number of license used",
+                showline: true
+              },
+              barmode: 'stack',
+              bargroupgap: 0.5,
+              autosize: true
 
-        }
-        layout.barmode = "stack";
+            };
+        
             
          
-            Plotly.newPlot('dyna-compare-chart-' + $scope.chartIndex, plotDataBarY, layout);
+        Plotly.newPlot('dyna-compare-chart-' + $scope.chartIndex, plotDataBarY, layout, {responsive: true});
             
            
             
