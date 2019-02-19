@@ -85,7 +85,7 @@
                     <td> {{purchase.number_of_licenses}} </td>
                     <td> {{purchase.purchase_cost}} </td>
                     <td>
-                        <button class="btn btn-danger btn-table" ng-click="deletePurchase(purchase.id)">Delete</button>
+                        <button class="btn btn-danger btn-table" data-toggle="modal" data-target="#deletePurchaseModal" ng-click="deletePurchaseConf(purchase.id,purchase.software_name)">Delete</button>
                     </td>
                     </tr>
                 </tbody>
@@ -95,3 +95,21 @@
     </div>
 </div>
 <footer ng-include="'views/partials/footer.html'"></footer>
+<!-- Modal -->
+<div class="modal fade" id="deletePurchaseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header" style="border:none;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Delete User</h4>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete the purchased software {{deletePurchaseName}} ?
+            </div>
+            <div class="modal-footer" style="border:none;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" ng-click="deletePurchase()">Delete</button>
+            </div>
+            </div>
+        </div>
+</div>

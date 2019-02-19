@@ -98,9 +98,15 @@ function($scope,$filter,$location,lupaAdminService,purchaseData,localStorageServ
       /**
        * Delete purchase 
        */
-    $scope.deletePurchase = function(id){
+      $scope.deletePurchaseId = undefined;
+      $scope.deletePurchaseName = undefined;
+      $scope.deletePurchaseConf = function(id,name){
+          $scope.deletePurchaseId = id;
+          $scope.deletePurchaseName = name;
+      }
+    $scope.deletePurchase = function(){
         $('#loadergif').show();
-        lupaAdminService.deletePurchase(id).then(function(response) {
+        lupaAdminService.deletePurchase($scope.deletePurchaseId).then(function(response) {
           //console.log(response.data,"register user");
           $scope.response = JSON.parse(response.data.status_response);
           $('#loadergif').hide();
@@ -108,12 +114,13 @@ function($scope,$filter,$location,lupaAdminService,purchaseData,localStorageServ
             if($scope.response.success){
               $scope.error ="";
               $scope.successMsg = $scope.response.message;
-              $scope.getPurchaseList();
             }else{
               $scope.successMsg = "";
               $scope.error = $scope.response.message;
             }
+            $scope.getPurchaseList();
           }
+          $("#deletePurchaseModal").modal('hide');
         });
       };
       $scope.getLiveChartByProduct = function(item,e) {
