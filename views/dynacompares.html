@@ -23,6 +23,9 @@
 
                             <div class="first-compare compare">
                                 <div class="row">
+                                    <div class="col-sm-12 mar-top-20" ng-if="!prodFeatures.length">
+                                        {{emptyMsg}}
+                                    </div>
                                     <div class="col-sm-4 mar-top-20 feature" ng-repeat="feature in prodFeatures track by $index">
                                         <input type="checkbox" id="{{feature.feature_name+1}}" ng-model="feature.status" checked="{{feature.status}}" aria-label="">
                                         <label style="max-width:82%;overflow-wrap: break-word;" for="{{feature.feature_name+1}}">{{feature.feature_name}}</label>

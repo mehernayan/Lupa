@@ -9,6 +9,7 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
     $scope.successMsg = "";
     $scope.errorProductsList = "";
     $scope.prodFeatures = [];
+    $scope.emptyMsg = "";
 
     // chart detail
     $scope.reportSidebar = true;
@@ -103,6 +104,7 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
         if (typeof $scope.response !== "undefined") {
           if ($scope.response.success) {
             $scope.error = "";
+            $scope.emptyMsg = "There is no feature associated with this.";
             $scope.prodFeatures = $scope.response.data;
           } else {
             $scope.error = $scope.response.message;
