@@ -340,6 +340,7 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 						$scope.errorAccMsg = $scope.response.message;
 					}
 				}
+				$scope.getDeptNotifications();
 			});
 		};
 
@@ -363,6 +364,7 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 						$scope.acceptMsg = "";
 						$scope.errorAccMsg = $scope.response.message;
 					}
+					$scope.getDeptNotifications();
 				}
 			});
 		};
