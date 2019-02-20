@@ -21,10 +21,14 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
     };
     
     $scope.getLiveChart = function () {
+        $scope.emptyChartMsg ="";
         $('#loadergif').show();
         lupaDeptDashboardService.getLiveChartUrl().then(function (response) {
+            console.log(response,"response");
             $scope.response = response.data;
             $scope.productlistresponse = response.data;
+            if(typeof $scope.productlistresponse !=="undefined" && $scope.productlistresponse.length){
+            $scope.emptyChartMsg ="";
             $scope.productListDashboard = [];
             if(!$scope.productlistresponse.length) {
                 $scope.response = [[],[],[],[]];
@@ -136,7 +140,9 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
                     createChart();
                 }
             }
-
+            }else{
+                $scope.emptyChartMsg = "No live chart available."
+            }
         });
     }
     $scope.getLiveChart();
