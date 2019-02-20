@@ -27,9 +27,10 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
             console.log(response,"response");
             $scope.response = response.data;
             $scope.productlistresponse = response.data;
+            $scope.productListDashboard = [];
             if(typeof $scope.productlistresponse !=="undefined" && $scope.productlistresponse.length){
             $scope.emptyChartMsg ="";
-            $scope.productListDashboard = [];
+           
             if(!$scope.productlistresponse.length) {
                 $scope.response = [[],[],[],[]];
 
