@@ -380,7 +380,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 		
             }
 
@@ -487,7 +487,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 		
             }
 
@@ -592,7 +592,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 		
             }
 
@@ -723,7 +723,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 		
             }
 
@@ -817,7 +817,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-graph").attr('id');
         lupaUserDashboardService.changeGraphUrl($scope.report_type, chartType, statisticsType,currentprod).then(function (response) {
             
-
+            product_name = currentprod;
             // common to all graph
 
             var layout = {
@@ -850,7 +850,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 
             }
 
@@ -1188,7 +1188,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                         
                     }
                     else if ($scope.statisticsType == 'time_statistics') {
-                        layout.yaxis.title = "Total license used on hourly basis";
+                        layout.yaxis.title = "Total number of hours used";
                         
                     }
                     //var marker = ["#"]
@@ -1461,6 +1461,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                                     size.push($scope.response[i].license[j]);
                                     
                                 }
+                                debugger;
                             }
                             plotDataBarY.push({
                                 x: xAxisVal,
@@ -1613,7 +1614,18 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         var role = "user";
         var api = "";
         lupaUserDashboardService.addFavouriteUrl(reportType, chartType, statisticsType).then(function (response) {
-            console.log(response);
+            if(JSON.parse(response.data.status_response).success == 1) {
+                $scope.addedSuccess = true;
+                setTimeout(function() {
+                    $(".animationIf").hide()
+                }, 5000);
+            }
+            else {
+                $scope.alreadyAddedSuccess = true;
+                setTimeout(function() {
+                    $(".animationIf").hide()
+                }, 5000);
+            }
             
         });
     }

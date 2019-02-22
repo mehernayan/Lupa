@@ -9,7 +9,7 @@
             <div class="product-container" ng-repeat= "currentProduct in currentProducts"  id="{{currentProduct}}">
             <div class="col-sm-12  full-screen-view chart-render chart-render-0" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-1'}}">
                 <div class="admin-report-filter">
-                    <input type="radio" name="{{currentProduct + 'adminFilterYearlyLicense'}}" ng-checked="true" ng-model="adminFilterYearly" value="yearly_overall"  ng-click="loadReport(adminFilterYearly, license_statistics)">Overall
+                    <input type="radio" name="{{currentProduct + 'adminFilterYearlyLicense'}}" ng-checked="true" ng-model="adminFilterYearly" value="yearly_overall"  ng-click="loadYearlyGraph('yearly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
                     <input type="radio" name="{{currentProduct + 'adminFilterYearlyLicense'}}" ng-checked="false" ng-model="adminFilterYearly" value="yearly_individual"   data-ng-click="reportAdminFilter($event,adminFilterYearly,userFilterType,defaultFilterVal,currentProduct)">Individual
                 </div>
 
@@ -145,7 +145,7 @@
             </div>
             <div class="col-sm-12  full-screen-view chart-render chart-render-1" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-2'}}">
                 <div class="admin-report-filter">
-                    <input type="radio" name="{{currentProduct + 'adminFilterMonthlyLicense'}}" ng-checked="true" ng-model="adminFilterMonthly" value="monthly_overall" ng-click="loadReport(adminFilterMonthly, license_statistics)">Overall
+                    <input type="radio" name="{{currentProduct + 'adminFilterMonthlyLicense'}}" ng-checked="true" ng-model="adminFilterMonthly" value="monthly_overall" ng-click="loadMonthlyGraph('monthly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
                     <input type="radio" name="{{currentProduct + 'adminFilterMonthlyLicense'}}" ng-checked="false" ng-model="adminFilterMonthly" value="monthly_individual" ng-click="reportAdminFilter($event,adminFilterMonthly,userFilterType,defaultFilterVal,currentProduct)">Individual
                 </div>
 
@@ -283,7 +283,7 @@
             </div>
             <div class="col-sm-12  full-screen-view chart-render chart-render-2" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-3'}}">
                 <div class="admin-report-filter">
-                    <input type="radio" name="{{currentProduct + 'adminFilterWeeklyLicense'}}" ng-checked="true" ng-model="adminFilterWeekly" value="weekly_overall" ng-click="loadReport(adminFilterWeekly, license_statistics)">Overall
+                    <input type="radio" name="{{currentProduct + 'adminFilterWeeklyLicense'}}" ng-checked="true" ng-model="adminFilterWeekly" value="weekly_overall" ng-click="loadWeeklyGraph('weekly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
                     <input type="radio" name="{{currentProduct + 'adminFilterWeeklyLicense'}}" ng-checked="false" ng-model="adminFilterWeekly" value="weekly_individual" ng-click="reportAdminFilter($event,adminFilterWeekly,userFilterType,defaultFilterVal,currentProduct)">Individual
                 </div>
                 <div class="dropdown chart-dropdown">
@@ -409,7 +409,7 @@
             </div>
             <div class="col-sm-12  full-screen-view chart-render chart-render-3" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-4'}}">
                 <div class="admin-report-filter">
-                    <input type="radio" name="{{currentProduct + 'adminFilterThisWeekLicense'}}"  ng-checked="true" ng-model="adminFilterThisWeek" value="thisweek_overall" ng-click="loadReport(adminFilterThisWeek, license_statistics)">Overall
+                    <input type="radio" name="{{currentProduct + 'adminFilterThisWeekLicense'}}"  ng-checked="true" ng-model="adminFilterThisWeek" value="thisweek_overall" ng-click="loadThisWeekGraph('thisweek', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
                     <input type="radio" name="{{currentProduct + 'adminFilterThisWeekLicense'}}" ng-checked="false" ng-model="adminFilterThisWeek" value="thisweek_individual" ng-click="reportAdminFilter($event,adminFilterThisWeek,userFilterType,defaultFilterVal,currentProduct)">Individual
                 </div>
 
@@ -596,7 +596,7 @@
 
             <div class="col-sm-12  full-screen-view chart-render chart-render-4" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-5'}}">
                 <div class="admin-report-filter">
-                    <input type="radio" name="{{currentProduct + 'adminFilterYearlyTime'}}" ng-checked="true" ng-model="adminFilterYearly" value="yearly_overall"  ng-click="loadReport(adminFilterYearly, license_statistics)">Overall
+                    <input type="radio" name="{{currentProduct + 'adminFilterYearlyTime'}}" ng-checked="true" ng-model="adminFilterYearly" value="yearly_overall"  ng-click="loadYearlyGraph('yearly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
                     <input type="radio" name="{{currentProduct + 'adminFilterYearlyTime'}}" ng-checked="false" ng-model="adminFilterYearly" value="yearly_individual"   data-ng-click="reportAdminFilter($event,adminFilterYearly,userFilterType,defaultFilterVal,currentProduct)">Individual
                 </div>
 
@@ -733,7 +733,7 @@
             </div>
             <div class="col-sm-12  full-screen-view chart-render chart-render-5" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-6'}}">
                 <div class="admin-report-filter">
-                    <input type="radio" name="{{currentProduct + 'adminFilterMonthlyTime'}}" ng-checked="true" ng-model="adminFilterMonthly" value="monthly_overall" ng-click="loadReport(adminFilterMonthly, license_statistics)">Overall
+                    <input type="radio" name="{{currentProduct + 'adminFilterMonthlyTime'}}" ng-checked="true" ng-model="adminFilterMonthly" value="monthly_overall" ng-click="loadMonthlyGraph('monthly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
                     <input type="radio" name="{{currentProduct + 'adminFilterMonthlyTime'}}" ng-checked="false" ng-model="adminFilterMonthly" value="monthly_individual" ng-click="reportAdminFilter($event,adminFilterMonthly,userFilterType,defaultFilterVal,currentProduct)">Individual
                 </div>
 
@@ -871,7 +871,7 @@
             </div>
             <div class="col-sm-12  full-screen-view chart-render chart-render-6" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-7'}}">
                 <div class="admin-report-filter">
-                    <input type="radio" name="{{currentProduct + 'adminFilterWeeklyTime'}}"  ng-checked="true" ng-model="adminFilterWeekly" value="weekly_overall" ng-click="loadReport(adminFilterWeekly, license_statistics)">Overall
+                    <input type="radio" name="{{currentProduct + 'adminFilterWeeklyTime'}}"  ng-checked="true" ng-model="adminFilterWeekly" value="weekly_overall" ng-click="loadWeeklyGraph('weekly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
                     <input type="radio" name="{{currentProduct + 'adminFilterWeeklyTime'}}" ng-checked="false" ng-model="adminFilterWeekly" value="weekly_individual" ng-click="reportAdminFilter($event,adminFilterWeekly,userFilterType,defaultFilterVal,currentProduct)">Individual
                 </div>
                 <div class="dropdown chart-dropdown">
@@ -997,7 +997,7 @@
             </div>
             <div class="col-sm-12  full-screen-view chart-render chart-render-7" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-8'}}">
                 <div class="admin-report-filter">
-                    <input type="radio"  name="{{currentProduct + 'adminFilterThisWeekTime'}}"  ng-checked="true" ng-model="adminFilterThisWeek" value="thisweek_overall" ng-click="loadReport(adminFilterThisWeek, license_statistics)">Overall
+                    <input type="radio"  name="{{currentProduct + 'adminFilterThisWeekTime'}}"  ng-checked="true" ng-model="adminFilterThisWeek" value="thisweek_overall" ng-click="loadThisWeekGraph('thisweek', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
                     <input type="radio" name="{{currentProduct + 'adminFilterThisWeekTime'}}" ng-checked="false" ng-model="adminFilterThisWeek" value="thisweek_individual" ng-click="reportAdminFilter($event,adminFilterThisWeek,userFilterType,defaultFilterVal,currentProduct)">Individual
                 </div>
 
@@ -1194,4 +1194,6 @@
 </div>
 
 </div>
+<div class="animationIf danger" ng-if="alreadyAddedSuccess">Report is already added to favourite</div>
+<div class="animationIf added-success" ng-if="addedSuccess">Report added to favourite</div>
 <footer ng-include="'views/partials/footer.html'"></footer>

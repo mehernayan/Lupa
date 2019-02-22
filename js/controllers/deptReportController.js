@@ -8,6 +8,10 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         product_name = "LSDYNA"
         $scope.currentProducts  = ['LSDYNA'];
     }
+    var currentyearlyprod = "";
+    var currentmonthlyprod = "";
+    var currentweeklyprod = "";
+    var currentthisweekprod = "";
     $scope.product_name = product_name;
     if (typeof userId === "undefined" || userId == null) {
         $location.path('/');
@@ -85,6 +89,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
 
     $scope.loadReport = function (deptFilter, statisticsType) {
+        //debugger;
         var product_name = localStorageService.get("product_name");
         if(product_name == "" || product_name == "undefined" || product_name == null) {
             product_name = "LSDYNA"
@@ -106,7 +111,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
             $scope.report_type = 'yearly';
             $scope.statisticsType = statisticsType;
-            $scope.loadYearlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.loadYearlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType, currentyearlyprod);
             $scope.yearlyFlag = true;
             $('#' + $scope.product_name + ' .chart-render-0').show();
             setTimeout(function() {
@@ -128,7 +133,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         } else if (report == 'monthly') {
             $scope.report_type = 'monthly';
             $scope.statisticsType = statisticsType;
-            $scope.loadMonthlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.loadMonthlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType, currentmonthlyprod);
             $scope.monthlyFlag = true;
             $('#' + $scope.product_name + ' .chart-render-1').show();
             setTimeout(function() {
@@ -146,7 +151,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         } else if (report == 'weekly') {
             $scope.report_type = 'weekly';
             $scope.statisticsType = statisticsType;
-            $scope.loadWeeklyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.loadWeeklyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType, currentweeklyprod);
             $scope.weeklyFlag = true;
             $('#' + $scope.product_name + ' .chart-render-2').show();
              setTimeout(function() {
@@ -164,7 +169,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
             $scope.thisweekFlag = true;
             $scope.report_type = 'thisweek';
             $scope.statisticsType = statisticsType;
-            $scope.loadThisWeekGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.loadThisWeekGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType, currentthisweekprod);
             $('#' + $scope.product_name + ' .chart-render-3').show();
              setTimeout(function() {
                 $(".full-screen-view").each(function() {
@@ -193,7 +198,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
             $scope.report_type = 'yearly';
             $scope.statisticsType = statisticsType;
-            $scope.loadYearlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.loadYearlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType, currentyearlyprod);
             $scope.yearlyFlag = true;
             $('#' + $scope.product_name + ' .chart-render-4').show();
             setTimeout(function () {
@@ -208,7 +213,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         } else if (report == 'monthly') {
             $scope.report_type = 'monthly';
             $scope.statisticsType = statisticsType;
-            $scope.loadMonthlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.loadMonthlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType, currentmonthlyprod);
             $scope.monthlyFlag = true;
             $('#' + $scope.product_name + ' .chart-render-5').show();
             setTimeout(function () {
@@ -223,7 +228,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         } else if (report == 'weekly') {
             $scope.report_type = 'weekly';
             $scope.statisticsType = statisticsType;
-            $scope.loadWeeklyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.loadWeeklyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType, currentweeklyprod);
             $scope.weeklyFlag = true;
             $('#' + $scope.product_name + ' .chart-render-6').show();
             setTimeout(function () {
@@ -238,7 +243,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
             $scope.thisweekFlag = true;
             $scope.report_type = 'thisweek';
             $scope.statisticsType = statisticsType;
-            $scope.loadThisWeekGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.loadThisWeekGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType, currentthisweekprod);
             $('#' + $scope.product_name + ' .chart-render-7').show();
             setTimeout(function () {
                     $(".full-screen-view").each(function () {
@@ -382,12 +387,16 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
     }*/
     
-    $scope.loadYearlyGraph = function (reportType, chartType, statisticsType) {
+    $scope.loadYearlyGraph = function (reportType, chartType, statisticsType, currentprod) {
         var product_name = localStorageService.get("product_name");
         if(product_name == "" || product_name == "undefined" || product_name == null) {
             product_name = "LSDYNA"
         }
         $scope.product_name = product_name;
+        if(currentprod != "" && currentprod != undefined) {
+            $scope.product_name = currentprod;
+            product_name = currentprod;
+        }
         
 
         $scope.chartType = chartType;
@@ -425,7 +434,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 		
             }
 
@@ -491,12 +500,16 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
 
     }
-    $scope.loadMonthlyGraph = function (reportType, chartType, statisticsType) {
+    $scope.loadMonthlyGraph = function (reportType, chartType, statisticsType, currentprod) {
         var product_name = localStorageService.get("product_name");
         if(product_name == "" || product_name == "undefined" || product_name == null) {
             product_name = "LSDYNA"
         }
         $scope.product_name = product_name;
+        if(currentprod != "" && currentprod != undefined) {
+            $scope.product_name = currentprod;
+            product_name = currentprod;
+        }
         
 
         $scope.chartType = chartType;
@@ -534,7 +547,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 		
             }
 
@@ -598,14 +611,17 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
             }
         });
     }
-    $scope.loadWeeklyGraph = function (reportType, chartType, statisticsType) {
+    $scope.loadWeeklyGraph = function (reportType, chartType, statisticsType, currentprod) {
         var product_name = localStorageService.get("product_name");
         if(product_name == "" || product_name == "undefined" || product_name == null) {
             product_name = "LSDYNA"
         }
         $scope.product_name = product_name;
         
-
+        if(currentprod != "" && currentprod != undefined) {
+            $scope.product_name = currentprod;
+            product_name = currentprod;
+        }
         $scope.chartType = chartType;
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
@@ -641,7 +657,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 		
             }
 
@@ -730,13 +746,16 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
         });
     }
-    $scope.loadThisWeekGraph = function (reportType, chartType, statisticsType) {
+    $scope.loadThisWeekGraph = function (reportType, chartType, statisticsType, currentprod) {
         var product_name = localStorageService.get("product_name");
         if(product_name == "" || product_name == "undefined" || product_name == null) {
             product_name = "LSDYNA"
         }
         $scope.product_name = product_name;
-        
+        if(currentprod != "" && currentprod != undefined) {
+            $scope.product_name = currentprod;
+            product_name = currentprod;
+        }
         $scope.chartType = chartType;
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
@@ -772,7 +791,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 		
             }
 
@@ -884,7 +903,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 		
             }
 
@@ -976,7 +995,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         lupaDeptDashboardService.changeGraphUrl($scope.report_type, chartType, statisticsType, currentprod).then(function (response) {
 
             // common to all graph
-
+            product_name = currentprod;
             var layout = {
                 title: product_name +  ' / ' + $scope.report_type + ' Report',
                 showlegend: true,
@@ -1008,7 +1027,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 		
             }
 
@@ -1775,7 +1794,18 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         var role = "user";
         var api = "";
         lupaDeptDashboardService.addFavouriteUrl(reportType, chartType, statisticsType).then(function (response) {
-            console.log(response);
+            if(JSON.parse(response.data.status_response).success == 1) {
+                $scope.addedSuccess = true;
+                setTimeout(function() {
+                    $(".animationIf").hide()
+                }, 5000);
+            }
+            else {
+                $scope.alreadyAddedSuccess = true;
+                setTimeout(function() {
+                    $(".animationIf").hide()
+                }, 5000);
+            }
             
         });
     }
@@ -1872,7 +1902,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 		
             }
 

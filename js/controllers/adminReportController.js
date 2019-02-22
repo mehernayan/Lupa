@@ -8,6 +8,10 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         product_name = "LSDYNA"
         $scope.currentProducts  = ['LSDYNA'];
     }
+    var currentyearlyprod = "";
+    var currentmonthlyprod = "";
+    var currentweeklyprod = "";
+    var currentthisweekprod = "";
     $scope.product_name = product_name;
     if (typeof userId === "undefined" || userId == null) {
         $location.path('/');
@@ -105,7 +109,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
             $scope.report_type = 'yearly';
             $scope.statisticsType = statisticsType;
-            $scope.loadYearlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.loadYearlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType, currentyearlyprod);
             $scope.yearlyFlag = true;
             $('#' + $scope.product_name + ' .chart-render-0').show();
             setTimeout(function () {
@@ -120,7 +124,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         } else if (report == 'monthly') {
             $scope.report_type = 'monthly';
             $scope.statisticsType = statisticsType;
-            $scope.loadMonthlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.loadMonthlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType, currentmonthlyprod);
             $scope.monthlyFlag = true;
             $('#' + $scope.product_name + ' .chart-render-1').show();
             setTimeout(function () {
@@ -135,7 +139,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         } else if (report == 'weekly') {
             $scope.report_type = 'weekly';
             $scope.statisticsType = statisticsType;
-            $scope.loadWeeklyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.loadWeeklyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType, currentweeklyprod);
             $scope.getAdminReportUserList();
             $scope.getAdminReportDeptList();
             $scope.weeklyFlag = true;
@@ -152,7 +156,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             $scope.thisweekFlag = true;
             $scope.report_type = 'thisweek';
             $scope.statisticsType = statisticsType;
-            $scope.loadThisWeekGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.loadThisWeekGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType, currentthisweekprod);
             $scope.getAdminReportUserList();
             $scope.getAdminReportDeptList();
             $scope.getThisWeekShifts();
@@ -181,7 +185,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
             $scope.report_type = 'yearly';
             $scope.statisticsType = statisticsType;
-            $scope.loadYearlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.loadYearlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType, currentyearlyprod);
             $scope.yearlyFlag = true;
             $('#' + $scope.product_name + ' .chart-render-4').show();
             setTimeout(function () {
@@ -196,7 +200,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         } else if (report == 'monthly') {
             $scope.report_type = 'monthly';
             $scope.statisticsType = statisticsType;
-            $scope.loadMonthlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.loadMonthlyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType, currentmonthlyprod);
             $scope.monthlyFlag = true;
             $('#' + $scope.product_name + ' .chart-render-5').show();
             setTimeout(function () {
@@ -211,7 +215,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         } else if (report == 'weekly') {
             $scope.report_type = 'weekly';
             $scope.statisticsType = statisticsType;
-            $scope.loadWeeklyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.loadWeeklyGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType, currentweeklyprod);
             $scope.getAdminReportUserList();
             $scope.getAdminReportDeptList();
             $scope.weeklyFlag = true;
@@ -228,7 +232,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             $scope.thisweekFlag = true;
             $scope.report_type = 'thisweek';
             $scope.statisticsType = statisticsType;
-            $scope.loadThisWeekGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType);
+            $scope.loadThisWeekGraph($scope.report_type, 'vertical_bar_chart', $scope.statisticsType, currentthisweekprod);
             $scope.getAdminReportUserList();
             $scope.getAdminReportDeptList();
             $scope.getThisWeekShifts();
@@ -352,12 +356,16 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
     };
 
-    $scope.loadYearlyGraph = function (reportType, chartType, statisticsType) {
+    $scope.loadYearlyGraph = function (reportType, chartType, statisticsType, currentprod) {
         var product_name = localStorageService.get("product_name");
         if(product_name == "" || product_name == "undefined" || product_name == null) {
             product_name = "LSDYNA"
         }
         $scope.product_name = product_name;
+        if(currentprod != "" && currentprod != undefined) {
+            $scope.product_name = currentprod;
+            product_name = currentprod;
+        }
         $scope.chartType = chartType;
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
@@ -393,7 +401,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 //debugger;		
             }
 
@@ -458,12 +466,16 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
 
     }
-    $scope.loadMonthlyGraph = function (reportType, chartType, statisticsType) {
+    $scope.loadMonthlyGraph = function (reportType, chartType, statisticsType, currentprod) {
         var product_name = localStorageService.get("product_name");
         if(product_name == "" || product_name == "undefined" || product_name == null) {
             product_name = "LSDYNA"
         }
         $scope.product_name = product_name;
+        if(currentprod != "" && currentprod != undefined) {
+            $scope.product_name = currentprod;
+            product_name = currentprod;
+        }
         $scope.chartType = chartType;
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
@@ -499,7 +511,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 //debugger;		
             }
 
@@ -563,12 +575,16 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             }
         });
     }
-    $scope.loadWeeklyGraph = function (reportType, chartType, statisticsType) {
+    $scope.loadWeeklyGraph = function (reportType, chartType, statisticsType, currentprod) {
         var product_name = localStorageService.get("product_name");
         if(product_name == "" || product_name == "undefined" || product_name == null) {
             product_name = "LSDYNA"
         }
         $scope.product_name = product_name;
+        if(currentprod != "" && currentprod != undefined) {
+            $scope.product_name = currentprod;
+            product_name = currentprod;
+        }
         $scope.chartType = chartType;
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
@@ -604,7 +620,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 //debugger;		
             }
 
@@ -693,12 +709,17 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
         });
     }
-    $scope.loadThisWeekGraph = function (reportType, chartType, statisticsType) {
+    $scope.loadThisWeekGraph = function (reportType, chartType, statisticsType, currentprod) {
         var product_name = localStorageService.get("product_name");
         if(product_name == "" || product_name == "undefined" || product_name == null) {
             product_name = "LSDYNA"
         }
         $scope.product_name = product_name;
+        if(currentprod != "" && currentprod != undefined) {
+            $scope.product_name = currentprod;
+            product_name = currentprod;
+        }
+        
         //debugger;
         $scope.chartType = chartType;
         $scope.report_type = reportType;
@@ -735,7 +756,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 //debugger;		
             }
 
@@ -847,7 +868,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 //debugger;		
             }
 
@@ -971,7 +992,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total license used on hourly basis";
+                layout.yaxis.title = "Total number of hours used";
                 //debugger;		
             }
 
@@ -1720,11 +1741,14 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     //$scope.loadYearlyGraph('yearly_overall', 'vertical_bar_chart', 'license_statistics');
     //$scope.loadReport("yearly_overall", "license_statistics");
     $scope.addedFav = false;
+    $scope.addedSuccess = false;
+    $scope.alreadyAddedSuccess = false;
     $scope.addToFavourite = function (reportType, chartType, statisticsType) {
         $scope.addedFav = true;
         //$scope.userLogged = localStorageService.get("user");
         //console.log($scope.chartType, $scope.statisticsType);
         $scope.userLogged = localStorageService.get('user');
+        
 
         var user_id = $scope.userLogged[0].id;
         console.log(user_id);
@@ -1736,6 +1760,18 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         var api = "";
         lupaAdminDashboardService.addFavouriteUrl(reportType, chartType, statisticsType).then(function (response) {
             console.log(response);
+            if(JSON.parse(response.data.status_response).success == 1) {
+                $scope.addedSuccess = true;
+                setTimeout(function() {
+                    $(".animationIf").hide()
+                }, 5000);
+            }
+            else {
+                $scope.alreadyAddedSuccess = true;
+                setTimeout(function() {
+                    $(".animationIf").hide()
+                }, 5000);
+            }
             //debugger;
         });
     }

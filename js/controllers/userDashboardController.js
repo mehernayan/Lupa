@@ -17,7 +17,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
     $scope.favouriteActive = false;
     $scope.polarChartFlag = false;
     $scope.arrayItem = 0;
-
+    $scope.noData = false;
     $scope.getLiveChart = function () {
 
         $('#loadergif').show();
@@ -25,6 +25,15 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
             $scope.response = response.data;
             $scope.productlistresponse = response.data;
             $scope.productListDashboard = [];
+            if(!$scope.productlistresponse.length) {
+                $scope.noData = true;
+                $("#chart").hide();
+
+            }
+            else {
+                $scope.noData = false;
+                $("#chart").show();
+            }
             for (i = 0; i < $scope.response.length; i++) {
                 //debugger;
                 if ($scope.response[i].length != 0) {
@@ -182,6 +191,15 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
                     bargroupgap: 0.5
 
                 };
+                if ($scope.response[i].type == 'license_statistics') {
+                layout.yaxis.title = "Total number of license";
+                		
+
+                }
+                else if ($scope.response[i].type == 'time_statistics') {
+                    layout.yaxis.title = "Total license used on hourly basis";
+                            
+                }
                 var chartFavouriteIndex = i;
                 plotDataBarY = [];
                 if ($scope.response[i].report_type == 'weekly') {
@@ -446,17 +464,15 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
 
         });
     }
-    /*$scope.fiveMinuteData =  [{"product_name": "LSDYNA", "jobs" : [{"success" : 20},{"Jobs Qued" : 30}, {"Warning" : 20},{"Warning" : 30}]}];
-    $scope.fiveMinuteDataProd = $scope.fiveMinuteData[0].product_name;
-    $scope.fiveMinuteDataJobs = $scope.fiveMinuteData[0].jobs;*/
+
 
     // last 5 minutes
     $scope.getLastFiveMinutesReport = function (product_name) {
         // debugger;
         $('#loadergif').show();
         lupaUserDashboardService.getLastFiveMinutesReportUrl(product_name).then(function (response) {
+            $scope.fiveMinuteDataJobs = response.data.jobs;
             $('#loadergif').hide();
-            $scope.fiveMinuteDataJobs = response.data.jobs
             //debugger;
         });
     }

@@ -21,6 +21,15 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
             $scope.response = response.data;
             $scope.productlistresponse = response.data;
             $scope.productListDashboard = [];
+            if(!$scope.productlistresponse.length) {
+                $scope.noData = true;
+                $("#chart").hide();
+
+            }
+            else {
+                $scope.noData = false;
+                $("#chart").show();
+            }
             if(typeof $scope.productlistresponse !=="undefined" && $scope.productlistresponse.length){
              $scope.emptyChartMsg ="";
             for (i = 0; i < $scope.response.length; i++) {
@@ -189,6 +198,15 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                     bargroupgap: 0.5
 
                 };
+                if ($scope.response[i].type == 'license_statistics') {
+                layout.yaxis.title = "Total number of license";
+                		
+
+                }
+                else if ($scope.response[i].type == 'time_statistics') {
+                    layout.yaxis.title = "Total license used on hourly basis";
+                            
+                }
                 var chartFavouriteIndex = i;
                 plotDataBarY = [];
                 if ($scope.response[i].report_type == 'weekly') {
@@ -462,8 +480,9 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
         // debugger;
         $('#loadergif').show();
         lupaAdminDashboardService.getLastFiveMinutesReportUrl(product_name).then(function (response) {
+            $scope.fiveMinuteDataJobs = response.data.jobs;
             $('#loadergif').hide();
-            $scope.fiveMinuteDataJobs = response.data.jobs
+            
             //debugger;
         });
     }
@@ -473,8 +492,9 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
         // debugger;
         $('#loadergif').show();
         lupaAdminDashboardService.getTodayReportUrl(product_name).then(function (response) {
+            $scope.todayDataJobs = response.data.jobs;
             $('#loadergif').hide();
-            $scope.todayDataJobs = response.data.jobs
+            
             //debugger;
         });
     }

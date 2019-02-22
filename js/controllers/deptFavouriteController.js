@@ -15,6 +15,7 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
         $('#loadergif').show();
         lupaDeptDashboardService.getFavouriteUrl().then(function (response) {
             
+            
             var plotDataBarY = [];
 
 
@@ -44,7 +45,8 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
 
 
             //$scope.response = JSON.parse($scope.response);
-            for (i = 0; i < $scope.response.length; i++) {
+            setTimeout(function() {
+                for (i = 0; i < $scope.response.length; i++) {
                 var layout = {
                     showlegend: true,
                     legend: {
@@ -155,7 +157,49 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                         //layout.xaxis.title = "Total number of license used";
                         //layout.yAxis.title = "";
                         }
-                        if ($scope.response[i].chart_type == "pie_chart") {
+                        
+                         if($scope.response[i].chart_type == "box_plot_styling_outliers_chart") {
+                             layout.barmode = 'stack';
+                             var plotDataBarY = [];
+                                for (j = 0; j < $scope.chartresponse.length; j++) {
+                                plotDataBarY.push({
+                                    y: $scope.chartresponse[j].license,
+                                    type: 'box',
+                                    name: $scope.chartresponse[j].year
+                                })
+                             }
+
+                         }
+                         if($scope.response[i].chart_type == "bubble_chart") {
+                             var plotDataBarY = [];
+                             var size = [];
+                             var xAxisVal = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                             
+                            for (j = 0; j < $scope.chartresponse.length; j++) {
+                                for (k = 0; k < $scope.chartresponse[j].license.length; k++) {
+                                console.log($scope.chartresponse[j].license[k]);
+                                if ($scope.chartresponse[j].license[j] > 10) {
+                                    size.push($scope.chartresponse[j].license[k] / 7)
+                                } else {
+                                    size.push($scope.chartresponse[j].license[k]);
+                                    
+                                }
+                            }
+                            
+                            plotDataBarY.push({
+                                x: xAxisVal,
+                                y: $scope.chartresponse[j].license,
+                                mode: 'markers',
+                                marker: {
+                                    size: size
+                                },
+                                name: $scope.chartresponse[j].year
+                            });
+                            
+                        }
+
+                         }
+                         if ($scope.response[i].chart_type == "pie_chart") {
                             var plotDataBarY = [{
                             values: $scope.chartresponse[0].value,
                             labels: $scope.chartresponse[0].label,
@@ -194,7 +238,7 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                     Plotly.Plots.resize(gd1);
 
                 }
-                else if ($scope.response[i].report_type == "this_week") {
+                if ($scope.response[i].report_type == "this_week") {
                     var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                     var plotDataBarY = [];
                     layout.title = $scope.response[i].product_name + ' ' + 'This Week' + ' / report';
@@ -313,6 +357,7 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                     Plotly.newPlot('product-chart-yearly' + chartFavouriteIndex, plotDataBarY, layout, plotlyDefaultConfigurationBar);
                     var gd1 = document.getElementById("product-chart-yearly" + chartFavouriteIndex);
                     Plotly.Plots.resize(gd1);
+                    $('#loadergif').hide();
                 }
 
 
@@ -322,14 +367,15 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
 
 
             }
-
-
-
-
-
-            $('#loadergif').hide();
             
-            });
+            },2000)
+            
+
+
+
+
+
+        });
     
     }
     $scope.getfavourite();

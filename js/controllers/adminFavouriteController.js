@@ -10,10 +10,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
    
     
 
-
 $scope.getfavourite = function () {
-
-        
         $('#loadergif').show();
         lupaAdminDashboardService.getFavouriteUrl().then(function (response) {
             
@@ -42,7 +39,12 @@ $scope.getfavourite = function () {
                     $scope.showNoRecentSection = true;
                 }
             }
-            for (i = 0; i < $scope.response.length; i++) {
+            //$scope.recentReportLength = $scope.response.length;
+
+
+            //$scope.response = JSON.parse($scope.response);
+            setTimeout(function() {
+                for (i = 0; i < $scope.response.length; i++) {
                 var layout = {
                     showlegend: true,
                     legend: {
@@ -153,7 +155,49 @@ $scope.getfavourite = function () {
                         //layout.xaxis.title = "Total number of license used";
                         //layout.yAxis.title = "";
                         }
-                        if ($scope.response[i].chart_type == "pie_chart") {
+                        
+                         if($scope.response[i].chart_type == "box_plot_styling_outliers_chart") {
+                             layout.barmode = 'stack';
+                             var plotDataBarY = [];
+                                for (j = 0; j < $scope.chartresponse.length; j++) {
+                                plotDataBarY.push({
+                                    y: $scope.chartresponse[j].license,
+                                    type: 'box',
+                                    name: $scope.chartresponse[j].year
+                                })
+                             }
+
+                         }
+                         if($scope.response[i].chart_type == "bubble_chart") {
+                             var plotDataBarY = [];
+                             var size = [];
+                             var xAxisVal = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                             
+                            for (j = 0; j < $scope.chartresponse.length; j++) {
+                                for (k = 0; k < $scope.chartresponse[j].license.length; k++) {
+                                console.log($scope.chartresponse[j].license[k]);
+                                if ($scope.chartresponse[j].license[j] > 10) {
+                                    size.push($scope.chartresponse[j].license[k] / 7)
+                                } else {
+                                    size.push($scope.chartresponse[j].license[k]);
+                                    
+                                }
+                            }
+                            
+                            plotDataBarY.push({
+                                x: xAxisVal,
+                                y: $scope.chartresponse[j].license,
+                                mode: 'markers',
+                                marker: {
+                                    size: size
+                                },
+                                name: $scope.chartresponse[j].year
+                            });
+                            
+                        }
+
+                         }
+                         if ($scope.response[i].chart_type == "pie_chart") {
                             var plotDataBarY = [{
                             values: $scope.chartresponse[0].value,
                             labels: $scope.chartresponse[0].label,
@@ -192,7 +236,7 @@ $scope.getfavourite = function () {
                     Plotly.Plots.resize(gd1);
 
                 }
-                else if ($scope.response[i].report_type == "this_week") {
+                if ($scope.response[i].report_type == "this_week") {
                     var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                     var plotDataBarY = [];
                     layout.title = $scope.response[i].product_name + ' ' + 'This Week' + ' / report';
@@ -311,6 +355,7 @@ $scope.getfavourite = function () {
                     Plotly.newPlot('product-chart-yearly' + chartFavouriteIndex, plotDataBarY, layout, plotlyDefaultConfigurationBar);
                     var gd1 = document.getElementById("product-chart-yearly" + chartFavouriteIndex);
                     Plotly.Plots.resize(gd1);
+                    
                 }
 
 
@@ -320,8 +365,18 @@ $scope.getfavourite = function () {
 
 
             }
-
             $('#loadergif').hide();
+            
+            },2000)
+            
+
+
+
+
+
+            
+            
+           
             
             });
     
