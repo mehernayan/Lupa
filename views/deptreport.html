@@ -113,7 +113,7 @@
                         </div>
                         <div class="usertype-filter-year" ng-show="report_type =='yearly'">
                             <span class="user-label">User Type : </span>
-                            <input type="radio" name="{{currentProduct + 'adminReportYearlyUserTypeLicense'}}" ng-checked="true" ng-click="reportDeptFilter($event,deptFilterYearly,'user', defaultFilterVal)" />User
+                            <input type="radio" name="{{currentProduct + 'adminReportYearlyUserTypeLicense'}}" ng-checked="true" ng-click="reportDeptFilter($event,deptFilterYearly,'user', defaultFilterVal,currentProduct)" />User
 
 
                         </div>
@@ -335,7 +335,7 @@
                             <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
                             <ul>
                                 <li ng-repeat="item in reportyearlist track by $index">
-                                    <input type="radio" ng-checked="item.checked" name="item" ng-click="weeklyYearChange($event,item.year, chartType)" ng-model="selectedValue.year"
+                                    <input type="radio" ng-checked="item == reportyearlist[0]" name="{{'item' + item.year}}" ng-click="weeklyYearChange($event,item.year, chartType)" ng-model="selectedValue.year"
                                         value="{{item.year}}"> {{item.year}}
                                 </li>
                             </ul>
@@ -857,7 +857,7 @@
                             <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
                             <ul>
                                 <li ng-repeat="item in reportyearlist track by $index">
-                                    <input type="radio" ng-checked="item.checked" name="item" ng-click="weeklyYearChange($event,item.year, chartType)" ng-model="selectedValue.year"
+                                    <input type="radio" ng-checked="item.checked" name="{{'item' + item.year}}" ng-click="weeklyYearChange($event,item.year, chartType)" ng-model="selectedValue.year"
                                         value="{{item.year}}"> {{item.year}}
                                 </li>
                             </ul>

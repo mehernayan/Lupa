@@ -395,10 +395,13 @@ a.active-main-nav:hover, a.active-main-nav:focus {
   }
   span.job_status {
       display: inline-block;
-      width: 79%;
       padding-left: 10px;
       font-size: 12px;
-      vertical-align: top;
+      
+  }
+  .rel-pos-top-5 {
+      position: relative;
+      top: -5px;
   }
   .arrow-custom {
       transform: rotate(45deg);
@@ -836,7 +839,7 @@ i.far.fa-square {
 }
 .chart-render {
     display: none;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
 }
 
 .circle-bg {

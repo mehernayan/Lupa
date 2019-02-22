@@ -38,7 +38,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                     "product_name": $scope.response[i].product_name,
                     "value": true
                 })
-                //debugger;
+                
             }
             $scope.changeProductDashboard = function (item, productlist) {
                 console.log($scope.response);

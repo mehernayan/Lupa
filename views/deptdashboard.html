@@ -22,14 +22,14 @@
         <div class="recent-update">
             <h4>Last 5 Minutes</h4>
 
-            <select class="form-control" id="last-5-minute" ng-model="selectedProductFiveMinutes" ng-change="getLastFiveMinutesReport(selectedProductFiveMinutes)">
+            <select class="form-control" ng-init="selectedProductFiveMinutes = productlist[0]" id="last-5-minute" ng-model="selectedProductFiveMinutes" ng-change="getLastFiveMinutesReport(selectedProductFiveMinutes)">
                             <option style="display:none" value="">select a product</option>
                             <option ng-repeat="item in productlist">{{item}}</option>
                           </select>
             <ul>
                 <li ng-repeat="item in fiveMinuteDataJobs">
                     <span ng-class="{green_dot: $index == 0, blue_dot: $index == 1, red_dot: $index == 2, orange_dot: $index == 3 }"></span>
-                    <span ng-repeat="(key,value) in item">
+                    <span ng-repeat="(key,value) in item" class="rel-pos-top-5">
                                    <span class="job_status">{{key}}</span>: {{value}}
                     </span>
                 </li>
@@ -41,14 +41,14 @@
     <div class="col-sm-4">
         <div class="recent-update">
             <h4>Last 24 Hours</h4>
-            <select class="form-control" id="today-report" ng-model="selectedProductToday" ng-change="getTodayReport(selectedProductToday)">
+            <select class="form-control" ng-init="selectedProductToday = productlist[0]" id="today-report" ng-model="selectedProductToday" ng-change="getTodayReport(selectedProductToday)">
                             <option style="display:none" value="">select a product</option>
                             <option ng-repeat="item in productlist">{{item}}</option>
                           </select>
             <ul>
                 <li ng-repeat="item in todayDataJobs">
                     <span ng-class="{green_dot: $index == 0, blue_dot: $index == 1, red_dot: $index == 2, orange_dot: $index == 3 }"></span>
-                    <span ng-repeat="(key,value) in item">
+                    <span ng-repeat="(key,value) in item" class="rel-pos-top-5">
                                    <span class="job_status">{{key}}</span>: {{value}}
                     </span>
                 </li>
