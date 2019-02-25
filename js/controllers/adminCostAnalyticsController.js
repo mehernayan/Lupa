@@ -84,8 +84,9 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
                     color: customd3Colors
                 }
             }];
-
             
+
+            layout.title = "Total Software expenditure";
             //Plotly.newPlot('cost-analytics-chart-1', plotDataBarY, layout, plotlyDefaultConfigurationBar);
             Plotly.newPlot('yearly-expenditure-bar', plotDataBarY, layout, plotlyDefaultConfigurationBar);
             
@@ -112,15 +113,17 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
                 //fill: 'tozeroy',
                 //type: 'scatter',
                 type: 'bar',
+                text: $scope.getOverallCostAnalyticsData.cost_year_percentage,
                 textposition: 'auto',
                 marker : {
                     color: customd3Colors
                 }
             }];
 
-            
+            layout.title = "Total software utilization";
             //Plotly.newPlot('cost-analytics-chart-1', plotDataBarY, layout, plotlyDefaultConfigurationBar);
             Plotly.newPlot('overall-cost-analytics', plotDataBarY, layout, plotlyDefaultConfigurationBar);
+            $('#loadergif').hide();
                 
 
         });
@@ -162,6 +165,31 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
     $scope.overallCostAnalyticsChange = function (product_name, selectedYear2, selectedMonth2) {
         
         $('#loadergif').show();
+        if(selectedMonth2 == "Jan") {
+            selectedMonth2 = "01";
+        }else if(selectedMonth2 == "Feb"){
+            selectedMonth2 = "02";
+        }else if(selectedMonth2 == "Mar"){
+            selectedMonth2 = "03";
+        }else if(selectedMonth2 == "Apr"){
+            selectedMonth2 = "04";
+        }else if(selectedMonth2 == "May"){
+            selectedMonth2 = "05";
+        }else if(selectedMonth2 == "Jun"){
+            selectedMonth2 = "06";
+        }else if(selectedMonth2 == "Jul"){
+            selectedMonth2 = "07";
+        }else if(selectedMonth2 == "Aug"){
+            selectedMonth2 = "08";
+        }else if(selectedMonth2 == "Sep"){
+            selectedMonth2 = "09";
+        }else if(selectedMonth2 == "Oct"){
+            selectedMonth2 = "10";
+        }else if(selectedMonth2 == "Nov"){
+            selectedMonth2 = "11";
+        }else if(selectedMonth2 == "Dec"){
+            selectedMonth2 = "12";
+        }
         lupaAdminService.overallCostAnalyticsUrl(product_name, selectedYear2, selectedMonth2).then(function (response) {
             $('#loadergif').hide();
             $scope.overallCostAnalytics = response.data[0];
@@ -185,6 +213,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
 
             
             Plotly.newPlot('overall-cost-analytics', plotDataBarY2, layout, plotlyDefaultConfigurationBar);
+            
             //Plotly.newPlot('cost-analytics-chart-1', plotDataBarY1, layout, plotlyDefaultConfigurationBar);
 
         });
@@ -217,6 +246,11 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
             $scope.selectedRadio4 = true;
         }
         if(selectedDropdown == "month") {
+            if(selectedYear2 == "") {
+                selectedYear2 = $scope.getCostAnalyticsYearList[0];
+                $scope.selectedYear2 = selectedYear2.toString();
+                $scope.selectedRadio4 = true;
+            }
             selectedMonth2 = 1;
             $scope.selectedMonth2 = monthArray[0];
             $scope.selectedRadio5 = true;
@@ -252,7 +286,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
             $scope.selectedRadio1 = true;
         }
         if(selectedDropdown == "month") {
-            selectedMonth1 = 1;
+            selectedMonth1 = "01";
             $scope.selectedMonth1 = monthArray[0];
             $scope.selectedRadio2 = true;
         }
@@ -276,7 +310,9 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
         else {
             $scope.getMonthList = monthArray;
         }
-        $scope.getYearlyExpenditure(selectedYear1, selectedMonth1, typeOfLicense)
+        $scope.getYearlyExpenditure(selectedYear1, selectedMonth1, typeOfLicense);
+        
+
 
 
 
@@ -297,7 +333,35 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
         else {
             $scope.getMonthList = monthArray;
         }
-        $scope.getYearlyExpenditure(selectedYear1, selectedMonth1, typeOfLicense)
+        
+        if(selectedMonth1 == "Jan") {
+            selectedMonth1 = "01";
+        }else if(selectedMonth1 == "Feb"){
+            selectedMonth1 = "02";
+        }else if(selectedMonth1 == "Mar"){
+            selectedMonth1 = "03";
+        }else if(selectedMonth1 == "Apr"){
+            selectedMonth1 = "04";
+        }else if(selectedMonth1 == "May"){
+            selectedMonth1 = "05";
+        }else if(selectedMonth1 == "Jun"){
+            selectedMonth1 = "06";
+        }else if(selectedMonth1 == "Jul"){
+            selectedMonth1 = "07";
+        }else if(selectedMonth1 == "Aug"){
+            selectedMonth1 = "08";
+        }else if(selectedMonth1 == "Sep"){
+            selectedMonth1 = "09";
+        }else if(selectedMonth1 == "Oct"){
+            selectedMonth1 = "10";
+        }else if(selectedMonth1 == "Nov"){
+            selectedMonth1 = "11";
+        }else if(selectedMonth1 == "Dec"){
+            selectedMonth1 = "12";
+        }
+        
+        $scope.getYearlyExpenditure(selectedYear1, selectedMonth1, typeOfLicense);
+        
 
 
 
@@ -368,15 +432,17 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
                     color: customd3Colors
                 }
             }];
-            layout.title = $scope.prod_name;
+            layout.title = "Per feature Total utilization";
             
             Plotly.newPlot(id, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
 
     }
     $scope.changeFeatureAnalyticsGraphType = function(chartType, id, response, prod_name) {
-        
+        $(".chart-container .chart").removeClass("active-chart");
+        $(event.target).closest(".chart").addClass("active-chart");
         var plotDataBarY = [];
+        var type = "bar";
         if(chartType == 'vertical_bar_chart') {
              plotDataBarY.push({
                                     x: response.features_list,
@@ -387,7 +453,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
                                         color: d3colors(0)
                                     }
                 });
-                layout.title = prod_name;
+                layout.title = "Per feature Total utilization";
                 Plotly.newPlot(id, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
         }
@@ -411,7 +477,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
                                         color: d3colors(0)
                                     }
                 });
-                layout.title = prod_name;
+                layout.title = "Per feature Total utilization";
                 Plotly.newPlot(id, plotDataBarY, layout, plotlyDefaultConfigurationBar);
                 
 
@@ -427,22 +493,25 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
                                         color: d3colors(0)
                                     }
                 })
-                layout.title = prod_name;
+                layout.title = "Per feature Total utilization";
                 Plotly.newPlot(id, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
         }
         else if(chartType == 'horizontal_bar_chart') {
+                plotDataBarY = [];
                 plotDataBarY.push({
-                                    y: response.features_list,
-                                    x: response.cost_year_val,
-                                    name: prod_name,
-                                    type: 'bar',
-                                    marker: {
-                                        color: d3colors(0)
-                                    }
-                });
-                layout.title = prod_name;
+                    y: ["abv", "ete", "sds"],
+                    x: [123,44,655],
+                    name: "Year wise",
+                    type: type,
+                    orientation: 'h',
+                    marker : {
+                    color: customd3Colors
+                    }
+                })
+                layout.title = "Per feature Total utilization";
                 Plotly.newPlot(id, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+                //debugger;
         }
     }
     $scope.featurechartfilteryear1 = false;
@@ -456,11 +525,11 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
     $scope.getOverallCostAnalytics();
     
     
-    $scope.changeFeatureAnalyticsGraph = function(year,month,product_name, id) {
+    $scope.changeFeatureAnalyticsGraph = function(year,selectedMonth2,product_name, id) {
+        //debugger;
         
-        
-        if(month == undefined || month == false) {
-            month = "";
+        if(selectedMonth2 == undefined || selectedMonth2 == false) {
+            selectedMonth2 = "";
         }
         var d = new Date();
         if (year == d.getFullYear()) {
@@ -475,47 +544,287 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
         else {
             $scope.getMonthList = monthArray;
         }
-        month = monthArray.indexOf(month) + 1;
+        if(selectedMonth2 == "Jan") {
+            selectedMonth2 = "01";
+        }else if(selectedMonth2 == "Feb"){
+            selectedMonth2 = "02";
+        }else if(selectedMonth2 == "Mar"){
+            selectedMonth2 = "03";
+        }else if(selectedMonth2 == "Apr"){
+            selectedMonth2 = "04";
+        }else if(selectedMonth2 == "May"){
+            selectedMonth2 = "05";
+        }else if(selectedMonth2 == "Jun"){
+            selectedMonth2 = "06";
+        }else if(selectedMonth2 == "Jul"){
+            selectedMonth2 = "07";
+        }else if(selectedMonth2 == "Aug"){
+            selectedMonth2 = "08";
+        }else if(selectedMonth2 == "Sep"){
+            selectedMonth2 = "09";
+        }else if(selectedMonth2 == "Oct"){
+            selectedMonth2 = "10";
+        }else if(selectedMonth2 == "Nov"){
+            selectedMonth2 = "11";
+        }else if(selectedMonth2 == "Dec"){
+            selectedMonth2 = "12";
+        }
         
-        $scope.getFeaturePercentageOnChange(year, month, product_name,id);
+        $scope.getFeaturePercentageOnChange(year, selectedMonth2, product_name,id);
         
     }
     //$scope.getFeaturePercentage();
-    $scope.changeCostAnalyticsGraph = function (event,chartType) {
+    $scope.changeCostAnalyticsGraph = function (event,chartType, getYearlyExpenditureData) {
         var analyticId = $(event.target).closest(".chart-container").find(".chart-data-analytics").attr("id");
+        $(".chart-container .chart").removeClass("active-chart");
+        $(event.target).closest(".chart").addClass("active-chart");
+        var type = 'bar';
+        var fill = '';
+        var mode = "";
+        var plotDataBarY = [];
+        var plotlyDefaultConfigurationBar = {
+            responsive: true,
+            displaylogo: false,
+            showTips: true,
+            pan2d: true,
+            modeBarButtonsToRemove: ['sendDataToCloud', 'hoverClosestPie', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']
+        };
+        var d3colors = Plotly.d3.scale.category10();
+        if (chartType == "vertical_bar_chart") {
+            var type = 'bar';
+            plotDataBarY.push({
+                x: getYearlyExpenditureData.product_name,
+                y: getYearlyExpenditureData.cost_value,
+                name: "Yearly Expenditure",
+                type: type,
+                fill: fill,
+                mode: mode,
+                marker : {
+                    color: customd3Colors
+                }
+            })
+        }
+
+
+        else if (chartType == "line_chart") {
+            var type = "scatter";
+            plotDataBarY.push({
+                x: getYearlyExpenditureData.product_name,
+                y: getYearlyExpenditureData.cost_value,
+                name: "Yearly Expenditure",
+                type: type,
+                fill: fill,
+                mode: mode,
+                marker : {
+                    color: customd3Colors
+                }
+            })
+        }
+        else if (chartType == "area_chart") {
+            var type = 'scatter',
+                fill = 'tozeroy';
+                plotDataBarY.push({
+                x: getYearlyExpenditureData.product_name,
+                y: getYearlyExpenditureData.cost_value,
+                name: "Yearly Expenditure",
+                type: type,
+                fill: fill,
+                mode: mode,
+                marker : {
+                    color: customd3Colors
+                }
+            })
+        }
+        else if (chartType == "stacked_bar_chart") {
+            layout.barmode = 'stack';
+            plotDataBarY.push({
+                x: getYearlyExpenditureData.product_name,
+                y: getYearlyExpenditureData.cost_value,
+                name: "Yearly Expenditure",
+                type: type,
+                fill: fill,
+                mode: mode,
+                marker : {
+                    color: customd3Colors
+                }
+            })
+        }
+        else if (chartType == 'scatter_chart') {
+            var type = 'scatter',
+                mode = 'markers';
+                plotDataBarY.push({
+                x: getYearlyExpenditureData.product_name,
+                y: getYearlyExpenditureData.cost_value,
+                name: "Yearly Expenditure",
+                type: type,
+                fill: fill,
+                mode: mode,
+                marker : {
+                    color: customd3Colors
+                }
+            })
+        }
+        else {
+            if (chartType == 'horizontal_bar_chart') {
+                var type = 'bar';
+                plotDataBarY.push({
+                    y: getYearlyExpenditureData.product_name,
+                    x: getYearlyExpenditureData.cost_value,
+                    name: "Year wise",
+                    type: type,
+                    orientation: 'h',
+                    marker : {
+                    color: customd3Colors
+                    }
+                })
+            }
+            if (chartType == "pie_chart") {
+                var plotDataBarY = [{
+                    values: getYearlyExpenditureData.cost_value,
+                    labels: getYearlyExpenditureData.product_name,
+                    type: 'pie',
+                    textinfo: 'none'
+                }];
+                var layout = {
+                    showlegend: true, legend: {
+                        x: 1,
+                        y: 1
+                    }
+                };
+            }
+            
+        }
+        Plotly.newPlot(analyticId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
         
-       // $rootScope.plotDataBarY = $rootScope.plotDataBarY
-        if (chartType == 'vertical_bar_chart') {
-            //Plotly.newPlot(analyticId, $rootScope.plotDataBarY2, layout, plotlyDefaultConfigurationBar);
-            
-
-
-        }
-        else if (chartType == 'pie_chart') {
-
-        }
-        else if (chartType == 'line_chart') {
-            
-            $rootScope.plotDataBarY2[0].type = "scatter";
-            Plotly.newPlot('cost-analytics-chart-' + index, $rootScope.plotDataBarY2, layout, plotlyDefaultConfigurationBar);
-
-        }
-        else if (chartType == 'area_chart') {
-            
-            $rootScope.plotDataBarY2[0].type = "scatter";
-            $rootScope.plotDataBarY2[0].fill = "tozeroy";
-            Plotly.newPlot('cost-analytics-chart-' + index, $rootScope.plotDataBarY2, layout, plotlyDefaultConfigurationBar);
-        }
-        else if (chartType == 'horizontal_bar_chart') {
-            $rootScope.plotDataBarY2[0].x = $rootScope.plotDataBarY2[0].y;
-            $rootScope.plotDataBarY2[0].y = $rootScope.plotDataBarY2[0].x;
-            $rootScope.plotDataBarY2[0].type = "bar";
-            $rootScope.plotDataBarY2[0].orientation = "h";
-            Plotly.newPlot('cost-analytics-chart-' + index, $rootScope.plotDataBarY2, layout, plotlyDefaultConfigurationBar);
-        }
 
     }
 
+    $scope.changeOverallCostAnalyticsGraph = function (event,chartType, getOverallCostAnalyticsData) {
+        var analyticId = $(event.target).closest(".chart-container").find(".chart-data-analytics").attr("id");
+        $(".chart-container .chart").removeClass("active-chart");
+        $(event.target).closest(".chart").addClass("active-chart");
+        var type = 'bar';
+        var fill = '';
+        var mode = "";
+        var plotDataBarY = [];
+        var plotlyDefaultConfigurationBar = {
+            responsive: true,
+            displaylogo: false,
+            showTips: true,
+            pan2d: true,
+            modeBarButtonsToRemove: ['sendDataToCloud', 'hoverClosestPie', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']
+        };
+        var d3colors = Plotly.d3.scale.category10();
+        if (chartType == "vertical_bar_chart") {
+            var type = 'bar';
+            plotDataBarY.push({
+                x: getOverallCostAnalyticsData.products_list,
+                y: getOverallCostAnalyticsData.cost_year_val,
+                name: "Yearly Expenditure",
+                type: type,
+                fill: fill,
+                mode: mode,
+                text: getOverallCostAnalyticsData.cost_year_percentage,
+                textposition: 'auto',
+                marker : {
+                    color: customd3Colors
+                }
+            })
+        }
+
+
+        else if (chartType == "line_chart") {
+            var type = "scatter";
+            plotDataBarY.push({
+                x: getOverallCostAnalyticsData.products_list,
+                y: getOverallCostAnalyticsData.cost_year_val,
+                name: "Yearly Expenditure",
+                type: type,
+                fill: fill,
+                mode: mode,
+                marker : {
+                    color: customd3Colors
+                }
+            })
+        }
+        else if (chartType == "area_chart") {
+            var type = 'scatter',
+                fill = 'tozeroy';
+                plotDataBarY.push({
+                x: getOverallCostAnalyticsData.products_list,
+                y: getOverallCostAnalyticsData.cost_year_val,
+                name: "Yearly Expenditure",
+                type: type,
+                fill: fill,
+                mode: mode,
+                marker : {
+                    color: customd3Colors
+                }
+            })
+        }
+        else if (chartType == "stacked_bar_chart") {
+            layout.barmode = 'stack';
+            plotDataBarY.push({
+                x: getOverallCostAnalyticsData.products_list,
+                y: getOverallCostAnalyticsData.cost_year_val,
+                name: "Yearly Expenditure",
+                type: type,
+                fill: fill,
+                mode: mode,
+                marker : {
+                    color: customd3Colors
+                }
+            })
+        }
+        else if (chartType == 'scatter_chart') {
+            var type = 'scatter',
+                mode = 'markers';
+                plotDataBarY.push({
+                x: getOverallCostAnalyticsData.products_list,
+                y: getOverallCostAnalyticsData.cost_year_val,
+                name: "Yearly Expenditure",
+                type: type,
+                fill: fill,
+                mode: mode,
+                marker : {
+                    color: customd3Colors
+                }
+            })
+        }
+        else {
+            if (chartType == 'horizontal_bar_chart') {
+                var type = 'bar';
+                plotDataBarY.push({
+                    y: getOverallCostAnalyticsData.products_list,
+                    x: getOverallCostAnalyticsData.cost_year_val,
+                    name: "Year wise",
+                    type: type,
+                    orientation: 'h',
+                    marker : {
+                    color: customd3Colors
+                    }
+                })
+            }
+            if (chartType == "pie_chart") {
+                var plotDataBarY = [{
+                    values: getOverallCostAnalyticsData.cost_year_val,
+                    labels: getOverallCostAnalyticsData.products_list,
+                    type: 'pie',
+                    textinfo: 'none'
+                }];
+                var layout = {
+                    showlegend: true, legend: {
+                        x: 1,
+                        y: 1
+                    }
+                };
+            }
+            
+        }
+        Plotly.newPlot(analyticId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+        
+
+    }
 
 
     
@@ -548,7 +857,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
                     color: d3colors(i)
                 }
             });
-            layout.title = $scope.featureProd[i];
+            layout.title = "Per feature Total utilization";
             Plotly.newPlot('cost-analytics-feature-chart-' + i, plotDataBarY, layout, plotlyDefaultConfigurationBar);
             
             

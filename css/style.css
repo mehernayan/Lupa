@@ -1044,8 +1044,8 @@ footer {
 
 .animationIf  {
     position: fixed;
-    right: 0px;
-    bottom: 0px;
+    right: 22px;
+    top: 50px;
     z-index: 1000;
     padding: 10px 20px;
     border: 1px solid #ccc;

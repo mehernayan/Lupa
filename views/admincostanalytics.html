@@ -10,12 +10,12 @@
 
                 <div class="pie-chart-container overall-report chart-container back-g-white half-bordered dashboard-box-shadow">
                     <div class="cost-chart-title">
-                        <div class="chart-title-left">Total Expenditure
-                            <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeCostAnalyticsGraph($event, 'vertical_bar_chart')"></i></span>
-                            <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeCostAnalyticsGraph($event, 'pie_chart')"></i></span>
-                            <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeCostAnalyticsGraph($event, 'line_chart')"></i></span>
-                            <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeCostAnalyticsGraph($event, 'area_chart')"></i></span>
-                            <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeCostAnalyticsGraph($event, 'horizontal_bar_chart')"></img></span>
+                        <div class="chart-title-left">
+                            <span class="chart vbar-chart active-chart"><i class="fa fa-bar-chart" ng-click= "changeCostAnalyticsGraph($event, 'vertical_bar_chart', getYearlyExpenditureData)"></i></span>
+                            <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeCostAnalyticsGraph($event, 'pie_chart', getYearlyExpenditureData)"></i></span>
+                            <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeCostAnalyticsGraph($event, 'line_chart', getYearlyExpenditureData)"></i></span>
+                            <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeCostAnalyticsGraph($event, 'area_chart', getYearlyExpenditureData)"></i></span>
+                            <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeCostAnalyticsGraph($event, 'horizontal_bar_chart', getYearlyExpenditureData)"></img></span>
 
                         </div>
                         <div class="dropdown cost-analytics-dropdown">
@@ -34,15 +34,15 @@
                                     <a ng-click="goFullscreenOther($event)"> <i class="fa fa-expand"></i>
                                     </a>
                                 </li>
-                                <li ng-click="getOverallCostAnalytics()">
+                                <li ng-click="getYearlyExpenditure()">
                                     <a> <i class="fa fa-refresh"></i>
                                     </a>
                                 </li>
 
-                                <li>
+                                <!--<li>
                                     <a ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                                     </a>
-                                </li>
+                                </li>-->
                             </ul>
 
                         </div>
@@ -87,12 +87,12 @@
 
                 <div class="pie-chart-container overall-report chart-container back-g-white half-bordered dashboard-box-shadow">
                     <div class="cost-chart-title">
-                        <div class="chart-title-left">Total Expenditure
-                            <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click= "changeCostAnalyticsGraph($event, 'vertical_bar_chart')"></i></span>
-                            <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeCostAnalyticsGraph($event, 'pie_chart')"></i></span>
-                            <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeCostAnalyticsGraph($event, 'line_chart')"></i></span>
-                            <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeCostAnalyticsGraph($event, 'area_chart')"></i></span>
-                            <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeCostAnalyticsGraph($event, 'horizontal_bar_chart')"></img></span>
+                        <div class="chart-title-left">
+                            <span class="chart vbar-chart active-chart"><i class="fa fa-bar-chart" ng-click= "changeOverallCostAnalyticsGraph($event, 'vertical_bar_chart', getOverallCostAnalyticsData)"></i></span>
+                            <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeOverallCostAnalyticsGraph($event, 'pie_chart', getOverallCostAnalyticsData)"></i></span>
+                            <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeOverallCostAnalyticsGraph($event, 'line_chart', getOverallCostAnalyticsData)"></i></span>
+                            <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeOverallCostAnalyticsGraph($event, 'area_chart', getOverallCostAnalyticsData)"></i></span>
+                            <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeOverallCostAnalyticsGraph($event, 'horizontal_bar_chart', getOverallCostAnalyticsData)"></img></span>
                         </div>
                         <div class="dropdown cost-analytics-dropdown">
                             <ul>
@@ -115,10 +115,10 @@
                                     </a>
                                 </li>
 
-                                <li>
+                                <!--<li>
                                     <a ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                                     </a>
-                                </li>
+                                </li>-->
                             </ul>
 
                         </div>
@@ -158,11 +158,11 @@
                 <div class="pie-chart-container overall-report chart-container back-g-white half-bordered dashboard-box-shadow">
                     <div class="cost-chart-title">
                         <div class="chart-title-left">Total Expenditure
-                            <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click="changeFeatureAnalyticsGraphType('vertical_bar_chart','cost-analytics-feature-chart-0',featureProdData[0],featureProd[0])"></i></span>
+                            <span class="chart vbar-chart active-chart"><i class="fa fa-bar-chart" ng-click="changeFeatureAnalyticsGraphType('vertical_bar_chart','cost-analytics-feature-chart-0',featureProdData[0],featureProd[0])"></i></span>
                             <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click="changeFeatureAnalyticsGraphType('pie_chart','cost-analytics-feature-chart-0',featureProdData[0],featureProd[0])"></i></span>
                             <span class="chart line-chart"><i class="fa fa-line-chart" ng-click="changeFeatureAnalyticsGraphType('line_chart', 'cost-analytics-feature-chart-0',featureProdData[0],featureProd[0])"></i></span>
                             <span class="chart area-chart"><i class="fa fa-area-chart" ng-click="changeFeatureAnalyticsGraphType('area_chart', 'cost-analytics-feature-chart-0',featureProdData[0],featureProd[0])"></i></span>
-                            <span class="chart hbar-chart"><img src="images/horizontal-bar.png"  ng-click="changeFeatureAnalyticsGraphType('horizontal_bar_chart', 'cost-analytics-feature-chart-0',featureProdData[0],featureProd[0])"></img></span>
+                            <span class="chart hbar-chart"><img src="images/horizontal-bar.png"  ng-click="changeFeatureAnalyticsGraphType('horizontal_bar_chart',  'cost-analytics-feature-chart-0',featureProdData[0],featureProd[0])"></img></span>
                         </div>
                         <div class="dropdown cost-analytics-dropdown">
                             <ul>
@@ -185,17 +185,17 @@
                                     </a>
                                 </li>
 
-                                <li>
+                                <!--<li>
                                     <a ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                                     </a>
-                                </li>
+                                </li>-->
                             </ul>
 
                         </div>
                     </div>
                     <div class="cost-chart-filter">
                         <div class="year-filter">
-                            <input type="radio" id="aa"  name="feature-chart-filter-1" ng-click="changeYearlyFeatureBtn('year',selectedYear1, selectedMonth1, featureProd[0])" ng-model="featurechartfilteryear1" />
+                            <input type="radio" id="aa"  name="feature-chart-filter-11" ng-click="changeYearlyFeatureBtn('year',selectedYear1, selectedMonth1, featureProd[0])" ng-model="featurechartfilteryear1" />
                             <label>Year</label>
                             <select class="form-control"  id="feature-chart-filter-selectyear-1"  ng-model="featurechartfilterselectyear1"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[0],'cost-analytics-feature-chart-0')">
                                 <option style="display:none" value="">Overall</option>
@@ -203,9 +203,9 @@
                             </select>
                         </div>
                         <div class="month-filter">
-                            <input type="radio" id="sds" name="feature-chart-filter-1"  ng-model="featurechartfiltermonth1" ng-click="changeYearlyFeatureBtn('month',selectedYear1, selectedMonth1, featureProd[0])" />
+                            <input type="radio" id="sds" name="feature-chart-filter-12"  ng-model="featurechartfiltermonth1" ng-click="changeYearlyFeatureBtn('month',selectedYear1, selectedMonth1, featureProd[0])" />
                             <label>Month</label>
-                            <select class="form-control" id="feature-chart-filter-month-1"  ng-model="featurechartfilterselectmonth1" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectmonth1, featurechartfilterselectmonth1, featureProd[0],'cost-analytics-feature-chart-0')">
+                            <select class="form-control" id="feature-chart-filter-month-1"  ng-model="featurechartfilterselectmonth1" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[0],'cost-analytics-feature-chart-0')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getMonthList">{{item}}</option>
                             </select>
@@ -227,7 +227,7 @@
                 <div class="pie-chart-container overall-report chart-container back-g-white half-bordered dashboard-box-shadow">
                     <div class="cost-chart-title">
                         <div class="chart-title-left">Total Expenditure
-                            <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click="changeFeatureAnalyticsGraphType('vertical_bar_chart','cost-analytics-feature-chart-1',featureProdData[1],featureProd[1])"></i></span>
+                            <span class="chart vbar-chart active-chart"><i class="fa fa-bar-chart" ng-click="changeFeatureAnalyticsGraphType('vertical_bar_chart','cost-analytics-feature-chart-1',featureProdData[1],featureProd[1])"></i></span>
                             <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click="changeFeatureAnalyticsGraphType('pie_chart','cost-analytics-feature-chart-1',featureProdData[1],featureProd[1])"></i></span>
                             <span class="chart line-chart"><i class="fa fa-line-chart" ng-click="changeFeatureAnalyticsGraphType('line_chart', 'cost-analytics-feature-chart-1',featureProdData[1],featureProd[1])"></i></span>
                             <span class="chart area-chart"><i class="fa fa-area-chart" ng-click="changeFeatureAnalyticsGraphType('area_chart', 'cost-analytics-feature-chart-1',featureProdData[1],featureProd[1])"></i></span>
@@ -254,27 +254,27 @@
                                     </a>
                                 </li>
 
-                                <li>
+                                <!--<li>
                                     <a ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                                     </a>
-                                </li>
+                                </li>-->
                             </ul>
 
                         </div>
                     </div>
                     <div class="cost-chart-filter">
                         <div class="year-filter">
-                            <input type="radio" id="aa"  name="feature-chart-filter-2"  ng-model="featurechartfilteryear2" />
+                            <input type="radio" id="aa"  name="feature-chart-filter-21" ng-click="changeYearlyFeatureBtn('year',selectedYear1, selectedMonth1, featureProd[1])" ng-model="featurechartfilteryear2" />
                             <label>Year</label>
-                            <select class="form-control"  id="feature-chart-filter-selectyear-2"  ng-model="featurechartfilterselectyear2"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear2, featurechartfilterselectmonth2, featureProd[1],'cost-analytics-feature-chart-1')">
+                            <select class="form-control"  id="feature-chart-filter-selectyear-2"  ng-model="featurechartfilterselectyear1"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[1],'cost-analytics-feature-chart-1')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getYearlyList">{{item}}</option>
                             </select>
                         </div>
                         <div class="month-filter">
-                            <input type="radio" id="sds" name="feature-chart-filter-2"  ng-model="featurechartfiltermonth2"  />
+                            <input type="radio" id="sds" name="feature-chart-filter-22"  ng-model="featurechartfiltermonth2" ng-click="changeYearlyFeatureBtn('month',selectedYear1, selectedMonth1, featureProd[1])" />
                             <label>Month</label>
-                            <select class="form-control" id="feature-chart-filter-month-2"  ng-model="featurechartfilterselectmonth2" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear2, featurechartfilterselectmonth2, featureProd[1],'cost-analytics-feature-chart-1')">
+                            <select class="form-control" id="feature-chart-filter-month-1"  ng-model="featurechartfilterselectmonth1" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[1],'cost-analytics-feature-chart-1')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getMonthList">{{item}}</option>
                             </select>
@@ -295,7 +295,7 @@
                 <div class="pie-chart-container overall-report chart-container back-g-white half-bordered dashboard-box-shadow">
                     <div class="cost-chart-title">
                         <div class="chart-title-left">Total Expenditure
-                            <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click="changeFeatureAnalyticsGraphType('vertical_bar_chart','cost-analytics-feature-chart-2',featureProdData[2],featureProd[2])"></i></span>
+                            <span class="chart vbar-chart active-chart"><i class="fa fa-bar-chart" ng-click="changeFeatureAnalyticsGraphType('vertical_bar_chart','cost-analytics-feature-chart-2',featureProdData[2],featureProd[2])"></i></span>
                             <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click="changeFeatureAnalyticsGraphType('pie_chart','cost-analytics-feature-chart-2',featureProdData[2],featureProd[2])"></i></span>
                             <span class="chart line-chart"><i class="fa fa-line-chart" ng-click="changeFeatureAnalyticsGraphType('line_chart', 'cost-analytics-feature-chart-2',featureProdData[2],featureProd[2])"></i></span>
                             <span class="chart area-chart"><i class="fa fa-area-chart" ng-click="changeFeatureAnalyticsGraphType('area_chart', 'cost-analytics-feature-chart-2',featureProdData[2],featureProd[2])"></i></span>
@@ -322,27 +322,27 @@
                                     </a>
                                 </li>
 
-                                <li>
+                                <!--<li>
                                     <a ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                                     </a>
-                                </li>
+                                </li>-->
                             </ul>
 
                         </div>
                     </div>
                     <div class="cost-chart-filter">
                         <div class="year-filter">
-                            <input type="radio" id="feature-chart-filter-3"  name="feature-chart-filter-3"  ng-model="featurechartfilteryear3" />
+                            <input type="radio" id="aa"  name="feature-chart-filter-31" ng-click="changeYearlyFeatureBtn('year',selectedYear1, selectedMonth1, featureProd[1])" ng-model="featurechartfilteryear3" />
                             <label>Year</label>
-                            <select class="form-control"  id="feature-chart-filter-selectyear-3"  ng-model="featurechartfilterselectyear3"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear3, featurechartfilterselectmonth3, featureProd[2],'cost-analytics-feature-chart-2')">
+                            <select class="form-control"  id="feature-chart-filter-selectyear-2"  ng-model="featurechartfilterselectyear1"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[2],'cost-analytics-feature-chart-2')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getYearlyList">{{item}}</option>
                             </select>
                         </div>
                         <div class="month-filter">
-                            <input type="radio" id="feature-chart-filter-3" name="feature-chart-filter-3"  ng-model="featurechartfiltermonth3"  />
+                            <input type="radio" id="sds" name="feature-chart-filter-32"  ng-model="featurechartfiltermonth3" ng-click="changeYearlyFeatureBtn('month',selectedYear1, selectedMonth1, featureProd[1])" />
                             <label>Month</label>
-                            <select class="form-control" id="feature-chart-filter-month-3"  ng-model="featurechartfilterselectmonth3" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear3, featurechartfilterselectmonth3, featureProd[2],'cost-analytics-feature-chart-2')">
+                            <select class="form-control" id="feature-chart-filter-month-1"  ng-model="featurechartfilterselectmonth1" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[2],'cost-analytics-feature-chart-2')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getMonthList">{{item}}</option>
                             </select>
@@ -363,7 +363,7 @@
                 <div class="pie-chart-container overall-report chart-container back-g-white half-bordered dashboard-box-shadow">
                     <div class="cost-chart-title">
                         <div class="chart-title-left">Total Expenditure
-                            <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click="changeFeatureAnalyticsGraphType('vertical_bar_chart','cost-analytics-feature-chart-3',featureProdData[3],featureProd[3])"></i></span>
+                            <span class="chart vbar-chart active-chart"><i class="fa fa-bar-chart" ng-click="changeFeatureAnalyticsGraphType('vertical_bar_chart','cost-analytics-feature-chart-3',featureProdData[3],featureProd[3])"></i></span>
                             <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click="changeFeatureAnalyticsGraphType('pie_chart','cost-analytics-feature-chart-3',featureProdData[3],featureProd[3])"></i></span>
                             <span class="chart line-chart"><i class="fa fa-line-chart" ng-click="changeFeatureAnalyticsGraphType('line_chart', 'cost-analytics-feature-chart-3',featureProdData[3],featureProd[3])"></i></span>
                             <span class="chart area-chart"><i class="fa fa-area-chart" ng-click="changeFeatureAnalyticsGraphType('area_chart', 'cost-analytics-feature-chart-3',featureProdData[3],featureProd[3])"></i></span>
@@ -390,27 +390,27 @@
                                     </a>
                                 </li>
 
-                                <li>
+                                <!--<li>
                                     <a ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                                     </a>
-                                </li>
+                                </li>-->
                             </ul>
 
                         </div>
                     </div>
                     <div class="cost-chart-filter">
                         <div class="year-filter">
-                            <input type="radio" id="feature-chart-filter-4"  name="feature-chart-filter-4"  ng-model="featurechartfilteryear4" />
+                            <input type="radio" id="aa"  name="feature-chart-filter-41" ng-click="changeYearlyFeatureBtn('year',selectedYear1, selectedMonth1, featureProd[3])" ng-model="featurechartfilteryear4" />
                             <label>Year</label>
-                            <select class="form-control"  id="feature-chart-filter-selectyear-4"  ng-model="featurechartfilterselectyear4"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear4, featurechartfilterselectmonth4, featureProd[3],'cost-analytics-feature-chart-3')">
+                            <select class="form-control"  id="feature-chart-filter-selectyear-2"  ng-model="featurechartfilterselectyear1"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[3],'cost-analytics-feature-chart-3')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getYearlyList">{{item}}</option>
                             </select>
                         </div>
                         <div class="month-filter">
-                            <input type="radio" id="feature-chart-filter-4" name="feature-chart-filter-4"  ng-model="featurechartfiltermonth4"  />
+                            <input type="radio" id="sds" name="feature-chart-filter-42"  ng-model="featurechartfiltermonth4" ng-click="changeYearlyFeatureBtn('month',selectedYear1, selectedMonth1, featureProd[3])" />
                             <label>Month</label>
-                            <select class="form-control" id="feature-chart-filter-month-4"  ng-model="featurechartfilterselectmonth4" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear4, featurechartfilterselectmonth4, featureProd[3],'cost-analytics-feature-chart-3')">
+                            <select class="form-control" id="feature-chart-filter-month-1"  ng-model="featurechartfilterselectmonth1" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[3],'cost-analytics-feature-chart-3')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getMonthList">{{item}}</option>
                             </select>
@@ -431,7 +431,7 @@
                 <div class="pie-chart-container overall-report chart-container back-g-white half-bordered dashboard-box-shadow">
                     <div class="cost-chart-title">
                         <div class="chart-title-left">Total Expenditure
-                            <span class="chart vbar-chart"><i class="fa fa-bar-chart" ng-click="changeFeatureAnalyticsGraphType('vertical_bar_chart','cost-analytics-feature-chart-4',featureProdData[4],featureProd[4])"></i></span>
+                            <span class="chart vbar-chart active-chart"><i class="fa fa-bar-chart" ng-click="changeFeatureAnalyticsGraphType('vertical_bar_chart','cost-analytics-feature-chart-4',featureProdData[4],featureProd[4])"></i></span>
                             <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click="changeFeatureAnalyticsGraphType('pie_chart','cost-analytics-feature-chart-4',featureProdData[4],featureProd[4])"></i></span>
                             <span class="chart line-chart"><i class="fa fa-line-chart" ng-click="changeFeatureAnalyticsGraphType('line_chart', 'cost-analytics-feature-chart-4',featureProdData[4],featureProd[4])"></i></span>
                             <span class="chart area-chart"><i class="fa fa-area-chart" ng-click="changeFeatureAnalyticsGraphType('area_chart', 'cost-analytics-feature-chart-4',featureProdData[4],featureProd[4])"></i></span>
@@ -458,27 +458,27 @@
                                     </a>
                                 </li>
 
-                                <li>
+                                <!--<li>
                                     <a ng-click="addToFavourite(report_type, chartType, statisticsType)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                                     </a>
-                                </li>
+                                </li>-->
                             </ul>
 
                         </div>
                     </div>
                     <div class="cost-chart-filter">
                         <div class="year-filter">
-                            <input type="radio" id="feature-chart-filter-5"  name="feature-chart-filter-5"  ng-model="featurechartfilteryear5" />
+                            <input type="radio" id="aa"  name="feature-chart-filter-51" ng-click="changeYearlyFeatureBtn('year',selectedYear1, selectedMonth1, featureProd[4])" ng-model="featurechartfilteryear5" />
                             <label>Year</label>
-                            <select class="form-control"  id="feature-chart-filter-selectyear-5"  ng-model="featurechartfilterselectyear5"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear5, featurechartfilterselectmonth5, featureProd[4],'cost-analytics-feature-chart-4')">
+                            <select class="form-control"  id="feature-chart-filter-selectyear-2"  ng-model="featurechartfilterselectyear1"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[4],'cost-analytics-feature-chart-4')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getYearlyList">{{item}}</option>
                             </select>
                         </div>
                         <div class="month-filter">
-                            <input type="radio" id="feature-chart-filter-5" name="feature-chart-filter-5"  ng-model="featurechartfiltermonth4"  />
+                            <input type="radio" id="sds" name="feature-chart-filter-52"  ng-model="featurechartfiltermonth5" ng-click="changeYearlyFeatureBtn('month',selectedYear1, selectedMonth1, featureProd[4])" />
                             <label>Month</label>
-                            <select class="form-control" id="feature-chart-filter-month-5"  ng-model="featurechartfilterselectmonth5" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear5, featurechartfilterselectmonth5, featureProd[4],'cost-analytics-feature-chart-4')">
+                            <select class="form-control" id="feature-chart-filter-month-1"  ng-model="featurechartfilterselectmonth1" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[4],'cost-analytics-feature-chart-4')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getMonthList">{{item}}</option>
                             </select>
