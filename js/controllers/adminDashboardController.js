@@ -145,7 +145,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
     }
     $scope.getLiveChart();
     $scope.getRecentReport = function () {
-        $('#loadergif').show();
+        $('#loadergiflast').show();
         lupaAdminDashboardService.getRecentReportUrl().then(function (response) {
 
             var plotDataBarY = [];
@@ -466,7 +466,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
 
 
 
-            $('#loadergif').hide();
+            $('#loadergiflast').hide();
 
 
         });

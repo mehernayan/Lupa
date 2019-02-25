@@ -148,7 +148,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
     }
     $scope.getLiveChart();
     $scope.getRecentReport = function () {
-        $('#loadergif').show();
+        $('#loadergiflast').show();
         lupaUserDashboardService.getRecentReportUrl().then(function (response) {
 
             var plotDataBarY = [];
@@ -469,7 +469,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
 
 
 
-            $('#loadergif').hide();
+            $('#loadergiflast').hide();
 
 
         });

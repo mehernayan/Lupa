@@ -152,7 +152,7 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
     }
     $scope.getLiveChart();
     $scope.getRecentReport = function () {
-        $('#loadergif').show();
+        $('#loadergiflast').show();
         lupaDeptDashboardService.getRecentReportUrl().then(function (response) {
 
             var plotDataBarY = [];
@@ -473,7 +473,7 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
 
 
 
-            $('#loadergif').hide();
+            $('#loadergiflast').hide();
 
 
         });
