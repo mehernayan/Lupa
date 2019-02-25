@@ -1,3 +1,18 @@
+lupaApp.filter('unique', function() {
+  return function(collection, keyname) {
+      var output = [], 
+      keys = [];
+     angular.forEach(collection, function(item) {
+         var key = item[keyname];
+         if(keys.indexOf(key) === -1) {
+             keys.push(key); 
+             output.push(item);
+         }
+     });
+     return output;
+  };
+});
+
 lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManagerService', 'dynaCompData', 'dynaFeatureData', 'localStorageService',
   function ($scope, $location, lupaManagerService, dynaCompData, dynaFeatureData, localStorageService) {
     var userId = localStorageService.get("user");
@@ -91,6 +106,8 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
       };
     }, true);
 
+   
+
     /**
      * Get feature list
      */
@@ -104,8 +121,15 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
         if (typeof $scope.response !== "undefined") {
           if ($scope.response.success) {
             $scope.error = "";
-            $scope.emptyMsg = "There is no feature associated with this.";
             $scope.prodFeatures = $scope.response.data;
+            if($scope.prodFeatures.length){
+              $scope.prodFeatures.forEach(element => {
+                element.status = false;
+              });
+            }else{
+              $scope.emptyMsg = "There is no feature associated with this.";
+            }
+
           } else {
             $scope.error = $scope.response.message;
           }
@@ -128,14 +152,17 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
     $scope.addFeatures = function () {
       //$scope.features_lists = [];
       if (typeof $scope.prodFeatures !== "undefined" && $scope.prodFeatures.length !== 0) {
-        $scope.prodFeatures.forEach(element => {
-          if (typeof element.status !== "undefined" && element.status) {
+       $scope.prodFeatures.forEach(element => {
+          if (typeof element.status !== "undefined" && element.status && $scope.features_lists.indexOf(element.feature_name) === -1) {
             $scope.features_lists.push(element.feature_name);
           }
-        });
+       });
       }
     };
 
+    $scope.clearCompare = function(){
+      $scope.features_lists = [];
+    };
     /**
      * Get feature list
      */

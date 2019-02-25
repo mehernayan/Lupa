@@ -26,9 +26,9 @@
                                     <div class="col-sm-12 mar-top-20" ng-if="!prodFeatures.length">
                                         {{emptyMsg}}
                                     </div>
-                                    <div class="col-sm-4 mar-top-20 feature" ng-repeat="feature in prodFeatures track by $index">
-                                        <input type="checkbox" id="{{feature.feature_name+1}}" ng-model="feature.status" checked="{{feature.status}}" aria-label="">
-                                        <label style="max-width:82%;overflow-wrap: break-word;" for="{{feature.feature_name+1}}">{{feature.feature_name}}</label>
+                                    <div class="col-sm-4 mar-top-20 feature" ng-repeat="feature in prodFeatures | unique : 'feature_name' track by feature.feature_name">
+                                        <input type="checkbox" id="{{feature.feature_name+1}}"  ng-model="feature.status" aria-label="">
+                                        <label style="max-width:82%;overflow-wrap: break-word;"  for="{{feature.feature_name+1}}">{{feature.feature_name}}</label>
                                     </div>
                                 </div>
                             </div>
@@ -45,9 +45,9 @@
                         <div class="height-250">
                             <div class="first-compare compare">
                                 <div class="row">
-                                    <div class="col-sm-4 feature" ng-repeat="feature in features_lists track by $index">
+                                    <div class="col-sm-6 mar-top-20 feature" ng-repeat="feature in features_lists track by $index ">
                                         <input type="checkbox" id="{{feature+1}}" checked="checked" ng-disabled="true" aria-label="">
-                                        <label for="{{feature+1}}">{{feature}}</label>
+                                        <label style="max-width:82%;overflow-wrap: break-word;" for="{{feature+1}}">{{feature}}</label>
                                     </div>
                                 </div>
 
@@ -66,7 +66,8 @@
                             </div>
                         </div>
                         <div class="mar-top-50 text-center">
-                            <button class="btn btn-dyna btn-profile" ng-click="postFeaturesList()"> COMPARE </button>
+                            <button class="btn btn-dyna btn-fixed" ng-click="postFeaturesList()"> COMPARE </button>
+                            <button class="btn btn-dyna btn-fixed" ng-click="clearCompare()"> CLEAR </button>
                         </div>
                     </form>
 
