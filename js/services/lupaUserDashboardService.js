@@ -151,8 +151,7 @@ lupaUserDashboardService.service('lupaUserDashboardService', ['$http', '$q','$fi
        };
        this.getLiveChartUrl = function() {
         var userLogged = localStorageService.get("user")[0].name;
-        //debugger;
-        var userObj = {"username": "training"}
+        var userObj = {"username": userLogged}
         var deferred = $q.defer();
         $http({
                     method : 'POST',

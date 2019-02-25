@@ -310,10 +310,20 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                         }
                         else {
                             for (j = 0; j < $scope.chartresponse.length; j++) {
+                            if($scope.response[i].filter_year != null) {
+                                var xVal = $scope.chartresponse[j].label;
+                                var yVal = $scope.chartresponse[j].value;
+                                var name = $scope.response[i].filter_year;
+                            }
+                            else {
+                                xVal = xAxisVal;
+                                yVal = $scope.chartresponse[j].license;
+                                var name = $scope.chartresponse[j].year
+                            }
                             plotDataBarY.push({
-                                x: xAxisVal,
-                                y: $scope.chartresponse[j].license,
-                                name: $scope.chartresponse[j].year,
+                                x: xVal,
+                                y: yVal,
+                                name: name,
                                 type: type,
                                 fill: fill,
                                 mode: mode,

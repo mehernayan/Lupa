@@ -368,6 +368,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
 
 
             }
+            $('#loadergif').hide();
             },2000)
             
 
@@ -375,7 +376,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
 
 
 
-            $('#loadergif').hide();
+            
             
             });
     }
