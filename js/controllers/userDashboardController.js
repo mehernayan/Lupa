@@ -12,6 +12,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
     //$scope.productlist = ["LSDYNA", "MSC", "ALTAIR"]
 
     $scope.reportSidebar = true;
+    $scope.activeMenu = "LSDYNA";
     
     $scope.dashboardActive = true;
     $scope.favouriteActive = false;
@@ -34,6 +35,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
                 $scope.noData = false;
                 $("#chart").show();
             }
+            
             for (i = 0; i < $scope.response.length; i++) {
                 //debugger;
                 if ($scope.response[i].length != 0) {
@@ -85,7 +87,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
 
                 Highcharts.stockChart('chart', {
 
-                    rangeSelector: {
+                    /*rangeSelector: {
                         selected: 1,
                         inputEnabled: false,
                         allButtonsEnabled: false,
@@ -93,7 +95,15 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
                             visibility: 'hidden'
                         }
 
-                    },
+                    },*/
+                     rangeSelector: {
+                     inputEnabled: false,
+                     labelStyle: {
+                            visibility: 'hidden'
+                     },
+                     buttons: [{type: 'all',
+                     text: 'All'}]
+                     },
                     title: {
                         text: 'Real Time Utilization'
                     },
@@ -557,6 +567,17 @@ $scope.drawPolarChart = function(polarChartData, product) {
         lupaUserDashboardService.getLiveChartByProductUrl(item).then(function (response) {
             $scope.response = response.data;
             $scope.individualProductChart = true;
+            if(!$scope.response.length) {
+                $scope.noData = true;
+                $("#chart").hide();
+
+            }
+            else {
+                $scope.noData = false;
+                $("#chart").show();
+            }
+            
+           
 
             //$scope.getLiveChart();
             $('#loadergif').hide();
@@ -580,14 +601,15 @@ $scope.drawPolarChart = function(polarChartData, product) {
 
                 Highcharts.stockChart('chart', {
 
-                    rangeSelector: {
-                        selected: 1,
+                     rangeSelector: {
                         inputEnabled: false,
-                        allButtonsEnabled: false,
                         labelStyle: {
                             visibility: 'hidden'
-                        }
-
+                        },
+                        buttons: [{
+                            type: 'all',
+                            text: 'All'
+                        }]
                     },
                     title: {
                         text: 'Real Time Utilization'
@@ -601,6 +623,9 @@ $scope.drawPolarChart = function(polarChartData, product) {
                         }]
                     },
                     legend: {
+                        enabled: false
+                    },
+                    credits: {
                         enabled: false
                     },
 

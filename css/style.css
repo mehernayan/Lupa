@@ -665,7 +665,7 @@ i.far.fa-square {
 .weekly-section ul {
     display: block;
     position: absolute;
-    bottom: 33px;
+    bottom: 45px;
     left: 33%;
     z-index: 1000;
 }

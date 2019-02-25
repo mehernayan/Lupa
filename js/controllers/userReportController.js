@@ -1,12 +1,18 @@
 lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashboardService', '$location', 'localStorageService', '$filter', function ($scope, userData, lupaUserDashboardService, $location, localStorageService, $filter) {
     var userId = localStorageService.get("user");
-    localStorageService.set("product_name","LSDYNA");
-    $scope.currentProducts  = ['LSDYNA'];
-    $scope.activeMenu = "LSDYNA";
+    
+    
     var product_name = localStorageService.get("product_name");
     if(product_name == "" || product_name == "undefined" || product_name == null) {
-        product_name = "LSDYNA"
+        product_name = "LSDYNA";
+        localStorageService.set("product_name","LSDYNA");
         $scope.currentProducts  = ['LSDYNA'];
+        $scope.activeMenu = "LSDYNA";
+    }
+    else {
+       
+        $scope.currentProducts  = [product_name];
+        $scope.activeMenu = product_name;
     }
     $scope.product_name = product_name;
     if (typeof userId === "undefined" || userId == null) {
@@ -30,7 +36,9 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
     
     $scope.license_statistics = "license_statistics";
     $scope.chartId = 0;
-    $scope.report_type = "yearly";
+    if($scope.report_type == undefined) {
+        $scope.report_type = "yearly";
+    }
     
     
     
@@ -100,6 +108,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         var report_dur = adminFilter.split("_");
         var report = report_dur[0];
         $scope.report_type = report_dur[0];
+        
 
         if (report == 'yearly') {
             $scope.report_type = 'yearly';
@@ -1461,7 +1470,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                                     size.push($scope.response[i].license[j]);
                                     
                                 }
-                                debugger;
+                                
                             }
                             plotDataBarY.push({
                                 x: xAxisVal,

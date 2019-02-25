@@ -84,14 +84,13 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
 
                 Highcharts.stockChart('chart', {
 
-                    rangeSelector: {
-                        selected: 4,
-                        inputEnabled: false,
-                        allButtonsEnabled: false,
-                        labelStyle: {
+                   rangeSelector: {
+                     inputEnabled: false,
+                     labelStyle: {
                             visibility: 'hidden'
-                        }
-
+                     },
+                     buttons: [{type: 'all',
+                     text: 'All'}]
                     },
                     title: {
                         text: 'Real Time Utilization'
@@ -576,6 +575,15 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
             $scope.response  = response.data;
             $scope.individualProductChart = true;
             //$scope.getLiveChart();
+             if(!$scope.response.length) {
+                $scope.noData = true;
+                $("#chart").hide();
+
+            }
+            else {
+                $scope.noData = false;
+                $("#chart").show();
+            }
             if($scope.recentReportLoaded) {
                 $('#loadergif').hide();
             }
@@ -600,13 +608,14 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
                 Highcharts.stockChart('chart', {
 
                     rangeSelector: {
-                        selected: 1,
                         inputEnabled: false,
-                        allButtonsEnabled: false,
                         labelStyle: {
                             visibility: 'hidden'
-                        }
-
+                        },
+                        buttons: [{
+                            type: 'all',
+                            text: 'All'
+                        }]
                     },
                     title: {
                         text: 'Real Time Utilization'
@@ -620,6 +629,9 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
                         }]
                     },
                     legend: {
+                        enabled: false
+                    },
+                    credits: {
                         enabled: false
                     },
                     

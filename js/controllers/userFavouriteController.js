@@ -97,6 +97,8 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                     Plotly.Plots.resize(gd1);
                 }
                 else if ($scope.response[i].report_type == "yearly" || $scope.response[i].report_type == "monthly") {
+                    var xAxisVal = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    var monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                     var type = 'bar';
                     var fill = '';
                     var mode = "";

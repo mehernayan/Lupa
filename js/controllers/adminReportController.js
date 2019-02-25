@@ -1,12 +1,16 @@
 lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaAdminDashboardService, $location, localStorageService) {
     var userId = localStorageService.get("user");
-    localStorageService.set("product_name","LSDYNA");
-    $scope.currentProducts  = ['LSDYNA'];
-    $scope.activeMenu = "LSDYNA";
     var product_name = localStorageService.get("product_name");
     if(product_name == "" || product_name == "undefined" || product_name == null) {
-        product_name = "LSDYNA"
+        product_name = "LSDYNA";
+        localStorageService.set("product_name","LSDYNA");
         $scope.currentProducts  = ['LSDYNA'];
+        $scope.activeMenu = "LSDYNA";
+    }
+    else {
+       
+        $scope.currentProducts  = [product_name];
+        $scope.activeMenu = product_name;
     }
     var currentyearlyprod = "";
     var currentmonthlyprod = "";
@@ -2054,7 +2058,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         alert("yes");
         console.log($scope.shift_start_time);
         console.log($scope.shift_end_time);
-        debugger;
+        
 
 
     };
