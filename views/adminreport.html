@@ -107,7 +107,7 @@
                     </div>
                     <div class="year-list">
                         <span class="year-label">Year : </span>
-                        <span class="admin-year-label" ng-repeat="item in adminReportYearList track by $index">
+                        <span class="admin-year-label" ng-repeat="item in adminReportYearList[currentProduct] track by $index">
                             <input type="radio" name="{{currentProduct + 'adminReportYearLicense'}}" ng-checked = "$index==0" ng-click="reportAdminFilter($event,adminFilterYearly,userFilterType,item.year,currentProduct)"/>{{item.year}}
                          </span>
                     </div>

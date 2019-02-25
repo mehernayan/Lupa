@@ -1845,14 +1845,16 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
 
     // Year filter for  Report to  get the year list 
-
+    $scope.adminReportYearList = [];
     $scope.getAdminReportYearList = function (userFilterType, defaultFilterVal,currentProduct) {
         $scope.userLogged = localStorageService.get('user');
         var product_name = "LSDYNA";
         //lupaAdminDashboardService.getAdminReportYearListUrl($scope.userLogged, "LSDYNA").then(function (response) {
         lupaAdminDashboardService.getAdminReportYearListUrl("Admin", currentProduct).then(function (response) {
-            console.log(response.data);
-            $scope.adminReportYearList = response.data;
+            //console.log(response.data);
+            $scope.adminReportYearList[currentProduct] = response.data;
+            //console.log( $scope.adminReportYearList,"year list");
+            $scope.defaultFilterVal = $scope.adminReportYearList[currentProduct][0].year;
             $scope.getAdminYearlyReportDepartmentFilter(userFilterType, defaultFilterVal,currentProduct);
 
 
@@ -1862,12 +1864,13 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     //load data to get year value
     $scope.getAdminReportYearListLoad = function () {
         $scope.userLogged = localStorageService.get('user');
+        var product_name = "LSDYNA";
         //lupaAdminDashboardService.getAdminReportYearListUrl($scope.userLogged, "LSDYNA").then(function (response) {
         lupaAdminDashboardService.getAdminReportYearListUrl("Admin", product_name).then(function (response) {
-            console.log(response.data);
-            $scope.adminReportYearList = response.data;
+            //console.log(response.data);
+            $scope.adminReportYearList[product_name] = response.data;
 
-            $scope.defaultFilterVal = $scope.adminReportYearList[0].year;
+            $scope.defaultFilterVal = $scope.adminReportYearList[product_name][0].year;
 
 
 
