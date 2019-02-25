@@ -13,6 +13,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
     $scope.dashboardActive = true;
     $scope.favouriteActive = false;
     $scope.polarChartFlag = false;
+    $scope.activeMenu = "LSDYNA";
 
     $scope.getLiveChart = function () {
         $scope.emptyChartMsg ="";

@@ -11,6 +11,7 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
     $scope.dashboardActive = true;
     $scope.favouriteActive = false;
     $scope.polarChartFlag = false;
+    $scope.activeMenu = "LSDYNA";
     $scope.productlist = localStorageService.get('productlist');
     $scope.selected = {};
     $scope.loadDashboardLiveChart = function(){
