@@ -1263,7 +1263,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             })
                             
                         }
-                        debugger;
+                        //debugger;
 
                     }
                     Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);

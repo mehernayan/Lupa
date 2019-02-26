@@ -1143,10 +1143,20 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         }
                     } else {
                         for (i = 0; i < $scope.response.length; i++) {
+                            if($scope.response[i].label != null || $scope.response[i].label != undefined) {
+                                var xVal = $scope.response[i].label;
+                                var yVal = $scope.response[i].value;
+                                var name = "yearly";
+                            }
+                            else {
+                                xVal = xAxisVal;
+                                yVal = $scope.response[i].license;
+                                var name = $scope.response[i].year
+                            }
                             plotDataBarY.push({
-                                x: xAxisVal,
-                                y: $scope.response[i].license,
-                                name: $scope.response[i].year,
+                                x: xVal,
+                                y: yVal,
+                                name: name,
                                 type: 'bar',
                                 marker: {
                                     color: d3colors(i)
@@ -1173,9 +1183,15 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     if($scope.report_type == "yearly") {
                             layout.title = product_name +  ' / Yearly Report';
                         }
-                        else {
+                        else if($scope.report_type == "monthly"){
                              layout.title = product_name +  ' / Monthly Report';
-                    }
+                         }
+                        else if($scope.report_type == "weekly"){
+                                layout.title = product_name +  ' / Weekly Report';
+                        }
+                        else {
+                                layout.title = product_name +  ' / This week Report';
+                        }
                     Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout);
 
 
@@ -1242,12 +1258,29 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     else {
 
                         for (i = 0; i < $scope.response.length; i++) {
-                            console.log(xAxisVal);
+                            if($scope.response[i].label != null || $scope.response[i].label != undefined) {
+                                var xVal = $scope.response[i].label;
+                                var yVal = $scope.response[i].value;
+                                if($scope.report_type == "monthly") {
+                                    name = $scope.response[i].label;
+                                    xVal = xAxisVal;
+                                }
+                                else {
+                                    var name = "yearly";
+                                }
+                                
+                            }
+                            else {
+                                xVal = xAxisVal;
+                                yVal = $scope.response[i].license;
+                                var name = $scope.response[i].year
+                            }
+                            
                             
                             plotDataBarY.push({
-                                x: xAxisVal,
-                                y: $scope.response[i].license,
-                                name: $scope.response[i].year,
+                                x: xVal,
+                                y: yVal,
+                                name: name,
                                 type: 'scatter',
                                 marker: {
                                     color: d3colors(i)
@@ -1505,10 +1538,27 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     }
                     else {
                         for (i = 0; i < $scope.response.length; i++) {
+                            if($scope.response[i].label != null || $scope.response[i].label != undefined) {
+                                var xVal = $scope.response[i].label;
+                                var yVal = $scope.response[i].value;
+                                if($scope.report_type == "monthly") {
+                                    name = $scope.response[i].label;
+                                    xVal = xAxisVal;
+                                }
+                                else {
+                                    var name = "yearly";
+                                }
+                                
+                            }
+                            else {
+                                xVal = xAxisVal;
+                                yVal = $scope.response[i].license;
+                                var name = $scope.response[i].year
+                            }
                             plotDataBarY.push({
-                                x: xAxisVal,
-                                y: $scope.response[i].license,
-                                name: $scope.response[i].year,
+                                x: xVal,
+                                y: yVal,
+                                name: name,
                                 type: 'bar',
                                 marker: {
                                     color: d3colors(i)
@@ -1821,13 +1871,13 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
             $scope.defaultFilterVal = defaultFilterVal;
             
             if($scope.report_type == "monthly") {
-                $scope.drawGraph($scope.departmentUserMonthlyData,currentProduct);
+                $scope.drawGraph($scope.departmentUserMonthlyData,currentProduct, defaultFilterVal);
                 $scope.individualSet = true;
                 $scope.individualResponse = $scope.departmentUserMonthlyData;
                 
             }
             else {
-                $scope.drawGraph($scope.departmentUserMonthlyData[0],currentProduct);
+                $scope.drawGraph($scope.departmentUserMonthlyData[0],currentProduct, defaultFilterVal);
                 $scope.individualSet = true;
                 $scope.individualResponse = $scope.departmentUserMonthlyData;
             }
@@ -1849,14 +1899,14 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
             //$scope.defaultFilterVal = defaultFilterVal;
             
             if($scope.report_type == "monthly") {
-                $scope.drawGraphIndividual($scope.departmentUserMonthlyData,currentProduct);
+                $scope.drawGraphIndividual($scope.departmentUserMonthlyData,currentProduct, defaultFilterVal);
                 $scope.individualSet = true;
                 $scope.individualResponse = $scope.departmentUserMonthlyData;
                 
                 
             }
             else {
-                $scope.drawGraphIndividual($scope.departmentUserMonthlyData,currentProduct);
+                $scope.drawGraphIndividual($scope.departmentUserMonthlyData,currentProduct, defaultFilterVal);
                 $scope.individualSet = true;
                 $scope.individualResponse = $scope.departmentUserMonthlyData;
             }
@@ -1865,7 +1915,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         });
 
     }
-    $scope.drawGraphIndividual = function(chartData, currentProduct) {
+    $scope.drawGraphIndividual = function(chartData, currentProduct, defaultFilterVal) {
         
         chartType = $scope.indChartType;
         product_name = currentProduct;
@@ -2012,6 +2062,9 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
                         }
                     } else {
+                        if(defaultFilterVal != undefined) {
+                            $scope.defaultFilterVal = defaultFilterVal;
+                        }
                         for (i = 0; i < $scope.response.length; i++) {
                             plotDataBarY.push({
                                 x: $scope.response[i].label,
@@ -2113,7 +2166,6 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
                         for (i = 0; i < $scope.response.length; i++) {
                             console.log(xAxisVal);
-                            
                             plotDataBarY.push({
                                 x: $scope.response[i].label,
                                 y: $scope.response[i].value,
@@ -2625,7 +2677,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
     
     }
-    $scope.drawGraph = function (chartData,currentProduct) {
+    $scope.drawGraph = function (chartData,currentProduct, defaultFilterVal) {
         product_name = currentProduct;
         $("#loadergif").hide();
         var layout = {
@@ -2677,6 +2729,9 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         var plotDataBarY = [];
         //layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
         if ($scope.report_type == "yearly") {
+            if(defaultFilterVal != undefined) {
+                $scope.defaultFilterVal = defaultFilterVal;
+            }
             plotDataBarY.push({
                 x: chartData.label,
                 y: chartData.value,
@@ -2797,9 +2852,11 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         //lupaDeptDashboardService.getDeptReportYearListUrl("Harish", "LSDYNA").then(function (response) {
             if (response.data != undefined || response.data != '') {
                 $("#loadergif").hide();
-                $scope.deptReportYearList = response.data;
+                //$scope.deptReportYearList = response.data;
+                $scope.deptReportYearList[currentProduct] = response.data;
 
-                $scope.defaultFilterVal = $scope.deptReportYearList[0].year;
+
+                $scope.defaultFilterVal = $scope.deptReportYearList[currentProduct][0].year;
                 $scope.getDeptReportFilter(userFilterType, defaultFilterVal,currentProduct);
                 
             }
@@ -2821,6 +2878,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
             //lupaDeptDashboardService.getDeptReportYearListUrl("Harish", "LSDYNA").then(function (response) {
             if (response.data != undefined || response.data != '') {
                 $scope.deptReportYearList = response.data;
+                //$scope.deptReportYearList[currentProduct] = response.data;
 
                 $scope.defaultFilterVal = $scope.deptReportYearList[0].year;
                 
