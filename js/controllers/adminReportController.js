@@ -1035,8 +1035,10 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             }
             else {
                 $scope.response = response.data;
+                
             }
             
+
             if(chartType != "polar_chart") {
                 if ($scope.response[0] != "" || $scope.response[0] != undefined) {
                     $scope.addedFav = $scope.response[0].favourite;
@@ -1045,6 +1047,11 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
             if ($scope.response) {
                 $('#loadergif').hide();
+                if($scope.report_type == "monthly") {
+                    $scope.response = $scope.response[0]; 
+                    
+                }
+                
                 if (chartType == "vertical_bar_chart") {
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek') {
@@ -1115,7 +1122,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             if($scope.response[i].label != null || $scope.response[i].label != undefined) {
                                 var xVal = $scope.response[i].label;
                                 var yVal = $scope.response[i].value;
-                                var name = "year wise";
+                                var name = "yearly";
                             }
                             else {
                                 xVal = xAxisVal;
@@ -1125,7 +1132,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             plotDataBarY.push({
                                 x: xVal,
                                 y: yVal,
-                                name: $scope.response[i].year,
+                                name: name,
                                 type: 'bar',
                                 marker: {
                                     color: d3colors(i)
@@ -1153,9 +1160,15 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     if($scope.report_type == "yearly") {
                             layout.title = product_name +  ' / Yearly Report';
                         }
-                        else {
+                        else if($scope.report_type == "monthly"){
                              layout.title = product_name +  ' / Monthly Report';
-                    }
+                         }
+                        else if($scope.report_type == "weekly"){
+                                layout.title = product_name +  ' / Weekly Report';
+                        }
+                        else {
+                                layout.title = product_name +  ' / This week Report';
+                        }
                     Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout);
 
 
@@ -1225,7 +1238,14 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             if($scope.response[i].label != null || $scope.response[i].label != undefined) {
                                 var xVal = $scope.response[i].label;
                                 var yVal = $scope.response[i].value;
-                                var name = "year wise";
+                                if($scope.report_type == "monthly") {
+                                    name = $scope.response[i].label;
+                                    xVal = xAxisVal;
+                                }
+                                else {
+                                    var name = "yearly";
+                                }
+                                
                             }
                             else {
                                 xVal = xAxisVal;
@@ -1235,13 +1255,15 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             plotDataBarY.push({
                                 x: xVal,
                                 y: yVal,
-                                name: $scope.response[i].year,
+                                name: name,
                                 type: 'scatter',
                                 marker: {
                                     color: d3colors(i)
                                 }
                             })
+                            
                         }
+                        debugger;
 
                     }
                     Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
@@ -1315,7 +1337,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             if($scope.response[i].label != null || $scope.response[i].label != undefined) {
                                 var xVal = $scope.response[i].label;
                                 var yVal = $scope.response[i].value;
-                                var name = "year wise";
+                                var name = "yearly";
                             }
                             else {
                                 xVal = xAxisVal;
@@ -1325,7 +1347,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             plotDataBarY.push({
                                 x: xVal,
                                 y: yVal,
-                                name: $scope.response[i].year,
+                                name: name,
                                 fill: 'tozeroy',
                                 type: 'scatter'
 
@@ -1426,7 +1448,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                              if($scope.response[i].label != null || $scope.response[i].label != undefined) {
                                 var xVal = $scope.response[i].label;
                                 var yVal = $scope.response[i].value;
-                                var name = "year wise";
+                                var name = "yearly";
                                 }
                                 else {
                                     xVal = xAxisVal;
@@ -1436,7 +1458,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             plotDataBarY.push({
                                 x: yVal,
                                 y: xVal,
-                                name: $scope.response[i].year,
+                                name: name,
                                 type: 'bar',
                                 orientation: 'h',
                                 marker: {
@@ -1518,7 +1540,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                              if($scope.response[i].label != null || $scope.response[i].label != undefined) {
                                 var xVal = $scope.response[i].label;
                                 var yVal = $scope.response[i].value;
-                                var name = "year wise";
+                                var name = "yearly";
                             }
                             else {
                                 xVal = xAxisVal;
@@ -1528,7 +1550,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             plotDataBarY.push({
                                 x: xVal,
                                 y: yVal,
-                                name: $scope.response[i].year,
+                                name: name,
                                 type: 'bar',
                                 marker: {
                                     color: d3colors(i)
@@ -1572,7 +1594,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             })
                         }
                     }
-                    debugger;
+                    //debugger;
 
 
 
@@ -1746,7 +1768,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                              if($scope.response[i].label != null || $scope.response[i].label != undefined) {
                                 var xVal = $scope.response[i].label;
                                 var yVal = $scope.response[i].value;
-                                var name = "year wise";
+                                var name = "yearly";
                             }
                             else {
                                 xVal = xAxisVal;
@@ -1756,7 +1778,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             plotDataBarY.push({
                                 x: xVal,
                                 y: yVal,
-                                name: $scope.response[i].year,
+                                name: name,
                                 mode: 'markers',
                                 type: 'scatter',
                                 marker: {
@@ -1848,7 +1870,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     $scope.adminReportYearList = [];
     $scope.getAdminReportYearList = function (userFilterType, defaultFilterVal,currentProduct) {
         $scope.userLogged = localStorageService.get('user');
-        var product_name = "LSDYNA";
+        //var product_name = "LSDYNA";
         //lupaAdminDashboardService.getAdminReportYearListUrl($scope.userLogged, "LSDYNA").then(function (response) {
         lupaAdminDashboardService.getAdminReportYearListUrl("Admin", currentProduct).then(function (response) {
             //console.log(response.data);
@@ -1864,7 +1886,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     //load data to get year value
     $scope.getAdminReportYearListLoad = function () {
         $scope.userLogged = localStorageService.get('user');
-        var product_name = "LSDYNA";
+        //var product_name = "LSDYNA";
         //lupaAdminDashboardService.getAdminReportYearListUrl($scope.userLogged, "LSDYNA").then(function (response) {
         lupaAdminDashboardService.getAdminReportYearListUrl("Admin", product_name).then(function (response) {
             //console.log(response.data);
@@ -1880,15 +1902,14 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     $scope.getAdminReportYearListLoad();
     $scope.getAdminYearlyReportDepartmentFilter = function (userFilterType, defaultFilterVal,currentProduct) {
         lupaAdminDashboardService.getAdminYearlyReportDepartmentFilterUrl("Admin", currentProduct, "license_statistics", "vertical_bar_chart", userFilterType, defaultFilterVal, $scope.report_type).then(function (response) {
-            console.log(response.data);
             $scope.AdminYearlyReportDepartmentFilter = response.data;
             $("#loadergif").hide();
             if ($scope.report_type == "monthly") {
-                $scope.drawGraph($scope.AdminYearlyReportDepartmentFilter,currentProduct);
+                $scope.drawGraph($scope.AdminYearlyReportDepartmentFilter,currentProduct, defaultFilterVal);
                 $scope.yearlyAdminReportIndividual = $scope.AdminYearlyReportDepartmentFilter;
             }
             else {
-                $scope.drawGraph($scope.AdminYearlyReportDepartmentFilter[0],currentProduct);
+                $scope.drawGraph($scope.AdminYearlyReportDepartmentFilter[0],currentProduct, defaultFilterVal);
                 $scope.yearlyAdminReportIndividual = $scope.AdminYearlyReportDepartmentFilter[0];
                 
             }
@@ -1905,7 +1926,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
         });
     }
-    $scope.drawGraph = function (chartData, currentProduct) {
+    $scope.drawGraph = function (chartData, currentProduct, defaultFilterVal) {
         var layout = {
             title: currentProduct +  ' / ' + $scope.report_type + ' Report',
             showlegend: true,
@@ -1955,6 +1976,9 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         var plotDataBarY = [];
         //layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
         if ($scope.report_type == "yearly") {
+            if(defaultFilterVal != undefined) {
+                $scope.defaultFilterVal = defaultFilterVal;
+            }
             plotDataBarY.push({
                 x: chartData.label,
                 y: chartData.value,
@@ -2053,6 +2077,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     }
     $scope.userFilterType = 'dept';
     $scope.reportAdminFilter = function (e, adminFilter, userFilterType, defaultFilterVal,currentProduct) {
+        
         //debugger;
         var report_dur = adminFilter.split("_");
         var report = report_dur[0];
