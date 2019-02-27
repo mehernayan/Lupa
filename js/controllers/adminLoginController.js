@@ -115,7 +115,11 @@ function($scope,userData,lupaAdminService,$location,userRegOtpVal,userEmailData,
       }
       return $scope.otpVal;
     };
-    
+    $scope.clearOtp = function(){
+      for(let box=1; box < 7;box++){
+        document.getElementById('codeBox'  + box).value = null;
+      }
+    };
     $scope.onKeyUpEvent = function(index, event) {
       const eventCode = event.which || event.keyCode;
       if ($scope.getCodeBoxElement(index).value.length === 1) {
@@ -217,6 +221,7 @@ function($scope,userData,lupaAdminService,$location,userRegOtpVal,userEmailData,
           $scope.successMsg =$scope.response.message;
           $scope.resetUser.email = userEmailData.get().email;
           $scope.isForgotPassword = false;
+          $scope.clearOtp();
         }else{
           $scope.successMsg = "";
           $scope.error = $scope.response.message;
@@ -248,6 +253,9 @@ function($scope,userData,lupaAdminService,$location,userRegOtpVal,userEmailData,
           $scope.error ="";
           $scope.successMsg =$scope.response.message;
           $scope.isResetDone =true;
+          $scope.clearOtp();
+          $scope.resetUser.password ="";
+          $scope.resetUser.password_confirmation ="";
         }else{
           $scope.successMsg ="";
           $scope.error = $scope.response.message;

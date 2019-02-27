@@ -166,6 +166,11 @@
         }
         return $scope.otpVal;
       };
+      $scope.clearOtp = function(){
+        for(let box=1; box < 7;box++){
+          document.getElementById('codeBox'  + box).value = null;
+        }
+      };
       $scope.onKeyUpEvent = function(index, event) {
         const eventCode = event.which || event.keyCode;
         if ($scope.getCodeBoxElement(index).value.length === 1) {
@@ -264,6 +269,7 @@
             $scope.resetUser.email = userEmailData.get().email;
             $scope.successMsg = $scope.response.message;
             $scope.isForgotPassword = false;
+            $scope.clearOtp();
           }else{
             $scope.successMsg ="";
             $scope.error = $scope.response.message;
@@ -295,6 +301,7 @@
             $scope.isReset = true;
             $scope.isResetDone = true;
             $scope.successMsg =$scope.response.message;
+            $scope.clearOtp();
           }else{
             $scope.successMsg ="";
             $scope.error = $scope.response.message;
