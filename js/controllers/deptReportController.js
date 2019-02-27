@@ -1603,6 +1603,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                             })
                         }
                     }
+                    
 
 
 

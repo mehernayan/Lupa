@@ -276,8 +276,8 @@
                         <div id="{{currentProduct + '-product-chart-yearly1'}}" class="chart-graph"></div>
                         <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilter == 'overall'">
                             <ul>
-                                <li ng-repeat="item in reportyearlist">
-                                    <input type="radio" ng-checked="item.checked" name="item" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
+                                <li ng-repeat="item in reportyearlist track by $index">
+                                    <input type="radio" ng-checked="$index==0" name="{{'item' + currentProduct}}" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
                                         value="{{item.year}}"> {{item.year}}
                                 </li>
                             </ul>
@@ -351,7 +351,7 @@
                             <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
                             <ul>
                                 <li ng-repeat="item in reportyearlist track by $index">
-                                    <input type="radio" ng-checked="item.year == reportyearlist[0].year" name="{{'item' + item.year}}" ng-click="weeklyYearChange($event,item.year, chartType)"
+                                    <input type="radio" ng-checked="$index==0" name="{{'item' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType)"
                                         value="{{item.year}}"> {{item.year}}
                                 </li>
                             </ul>
@@ -408,8 +408,8 @@
 <div id="{{currentProduct + '-product-chart-yearly2'}}" class="chart-graph"></div>
 <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilterWeekly == 'weekly_overall'">
     <ul>
-        <li ng-repeat="item in reportyearlist">
-            <input type="radio" ng-checked="item.checked" name="item" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
+        <li ng-repeat="item in reportyearlist track by $index">
+            <input type="radio" ng-checked="$index==0" name="{{'item' + currentProduct}}" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
                 value="{{item.year}}"> {{item.year}}
         </li>
     </ul>
@@ -886,8 +886,8 @@
         <div id="{{currentProduct + '-product-chart-yearly5'}}" class="chart-graph"></div>
         <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilter == 'overall'">
             <ul>
-                <li ng-repeat="item in reportyearlist">
-                    <input type="radio" ng-checked="item.checked" name="item" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
+                <li ng-repeat="item in reportyearlist track by $index">
+                    <input type="radio" ng-checked="$index==0" name="{{'item' + currentProduct}}" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
                         value="{{item.year}}"> {{item.year}}
                 </li>
             </ul>
@@ -961,7 +961,7 @@
             <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
             <ul>
                 <li ng-repeat="item in reportyearlist track by $index">
-                    <input type="radio" ng-checked="item.checked" ng-checked="item.year == reportyearlist[0].year" ng-click="weeklyYearChange($event,item.year, chartType)"
+                    <input type="radio" ng-checked="$index==0" name="{{'item' + currentProduct}}" ng-checked="item.year == reportyearlist[0].year" ng-click="weeklyYearChange($event,item.year, chartType)"
                         value="{{item.year}}"> {{item.year}}
                 </li>
             </ul>
@@ -1016,8 +1016,8 @@
 <div id="{{currentProduct + '-product-chart-yearly6'}}" class="chart-graph"></div>
 <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilterWeekly == 'weekly_overall'">
     <ul>
-        <li ng-repeat="item in reportyearlist">
-            <input type="radio" ng-checked="item.checked" name="item" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
+        <li ng-repeat="item in reportyearlist track by $index">
+            <input type="radio" ng-checked="$index==0" name="{{'item' + currentProduct}}" ng-change="weeklyYearChange(item.year, chartType)" ng-model="selectedValue.year"
                 value="{{item.year}}"> {{item.year}}
         </li>
     </ul>

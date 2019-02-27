@@ -963,7 +963,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         $(".chart-container .chart").removeClass("active-chart");
         $(event.target).closest(".chart").addClass("active-chart");
         $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-graph").attr('id');
-        lupaAdminDashboardService.changeGraphUrl(reportType, chartType, statisticsType,currentprod).then(function (response) {
+        lupaAdminDashboardService.changeGraphUrl($scope.report_type, chartType, statisticsType,currentprod).then(function (response) {
 
             // common to all graph
             product_name = currentprod;
@@ -1048,7 +1048,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             if ($scope.response) {
                 $('#loadergif').hide();
                 if($scope.report_type == "monthly") {
-                    $scope.response = $scope.response[0]; 
+                    //$scope.response = $scope.response[0]; 
                     
                 }
                 
@@ -1594,7 +1594,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             })
                         }
                     }
-                    //debugger;
+                    debugger;
 
 
 
