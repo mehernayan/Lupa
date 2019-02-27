@@ -18,7 +18,7 @@
             </ul>
             <ul class="dropdown-menu" ng-if="deptnotifications.length">
                     <li ng-repeat="notification in deptnotifications">
-                        <div class="notification-msg"><p>{{notification.title}}</p>
+                        <div class="notification-msg"><p>{{notification.title}} of {{notification.username}} from {{notification.fromdepartment}} to {{notification.todepartment}}</p>
                             <p ng-if="acceptMsg && notification.id===curId" style="color:green">{{acceptMsg}}</p>
                             <p ng-if="errorAccMsg && notification.id===curId" style="color:red">{{errorAccMsg}}</p>
                         </div>
