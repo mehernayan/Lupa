@@ -1,7 +1,7 @@
 lupaApp.factory('fileService',function(){
     var fileService = this;
     fileService.files =  [];
-    console.log(fileService.files);
+    //console.log(fileService.files);
     return fileService;
 });
 lupaApp.directive('ngFiles', ['$parse','fileService', function ($parse,fileService) {

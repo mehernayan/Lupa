@@ -546,10 +546,12 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q', '$filter', 'localSt
         * Get Notification
         */
 
-        this.getNotifications = function () {
-            var userObj = notificationId.get();
+        this.getNotifications = function (id) {
+            var userObj = {
+                id : id
+            };
             var deferred = $q.defer();
-            if (typeof userObj !== "undefined") {
+            if (id !== "undefined") {
                 $http({
                     method: 'POST',
                     url: appConstants.serviceAddress + '/admin/notifications',

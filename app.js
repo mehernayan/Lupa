@@ -301,22 +301,28 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		};
 
 		$scope.getAdminNotifications = function () {
-			$scope.errorNot = "";
-			$('#loadergif').show();
-			lupaAdminService.getNotifications().then(function (response) {
-				$('#loadergif').hide();
-				//console.log(response.data,"register user");
-				$scope.response = JSON.parse(response.data.status_response);
-				//console.log($scope.response,"is success");
-				if (typeof $scope.response !== "undefined") {
-					if ($scope.response.success) {
-						$scope.errorNot = "";
-						$scope.adminnotifications = $scope.response.data;
-					} else {
-						$scope.errorNot = $scope.response.message;
+			$scope.user = localStorageService.get('user');
+			if (typeof $scope.user !== "undefined" && $scope.user !== [] && $scope.user !== null) {
+				var notificationId = $scope.user[0].id;
+				$scope.errorNot = "";
+				$('#loadergif').show();
+				lupaAdminService.getNotifications(notificationId).then(function (response) {
+					$('#loadergif').hide();
+					//console.log(response.data,"register user");
+					$scope.response = JSON.parse(response.data.status_response);
+					//console.log($scope.response,"is success");
+					if (typeof $scope.response !== "undefined") {
+						if ($scope.response.success) {
+							$scope.errorNot = "";
+							$scope.adminnotifications = $scope.response.data;
+						} else {
+							$scope.errorNot = $scope.response.message;
+						}
 					}
-				}
-			});
+				});
+			}else{
+					$scope.errorNot = "There is an error fetching notification.";
+			}
 		};
 
 		/**
@@ -390,6 +396,7 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 						$scope.acceptMsg = "";
 					}
 				}
+				$scope.getDeptNotifications();
 			});
 		};
 
@@ -402,6 +409,7 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 			$('#loaderNotification').show();
 			lupaAdminService.ackRequest(id).then(function (response) {
 				$('#loaderNotification').hide();
+				debugger;
 				$scope.response = JSON.parse(response.data.status_response);
 				if (typeof $scope.response !== "undefined") {
 					if ($scope.response.Success) {
@@ -413,6 +421,7 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 						$scope.errorAccMsg = $scope.response.message;
 					}
 				}
+				$scope.getAdminNotifications();
 			});
 		};
 
