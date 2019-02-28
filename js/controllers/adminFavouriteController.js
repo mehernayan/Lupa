@@ -152,6 +152,8 @@ $scope.getfavourite = function () {
                                 }
                             })
                         }
+                        //debugger;
+
                         //layout.xaxis.title = "Total number of license used";
                         //layout.yAxis.title = "";
                         }
@@ -283,6 +285,7 @@ $scope.getfavourite = function () {
                     
                     
                     else {
+                        
                         if($scope.response[i].chart_type == "horizontal_bar_chart") {
                             var type = 'bar';
                             for (var j = 0; j < $scope.chartresponse[0].license.length; j++) {
@@ -330,6 +333,7 @@ $scope.getfavourite = function () {
                                 }
                             }
                         }
+                        $('#loadergif').hide();
                     }
 
                     /*for (var j = 0; j < $scope.chartresponse[0].license.length; j++) {
@@ -358,16 +362,17 @@ $scope.getfavourite = function () {
                     
                 }
 
+            
 
-
-
+                
 
 
 
             }
-            $('#loadergif').hide();
+            
             
             },2000)
+            
             
 
 

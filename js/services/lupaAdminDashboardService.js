@@ -207,6 +207,12 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
             var year = "_year";
             var userObj = {"username": username, "product_name" : product_name, "type": type, "chart_type": chart_type, "filter_year": filter_year}
         }
+        else if(report_type == 'monthly') {
+                 var year = "";
+                 var userObj = {"username": username, "product_name" : product_name, "type": type, "chart_type": chart_type}
+            
+
+        }
         
         else {
             var year = "";

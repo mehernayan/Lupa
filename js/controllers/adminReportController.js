@@ -324,6 +324,43 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
         }
         }
+        else if(chartType == "box_plot_styling_outliers_chart") {
+                  $scope.response = [];
+                  for (j = 0; j < $scope.weeklyresponse.length; j++) {
+                    if (reportyear == $scope.weeklyresponse[j].year) {
+                        $scope.response.push($scope.weeklyresponse[j]);
+
+                    }
+                  }
+            
+
+                    layout.barmode = 'stack';
+                    var plotDataBarY = [];
+                    
+                        var plotDataBarY = [];
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+                        var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
+
+                        for (i = 0; i < $scope.response[0].license.length; i++) {
+                            for (key in $scope.response[0].license[i]) {
+                                plotDataBarY.push({
+                                y: $scope.response[0].license[i][key],
+                                x: xAxisVal,
+                                type: 'box',
+                                name: monthArray[i]
+                                
+                                });
+                                
+
+                            }
+
+                        }
+                        
+                    
+                    
+
+                
+        }
         else {
             for (j = 0; j < $scope.weeklyresponse.length; j++) {
             if (reportyear == $scope.weeklyresponse[j].year) {
@@ -950,6 +987,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         });
     }
     $scope.changeGraph = function (adminFilter,event,reportType, chartType, statisticsType,currentprod) {
+        
         $scope.chartType = chartType;
         var report_dur = adminFilter.split("_");
         var report = report_dur[0];
@@ -1148,7 +1186,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
                 }
-
+                
                 if (chartType == "pie_chart") {
                     var plotDataBarY = [{
                         values: $scope.response[0].value,
@@ -1156,6 +1194,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         type: 'pie',
                         textinfo: 'none'
                     }];
+                    
                     var layout = {};
                     if($scope.report_type == "yearly") {
                             layout.title = product_name +  ' / Yearly Report';
@@ -1571,7 +1610,46 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                     layout.barmode = 'stack';
                     var plotDataBarY = [];
-                    if ($scope.report_type == 'thisweek') {
+                    if($scope.report_type == "weekly") {
+                        var plotDataBarY = [];
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+                        $scope.weeklyresponse = $scope.response;
+                        $scope.reportyearlist = [];
+                        for (i = 0; i < $scope.response.length; i++) {
+                            if (i == 0) {
+                                $scope.reportyearlist.push({
+                                    "year": $scope.response[i].year,
+                                    "checked": true
+                                });
+                            } else {
+                                $scope.reportyearlist.push({
+                                    "year": $scope.response[i].year,
+                                    "checked": false
+                                });
+                            }
+
+                        };
+
+
+                        var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
+
+                        for (i = 0; i < $scope.response[0].license.length; i++) {
+                            for (key in $scope.response[0].license[i]) {
+                                plotDataBarY.push({
+                                y: $scope.response[0].license[i][key],
+                                x: xAxisVal,
+                                type: 'box',
+                                name: monthArray[i]
+                                
+                                });
+                                
+
+                            }
+
+                        }
+                        
+                    }
+                    else if ($scope.report_type == 'thisweek') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
                         layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -1586,6 +1664,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else {
+                        //debugger;
                         for (i = 0; i < $scope.response.length; i++) {
                             plotDataBarY.push({
                                 y: $scope.response[i].license,
@@ -1594,7 +1673,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             })
                         }
                     }
-                    debugger;
+                    
 
 
 
@@ -1805,6 +1884,1020 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
 
     }
+    $scope.changeGraphIndividual = function (adminFilter,event,reportType, chartType, statisticsType,currentprod) {
+        $scope.chartType = chartType;
+        var report_dur = adminFilter.split("_");
+        var report = report_dur[0];
+        $scope.report_type = report_dur[0];
+        
+        if($scope.report_type == 'thisweek') {
+            $scope.report_type = 'this_week';
+        }
+        $scope.statisticsType = statisticsType;
+        $('#loadergif').show();
+        $(".chart-container .chart").removeClass("active-chart");
+        $(event.target).closest(".chart").addClass("active-chart");
+        $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-graph").attr('id');
+        lupaAdminDashboardService.getAdminYearlyReportDepartmentFilterUrl("Admin", currentprod, statisticsType, chartType, $scope.userFilterType, $scope.defaultFilterVal, $scope.report_type).then(function (response) {
+
+            // common to all graph
+            product_name = currentprod;
+            var layout = {
+                title: product_name +  ' / ' + $scope.report_type + ' Report',
+                showlegend: true,
+                legend: {
+                    "orientation": "h",
+                    x: 0.58,
+                    y: 1.1
+                },
+                xaxis: {
+                    type: 'category',
+                    showgrid: false,
+                    gridcolor: '#bdbdbd',
+                    gridwidth: 1,
+                    tickangle: -45,
+                },
+                yaxis: {
+                    showgrid: true,
+                    title: 'Total number of license used',
+                    showline: true
+                },
+                barmode: 'group',
+                bargroupgap: 0.5,
+                autosize: true
+
+            };
+            if ($scope.statisticsType == 'license_statistics') {
+                layout.yaxis.title = "Total number of license";
+                //debugger;		
+
+            }
+            else if ($scope.statisticsType == 'time_statistics') {
+                layout.yaxis.title = "Total number of hours used";
+                //debugger;		
+            }
+
+            // Pie chart
+            var layoutTitle = {
+                title: product_name +  ' / ' + $scope.report_type + ' Report'
+            }
+
+            //Bar chart Section goes here
+
+            var xAxisVal = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            var monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+            // setting mode bar plotly
+            var plotlyDefaultConfigurationBar = {
+                responsive: true,
+                displaylogo: false,
+                showTips: true,
+                pan2d: true,
+                modeBarButtonsToRemove: ['sendDataToCloud', 'hoverClosestPie', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']
+            };
+
+
+            // Random color for marker (Bar)
+            var d3colors = Plotly.d3.scale.category10();
+
+
+
+            layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+            if($scope.yearlyAdminReportIndividual !="") {
+                $scope.response = [];
+                $scope.response[0] = $scope.yearlyAdminReportIndividual;
+                
+            }
+            else {
+                $scope.response = response.data;
+                
+            }
+            
+
+            if(chartType != "polar_chart") {
+                if ($scope.response[0] != "" || $scope.response[0] != undefined) {
+                    $scope.addedFav = $scope.response[0].favourite;
+                }
+            }
+
+            if ($scope.response) {
+                $('#loadergif').hide();
+                if($scope.report_type == "monthly") {
+                    $scope.response = $scope.response[0]; 
+                    
+                }
+                
+                if (chartType == "vertical_bar_chart") {
+                    var plotDataBarY = [];
+                    if ($scope.report_type == 'thisweek') {
+                        //debugger;
+                        //$scope.thisWeekCommonChartType($scope.response[0]);
+                        layout.title = product_name +  ' / This Week Report';
+                        var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                        var plotDataBarY = [];
+                        for (var i = 0; i < $scope.response[0].license.length; i++) {
+                            //debugger;
+
+                            for (key in $scope.response[0].license[i]) {
+                                //debugger;
+
+                                plotDataBarY.push({
+                                    x: xAxisVal,
+                                    y: $scope.response[0].license[i][key],
+                                    name: key,
+                                    type: 'bar',
+                                    marker: {
+                                        color: d3colors(i)
+                                    }
+                                })
+
+
+                            }
+                        }
+                    }
+                    if ($scope.report_type == 'weekly') {
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+                        $scope.weeklyresponse = $scope.response;
+                        $scope.reportyearlist = [];
+                        for (i = 0; i < $scope.response.length; i++) {
+                            if (i == 0) {
+                                $scope.reportyearlist.push({
+                                    "year": $scope.response[i].year,
+                                    "checked": true
+                                });
+                            } else {
+                                $scope.reportyearlist.push({
+                                    "year": $scope.response[i].year,
+                                    "checked": false
+                                });
+                            }
+
+                        };
+
+
+                        var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
+
+                        for (i = 0; i < $scope.response[0].license.length; i++) {
+                            for (key in $scope.response[0].license[i]) {
+                                plotDataBarY.push({
+                                    x: xAxisVal,
+                                    y: $scope.response[0].license[i][key],
+                                    name: monthArray[i],
+                                    type: 'bar',
+                                    marker: {
+                                        color: d3colors(i)
+                                    }
+                                })
+
+                            }
+
+                        }
+                    } else {
+                        for (i = 0; i < $scope.response.length; i++) {
+                            if($scope.report_type == "yearly") {
+                                if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
+                                    var xVal = $scope.response[i].label;
+                                    var yVal = $scope.response[i].value;
+                                    var name = "yearly";
+                                }
+                                
+                            }
+                            else {
+                                //$scope.response = $scope.response[0];
+                                
+                                if ($scope.response[i].hasOwnProperty('department')) {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].department;
+                                }
+                                else {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].username;
+                                }
+                                
+                                
+
+                            }
+                            
+                            
+                            
+                            plotDataBarY.push({
+                                x: xVal,
+                                y: yVal,
+                                name: name,
+                                type: 'bar',
+                                marker: {
+                                    color: d3colors(i)
+                                }
+                            })
+                        }
+                        
+                    }
+
+                    //var marker = ["#"]
+
+                    //$('.chart-render-' + $scope.chartId).show();
+                    Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+
+                }
+
+                if (chartType == "pie_chart") {
+                    var plotDataBarY = [];
+                    for (i = 0; i < $scope.response.length; i++) {
+
+                    if($scope.report_type == "yearly") {
+                                if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
+                                    var xVal = $scope.response[i].label;
+                                    var yVal = $scope.response[i].value;
+                                    var name = "yearly";
+                                }
+                                
+                            }
+                            else {
+                                //$scope.response = $scope.response[0];
+                                
+                                if ($scope.response[i].hasOwnProperty('department')) {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].department;
+                                }
+                                else {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].username;
+                                }
+                                
+                                
+
+                            }
+                            plotDataBarY.push({
+                                labels: xVal,
+                                values: yVal,
+                                name: name,
+                                type: 'pie',
+                                textinfo: 'none',
+                                marker: {
+                                    color: d3colors(i)
+                                }
+                            });
+                            //debugger;
+
+                    
+                }
+                    var layout = {};
+                    if($scope.report_type == "yearly") {
+                            layout.title = product_name +  ' / Yearly Report';
+                        }
+                        else if($scope.report_type == "monthly"){
+                             layout.title = product_name +  ' / Monthly Report';
+                         }
+                        else if($scope.report_type == "weekly"){
+                                layout.title = product_name +  ' / Weekly Report';
+                        }
+                        else {
+                                layout.title = product_name +  ' / This week Report';
+                        }
+                    Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout);
+
+
+                }
+                if (chartType == 'line_chart') {
+
+                    //var marker = ["#"]
+                    var plotDataBarY = [];
+                    if ($scope.report_type == 'thisweek') {
+                        layout.title = product_name +  ' / This Week Report';
+                        var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                        for (i = 0; i < $scope.response[0].license.length; i++) {
+                            for (key in $scope.response[0].license[i]) {
+                                plotDataBarY.push({
+                                    x: xAxisVal,
+                                    y: $scope.response[0].license[i][key],
+                                    name: key,
+                                    type: 'scatter',
+                                    marker: {
+                                        color: d3colors(i)
+                                    }
+                                })
+                            }
+                        }
+                    }
+                    if ($scope.report_type == 'weekly') {
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+                        $scope.weeklyresponse = $scope.response;
+                        $scope.reportyearlist = [];
+                        for (i = 0; i < $scope.response.length; i++) {
+                            if (i == 0) {
+                                $scope.reportyearlist.push({
+                                    "year": $scope.response[i].year,
+                                    "checked": true
+                                });
+                            } else {
+                                $scope.reportyearlist.push({
+                                    "year": $scope.response[i].year,
+                                    "checked": false
+                                });
+                            }
+
+                        };
+
+
+                        var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
+
+                        for (i = 0; i < $scope.response[0].license.length; i++) {
+                            for (key in $scope.response[0].license[i]) {
+                                plotDataBarY.push({
+                                    x: xAxisVal,
+                                    y: $scope.response[0].license[i][key],
+                                    name: monthArray[i],
+                                    type: 'scatter',
+                                    marker: {
+                                        color: d3colors(i)
+                                    }
+                                })
+
+                            }
+
+                        }
+                    }
+                    else {
+
+                        for (i = 0; i < $scope.response.length; i++) {
+                            if($scope.report_type == "yearly") {
+                                if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
+                                    var xVal = $scope.response[i].label;
+                                    var yVal = $scope.response[i].value;
+                                    var name = "yearly";
+                                }
+                                
+                            }
+                            else {
+                                //$scope.response = $scope.response[0];
+                                if ($scope.response[i].hasOwnProperty('department')) {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].department;
+                                }
+                                else {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].username;
+                                }
+                                
+
+                            }
+                            plotDataBarY.push({
+                                x: xVal,
+                                y: yVal,
+                                name: name,
+                                type: 'scatter',
+                                marker: {
+                                    color: d3colors(i)
+                                }
+                            })
+                            
+                        }
+                        //debugger;
+
+                    }
+                    Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+                }
+                if (chartType == "area_chart") {
+
+                    //var marker = ["#"]
+                    var plotDataBarY = [];
+                    if ($scope.report_type == 'thisweek') {
+                        //$scope.thisWeekCommonChartType($scope.response[0]);
+                        layout.title = product_name +  ' / This Week Report';
+                        var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                        for (i = 0; i < $scope.response[0].license.length; i++) {
+                            for (key in $scope.response[0].license[i]) {
+                                plotDataBarY.push({
+                                    x: xAxisVal,
+                                    y: $scope.response[0].license[i][key],
+                                    name: key,
+                                    fill: 'tozeroy',
+                                    type: 'scatter',
+                                    marker: {
+                                        color: d3colors(i)
+                                    }
+                                })
+                            }
+                        }
+                    }
+                    if ($scope.report_type == 'weekly') {
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+                        $scope.weeklyresponse = $scope.response;
+                        $scope.reportyearlist = [];
+                        for (i = 0; i < $scope.response.length; i++) {
+                            if (i == 0) {
+                                $scope.reportyearlist.push({
+                                    "year": $scope.response[i].year,
+                                    "checked": true
+                                });
+                            } else {
+                                $scope.reportyearlist.push({
+                                    "year": $scope.response[i].year,
+                                    "checked": false
+                                });
+                            }
+
+                        };
+
+
+                        var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
+
+                        for (i = 0; i < $scope.response[0].license.length; i++) {
+                            for (key in $scope.response[0].license[i]) {
+                                plotDataBarY.push({
+                                    x: xAxisVal,
+                                    y: $scope.response[0].license[i][key],
+                                    name: monthArray[i],
+                                    fill: 'tozeroy',
+                                    type: 'scatter',
+                                    marker: {
+                                        color: d3colors(i)
+                                    }
+                                })
+
+                            }
+
+                        }
+                    }
+                    else {
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+                        
+                        for (i = 0; i < $scope.response.length; i++) {
+                            if($scope.report_type == "yearly") {
+                                if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
+                                    var xVal = $scope.response[i].label;
+                                    var yVal = $scope.response[i].value;
+                                    var name = "yearly";
+                                }
+                                
+                            }
+                            else {
+                                //$scope.response = $scope.response[0];
+                                if ($scope.response[i].hasOwnProperty('department')) {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].department;
+                                }
+                                else {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].username;
+                                }
+                                
+
+                            }
+                            plotDataBarY.push({
+                                x: xVal,
+                                y: yVal,
+                                name: name,
+                                fill: 'tozeroy',
+                                type: 'scatter'
+
+                            })
+                        }
+                    }
+                    Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+
+                }
+                if (chartType == "horizontal_bar_chart") {
+                    var layout = {
+                        title: product_name +  ' / Yearly Report',
+                        showlegend: true,
+                        legend: {
+                            "orientation": "h",
+                            x: 0.58,
+                            y: 1.1
+                        },
+                        yaxis: {
+                            type: 'category',
+                            showgrid: false,
+                            gridcolor: '#bdbdbd',
+                            tickangle: -45,
+                        },
+                        xaxis: {
+                            showgrid: true,
+                            title: 'Total number of license used',
+                            showline: true
+                        },
+                        barmode: 'group',
+                        bargroupgap: 0.5,
+                        autosize: true
+
+                    };
+                    //var marker = ["#"]
+                    var plotDataBarY = [];
+                    if ($scope.report_type == 'thisweek') {
+                        //$scope.thisWeekCommonChartType($scope.response[0]);
+                        layout.title = product_name +  ' / This Week Report';
+                        var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                        for (i = 0; i < $scope.response[0].license.length; i++) {
+                            for (key in $scope.response[0].license[i]) {
+                                plotDataBarY.push({
+                                    x: $scope.response[0].license[i][key],
+                                    y: xAxisVal,
+                                    name: key,
+                                    type: 'bar',
+                                    orientation: 'h',
+                                    marker: {
+                                        color: d3colors(i)
+                                    }
+                                })
+                            }
+                        }
+                    }
+                    if ($scope.report_type == 'weekly') {
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+                        $scope.weeklyresponse = $scope.response;
+                        $scope.reportyearlist = [];
+                        for (i = 0; i < $scope.response.length; i++) {
+                            if (i == 0) {
+                                $scope.reportyearlist.push({
+                                    "year": $scope.response[i].year,
+                                    "checked": true
+                                });
+                            } else {
+                                $scope.reportyearlist.push({
+                                    "year": $scope.response[i].year,
+                                    "checked": false
+                                });
+                            }
+
+                        };
+
+
+                        var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
+
+                        for (i = 0; i < $scope.response[0].license.length; i++) {
+                            for (key in $scope.response[0].license[i]) {
+                                plotDataBarY.push({
+                                    x: $scope.response[0].license[i][key],
+                                    y: xAxisVal,
+                                    name: monthArray[i],
+                                    type: 'bar',
+                                    orientation: 'h',
+                                    marker: {
+                                        color: d3colors(i)
+                                    }
+                                })
+
+                            }
+
+                        }
+                    }
+                    else {
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+                        for (i = 0; i < $scope.response.length; i++) {
+                             if($scope.report_type == "yearly") {
+                                if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
+                                    var xVal = $scope.response[i].label;
+                                    var yVal = $scope.response[i].value;
+                                    var name = "yearly";
+                                }
+                                
+                            }
+                            else {
+                                //$scope.response = $scope.response[0];
+                                if ($scope.response[i].hasOwnProperty('department')) {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].department;
+                                }
+                                else {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].username;
+                                }
+                                
+
+                            }
+                            plotDataBarY.push({
+                                x: yVal,
+                                y: xVal,
+                                name: name,
+                                type: 'bar',
+                                orientation: 'h',
+                                marker: {
+                                    color: d3colors(i)
+                                }
+                            })
+                        }
+                    }
+
+                    //$('.chart-render-' + $scope.chartId).show();
+                    Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+
+                }
+                if (chartType == "stacked_bar_chart") {
+                    console.log(layout);
+                    //debugger;
+                    layout.barmode = 'stack';
+                    //var marker = ["#"]
+                    var plotDataBarY = [];
+                    if ($scope.report_type == 'thisweek') {
+                        //$scope.thisWeekCommonChartType($scope.response[0]);
+                        layout.title = product_name +  ' / This Week Report';
+                        var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                        for (i = 0; i < $scope.response[0].license.length; i++) {
+                            for (key in $scope.response[0].license[i]) {
+                                plotDataBarY.push({
+                                    x: xAxisVal,
+                                    y: $scope.response[0].license[i][key],
+                                    name: key,
+                                    type: 'bar',
+                                    marker: {
+                                        color: d3colors(i)
+                                    }
+                                })
+                            }
+                        }
+                    }
+                    if ($scope.report_type == 'weekly') {
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+                        $scope.weeklyresponse = $scope.response;
+                        $scope.reportyearlist = [];
+                        for (i = 0; i < $scope.response.length; i++) {
+                            if (i == 0) {
+                                $scope.reportyearlist.push({
+                                    "year": $scope.response[i].year,
+                                    "checked": true
+                                });
+                            } else {
+                                $scope.reportyearlist.push({
+                                    "year": $scope.response[i].year,
+                                    "checked": false
+                                });
+                            }
+
+                        };
+
+
+                        var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
+
+                        for (i = 0; i < $scope.response[0].license.length; i++) {
+                            for (key in $scope.response[0].license[i]) {
+                                plotDataBarY.push({
+                                    x: xAxisVal,
+                                    y: $scope.response[0].license[i][key],
+                                    name: monthArray[i],
+                                    type: 'bar',
+                                    marker: {
+                                        color: d3colors(i)
+                                    }
+                                })
+
+                            }
+
+                        }
+                    }
+                    else {
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+                        for (i = 0; i < $scope.response.length; i++) {
+                             if($scope.report_type == "yearly") {
+                                if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
+                                    var xVal = $scope.response[i].label;
+                                    var yVal = $scope.response[i].value;
+                                    var name = "yearly";
+                                }
+                                
+                            }
+                            else {
+                                //$scope.response = $scope.response[0];
+                                if ($scope.response[i].hasOwnProperty('department')) {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].department;
+                                }
+                                else {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].username;
+                                }
+                                
+
+                            }
+                            plotDataBarY.push({
+                                x: xVal,
+                                y: yVal,
+                                name: name,
+                                type: 'bar',
+                                marker: {
+                                    color: d3colors(i)
+                                }
+                            })
+                        }
+                    }
+
+
+
+
+                    //$('.chart-render-' + $scope.chartId).show();
+                    Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+
+                }
+
+                if (chartType == "box_plot_styling_outliers_chart") {
+
+                    layout.barmode = 'stack';
+                    var plotDataBarY = [];
+                    if ($scope.report_type == 'thisweek') {
+                        //$scope.thisWeekCommonChartType($scope.response[0]);
+                        layout.title = product_name +  ' / This Week Report';
+                        var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                        for (i = 0; i < $scope.response[0].license.length; i++) {
+                            for (key in $scope.response[0].license[i]) {
+                                plotDataBarY.push({
+                                    y: $scope.response[0].license[i][key],
+                                    name: key,
+                                    type: 'box'
+                                })
+                            }
+                        }
+                    }
+                    else {
+                        for (i = 0; i < $scope.response.length; i++) {
+                            if($scope.report_type == "yearly") {
+                                if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
+                                    var xVal = $scope.response[i].label;
+                                    var yVal = $scope.response[i].value;
+                                    var name = "yearly";
+                                }
+                                
+                            }
+                            else {
+                                //$scope.response = $scope.response[0];
+                                if ($scope.response[i].hasOwnProperty('department')) {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].department;
+                                }
+                                else {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].username;
+                                }
+                                
+
+                            }
+                            plotDataBarY.push({
+                                y: yVal,
+                                type: 'box',
+                                name: name
+                            })
+                        }
+                    }
+                    
+
+
+
+                    //$('.chart-render-' + $scope.chartId).show();
+                    Plotly.newPlot($scope.chartRenderId, plotDataBarY,layout, plotlyDefaultConfigurationBar);
+
+                }
+                if (chartType == "bubble_chart") {
+                    var layout = {
+                        title: product_name +  ' / Yearly Report',
+                        showlegend: true,
+
+                    };
+                    var plotDataBarY = [];
+                    var size = [];
+
+                    if ($scope.report_type == 'thisweek') {
+                        //$scope.thisWeekCommonChartType($scope.response[0]);
+                        layout.title = product_name +  ' / This Week Report';
+                        var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                        for (i = 0; i < $scope.response[0].license.length; i++) {
+                            for (key in $scope.response[0].license[i]) {
+                                plotDataBarY.push({
+                                    x: xAxisVal,
+                                    y: $scope.response[0].license[i][key],
+                                    mode: 'markers',
+                                    marker: {
+                                        size: [20, 40, 60]
+                                    },
+                                    name: key
+                                })
+                            }
+                        }
+                    }
+                    if ($scope.report_type == 'weekly') {
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+                        $scope.weeklyresponse = $scope.response;
+                        $scope.reportyearlist = [];
+                        for (i = 0; i < $scope.response.length; i++) {
+                            if (i == 0) {
+                                $scope.reportyearlist.push({
+                                    "year": $scope.response[i].year,
+                                    "checked": true
+                                });
+                            } else {
+                                $scope.reportyearlist.push({
+                                    "year": $scope.response[i].year,
+                                    "checked": false
+                                });
+                            }
+
+                        };
+
+
+                        var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
+
+                        for (i = 0; i < $scope.response[0].license.length; i++) {
+                            for (key in $scope.response[0].license[i]) {
+                                plotDataBarY.push({
+                                    x: xAxisVal,
+                                    y: $scope.response[0].license[i][key],
+                                    name: monthArray[i],
+                                    mode: 'markers',
+                                    marker: {
+                                        size: [10, 20, 30, 40, 50]
+                                    },
+                                })
+
+                            }
+
+                        }
+                    }
+                    else {
+                        for (i = 0; i < $scope.response.length; i++) {
+                            for (j = 0; j < $scope.response[i].license.length; j++) {
+                                console.log($scope.response[i].license[j]);
+                                if ($scope.response[i].license[j] > 10) {
+                                    //debugger;
+                                    size.push($scope.response[i].license[j] / 7)
+                                } else {
+                                    size.push($scope.response[i].license[j]);
+                                    //debugger;
+                                }
+                            }
+                            if($scope.report_type == "yearly") {
+                                if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
+                                    var xVal = $scope.response[i].label;
+                                    var yVal = $scope.response[i].value;
+                                    var name = "yearly";
+                                }
+                                
+                            }
+                            else {
+                                //$scope.response = $scope.response[0];
+                                if ($scope.response[i].hasOwnProperty('department')) {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].department;
+                                }
+                                else {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].username;
+                                }
+                                
+
+                            }
+                            plotDataBarY.push({
+                                x: xVal,
+                                y: yVal,
+                                mode: 'markers',
+                                marker: {
+                                    size: size
+                                },
+                                name: name
+                            });
+                        }
+                    }
+
+
+
+
+
+                    //$('.chart-render-' + $scope.chartId).show();
+                    Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, {
+                        showSendToCloud: true
+                    });
+
+                }
+
+                if (chartType == 'scatter_chart') {
+
+                    var plotDataBarY = [];
+                    if ($scope.report_type == 'thisweek') {
+                        //$scope.thisWeekCommonChartType($scope.response[0]);
+                        layout.title = product_name +  ' / This Week Report';
+                        var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                        for (i = 0; i < $scope.response[0].license.length; i++) {
+                            for (key in $scope.response[0].license[i]) {
+                                plotDataBarY.push({
+                                    x: xAxisVal,
+                                    y: $scope.response[0].license[i][key],
+                                    name: key,
+                                    mode: 'markers',
+                                    type: 'scatter',
+                                    marker: {
+                                        color: d3colors(i)
+                                    }
+                                })
+                            }
+                        }
+                    }
+                    if ($scope.report_type == 'weekly') {
+                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+                        $scope.weeklyresponse = $scope.response;
+                        $scope.reportyearlist = [];
+                        for (i = 0; i < $scope.response.length; i++) {
+                            if (i == 0) {
+                                $scope.reportyearlist.push({
+                                    "year": $scope.response[i].year,
+                                    "checked": true
+                                });
+                            } else {
+                                $scope.reportyearlist.push({
+                                    "year": $scope.response[i].year,
+                                    "checked": false
+                                });
+                            }
+
+                        };
+
+
+                        var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
+
+                        for (i = 0; i < $scope.response[0].license.length; i++) {
+                            for (key in $scope.response[0].license[i]) {
+                                plotDataBarY.push({
+                                    x: xAxisVal,
+                                    y: $scope.response[0].license[i][key],
+                                    name: monthArray[i],
+                                    mode: 'markers',
+                                    type: 'scatter',
+                                    marker: {
+                                        color: d3colors(i)
+                                    }
+                                })
+
+                            }
+
+                        }
+                    }
+                    else {
+                        for (i = 0; i < $scope.response.length; i++) {
+                             if($scope.report_type == "yearly") {
+                                if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
+                                    var xVal = $scope.response[i].label;
+                                    var yVal = $scope.response[i].value;
+                                    var name = "yearly";
+                                }
+                                
+                            }
+                            else {
+                                //$scope.response = $scope.response[0];
+                                if ($scope.response[i].hasOwnProperty('department')) {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].department;
+                                }
+                                else {
+                                    var xVal = xAxisVal;
+                                    var yVal = $scope.response[i].license;
+                                    var name = $scope.response[i].username;
+                                }
+                                
+
+                            }
+                            plotDataBarY.push({
+                                x: xVal,
+                                y: yVal,
+                                name: name,
+                                mode: 'markers',
+                                type: 'scatter',
+                                marker: {
+                                    color: d3colors(i)
+                                }
+                            })
+                        }
+                    }
+                    //$('.chart-render-' + $scope.chartId).show();
+                    Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+                }
+                if(chartType == 'polar_chart') {
+                    $scope.drawReportPolarChart($scope.response,$scope.chartRenderId, reportType);
+                    $scope.weeklyresponse = $scope.response;
+
+                }
+
+            } else {
+                $scope.error = $scope.response.message;
+                $scope.user.password = "";
+            }
+        });
+
+
+
+    }
 
     /*$scope.thisWeekCommonChartType =  function(response) {
          var plotDataBarY = [];
@@ -1877,7 +2970,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             $scope.adminReportYearList[currentProduct] = response.data;
             //console.log( $scope.adminReportYearList,"year list");
             $scope.defaultFilterVal = $scope.adminReportYearList[currentProduct][0].year;
-            $scope.getAdminYearlyReportDepartmentFilter(userFilterType, defaultFilterVal,currentProduct);
+            $scope.getAdminYearlyReportDepartmentFilter(userFilterType, $scope.defaultFilterVal,currentProduct);
 
 
         });
@@ -1911,6 +3004,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             else {
                 $scope.drawGraph($scope.AdminYearlyReportDepartmentFilter[0],currentProduct, defaultFilterVal);
                 $scope.yearlyAdminReportIndividual = $scope.AdminYearlyReportDepartmentFilter[0];
+                $scope.weeklyresponse = $scope.AdminYearlyReportDepartmentFilter;
                 
             }
 
@@ -2078,7 +3172,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     $scope.userFilterType = 'dept';
     $scope.reportAdminFilter = function (e, adminFilter, userFilterType, defaultFilterVal,currentProduct) {
         
-        //debugger;
+        
         var report_dur = adminFilter.split("_");
         var report = report_dur[0];
         $scope.report_type = report_dur[0];
@@ -2092,8 +3186,9 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         else {
             $scope.userFilterType = 'user';
         }
-        if ($scope.report_type == "yearly") {
+        if ($scope.report_type == "yearly" && $(event.target).hasClass('individual-filter')) {
             $scope.getAdminReportYearList(userFilterType, defaultFilterVal,currentProduct);
+            
         }
         else {
 

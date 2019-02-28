@@ -2829,7 +2829,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
             $scope.userFilterType = 'dept';
         }
        
-        if ($scope.report_type == "yearly") {
+        if ($scope.report_type == "yearly" && $(event.target).hasClass('individual-filter')) {
             $scope.getDeptReportYearList(userFilterType, defaultFilterVal,currentProduct);
             
             

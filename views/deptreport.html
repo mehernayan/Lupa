@@ -12,7 +12,7 @@
                         <input type="radio" name="{{currentProduct + 'deptFilterYearlyLicense'}}" ng-checked="true" ng-model="deptFilterYearly" value="yearly_overall"
                             ng-click="loadYearlyGraph('yearly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
                         <input type="radio" name="{{currentProduct + 'deptFilterYearlyLicense'}}" ng-checked="false" ng-model="deptFilterYearly"
-                            value="yearly_individual" data-ng-click="reportDeptFilter($event,deptFilterYearly,userFilterType,defaultFilterVal,currentProduct)">Individual
+                            value="yearly_individual" class="individual-filter" data-ng-click="reportDeptFilter($event,deptFilterYearly,userFilterType,defaultFilterVal,currentProduct)">Individual
                     </div>
 
                     <div ng-if="deptFilterYearly  == 'yearly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
@@ -545,7 +545,7 @@
         <input type="radio" name="{{currentProduct + 'deptFilterYearlyTime'}}" ng-checked="true" ng-model="deptFilterYearly" value="yearly_overall"
             ng-click="loadYearlyGraph('yearly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
         <input type="radio" name="{{currentProduct + 'deptFilterYearlyTime'}}" ng-checked="false" ng-model="deptFilterYearly" value="yearly_individual"
-            data-ng-click="reportDeptFilter($event,deptFilterYearly,userFilterType,defaultFilterVal,currentProduct)">Individual
+            class="individual-filter" data-ng-click="reportDeptFilter($event,deptFilterYearly,userFilterType,defaultFilterVal,currentProduct)">Individual
     </div>
 
     <div ng-if="deptFilterYearly  == 'yearly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
