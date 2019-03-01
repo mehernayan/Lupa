@@ -1939,7 +1939,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
 
 
-    //$scope.changeGraph('yearly', 'vertical_bar_chart', 'license_statistics');
+   
     
     
     $scope.addedFav = false;
@@ -3199,7 +3199,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
 
                 $scope.defaultFilterVal = $scope.deptReportYearList[currentProduct][0].year;
-                $scope.getDeptReportFilter(userFilterType, defaultFilterVal,currentProduct);
+                $scope.getDeptReportFilter(userFilterType, $scope.defaultFilterVal,currentProduct);
                 
             }
 

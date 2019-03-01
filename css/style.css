@@ -1073,3 +1073,6 @@ color: #f00;
 .added-success {
     color: #0f0;
 }
+.individual-report .ui-icon-gripsmall-diagonal-se {
+    bottom: -15px  !important;
+}
