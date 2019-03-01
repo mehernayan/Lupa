@@ -125,7 +125,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     Plotly.Plots.resize(gd1);
                 }
             });
-            }, 3000)
+            }, 2000)
             
             /*var gd1 = document.getElementById("product-chart-yearly1");
 		    Plotly.Plots.resize(gd1);
@@ -148,7 +148,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     Plotly.Plots.resize(gd1);
                 }
             });
-            }, 3000);
+            }, 2000);
             //var gd1 = document.getElementById("product-chart-yearly0");
 		    //Plotly.Plots.resize(gd1);
 
@@ -166,7 +166,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     Plotly.Plots.resize(gd1);
                 }
             });
-            }, 3000);
+            }, 2000);
             //var gd1 = document.getElementById("product-chart-yearly0");
 		    //Plotly.Plots.resize(gd1);
         } else if (report == 'thisweek') {
@@ -183,7 +183,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     Plotly.Plots.resize(gd1);
                 }
             });
-            }, 3000);
+            }, 2000);
             //var gd1 = document.getElementById("product-chart-yearly0");
 		    //Plotly.Plots.resize(gd1);
 
@@ -212,7 +212,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                             Plotly.Plots.resize(gd1);
                         }
                     });
-                }, 3000);
+                }, 2000);
 
         } else if (report == 'monthly') {
             $scope.report_type = 'monthly';
@@ -227,7 +227,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                             Plotly.Plots.resize(gd1);
                         }
                     });
-             }, 3000);
+             }, 2000);
 
         } else if (report == 'weekly') {
             $scope.report_type = 'weekly';
@@ -242,7 +242,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                             Plotly.Plots.resize(gd1);
                         }
                     });
-             }, 3000);
+             }, 2000);
         } else if (report == 'thisweek') {
             $scope.thisweekFlag = true;
             $scope.report_type = 'thisweek';
@@ -256,7 +256,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                             Plotly.Plots.resize(gd1);
                         }
                     });
-             }, 3000);
+             }, 2000);
 
         }
         }
