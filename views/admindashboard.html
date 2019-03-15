@@ -1,276 +1,333 @@
 <header ng-include="'views/partials/header.html'"></header>
 <div class="sidebar-panel" ng-class="{'expand': expandNav}">
-    <div ng-include="'views/partials/sidebar.html'"></div>
+   <div ng-include="'views/partials/sidebar.html'"></div>
 </div>
 <div class="dashboard-container body-container" ng-class="{'expand':expandNav}">
-    
-        <div class="row">
-            <div class="col-sm-8">
-                <div class="col-sm-12">
-                     <img src="images/no-image.JPG"  ng-if="noData" />
-                    <div id="chart" style="height: 400px; min-width: 310px">
-                    </div>
-                    <ul class="live-chart-list" ng-show="!individualProductChart">
-    <li ng-repeat="item in productListDashboard | emptyFilter">
-        <input type="checkbox" ng-model="item.value" ng-change="changeProductDashboard(item.product_name, productListDashboard)">
-        <label>{{item.product_name}}</label>
-    </li>
-</ul>
-</div>
-<div class="col-sm-12">
-    <div class="col-sm-4">
-        <div class="recent-update">
-            <h4>Last 5 Minutes</h4>
-
-            <select class="form-control" ng-init="selectedProductFiveMinutes = productlist[0]" id="last-5-minute" ng-model="selectedProductFiveMinutes" ng-change="getLastFiveMinutesReport(selectedProductFiveMinutes)">
-                            <option style="display:none" value="">select a product</option>
-                            <option ng-repeat="item in productlist">{{item}}</option>
-                          </select>
-            <ul>
-                <li ng-repeat="item in fiveMinuteDataJobs">
-                    <span ng-class="{green_dot: $index == 0, blue_dot: $index == 1, red_dot: $index == 2, orange_dot: $index == 3 }"></span>
-                    <span ng-repeat="(key,value) in item" class="rel-pos-top-5">
-                                   <span class="job_status">{{key}}</span>: {{value}}
-                    </span>
-                </li>
+   <div class="row">
+      <div class="col-sm-8">
+         <div class="col-sm-12">
+            <img src="images/no-image.JPG"  ng-if="noData" />
+            <div id="chart" style="height: 400px; min-width: 310px">
+            </div>
+            <ul class="live-chart-list" ng-show="!individualProductChart">
+               <li ng-repeat="item in productListDashboard | emptyFilter">
+                  <input type="checkbox" ng-model="item.value" ng-change="changeProductDashboard(item.product_name, productListDashboard)">
+                  <label>{{item.product_name}}</label>
+               </li>
             </ul>
-
-        </div>
-
-    </div>
-    <div class="col-sm-4">
-        <div class="recent-update">
-            <h4>Last 24 Hours</h4>
-            <select class="form-control" id="today-report" ng-init="selectedProductToday = productlist[0]" ng-model="selectedProductToday" ng-change="getTodayReport(selectedProductToday)">
-                            <option style="display:none" value="">select a product</option>
-                            <option ng-repeat="item in productlist">{{item}}</option>
-                          </select>
-            <ul>
-                <li ng-repeat="item in todayDataJobs">
-                    <span ng-class="{green_dot: $index == 0, blue_dot: $index == 1, red_dot: $index == 2, orange_dot: $index == 3 }"></span>
-                    <span ng-repeat="(key,value) in item" class="rel-pos-top-5">
-                                   <span class="job_status">{{key}}</span>: {{value}}
-                    </span>
-                </li>
-            </ul>
-
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="recent-update">
-            <h4>Saturation</h4>
-            <select class="form-control" id="saturation-report" ng-model="saturationData" ng-change="getSaturationReport(saturationData)">
-                            <option style="display:none" value="">select a product</option>
-                            <option ng-repeat="item in productlist">{{item}}</option>
-                          </select>
-
-
-        </div>
-    </div>
-    <div class="col-sm-12">
-        <div class="saturation-cont full-screen-view chart-container" ng-show="polarChartFlag" ng-class="{'dashboard-box-shadow' : polarChartFlag}">
-            <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-
-                            
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreenOther($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-
-                            
-
-                        </div>
-                    </div>
-            <div id="saturation" >
-
+         </div>
+         <div class="col-sm-12">
+            <div class="col-sm-4">
+               <div class="recent-update">
+                  <h4>Last 5 Minutes</h4>
+                  <select class="form-control" ng-init="selectedProductFiveMinutes = productlist[0]" id="last-5-minute" ng-model="selectedProductFiveMinutes" ng-change="getLastFiveMinutesReport(selectedProductFiveMinutes)">
+                     <option style="display:none" value="">select a product</option>
+                     <option ng-repeat="item in productlist">{{item}}</option>
+                  </select>
+                  <ul>
+                     <li ng-repeat="item in fiveMinuteDataJobs">
+                        <span ng-class="{green_dot: $index == 0, blue_dot: $index == 1, red_dot: $index == 2, orange_dot: $index == 3 }"></span>
+                        <span ng-repeat="(key,value) in item" class="rel-pos-top-5">
+                        <span class="job_status">{{key}}</span>: {{value}}
+                        </span>
+                     </li>
+                  </ul>
+               </div>
             </div>
-        </div>
-
-    </div>
-</div>
-</div>
-<div class="col-sm-4">
-    
-    <h4 class="recent-report-heading" ng-show="showNoRecentSection"> No Recent Reports Available</h4>
-    
-    <div class="col-sm-12 chart-render chart-render-0 full-screen-view" ng-show="recentReportLength" id="full-screen-view-1" >
-                <div class="pie-chart-container chart-container back-g-white half-bordered">
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-
-                            
-
-                        </div>
-                    </div>
-                    <h4 class="recent-report-heading">Recent Reports</h4>
-                    <div id="product-chart-yearly0"></div>
-                    
-                    <div class="weekly-section" ng-if="report_type == 'weekly'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist">
-                                <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
-                                {{item.year}}
-                            </li>
-                        </ul>
-                        
-
-
-                    </div>
-                   
-                    
-                </div>
+            <div class="col-sm-4">
+               <div class="recent-update">
+                  <h4>Last 24 Hours</h4>
+                  <select class="form-control" id="today-report" ng-init="selectedProductToday = productlist[0]" ng-model="selectedProductToday" ng-change="getTodayReport(selectedProductToday)">
+                     <option style="display:none" value="">select a product</option>
+                     <option ng-repeat="item in productlist">{{item}}</option>
+                  </select>
+                  <ul>
+                     <li ng-repeat="item in todayDataJobs">
+                        <span ng-class="{green_dot: $index == 0, blue_dot: $index == 1, red_dot: $index == 2, orange_dot: $index == 3 }"></span>
+                        <span ng-repeat="(key,value) in item" class="rel-pos-top-5">
+                        <span class="job_status">{{key}}</span>: {{value}}
+                        </span>
+                     </li>
+                  </ul>
+               </div>
             </div>
-            <div class="col-sm-12  chart-render chart-render-1 full-screen-view"  ng-show="recentReportLength" id="full-screen-view-2" >
-                <div class="pie-chart-container chart-container back-g-white half-bordered">
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-
-                            
-
-                        </div>
-                    </div>
-                    <h4 class="recent-report-heading">Recent Report</h4>
-                    <div id="product-chart-yearly1"></div>
-                    <div class="weekly-section" ng-if="report_type == 'weekly'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist">
-                                <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
-                                {{item.year}}
-                            </li>
-                        </ul>
-                        
-
-
-                    </div>
-                   
-                    
-                </div>
+            <div class="col-sm-4">
+               <div class="recent-update">
+                  <h4>Saturation</h4>
+                  <select class="form-control" id="saturation-report" ng-model="saturationData" ng-change="getSaturationReport(saturationData)">
+                     <option style="display:none" value="">select a product</option>
+                     <option ng-repeat="item in productlist">{{item}}</option>
+                  </select>
+               </div>
             </div>
-            
-            <div class="col-sm-12  chart-render chart-render-2 full-screen-view"  ng-show="recentReportLength" id="full-screen-view-3" >
-                <div class="pie-chart-container chart-container back-g-white half-bordered">
-                    <div class="dropdown chart-dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-                            <i class="far fa-square"></i>
-
-                        </div>
-                        <div class="dropdown-menu">
-
-                            <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
-                                </a>
-                            </li>
-
-                            
-
-                        </div>
-                    </div>
-                    <h4 class="recent-report-heading">Recent Report</h4>
-                    <div id="product-chart-yearly2"></div>
-                    
-                    <div class="weekly-section" ng-if="report_type == 'weekly'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist">
-                                <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
-                                {{item.year}}
-                            </li>
-                        </ul>
-                        
-
-
-                    </div>
-                   
-                    
-                </div>
+            <div class="col-sm-12">
+               <div class="saturation-cont full-screen-view chart-container" ng-show="polarChartFlag" ng-class="{'dashboard-box-shadow' : polarChartFlag}">
+                  <div class="dropdown chart-dropdown">
+                     <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="far fa-square"></i>
+                        <i class="far fa-square"></i>
+                        <i class="far fa-square"></i>
+                     </div>
+                     <div class="dropdown-menu">
+                        <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
+                           </a>
+                        </li>
+                        <li>
+                           <a class="dropdown-item" ng-click="goFullscreenOther($event)"> <i class="fa fa-expand"></i>
+                           </a>
+                        </li>
+                     </div>
+                  </div>
+                  <div id="saturation" >
+                  </div>
+               </div>
             </div>
-    
+         </div>
+      </div>
+      <div class="col-sm-4">
+         <h4 class="recent-report-heading" ng-show="showNoRecentSection"> No Recent Reports Available</h4>
+         <div class="col-sm-12 chart-render chart-render-0 full-screen-view" ng-show="recentReportLength" id="full-screen-view-1" >
+            <div class="pie-chart-container chart-container back-g-white half-bordered">
+               <div class="dropdown chart-dropdown">
+                  <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <i class="far fa-square"></i>
+                     <i class="far fa-square"></i>
+                     <i class="far fa-square"></i>
+                  </div>
+                  <div class="dropdown-menu">
+                     <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
+                        </a>
+                     </li>
+                  </div>
+               </div>
+               <h4 class="recent-report-heading">Recent Reports</h4>
+               <div id="product-chart-yearly0"></div>
+               <div class="weekly-section" ng-if="report_type == 'weekly'">
+                  <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
+                  <ul>
+                     <li ng-repeat="item in reportyearlist">
+                        <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
+                        {{item.year}}
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="col-sm-12  chart-render chart-render-1 full-screen-view"  ng-show="recentReportLength" id="full-screen-view-2" >
+            <div class="pie-chart-container chart-container back-g-white half-bordered">
+               <div class="dropdown chart-dropdown">
+                  <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <i class="far fa-square"></i>
+                     <i class="far fa-square"></i>
+                     <i class="far fa-square"></i>
+                  </div>
+                  <div class="dropdown-menu">
+                     <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
+                        </a>
+                     </li>
+                  </div>
+               </div>
+               <h4 class="recent-report-heading">Recent Report</h4>
+               <div id="product-chart-yearly1"></div>
+               <div class="weekly-section" ng-if="report_type == 'weekly'">
+                  <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
+                  <ul>
+                     <li ng-repeat="item in reportyearlist">
+                        <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
+                        {{item.year}}
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="col-sm-12  chart-render chart-render-2 full-screen-view"  ng-show="recentReportLength" id="full-screen-view-3" >
+            <div class="pie-chart-container chart-container back-g-white half-bordered">
+               <div class="dropdown chart-dropdown">
+                  <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <i class="far fa-square"></i>
+                     <i class="far fa-square"></i>
+                     <i class="far fa-square"></i>
+                  </div>
+                  <div class="dropdown-menu">
+                     <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
+                        </a>
+                     </li>
+                  </div>
+               </div>
+               <h4 class="recent-report-heading">Recent Report</h4>
+               <div id="product-chart-yearly2"></div>
+               <div class="weekly-section" ng-if="report_type == 'weekly'">
+                  <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
+                  <ul>
+                     <li ng-repeat="item in reportyearlist">
+                        <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
+                        {{item.year}}
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
 
+         <div class="col-sm-12 chart-render chart-render-3 full-screen-view" ng-show="recentReportLength" id="full-screen-view-4" >
+            <div class="pie-chart-container chart-container back-g-white half-bordered">
+               <div class="dropdown chart-dropdown">
+                  <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <i class="far fa-square"></i>
+                     <i class="far fa-square"></i>
+                     <i class="far fa-square"></i>
+                  </div>
+                  <div class="dropdown-menu">
+                     <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
+                        </a>
+                     </li>
+                  </div>
+               </div>
+               <h4 class="recent-report-heading">Recent Reports</h4>
+               <div id="product-chart-yearly3"></div>
+               <div class="weekly-section" ng-if="report_type == 'weekly'">
+                  <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
+                  <ul>
+                     <li ng-repeat="item in reportyearlist">
+                        <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
+                        {{item.year}}
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="col-sm-12  chart-render chart-render-4 full-screen-view"  ng-show="recentReportLength" id="full-screen-view-5" >
+            <div class="pie-chart-container chart-container back-g-white half-bordered">
+               <div class="dropdown chart-dropdown">
+                  <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <i class="far fa-square"></i>
+                     <i class="far fa-square"></i>
+                     <i class="far fa-square"></i>
+                  </div>
+                  <div class="dropdown-menu">
+                     <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
+                        </a>
+                     </li>
+                  </div>
+               </div>
+               <h4 class="recent-report-heading">Recent Report</h4>
+               <div id="product-chart-yearly4"></div>
+               <div class="weekly-section" ng-if="report_type == 'weekly'">
+                  <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
+                  <ul>
+                     <li ng-repeat="item in reportyearlist">
+                        <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
+                        {{item.year}}
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="col-sm-12  chart-render chart-render-5 full-screen-view"  ng-show="recentReportLength" id="full-screen-view-6" >
+            <div class="pie-chart-container chart-container back-g-white half-bordered">
+               <div class="dropdown chart-dropdown">
+                  <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <i class="far fa-square"></i>
+                     <i class="far fa-square"></i>
+                     <i class="far fa-square"></i>
+                  </div>
+                  <div class="dropdown-menu">
+                     <li><a class="dropdown-item" ng-click="removeReport($event)"><i class="fa fa-window-close"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item" ng-click="zoomOut($event);"> <i class="fa fa-window-minimize"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item"> <i class="fa fa-redo-alt"></i>
+                        </a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item" ng-click="goFullscreen($event)"> <i class="fa fa-expand"></i>
+                        </a>
+                     </li>
+                  </div>
+               </div>
+               <h4 class="recent-report-heading">Recent Report</h4>
+               <div id="product-chart-yearly5"></div>
+               <div class="weekly-section" ng-if="report_type == 'weekly'">
+                  <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
+                  <ul>
+                     <li ng-repeat="item in reportyearlist">
+                        <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
+                        {{item.year}}
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-sm-8">
+      </div>
+      <div class="col-sm-4"></div>
+   </div>
 </div>
 </div>
-<div class="row">
-    <div class="col-sm-8">
-
-    </div>
-    <div class="col-sm-4"></div>
-</div>
-
-</div>
-
-</div>
-
 <footer ng-include="'views/partials/footer.html'"></footer>

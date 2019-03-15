@@ -54,7 +54,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
             showgrid: false,
             gridcolor: '#bdbdbd',
             gridwidth: 1,
-            tickangle: -45,
+            tickangle: -20,
         },
         yaxis: {
             showgrid: true,
@@ -457,7 +457,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     showgrid: false,
                     gridcolor: '#bdbdbd',
                     gridwidth: 1,
-                    tickangle: -45,
+                    tickangle: -20,
                 },
                 yaxis: {
                     showgrid: true,
@@ -570,7 +570,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     showgrid: false,
                     gridcolor: '#bdbdbd',
                     gridwidth: 1,
-                    tickangle: -45,
+                    tickangle: -20,
                 },
                 yaxis: {
                     showgrid: true,
@@ -680,7 +680,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     showgrid: false,
                     gridcolor: '#bdbdbd',
                     gridwidth: 1,
-                    tickangle: -45,
+                    tickangle: -20,
                 },
                 yaxis: {
                     showgrid: true,
@@ -814,7 +814,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     showgrid: false,
                     gridcolor: '#bdbdbd',
                     gridwidth: 1,
-                    tickangle: -45,
+                    tickangle: -20,
                 },
                 yaxis: {
                     showgrid: true,
@@ -926,7 +926,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     showgrid: false,
                     gridcolor: '#bdbdbd',
                     gridwidth: 1,
-                    tickangle: -45,
+                    tickangle: -20,
                 },
                 yaxis: {
                     showgrid: true,
@@ -1050,7 +1050,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     showgrid: false,
                     gridcolor: '#bdbdbd',
                     gridwidth: 1,
-                    tickangle: -45,
+                    tickangle: -20,
                 },
                 yaxis: {
                     showgrid: true,
@@ -1444,6 +1444,16 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         autosize: true
 
                     };
+                    if ($scope.statisticsType == 'license_statistics') {
+                        layout.xaxis.title = "Total number of license";
+                                
+
+                    }
+                    else if ($scope.statisticsType == 'time_statistics') {
+                        layout.xaxis.title = "Total number of hours used";
+                                
+                    }
+                    
                     //var marker = ["#"]
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek') {
@@ -1714,7 +1724,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                 }
                 if (chartType == "bubble_chart") {
                     var layout = {
-                        title: product_name +  ' / Yearly Report',
+                        title: product_name +  ' / '+ $scope.report_type +'Report',
                         showlegend: true,
 
                     };
@@ -2049,7 +2059,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     showgrid: false,
                     gridcolor: '#bdbdbd',
                     gridwidth: 1,
-                    tickangle: -45,
+                    tickangle: -20,
                 },
                 yaxis: {
                     showgrid: true,
@@ -2511,6 +2521,15 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         autosize: true
 
                     };
+                    if ($scope.statisticsType == 'license_statistics') {
+                        layout.xaxis.title = "Total number of license";
+                                
+
+                    }
+                    else if ($scope.statisticsType == 'time_statistics') {
+                        layout.xaxis.title = "Total number of hours used";
+                                
+                    }
                     //var marker = ["#"]
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek') {
@@ -2784,7 +2803,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                 }
                 if (chartType == "bubble_chart") {
                     var layout = {
-                        title: product_name +  ' / Yearly Report',
+                        title: product_name +  ' / '+ $scope.report_type +'Report',
                         showlegend: true,
 
                     };
@@ -3035,7 +3054,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                 showgrid: false,
                 gridcolor: '#bdbdbd',
                 gridwidth: 1,
-                tickangle: -45,
+                tickangle: -20,
             },
             yaxis: {
                 showgrid: true,
@@ -3370,7 +3389,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                 }
             }
         },
-        title: product_name + " / License used in Every Month"
+        title: product_name + " / License used " + reportType
 
 
     }

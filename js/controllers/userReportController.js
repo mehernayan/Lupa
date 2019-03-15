@@ -58,7 +58,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
             showgrid: false,
             gridcolor: '#bdbdbd',
             gridwidth: 1,
-            tickangle: -45,
+            tickangle: -25,
         },
         yaxis: {
             showgrid: true,
@@ -371,7 +371,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     showgrid: false,
                     gridcolor: '#bdbdbd',
                     gridwidth: 1,
-                    tickangle: -45,
+                    tickangle: -25,
                 },
                 yaxis: {
                     showgrid: true,
@@ -478,7 +478,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     showgrid: false,
                     gridcolor: '#bdbdbd',
                     gridwidth: 1,
-                    tickangle: -45,
+                    tickangle: -25,
                 },
                 yaxis: {
                     showgrid: true,
@@ -583,7 +583,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     showgrid: false,
                     gridcolor: '#bdbdbd',
                     gridwidth: 1,
-                    tickangle: -45,
+                    tickangle: -25,
                 },
                 yaxis: {
                     showgrid: true,
@@ -714,7 +714,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     showgrid: false,
                     gridcolor: '#bdbdbd',
                     gridwidth: 1,
-                    tickangle: -45,
+                    tickangle: -25,
                 },
                 yaxis: {
                     showgrid: true,
@@ -842,7 +842,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     showgrid: false,
                     gridcolor: '#bdbdbd',
                     gridwidth: 1,
-                    tickangle: -45,
+                    tickangle: -25,
                 },
                 yaxis: {
                     showgrid: true,
@@ -902,7 +902,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                 $('#loadergif').hide();
                 if (chartType == "vertical_bar_chart") {
                     var plotDataBarY = [];
-                    if ($scope.report_type == 'thisweek') {
+                    if ($scope.report_type == 'this_week') {
                         
                         //$scope.thisWeekCommonChartType($scope.response[0]);
                         layout.title = product_name +  ' / This Week Report';
@@ -987,19 +987,28 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                 }
 
                 if (chartType == "pie_chart") {
-                    var plotDataBarY = [{
-                        values: $scope.response[0].value,
+                    var layout = {};
+                    console.log($scope.report_type);
+                    if($scope.report_type == 'this_week') {
+                        layout.title = product_name +  ' / This week Report';
+                       
+                    }
+                    else if($scope.report_type == 'weekly'){
+                        layout.title = product_name +  ' / weekly Report';
+                    }
+                    else if($scope.report_type == "monthly") {
+                        layout.title = product_name +  ' / Monthly Report';
+                    }
+                    else {
+                        layout.title = product_name +  ' / Yearly Report';
+                    }
+                    
+                     var plotDataBarY = [{
+                        values: $scope.response[0].values,
                         labels: $scope.response[0].label,
                         type: 'pie',
                         textinfo: 'none'
                     }];
-                    var layout = {};
-                    if($scope.report_type == "yearly") {
-                            layout.title = product_name +  ' / Yearly Report';
-                        }
-                        else {
-                             layout.title = product_name +  ' / Monthly Report';
-                    }
                     Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
 
@@ -1008,7 +1017,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
                     //var marker = ["#"]
                     var plotDataBarY = [];
-                    if ($scope.report_type == 'thisweek') {
+                    if ($scope.report_type == 'this_week') {
                         layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
@@ -1026,7 +1035,19 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                         }
                     }
                     if ($scope.report_type == 'weekly') {
-                        layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+                        if($scope.report_type == 'this_week') {
+                            layout.title = product_name +  ' / This week Report';
+                        
+                        }
+                        else if($scope.report_type == 'weekly'){
+                            layout.title = product_name +  ' / weekly Report';
+                        }
+                        else if($scope.report_type == "monthly") {
+                            layout.title = product_name +  ' / Monthly Report';
+                        }
+                        else {
+                            layout.title = product_name +  ' / Yearly Report';
+                        }
                         $scope.weeklyresponse = $scope.response;
                         $scope.reportyearlist = [];
                         for (i = 0; i < $scope.response.length; i++) {
@@ -1086,9 +1107,22 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
                     //var marker = ["#"]
                     var plotDataBarY = [];
-                    if ($scope.report_type == 'thisweek') {
+                    if($scope.report_type == 'this_week') {
+                        layout.title = product_name +  ' / This week Report';
+                       
+                    }
+                    else if($scope.report_type == 'weekly'){
+                        layout.title = product_name +  ' / weekly Report';
+                    }
+                    else if($scope.report_type == "monthly") {
+                        layout.title = product_name +  ' / Monthly Report';
+                    }
+                    else {
+                        layout.title = product_name +  ' / Yearly Report';
+                    }
+                    if ($scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name +  ' / This Week Report';
+                        //layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -1145,11 +1179,18 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                         }
                     }
                     else {
-                        if($scope.report_type == "yearly") {
-                            layout.title = product_name +  ' / Yearly Report';
+                        if($scope.report_type == 'this_week') {
+                        layout.title = product_name +  ' / This week Report';
+                       
+                        }
+                        else if($scope.report_type == 'weekly'){
+                            layout.title = product_name +  ' / weekly Report';
+                        }
+                        else if($scope.report_type == "monthly") {
+                            layout.title = product_name +  ' / Monthly Report';
                         }
                         else {
-                             layout.title = product_name +  ' / Monthly Report';
+                            layout.title = product_name +  ' / Yearly Report';
                         }
                         for (i = 0; i < $scope.response.length; i++) {
                             plotDataBarY.push({
@@ -1179,7 +1220,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                             type: 'category',
                             showgrid: false,
                             gridcolor: '#bdbdbd',
-                            tickangle: -45,
+                            tickangle: -25,
                         },
                         xaxis: {
                             showgrid: true,
@@ -1202,7 +1243,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     }
                     //var marker = ["#"]
                     var plotDataBarY = [];
-                    if ($scope.report_type == 'thisweek') {
+                    if ($scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
                         layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -1284,7 +1325,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     layout.barmode = 'stack';
                     //var marker = ["#"]
                     var plotDataBarY = [];
-                    if ($scope.report_type == 'thisweek') {
+                    if ($scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
                         layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -1365,7 +1406,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
                     layout.barmode = 'stack';
                     var plotDataBarY = [];
-                    if ($scope.report_type == 'thisweek') {
+                    if ($scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
                         layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -1403,7 +1444,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     var plotDataBarY = [];
                     var size = [];
 
-                    if ($scope.report_type == 'thisweek') {
+                    if ($scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
                         layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -1494,7 +1535,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                 if (chartType == 'scatter_chart') {
 
                     var plotDataBarY = [];
-                    if ($scope.report_type == 'thisweek') {
+                    if ($scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
                         layout.title = product_name +  ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -1569,7 +1610,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
                 }
                 if(chartType == 'polar_chart') {
-                    $scope.drawReportPolarChart($scope.response,$scope.chartRenderId, reportType);
+                    $scope.drawReportPolarChart($scope.response,$scope.chartRenderId, $scope.report_type, currentprod);
                     $scope.weeklyresponse = $scope.response;
 
                 }
@@ -1663,7 +1704,8 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
         //$("#reports, #duration").slideDown();
     }
-    $scope.drawReportPolarChart = function(polarChartData,chartRenderPolarId, reportType) {
+    $scope.drawReportPolarChart = function(polarChartData,chartRenderPolarId, reportType, currentprod) {
+        
         var polarData = [];
         if (reportType == "yearly") {
             for (key in polarChartData) {
@@ -1773,10 +1815,23 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
 
     }
-    if(reportType == "thisweek") {
+    if($scope.report_type == "this_week") {
         layout.title = product_name + " / License used in this week";
         
     }
+    if($scope.report_type == "yearly") {
+        layout.title = product_name + " / License used in this Year";
+        
+    }
+    if($scope.report_type == "weekly") {
+        layout.title = product_name + " / License used weekly";
+        
+    }
+    if($scope.report_type == "monthly") {
+        layout.title = product_name + " / License used in this month";
+        
+    }
+    
 
     Plotly.newPlot(chartRenderPolarId, polarData, layout);
     
@@ -1787,7 +1842,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
     else if($scope.report_type == 'weekly') {
         $scope.loadReport("weekly_overall", "license_statistics");
     }
-    else if($scope.report_type == 'thisweek') {
+    else if($scope.report_type == 'this_week') {
         $scope.loadReport("thisweek_overall", "license_statistics");
     }
     else {

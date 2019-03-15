@@ -1,4 +1,4 @@
-lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'userData', 'lupaAdminService', '$location', 'localStorageService', function ($scope, $rootScope, userData, lupaAdminService, $location, localStorageService) {
+lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'userData', 'lupaAdminService', '$location', 'localStorageService', '$route', function ($scope, $rootScope, userData, lupaAdminService, $location, localStorageService, $route) {
     var userId = localStorageService.get("user");
     if (typeof userId === "undefined" || userId == null) {
         $location.path('/');
@@ -25,7 +25,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
             showgrid: false,
             gridcolor: '#bdbdbd',
             gridwidth: 1,
-            tickangle: 0,
+            tickangle: -45
         },
         yaxis: {
             showgrid: true,
@@ -61,7 +61,6 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
         lupaAdminService.getYearlyExpenditureUrl(year, month, type_of_license).then(function (response) {
             $('#loadergif').hide();
             $scope.getYearlyExpenditureData = response.data[0];
-            
             $scope.getYearlyList = $scope.getYearlyExpenditureData.years_list;
             $scope.getProductList = $scope.getYearlyExpenditureData.product_name;
             $scope.getLicenseList = $scope.getYearlyExpenditureData.type_of_licenses;
@@ -240,6 +239,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
     $scope.typeOfLicense = "";
 
     $scope.changeOverallCostAnalyticsBtn = function (selectedDropdown, selectedYear2, selectedMonth2) {
+        $scope.overallUti = false;
         if(selectedDropdown == "year") {
             selectedYear2 = $scope.getCostAnalyticsYearList[0];
             $scope.selectedYear2 = selectedYear2.toString();
@@ -278,8 +278,16 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
 
 
     }
+    $scope.overallExp = true;
+    $scope.overallUti = true;
+    $scope.reloadPage = function() {
+        
+        $route.reload();
+
+    }
     
     $scope.changeYearlyExpenditureBtn = function (selectedDropdown, selectedYear1, selectedMonth1, typeOfLicense) {
+        $scope.overallExp = false;
         if(selectedDropdown == "year") {
             selectedYear1 = $scope.getYearlyList[0];
             $scope.selectedYear1 = selectedYear1.toString();
@@ -404,7 +412,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
             $('#loadergif').hide();
             $scope.getFeaturePercentageChangeData = response.data;
            
-            $scope.drawGraph($scope.getFeaturePercentageChangeData, id);
+            $scope.drawGraph($scope.getFeaturePercentageChangeData, id, product_name);
             
             
             
@@ -412,7 +420,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
         });
 
     }
-    $scope.drawGraph = function(response, id) {
+    $scope.drawGraph = function(response, id, product_name) {
             $scope.prod_name = [];
             $scope.featureProdDataChange = [];
             for(key in response)  {
@@ -432,13 +440,17 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
                     color: customd3Colors
                 }
             }];
-            layout.title = "Per feature Total utilization";
+            layout.title = product_name + " Per feature Total utilization";
+            
             
             Plotly.newPlot(id, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
 
     }
+    
     $scope.changeFeatureAnalyticsGraphType = function(chartType, id, response, prod_name) {
+        
+        
         $(".chart-container .chart").removeClass("active-chart");
         $(event.target).closest(".chart").addClass("active-chart");
         var plotDataBarY = [];
@@ -453,7 +465,8 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
                                         color: d3colors(0)
                                     }
                 });
-                layout.title = "Per feature Total utilization";
+                layout.title = prod_name + " Per feature Total utilization";
+                
                 Plotly.newPlot(id, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
         }
@@ -477,7 +490,8 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
                                         color: d3colors(0)
                                     }
                 });
-                layout.title = "Per feature Total utilization";
+                layout.title = prod_name + " Per feature Total utilization";
+                
                 Plotly.newPlot(id, plotDataBarY, layout, plotlyDefaultConfigurationBar);
                 
 
@@ -493,7 +507,8 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
                                         color: d3colors(0)
                                     }
                 })
-                layout.title = "Per feature Total utilization";
+                layout.title = prod_name + " Per feature Total utilization";
+                
                 Plotly.newPlot(id, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
         }
@@ -509,9 +524,10 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
                     color: customd3Colors
                     }
                 })
-                layout.title = "Per feature Total utilization";
+                layout.title = prod_name + " Per feature Total utilization";
+                
                 Plotly.newPlot(id, plotDataBarY, layout, plotlyDefaultConfigurationBar);
-                //debugger;
+                
         }
     }
     $scope.featurechartfilteryear1 = false;
@@ -857,7 +873,8 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
                     color: d3colors(i)
                 }
             });
-            layout.title = "Per feature Total utilization";
+            layout.title =  $scope.featureProd[i] + " Per feature Total utilization";
+            
             Plotly.newPlot('cost-analytics-feature-chart-' + i, plotDataBarY, layout, plotlyDefaultConfigurationBar);
             
             
@@ -892,9 +909,33 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
 
 
     };
+    
+    $scope.overallFeauture= [];
+    $scope.overallFeauture[0] = true ;
+    $scope.overallFeauture[1] = true ;
+    $scope.overallFeauture[2] = true ;
+    $scope.overallFeauture[3] = true ;
+    $scope.overallFeauture[4] = true ;
 
-
-    $scope.changeYearlyFeatureBtn = function (selectedDropdown, selectedYear1, selectedMonth1, product_name) {
+    $scope.changeYearlyFeatureBtn = function (selectedDropdown, selectedYear1, selectedMonth1, product_name, prod_id) {
+        
+        if(prod_id == 'cost-analytics-feature-chart-0') {
+            $scope.overallFeauture[0]=false;
+        }
+        else if(prod_id == 'cost-analytics-feature-chart-1') {
+            $scope.overallFeauture[1]=false;
+        }
+        else if(prod_id == 'cost-analytics-feature-chart-2') {
+            $scope.overallFeauture[2]=false;
+        }
+        else if(prod_id == 'cost-analytics-feature-chart-3') {
+            $scope.overallFeauture[3]=false;
+        }
+        else if(prod_id == 'cost-analytics-feature-chart-4') {
+            $scope.overallFeauture[4]=false;
+        }
+        
+        
         if(selectedDropdown == "year") {
             selectedYear1 = $scope.featureProd[0];
             /*$scope.selectedYear1 = selectedYear1.toString();

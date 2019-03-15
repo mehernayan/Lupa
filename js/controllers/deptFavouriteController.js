@@ -139,24 +139,8 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                     }
                     
                     
-                    else {
-                        if($scope.response[i].chart_type == "horizontal_bar_chart") {
-                            var type = 'bar';
-                            for (j = 0; j < $scope.chartresponse.length; j++) {
-                            plotDataBarY.push({
-                                x: $scope.chartresponse[j].license,
-                                y: xAxisVal,
-                                name: $scope.chartresponse[j].year,
-                                type: type,
-                                orientation: 'h',
-                                marker: {
-                                    color: d3colors(j)
-                                }
-                            })
-                        }
-                        //layout.xaxis.title = "Total number of license used";
-                        //layout.yAxis.title = "";
-                        }
+                   
+                        
                         
                          if($scope.response[i].chart_type == "box_plot_styling_outliers_chart") {
                              layout.barmode = 'stack';
@@ -213,6 +197,26 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                                 }
                             };
                         }
+                        if ($scope.response[i].chart_type == "horizontal_bar_chart") {
+                                plotDataBarY = [];
+                                var type = 'bar';
+                                for (j = 0; j < $scope.chartresponse.length; j++) {
+                                    plotDataBarY.push({
+                                        x: $scope.chartresponse[j].license,
+                                        y: xAxisVal,
+                                        name: $scope.chartresponse[j].year,
+                                        type: 'bar',
+                                        orientation: 'h',
+                                        marker: {
+                                            color: d3colors(j)
+                                        }
+                                    })
+
+
+                                }
+                                //layout.xaxis.title = "Total number of license used";
+                                //layout.yAxis.title = "";
+                            }
                         else {
                             for (j = 0; j < $scope.chartresponse.length; j++) {
                             plotDataBarY.push({
@@ -228,7 +232,7 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                             })
                         }
                         }
-                    }
+                    
 
                     
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -284,24 +288,24 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                     }
                     
                     
-                    else {
+                    
                         if($scope.response[i].chart_type == "horizontal_bar_chart") {
                             var type = 'bar';
                             for (var j = 0; j < $scope.chartresponse[0].license.length; j++) {
-                                for (key in $scope.chartresponse[0].license[j]) {
-                                    plotDataBarY.push({
-                                        x: xAxisVal,
-                                        y: $scope.chartresponse[0].license[j][key],
-                                        name: key,
-                                        type: 'bar',
-                                        marker: {
-                                            color: d3colors(j)
-                                        }
-                                    })
+                                    for (key in $scope.chartresponse[0].license[j]) {
+                                        plotDataBarY.push({
+                                            x: xAxisVal,
+                                            y: $scope.chartresponse[0].license[j][key],
+                                            name: key,
+                                            type: 'bar',
+                                            marker: {
+                                                color: d3colors(j)
+                                            }
+                                        })
+                                    }
                                 }
-                            }
-                        //layout.xaxis.title = "Total number of license used";
-                        //layout.yAxis.title = "";
+                            //layout.xaxis.title = "Total number of license used";
+                            //layout.yAxis.title = "";
                         }
                         if ($scope.response[i].chart_type == "pie_chart") {
                             var plotDataBarY = [{
@@ -332,27 +336,9 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                                 }
                             }
                         }
-                    }
+                    
 
-                    /*for (var j = 0; j < $scope.chartresponse[0].license.length; j++) {
-                        //debugger;
-
-                        for (key in $scope.chartresponse[0].license[j]) {
-                            //debugger;
-
-                            plotDataBarY.push({
-                                x: xAxisVal,
-                                y: $scope.chartresponse[0].license[j][key],
-                                name: key,
-                                type: 'bar',
-                                marker: {
-                                    color: d3colors(j)
-                                }
-                            })
-
-
-                        }
-                    }*/
+                    
                     $(".chart-render-" + chartFavouriteIndex).show();
                     Plotly.newPlot('product-chart-yearly' + chartFavouriteIndex, plotDataBarY, layout, plotlyDefaultConfigurationBar);
                     var gd1 = document.getElementById("product-chart-yearly" + chartFavouriteIndex);

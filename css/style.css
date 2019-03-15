@@ -689,7 +689,7 @@ i.far.fa-square {
 .weekly-section ul {
     display: block;
     position: absolute;
-    bottom: 45px;
+    bottom: 32px;
     left: 33%;
     z-index: 1000;
 }
@@ -1068,10 +1068,12 @@ footer {
   opacity: 1;
 }
 .danger {
-color: #f00;
+    color: #f00;
+    font-weight: bold;
 }
 .added-success {
-    color: #0f0;
+    color: #2C9A2C;
+    font-weight: bold;
 }
 .individual-report .ui-icon-gripsmall-diagonal-se {
     bottom: -15px  !important;

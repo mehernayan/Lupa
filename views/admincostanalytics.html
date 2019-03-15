@@ -72,6 +72,12 @@
                                 <option ng-repeat="item in getLicenseList">{{item}}</option>
                             </select>
                         </div>
+                        <div class="license-filter">
+                            <!--<input type="radio" name ="chart-filter-1" ng-click="changeYearlyExpenditureBtn('','', '', '')"/>-->
+                            <input type="radio" ng-checked="overallExp" name ="chart-filter-15" ng-click="reloadPage()"/>
+                            <label>Overall</label>
+                            
+                        </div>
                         
 
                     </div>
@@ -140,6 +146,12 @@
                                 <option ng-repeat="item in getCostAnalyticsMonthList">{{item}}</option>
                             </select>
                         </div>
+                        <div class="month-filter">
+                            <!--<input type="radio" name ="chart-filter-1" ng-click="changeYearlyExpenditureBtn('','', '', '')"/>-->
+                            <input type="radio" ng-checked="overallUti" name ="chart-filter-10" ng-click="reloadPage()"/>
+                            <label>Overall</label>
+                            
+                        </div>
                          
                         
 
@@ -195,20 +207,26 @@
                     </div>
                     <div class="cost-chart-filter">
                         <div class="year-filter">
-                            <input type="radio" id="aa"  name="feature-chart-filter-11" ng-click="changeYearlyFeatureBtn('year',selectedYear1, selectedMonth1, featureProd[0])" ng-model="featurechartfilteryear1" />
+                            <input type="radio"   name="feature-chart-filter-21" ng-click="changeYearlyFeatureBtn('year',selectedYear1, selectedMonth1, featureProd[0], 'cost-analytics-feature-chart-0')"  />
                             <label>Year</label>
-                            <select class="form-control"  id="feature-chart-filter-selectyear-1"  ng-model="featurechartfilterselectyear1"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[0],'cost-analytics-feature-chart-0')">
+                            <select class="form-control"  id="feature-chart-filter-selectyear-1"   ng-model="featurechartfilterselectyear1"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[0],'cost-analytics-feature-chart-0')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getYearlyList">{{item}}</option>
                             </select>
                         </div>
                         <div class="month-filter">
-                            <input type="radio" id="sds" name="feature-chart-filter-12"  ng-model="featurechartfiltermonth1" ng-click="changeYearlyFeatureBtn('month',selectedYear1, selectedMonth1, featureProd[0])" />
+                            <input type="radio"  name="feature-chart-filter-21"   ng-click="changeYearlyFeatureBtn('month',selectedYear1, selectedMonth1, featureProd[0], 'cost-analytics-feature-chart-0')" />
                             <label>Month</label>
                             <select class="form-control" id="feature-chart-filter-month-1"  ng-model="featurechartfilterselectmonth1" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[0],'cost-analytics-feature-chart-0')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getMonthList">{{item}}</option>
                             </select>
+                        </div>
+                        <div class="license-filter">
+                            <!--<input type="radio" name ="chart-filter-1" ng-click="changeYearlyExpenditureBtn('','', '', '')"/>-->
+                            <input type="radio" ng-checked="overallFeauture[0]" name ="chart-filter-16" ng-click="reloadPage()"/>
+                            <label>Overall</label>
+                            
                         </div>
                          
                         
@@ -264,20 +282,26 @@
                     </div>
                     <div class="cost-chart-filter">
                         <div class="year-filter">
-                            <input type="radio" id="aa"  name="feature-chart-filter-21" ng-click="changeYearlyFeatureBtn('year',selectedYear1, selectedMonth1, featureProd[1])" ng-model="featurechartfilteryear2" />
+                            <input type="radio"   name="feature-chart-filter-15" ng-click="changeYearlyFeatureBtn('year',selectedYear1, selectedMonth1, featureProd[1], 'cost-analytics-feature-chart-1')"  />
                             <label>Year</label>
-                            <select class="form-control"  id="feature-chart-filter-selectyear-2"  ng-model="featurechartfilterselectyear1"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[1],'cost-analytics-feature-chart-1')">
+                            <select class="form-control"  id="feature-chart-filter-selectyear-2"  ng-model="featurechartfilterselectyear2"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear2, featurechartfilterselectmonth2, featureProd[1],'cost-analytics-feature-chart-1')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getYearlyList">{{item}}</option>
                             </select>
                         </div>
                         <div class="month-filter">
-                            <input type="radio" id="sds" name="feature-chart-filter-22"  ng-model="featurechartfiltermonth2" ng-click="changeYearlyFeatureBtn('month',selectedYear1, selectedMonth1, featureProd[1])" />
+                            <input type="radio"  name="feature-chart-filter-15"   ng-click="changeYearlyFeatureBtn('month',selectedYear1, selectedMonth1, featureProd[1], 'cost-analytics-feature-chart-1')" />
                             <label>Month</label>
-                            <select class="form-control" id="feature-chart-filter-month-1"  ng-model="featurechartfilterselectmonth1" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[1],'cost-analytics-feature-chart-1')">
+                            <select class="form-control" id="feature-chart-filter-month-1"  ng-model="featurechartfilterselectmonth2" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear2, featurechartfilterselectmonth2, featureProd[1],'cost-analytics-feature-chart-1')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getMonthList">{{item}}</option>
                             </select>
+                        </div>
+                        <div class="license-filter">
+                            <!--<input type="radio" name ="chart-filter-1" ng-click="changeYearlyExpenditureBtn('','', '', '')"/>-->
+                            <input type="radio" ng-checked="overallFeauture[1]" name ="chart-filter-17" ng-click="reloadPage()"/>
+                            <label>Overall</label>
+                            
                         </div>
                          
                         
@@ -332,20 +356,26 @@
                     </div>
                     <div class="cost-chart-filter">
                         <div class="year-filter">
-                            <input type="radio" id="aa"  name="feature-chart-filter-31" ng-click="changeYearlyFeatureBtn('year',selectedYear1, selectedMonth1, featureProd[1])" ng-model="featurechartfilteryear3" />
+                            <input type="radio"   name="feature-chart-filter-16" ng-click="changeYearlyFeatureBtn('year',selectedYear1, selectedMonth1, featureProd[2], 'cost-analytics-feature-chart-2')"  />
                             <label>Year</label>
-                            <select class="form-control"  id="feature-chart-filter-selectyear-2"  ng-model="featurechartfilterselectyear1"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[2],'cost-analytics-feature-chart-2')">
+                            <select class="form-control"  id="feature-chart-filter-selectyear-2"  ng-model="featurechartfilterselectyear3"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear3, featurechartfilterselectmonth3, featureProd[2],'cost-analytics-feature-chart-2')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getYearlyList">{{item}}</option>
                             </select>
                         </div>
                         <div class="month-filter">
-                            <input type="radio" id="sds" name="feature-chart-filter-32"  ng-model="featurechartfiltermonth3" ng-click="changeYearlyFeatureBtn('month',selectedYear1, selectedMonth1, featureProd[1])" />
+                            <input type="radio"  name="feature-chart-filter-16"   ng-click="changeYearlyFeatureBtn('month',selectedYear1, selectedMonth1, featureProd[2], 'cost-analytics-feature-chart-2')" />
                             <label>Month</label>
-                            <select class="form-control" id="feature-chart-filter-month-1"  ng-model="featurechartfilterselectmonth1" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[2],'cost-analytics-feature-chart-2')">
+                            <select class="form-control" id="feature-chart-filter-month-1"  ng-model="featurechartfilterselectmonth3" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear3, featurechartfilterselectmonth3, featureProd[2],'cost-analytics-feature-chart-2')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getMonthList">{{item}}</option>
                             </select>
+                        </div>
+                        <div class="license-filter">
+                            <!--<input type="radio" name ="chart-filter-1" ng-click="changeYearlyExpenditureBtn('','', '', '')"/>-->
+                            <input type="radio" ng-checked="overallFeauture[2]" name ="chart-filter-18" ng-click="reloadPage()"/>
+                            <label>Overall</label>
+                            
                         </div>
                          
                         
@@ -400,20 +430,26 @@
                     </div>
                     <div class="cost-chart-filter">
                         <div class="year-filter">
-                            <input type="radio" id="aa"  name="feature-chart-filter-41" ng-click="changeYearlyFeatureBtn('year',selectedYear1, selectedMonth1, featureProd[3])" ng-model="featurechartfilteryear4" />
+                            <input type="radio"   name="feature-chart-filter-18" ng-click="changeYearlyFeatureBtn('year',selectedYear1, selectedMonth1, featureProd[3], 'cost-analytics-feature-chart-3')"  />
                             <label>Year</label>
-                            <select class="form-control"  id="feature-chart-filter-selectyear-2"  ng-model="featurechartfilterselectyear1"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[3],'cost-analytics-feature-chart-3')">
+                            <select class="form-control"  id="feature-chart-filter-selectyear-2"  ng-model="featurechartfilterselectyear4"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear4, featurechartfilterselectmonth4, featureProd[3],'cost-analytics-feature-chart-3')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getYearlyList">{{item}}</option>
                             </select>
                         </div>
                         <div class="month-filter">
-                            <input type="radio" id="sds" name="feature-chart-filter-42"  ng-model="featurechartfiltermonth4" ng-click="changeYearlyFeatureBtn('month',selectedYear1, selectedMonth1, featureProd[3])" />
+                            <input type="radio"  name="feature-chart-filter-18"   ng-click="changeYearlyFeatureBtn('month',selectedYear1, selectedMonth1, featureProd[3], 'cost-analytics-feature-chart-3')" />
                             <label>Month</label>
-                            <select class="form-control" id="feature-chart-filter-month-1"  ng-model="featurechartfilterselectmonth1" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[3],'cost-analytics-feature-chart-3')">
+                            <select class="form-control" id="feature-chart-filter-month-1"  ng-model="featurechartfilterselectmonth4" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear4, featurechartfilterselectmonth4, featureProd[3],'cost-analytics-feature-chart-3')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getMonthList">{{item}}</option>
                             </select>
+                        </div>
+                        <div class="license-filter">
+                            <!--<input type="radio" name ="chart-filter-1" ng-click="changeYearlyExpenditureBtn('','', '', '')"/>-->
+                            <input type="radio" ng-checked="overallFeauture[3]" name ="chart-filter-19" ng-click="reloadPage()"/>
+                            <label>Overall</label>
+                            
                         </div>
                          
                         
@@ -468,20 +504,26 @@
                     </div>
                     <div class="cost-chart-filter">
                         <div class="year-filter">
-                            <input type="radio" id="aa"  name="feature-chart-filter-51" ng-click="changeYearlyFeatureBtn('year',selectedYear1, selectedMonth1, featureProd[4])" ng-model="featurechartfilteryear5" />
+                            <input type="radio"   name="feature-chart-filter-20" ng-click="changeYearlyFeatureBtn('year',selectedYear1, selectedMonth1, featureProd[4], 'cost-analytics-feature-chart-4')"  />
                             <label>Year</label>
-                            <select class="form-control"  id="feature-chart-filter-selectyear-2"  ng-model="featurechartfilterselectyear1"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[4],'cost-analytics-feature-chart-4')">
+                            <select class="form-control"  id="feature-chart-filter-selectyear-2"  ng-model="featurechartfilterselectyear5"   ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear5, featurechartfilterselectmonth5, featureProd[4],'cost-analytics-feature-chart-4')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getYearlyList">{{item}}</option>
                             </select>
                         </div>
                         <div class="month-filter">
-                            <input type="radio" id="sds" name="feature-chart-filter-52"  ng-model="featurechartfiltermonth5" ng-click="changeYearlyFeatureBtn('month',selectedYear1, selectedMonth1, featureProd[4])" />
+                            <input type="radio"  name="feature-chart-filter-20"   ng-click="changeYearlyFeatureBtn('month',selectedYear1, selectedMonth1, featureProd[4], 'cost-analytics-feature-chart-4')" />
                             <label>Month</label>
-                            <select class="form-control" id="feature-chart-filter-month-1"  ng-model="featurechartfilterselectmonth1" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear1, featurechartfilterselectmonth1, featureProd[4],'cost-analytics-feature-chart-4')">
+                            <select class="form-control" id="feature-chart-filter-month-1"  ng-model="featurechartfilterselectmonth5" ng-change="changeFeatureAnalyticsGraph(featurechartfilterselectyear5, featurechartfilterselectmonth5, featureProd[4],'cost-analytics-feature-chart-4')">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getMonthList">{{item}}</option>
                             </select>
+                        </div>
+                        <div class="license-filter">
+                            <!--<input type="radio" name ="chart-filter-1" ng-click="changeYearlyExpenditureBtn('','', '', '')"/>-->
+                            <input type="radio" ng-checked="overallFeauture[4]" name ="chart-filter-20" ng-click="reloadPage()"/>
+                            <label>Overall</label>
+                            
                         </div>
                          
                         
