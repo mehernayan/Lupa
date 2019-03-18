@@ -280,11 +280,57 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
     }
     $scope.overallExp = true;
     $scope.overallUti = true;
-    $scope.reloadPage = function() {
-        
-        $route.reload();
+    $scope.reloadPage = function(blck) {
+        if(blck == "cost") {
+            $scope.getOverallCostAnalytics();
+            $scope.selectedYear2 = "Overall";
+            $scope.selectedMonth2 = "Overall";
+            $scope.selectedRadio4 = false;
+            $scope.selectedRadio5 = false;
+            
+        }
+        //$route.reload();
 
     }
+    $scope.selectedMonthChange = function(selectedMonth) {
+        if(selectedMonth == "Jan") {
+            return "01"
+        }
+        else if(selectedMonth == "Feb") {
+            return "02"
+        } 
+        else if(selectedMonth == "Mar") {
+            return "03"
+        }
+        else if(selectedMonth == "Apr") {
+            return "04"
+        }
+        else if(selectedMonth == "May") {
+            return "05"
+        }
+        else if(selectedMonth == "Jun") {
+            return "06"
+        }
+        else if(selectedMonth == "Jul") {
+            return "07"
+        }
+        else if(selectedMonth == "Aug") {
+            return "08"
+        }
+        else if(selectedMonth == "Sep") {
+            return "09"
+        }
+        else if(selectedMonth == "Oct") {
+            return "10"
+        }
+        else if(selectedMonth == "Nov") {
+            return "11"
+        }
+        else if(selectedMonth == "Dec") {
+            return "12"
+        }
+        
+    };
     
     $scope.changeYearlyExpenditureBtn = function (selectedDropdown, selectedYear1, selectedMonth1, typeOfLicense) {
         $scope.overallExp = false;
@@ -292,6 +338,8 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
             selectedYear1 = $scope.getYearlyList[0];
             $scope.selectedYear1 = selectedYear1.toString();
             $scope.selectedRadio1 = true;
+            selectedMonth1 = $scope.selectedMonthChange(selectedMonth1);
+            
         }
         if(selectedDropdown == "month") {
             selectedMonth1 = "01";
@@ -302,6 +350,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
             typeOfLicense = $scope.getLicenseList[0];
             $scope.typeOfLicense = typeOfLicense;
             $scope.selectedRadio3 = true;
+            selectedMonth1 = $scope.selectedMonthChange(selectedMonth1);
         }
         //$scope.chartRenderId = $(event.target).closest(".chart-container").find(".chart-data-analytics").attr("id");
         
@@ -541,6 +590,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
     $scope.getOverallCostAnalytics();
     
     
+
     $scope.changeFeatureAnalyticsGraph = function(year,selectedMonth2,product_name, id) {
         //debugger;
         
