@@ -178,7 +178,6 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         
        };
        this.getDepartmentManagerReportFilterUrl = function(username, product_name, type, chart_type, userFilterType, filter_year, report_type) {
-        //debugger;
         //$scope.userLogged = localStorageService.get("user");
         if(report_type ==="thisweek"){
             report_type = "this_week";

@@ -1055,14 +1055,16 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
 
             layout.title = product_name + ' / ' + $scope.report_type + ' Report';
-            if ($scope.yearlyAdminReportIndividual != "") {
+            $scope.response = response.data;
+            /*if ($scope.yearlyAdminReportIndividual != "") {
                 $scope.response = [];
                 $scope.response[0] = $scope.yearlyAdminReportIndividual;
 
             } else {
                 $scope.response = response.data;
 
-            }
+            }*/
+            
 
 
             if (chartType != "polar_chart") {
