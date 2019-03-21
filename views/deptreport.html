@@ -579,16 +579,16 @@
                         />User
                   </div>
                   <div class="chart-type-container clearfix">
-                     <span class="chart vbar-chart active-chart"><i class="fa fa-bar-chart" ng-click= "changeGraphDeptReportFilter('yearly_change', $event,report_type,'vertical_bar_chart','time_statistics', currentProduct)"></i></span>
-                     <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraphDeptReportFilter('yearly_change', $event,report_type,'pie_chart','time_statistics', currentProduct)"></i></span>
-                     <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraphDeptReportFilter('yearly_change', $event,report_type,'line_chart','time_statistics', currentProduct)"></i></span>
-                     <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraphDeptReportFilter('yearly_change', $event,report_type,'area_chart','time_statistics', currentProduct)"></i></span>
-                     <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraphDeptReportFilter('yearly_change', $event,report_type,'horizontal_bar_chart','time_statistics', currentProduct)"></img></span>
-                     <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraphDeptReportFilter('yearly_change', $event,report_type,'stacked_bar_chart','time_statistics', currentProduct)"></img></span>
-                     <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraphDeptReportFilter('yearly_change', $event,report_type,'box_plot_styling_outliers_chart','time_statistics', currentProduct)"></img></span>
-                     <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraphDeptReportFilter('yearly_change', $event,report_type,'bubble_chart','time_statistics', currentProduct)"></img></span>
-                     <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraphDeptReportFilter('yearly_change', $event,report_type,'scatter_chart','time_statistics', currentProduct)"></img></span>
-                     <span class="chart stacked-bar-chart"><img src="images/polar-chart.png" class="" ng-click= "changeGraphDeptReportFilter('yearly_change', $event,report_type,'polar_chart','time_statistics', currentProduct)"></img></span>
+                     <span class="chart vbar-chart active-chart"><i class="fa fa-bar-chart" ng-click= "changeGraphDeptReportFilter($event,report_type,defaultFilterVal,'vertical_bar_chart','time_statistics', currentProduct)"></i></span>
+                     <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraphDeptReportFilter($event,report_type,defaultFilterVal,'pie_chart','time_statistics', currentProduct)"></i></span>
+                     <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraphDeptReportFilter($event,report_type,defaultFilterVal,'line_chart','time_statistics', currentProduct)"></i></span>
+                     <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraphDeptReportFilter($event,report_type,defaultFilterVal,'area_chart','time_statistics', currentProduct)"></i></span>
+                     <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraphDeptReportFilter($event,report_type,defaultFilterVal,'horizontal_bar_chart','time_statistics', currentProduct)"></img></span>
+                     <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraphDeptReportFilter($event,report_type,defaultFilterVal,'stacked_bar_chart','time_statistics', currentProduct)"></img></span>
+                     <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraphDeptReportFilter($event,report_type,defaultFilterVal,'box_plot_styling_outliers_chart','time_statistics', currentProduct)"></img></span>
+                     <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraphDeptReportFilter($event,report_type,defaultFilterVal,'bubble_chart','time_statistics', currentProduct)"></img></span>
+                     <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraphDeptReportFilter($event,report_type,defaultFilterVal,'scatter_chart','time_statistics', currentProduct)"></img></span>
+                     <span class="chart stacked-bar-chart"><img src="images/polar-chart.png" class="" ng-click= "changeGraphDeptReportFilter($event,report_type,defaultFilterVal,'polar_chart','time_statistics', currentProduct)"></img></span>
                   </div>
                   <div id="{{currentProduct + '-product-chart-yearly4'}}" class="chart-graph"></div>
                   <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
