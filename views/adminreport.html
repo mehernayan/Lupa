@@ -8,12 +8,12 @@
          <div class="product-container" ng-repeat="currentProduct in currentProducts" id="{{currentProduct}}">
             <div class="col-sm-12  full-screen-view chart-render chart-render-0" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-1'}}">
                <div class="admin-report-filter">
-                  <input type="radio" name="{{currentProduct + 'adminFilterYearlyLicense'}}" ng-checked="true" ng-model="adminFilterYearly"
+                  <input type="radio" name="{{currentProduct + 'adminFilterYearlyLicense'}}" ng-checked="true" ng-model="adminFilterYearlyLicense"
                      value="yearly_overall" ng-click="loadYearlyGraph('yearly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
-                  <input type="radio" name="{{currentProduct + 'adminFilterYearlyLicense'}}" ng-checked="false" ng-model="adminFilterYearly"
-                     value="yearly_individual" class="individual-filter"   data-ng-click="reportAdminFilter($event,adminFilterYearly,userFilterType,defaultFilterVal,currentProduct)">Individual
+                  <input type="radio" name="{{currentProduct + 'adminFilterYearlyLicense'}}" ng-checked="false" ng-model="adminFilterYearlyLicense"
+                     value="yearly_individual" class="individual-filter"   data-ng-click="reportAdminFilter($event,adminFilterYearlyLicense,userFilterType,defaultFilterVal,currentProduct,'license_statistics')">Individual
                </div>
-               <div ng-if="adminFilterYearly  == 'yearly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
+               <div ng-if="adminFilterYearlyLicense  == 'yearly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
                   <div class="dropdown chart-dropdown">
                      <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-square"></i>
@@ -60,7 +60,7 @@
                   <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                   <div class="resize-move" ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                </div>
-               <div ng-if="adminFilterYearly  == 'yearly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
+               <div ng-if="adminFilterYearlyLicense  == 'yearly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
                   <div class="dropdown chart-dropdown">
                      <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-square"></i>
@@ -96,14 +96,14 @@
                   <div class="year-list">
                      <span class="year-label">Year : </span>
                      <span class="admin-year-label" ng-repeat="item in adminReportYearList[currentProduct] track by $index">
-                     <input type="radio" name="{{currentProduct + 'adminReportYearLicense'}}" ng-checked = "$index==0" ng-click="reportAdminFilter($event,adminFilterYearly,userFilterType,item.year,currentProduct)"/>{{item.year}}
+                     <input type="radio" name="{{currentProduct + 'adminReportYearLicense'}}" ng-checked = "$index==0" ng-click="reportAdminFilter($event,adminFilterYearlyLicense,userFilterType,item.year,currentProduct,'license_statistics')"/>{{item.year}}
                      </span>
                   </div>
                   <div class="usertype-filter-year">
                      <span class="user-label">User Type : </span>
-                     <input type="radio" name="{{currentProduct + 'adminReportYearlyUserTypeLicense'}}" ng-checked="true" ng-click="reportAdminFilter($event,adminFilterYearly,'dept', defaultFilterVal,currentProduct)"
+                     <input type="radio" name="{{currentProduct + 'adminReportYearlyUserTypeLicense'}}" ng-checked="true" ng-click="reportAdminFilter($event,adminFilterYearlyLicense,'dept', defaultFilterVal,currentProduct,'license_statistics')"
                         />Department
-                     <input type="radio" name="{{currentProduct + 'adminReportYearlyUserTypeLicense'}}" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterYearly,'user', defaultFilterVal,currentProduct)"
+                     <input type="radio" name="{{currentProduct + 'adminReportYearlyUserTypeLicense'}}" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterYearlyTime,'user', defaultFilterVal,currentProduct,'license_statistics')"
                         />User
                   </div>
                   <div class="chart-type-container clearfix">
@@ -125,12 +125,12 @@
             </div>
             <div class="col-sm-12  full-screen-view chart-render chart-render-1" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-2'}}">
                <div class="admin-report-filter">
-                  <input type="radio" name="{{currentProduct + 'adminFilterMonthlyLicense'}}" ng-checked="true" ng-model="adminFilterMonthly"
-                     value="monthly_overall" ng-click="loadMonthlyGraph('monthly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
-                  <input type="radio" name="{{currentProduct + 'adminFilterMonthlyLicense'}}" ng-checked="false" ng-model="adminFilterMonthly"
-                     value="monthly_individual" class="individual-filter" ng-click="reportAdminFilter($event,adminFilterMonthly,userFilterType,defaultFilterVal,currentProduct)">Individual
+                  <input type="radio" name="{{currentProduct + 'adminFilterMonthlyLicense'}}" ng-checked="true" ng-model="adminFilterMonthlyLicense"
+                     value="monthly_overall" ng-click="loadMonthlyGraph('monthly', 'vertical_bar_chart', 'time_statistics', currentProduct)">Overall
+                  <input type="radio" name="{{currentProduct + 'adminFilterMonthlyLicense'}}" ng-checked="false" ng-model="adminFilterMonthlyLicense"
+                     value="monthly_individual" class="individual-filter" ng-click="reportAdminFilter($event,adminFilterMonthlyLicense,userFilterType,defaultFilterVal,currentProduct,'license_statistics')">Individual
                </div>
-               <div ng-if="adminFilterMonthly  == 'monthly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
+               <div ng-if="adminFilterMonthlyLicense  == 'monthly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
                   <div class="dropdown chart-dropdown">
                      <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-square"></i>
@@ -177,7 +177,7 @@
                   <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                   <div class="resize-move" ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                </div>
-               <div ng-if="adminFilterMonthly  == 'monthly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
+               <div ng-if="adminFilterMonthlyLicense  == 'monthly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
                   <div class="dropdown chart-dropdown">
                      <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-square"></i>
@@ -224,30 +224,38 @@
                   </div>
                   <div class="usertype-filter-year">
                      <span class="user-label">User Type : </span>
-                     <input type="radio" name="{{currentProduct + 'adminReportMonthlyUserTypeLicense'}}" ng-checked="true" ng-click="reportAdminFilter($event,adminFilterMonthly,'dept', defaultFilterVal, currentProduct)"
+                     <input type="radio" name="{{currentProduct + 'adminReportMonthlyUserTypeLicense'}}" ng-checked="true" ng-click="reportAdminFilter($event,adminFilterMonthlyLicense,'dept', defaultFilterVal, currentProduct,'license_statistics')"
                         />Department
-                     <input type="radio" name="{{currentProduct + 'adminReportMonthlyUserTypeLicense'}}" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterMonthly,'user', defaultFilterVal, currentProduct)"
+                     <input type="radio" name="{{currentProduct + 'adminReportMonthlyUserTypeLicense'}}" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterMonthlyLicense,'user', defaultFilterVal, currentProduct, 'license_statistics')"
                         />User
                   </div>
                   <div id="{{currentProduct + '-product-chart-yearly1'}}" class="chart-graph"></div>
-                  <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilter == 'overall'">
+                  <!--<div class="weekly-section" ng-if="report_type == 'weekly' && adminFilter == 'overall'">
                      <ul>
                         <li ng-repeat="item in reportyearlist track by $index">
                            <input type="radio" ng-checked="$index==0" name="{{'licenseitem' + currentProduct}}" ng-click="weeklyYearChange($event, item.year, chartType)" ng-model="selectedValue.year"
                               value="{{item.year}}"> {{item.year}}
                         </li>
                      </ul>
-                  </div>
+                  </div>-->
+                  <ul class="monthly-section">
+                        <li ng-if="chartType == 'pie_chart'">
+                              <select class="form-control" ng-model="userNamePieLicense"  ng-init="userNamePieLicense = deptIndPieUserList[0]"    ng-click="event = $event" ng-change="changeUserPieData(event, userNamePieLicense, currentProduct)">
+                              <option style="display:none" value="">select </option>
+                              <option ng-repeat="item in deptIndPieUserList">{{item}}</option>
+                              </select>
+                        </li>
+                  </ul>
                   <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                   <div class="resize-move" ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                </div>
             </div>
             <div class="col-sm-12  full-screen-view chart-render chart-render-2" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-3'}}">
                <div class="admin-report-filter">
-                  <input type="radio" name="{{currentProduct + 'adminFilterWeeklyLicense'}}" ng-checked="true" ng-model="adminFilterWeekly"
+                  <input type="radio" name="{{currentProduct + 'adminFilterWeeklyLicense'}}" ng-checked="true" ng-model="adminFilterWeeklyLicense"
                      value="weekly_overall" ng-click="loadWeeklyGraph('weekly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
-                  <input type="radio" name="{{currentProduct + 'adminFilterWeeklyLicense'}}" ng-checked="false" ng-model="adminFilterWeekly"
-                     value="weekly_individual" class="individual-filter" ng-click="reportAdminFilter($event,adminFilterWeekly,userFilterType,defaultFilterVal,currentProduct)">Individual
+                  <input type="radio" name="{{currentProduct + 'adminFilterWeeklyLicense'}}" ng-checked="false" ng-model="adminFilterWeeklyLicense"
+                     value="weekly_individual" class="individual-filter" ng-click="reportAdminFilter($event,adminFilterWeeklyLicense,userFilterType,defaultFilterVal,currentProduct,'license_statistics')">Individual
                </div>
                <div class="dropdown chart-dropdown">
                   <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -281,7 +289,7 @@
                      </li>
                   </div>
                </div>
-               <div ng-if="adminFilterWeekly  == 'weekly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
+               <div ng-if="adminFilterWeeklyLicense  == 'weekly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
                   <span class="chart vbar-chart active-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'vertical_bar_chart','license_statistics', currentProduct)"></i></span>
                   <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'pie_chart','license_statistics', currentProduct)"></i></span>
                   <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'line_chart','license_statistics', currentProduct)"></i></span>
@@ -293,7 +301,7 @@
                   <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph('weekly_change', $event,report_type,'scatter_chart','license_statistics', currentProduct)"></img></span>
                   <span class="chart stacked-bar-chart"><img src="images/polar-chart.png" title="polar chart" class="" ng-click= "changeGraph('weekly_change', $event,report_type,'polar_chart','license_statistics', currentProduct)"></img></span>
                   <div id="{{currentProduct + '-product-chart-yearly2'}}" class="chart-graph"></div>
-                  <div class="weekly-section" ng-if="adminFilterWeekly  == 'weekly_overall'">
+                  <div class="weekly-section" ng-if="adminFilterWeeklyLicense  == 'weekly_overall'">
                      <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
                      <ul>
                         <li ng-repeat="item in reportyearlist track by $index">
@@ -312,27 +320,27 @@
                   <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                   <div class="resize-move" ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                </div>
-               <div ng-if="adminFilterWeekly  == 'weekly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
+               <div ng-if="adminFilterWeeklyLicense  == 'weekly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
                   <div class="usertype-filter-weekly" ng-show="report_type =='weekly'">
                      <div class="usertype-filter-type">
                         <span class="user-label">User Type : </span>
                         <input type="radio" name="{{currentProduct + 'adminReportWeeklyUserTypeLicense'}}" ng-checked="true" ng-model="adminReport"
-                           value="Department" ng-click="reportAdminFilter($event,adminFilterWeekly,'dept', defaultFilterVal,currentProduct)"
+                           value="Department" ng-click="reportAdminFilter($event,adminFilterWeeklyLicense,'dept', defaultFilterVal,currentProduct,'license_statistics')"
                            />Department
                         <input type="radio" name="{{currentProduct + 'adminReportWeeklyUserTypeLicense'}}" ng-checked="false" ng-model="adminReport"
-                           value="User" ng-click="reportAdminFilter($event,adminFilterWeekly,'dept', defaultFilterVal,currentProduct)"
+                           value="User" ng-click="reportAdminFilter($event,adminFilterWeeklyLicense,'dept', defaultFilterVal,currentProduct,'license_statistics')"
                            />User
                      </div>
                      <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
                         <label for="usertype-filter-dropdown">Department list:</label>
-                        <select class="form-control" id="usertype-filter-dropdown" data-attr="{{adminReportDeptList[0]}}"  ng-model="selectedDeptItem" ng-init="selectedDeptItem = adminReportDeptList[0]" ng-change="reportAdminFilter($event,adminFilterWeekly,'dept', selectedDeptItem,currentProduct)">
+                        <select class="form-control" id="usertype-filter-dropdown" data-attr="{{adminReportDeptList[0]}}"  ng-model="selectedDeptItem" ng-init="selectedDeptItem = adminReportDeptList[0]" ng-click="event = $event" ng-change="reportAdminFilter(event,adminFilterWeeklyLicense,'dept', selectedDeptItem,currentProduct,'license_statistics')">
                            <option style="display:none" value="">select </option>
                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
                         </select>
                      </div>
                      <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
                         <label for="usertype-filter-dropdown">User list:</label>
-                        <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-init="selectedItem = adminReportUserList[0]" ng-change="reportAdminFilter($event,adminFilterWeekly,'user', selectedItem,currentProduct)">
+                        <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-init="selectedItem = adminReportUserList[0]" ng-click="event = $event" ng-change="reportAdminFilter(event,adminFilterWeeklyLicense,'user', selectedItem,currentProduct,'license_statistics')">
                            <option style="display:none" value="">select </option>
                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
                         </select>
@@ -371,12 +379,12 @@
             </div>
             <div class="col-sm-12  full-screen-view chart-render chart-render-3" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-4'}}">
                <div class="admin-report-filter">
-                  <input type="radio" name="{{currentProduct + 'adminFilterThisWeekLicense'}}" ng-checked="true" ng-model="adminFilterThisWeek"
+                  <input type="radio" name="{{currentProduct + 'adminFilterThisWeekLicense'}}" ng-checked="true" ng-model="adminFilterThisWeekLicense"
                      value="thisweek_overall" ng-click="loadThisWeekGraph('thisweek', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
-                  <input type="radio" name="{{currentProduct + 'adminFilterThisWeekLicense'}}" ng-checked="false" ng-model="adminFilterThisWeek"
-                     value="thisweek_individual" class="individual-filter" ng-click="reportAdminFilter($event,adminFilterThisWeek,userFilterType,defaultFilterVal,currentProduct)">Individual
+                  <input type="radio" name="{{currentProduct + 'adminFilterThisWeekLicense'}}" ng-checked="false" ng-model="adminFilterThisWeekLicense"
+                     value="thisweek_individual" class="individual-filter" ng-click="reportAdminFilter($event,adminFilterThisWeekLicense,userFilterType,defaultFilterVal,currentProduct,'license_statistics')">Individual
                </div>
-               <div ng-if="adminFilterThisWeek  == 'thisweek_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
+               <div ng-if="adminFilterThisWeekLicense  == 'thisweek_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
                   <div class="dropdown chart-dropdown">
                      <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-square"></i>
@@ -433,7 +441,7 @@
                   <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                   <div class="resize-move" ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                </div>
-               <div ng-if="adminFilterThisWeek  == 'thisweek_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
+               <div ng-if="adminFilterThisWeekLicense  == 'thisweek_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
                   <div class="dropdown chart-dropdown">
                      <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-square"></i>
@@ -469,7 +477,7 @@
                   <div class="year-list" ng-show="report_type =='yearly'">
                      <span class="year-label">Year : </span>
                      <span class="admin-year-label" ng-repeat="item in adminReportYearList track by $index">
-                     <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter($event,adminFilterThisWeek,userFilterType,item.year,currentProduct)"/>{{item.year}}
+                     <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter($event,adminFilterThisWeekLicense,userFilterType,item.year,currentProduct,'license_statistics')"/>{{item.year}}
                      </span>
                   </div>
                   <div class="chart-type-container clearfix">
@@ -486,8 +494,8 @@
                   </div>
                   <!--<div class="usertype-filter-year" ng-show="report_type =='yearly'">
                      <span class="user-label">User Type : </span>
-                     <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeTime'}}"  ng-checked="true" ng-click="reportAdminFilter($event,adminFilterThisWeek,'dept', defaultFilterVal)" />Department
-                     <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeTime'}}" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterThisWeek,'user', defaultFilterVal)" />User
+                     <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeTime'}}"  ng-checked="true" ng-click="reportAdminFilter($event,adminFilterThisWeekLicense,'dept', defaultFilterVal)" />Department
+                     <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeTime'}}" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterThisWeekLicense,'user', defaultFilterVal)" />User
                      
                      
                      </div>
@@ -517,22 +525,22 @@
                      <div class="usertype-filter-type">
                         <span class="user-label">User Type : </span>
                         <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeLicense'}}" ng-checked="true" ng-model="adminReport"
-                           value="Department" ng-click="reportAdminFilter($event,adminFilterThisWeek,'dept', defaultFilterVal,currentProduct)"
+                           value="Department" ng-click="reportAdminFilter($event,adminFilterThisWeekLicense,'dept', defaultFilterVal,currentProduct,'license_statistics')"
                            />Department
                         <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeLicense'}}" ng-checked="false" ng-model="adminReport"
-                           value="User" ng-click="reportAdminFilter($event,adminFilterThisWeek,'dept', defaultFilterVal,currentProduct)"
+                           value="User" ng-click="reportAdminFilter($event,adminFilterThisWeekLicense,'dept', defaultFilterVal,currentProduct,'license_statistics')"
                            />User
                      </div>
                      <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
                         <label for="usertype-filter-dropdown">Department list:</label>
-                        <select class="form-control" id="usertype-filter-dropdown" data-attr="{{adminReportDeptList[0]}}"  ng-model="selectedDeptItem" ng-init="selectedDeptItem = adminReportDeptList[0]" ng-change="reportAdminFilter($event,adminFilterThisWeek,'dept', selectedDeptItem,currentProduct)">
+                        <select class="form-control" id="usertype-filter-dropdown" data-attr="{{adminReportDeptList[0]}}"  ng-model="selectedDeptItem" ng-init="selectedDeptItem = adminReportDeptList[0]" ng-change="reportAdminFilter($event,adminFilterThisWeekLicense,'dept', selectedDeptItem,currentProduct,'license_statistics')">
                            <option style="display:none" value="">select </option>
                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
                         </select>
                      </div>
                      <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
                         <label for="usertype-filter-dropdown">User list:</label>
-                        <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-init="selectedItem = adminReportUserList[0]" ng-change="reportAdminFilter($event,adminFilterThisWeek,'user', selectedItem,currentProduct)">
+                        <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-init="selectedItem = adminReportUserList[0]" ng-change="reportAdminFilter($event,adminFilterThisWeekLicense,'user', selectedItem,currentProduct,'license_statistics')">
                            <option style="display:none" value="">select </option>
                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
                         </select>
@@ -545,12 +553,12 @@
             </div>
             <div class="col-sm-12  full-screen-view chart-render chart-render-4" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-5'}}">
                <div class="admin-report-filter">
-                  <input type="radio" name="{{currentProduct + 'adminFilterYearlyTime'}}" ng-checked="true" ng-model="adminFilterYearly" value="yearly_overall"
-                     ng-click="loadYearlyGraph('yearly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
-                  <input type="radio" name="{{currentProduct + 'adminFilterYearlyTime'}}" ng-checked="false" ng-model="adminFilterYearly" value="yearly_individual" class="individual-filter"
-                     data-ng-click="reportAdminFilter($event,adminFilterYearly,userFilterType,defaultFilterVal,currentProduct)">Individual
+                  <input type="radio" name="{{currentProduct + 'adminFilterYearlyTime'}}" ng-checked="true" ng-model="adminFilterYearlyTime" value="yearly_overall"
+                     ng-click="loadYearlyGraph('yearly', 'vertical_bar_chart', 'time_statistics', currentProduct)">Overall
+                  <input type="radio" name="{{currentProduct + 'adminFilterYearlyTime'}}" ng-checked="false" ng-model="adminFilterYearlyTime" value="yearly_individual" class="individual-filter"
+                     data-ng-click="reportAdminFilter($event,adminFilterYearlyTime,userFilterType,defaultFilterVal,currentProduct,'time_statistics')">Individual
                </div>
-               <div ng-if="adminFilterYearly  == 'yearly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
+               <div ng-if="adminFilterYearlyTime  == 'yearly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
                   <div class="dropdown chart-dropdown">
                      <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-square"></i>
@@ -597,7 +605,7 @@
                   <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                   <div class="resize-move" ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                </div>
-               <div ng-if="adminFilterYearly  == 'yearly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
+               <div ng-if="adminFilterYearlyTime  == 'yearly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
                   <div class="dropdown chart-dropdown">
                      <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-square"></i>
@@ -632,15 +640,15 @@
                   </div>
                   <div class="year-list">
                      <span class="year-label">Year : </span>
-                     <span class="admin-year-label" ng-repeat="item in adminReportYearList track by $index">
-                     <input type="radio" name="{{currentProduct + 'adminReportYearTime'}}" ng-checked = "$index==0" ng-click="reportAdminFilter($event,adminFilterYearly,userFilterType,item.year,currentProduct)"/>{{item.year}}
+                     <span class="admin-year-label" ng-repeat="item in adminReportYearList[currentProduct] track by $index">
+                     <input type="radio" name="{{currentProduct + 'adminReportYearTime'}}" ng-checked = "$index==0" ng-click="reportAdminFilter($event,adminFilterYearlyTime,userFilterType,item.year,currentProduct,'time_statistics')"/>{{item.year}}
                      </span>
                   </div>
                   <div class="usertype-filter-year">
                      <span class="user-label">User Type : </span>
-                     <input type="radio" name="{{currentProduct + 'adminReportYearlyUserTypeTime'}}" ng-checked="true" ng-click="reportAdminFilter($event,adminFilterYearly,'dept', defaultFilterVal,currentProduct)"
+                     <input type="radio" name="{{currentProduct + 'adminReportYearlyUserTypeTime'}}" ng-checked="true" ng-click="reportAdminFilter($event,adminFilterYearlyTime,'dept', defaultFilterVal,currentProduct,'time_statistics')"
                         />Department
-                     <input type="radio" name="{{currentProduct + 'adminReportYearlyUserTypeTime'}}" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterYearly,'user', defaultFilterVal,currentProduct)"
+                     <input type="radio" name="{{currentProduct + 'adminReportYearlyUserTypeTime'}}" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterYearlyTime,'user', defaultFilterVal,currentProduct,'time_statistics')"
                         />User
                   </div>
                   <div class="chart-type-container clearfix">
@@ -662,12 +670,12 @@
             </div>
             <div class="col-sm-12  full-screen-view chart-render chart-render-5" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-6'}}">
                <div class="admin-report-filter">
-                  <input type="radio" name="{{currentProduct + 'adminFilterMonthlyTime'}}" ng-checked="true" ng-model="adminFilterMonthly"
+                  <input type="radio" name="{{currentProduct + 'adminFilterMonthlyTime'}}" ng-checked="true" ng-model="adminFilterMonthlyTime"
                      value="monthly_overall" ng-click="loadMonthlyGraph('monthly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
-                  <input type="radio" name="{{currentProduct + 'adminFilterMonthlyTime'}}" ng-checked="false" ng-model="adminFilterMonthly"
-                     value="monthly_individual" class="individual-filter" ng-click="reportAdminFilter($event,adminFilterMonthly,userFilterType,defaultFilterVal,currentProduct)">Individual
+                  <input type="radio" name="{{currentProduct + 'adminFilterMonthlyTime'}}" ng-checked="false" ng-model="adminFilterMonthlyTime"
+                     value="monthly_individual" class="individual-filter" ng-click="reportAdminFilter($event,adminFilterMonthlyTime,userFilterType,defaultFilterVal,currentProduct,'time_statistics')">Individual
                </div>
-               <div ng-if="adminFilterMonthly  == 'monthly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
+               <div ng-if="adminFilterMonthlyTime  == 'monthly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
                   <div class="dropdown chart-dropdown">
                      <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-square"></i>
@@ -714,7 +722,7 @@
                   <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                   <div class="resize-move" ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                </div>
-               <div ng-if="adminFilterMonthly  == 'monthly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
+               <div ng-if="adminFilterMonthlyTime  == 'monthly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
                   <div class="dropdown chart-dropdown">
                      <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-square"></i>
@@ -761,30 +769,38 @@
                   </div>
                   <div class="usertype-filter-year">
                      <span class="user-label">User Type : </span>
-                     <input type="radio" name="{{currentProduct + 'adminReportMonthlyUserTypeTime'}}" ng-checked="true" ng-click="reportAdminFilter($event,adminFilterMonthly,'dept', defaultFilterVal,currentProduct)"
+                     <input type="radio" name="{{currentProduct + 'adminReportMonthlyUserTypeTime'}}" ng-checked="true" ng-click="reportAdminFilter($event,adminFilterMonthlyTime,'dept', defaultFilterVal,currentProduct,'time_statistics')"
                         />Department
-                     <input type="radio" name="{{currentProduct + 'adminReportMonthlyUserTypeTime'}}" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterMonthly,'user', defaultFilterVal,currentProduct)"
+                     <input type="radio" name="{{currentProduct + 'adminReportMonthlyUserTypeTime'}}" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterMonthlyTime,'user', defaultFilterVal,currentProduct,'time_statistics')"
                         />User
                   </div>
                   <div id="{{currentProduct + '-product-chart-yearly5'}}" class="chart-graph"></div>
-                  <div class="weekly-section" ng-if="report_type == 'weekly' && adminFilter == 'overall'">
+                  <!--<div class="weekly-section" ng-if="report_type == 'weekly' && adminFilter == 'overall'">
                      <ul>
                         <li ng-repeat="item in reportyearlist track by $index">
                            <input type="radio" ng-checked="$index==0" name="{{'item' + currentProduct}}" ng-click="weeklyYearChange($event, item.year, chartType)" ng-model="selectedValue.year"
                               value="{{item.year}}"> {{item.year}}
                         </li>
                      </ul>
-                  </div>
+                  </div>-->
+                  <ul class="monthly-section">
+                        <li ng-if="chartType == 'pie_chart'">
+                              <select class="form-control" ng-model="userNamePieLicense" ng-init="userNamePieLicense = deptIndPieUserList[0]"    ng-click="event = $event" ng-change="changeUserPieData(event, userNamePieLicense, currentProduct)">
+                              <option style="display:none" value="">select </option>
+                              <option ng-repeat="item in deptIndPieUserList">{{item}}</option>
+                              </select>
+                        </li>
+                  </ul>
                   <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                   <div class="resize-move" ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                </div>
             </div>
             <div class="col-sm-12  full-screen-view chart-render chart-render-6" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-7'}}">
                <div class="admin-report-filter">
-                  <input type="radio" name="{{currentProduct + 'adminFilterWeeklyTime'}}" ng-checked="true" ng-model="adminFilterWeekly" value="weekly_overall"
-                     ng-click="loadWeeklyGraph('weekly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
-                  <input type="radio" name="{{currentProduct + 'adminFilterWeeklyTime'}}" ng-checked="false" ng-model="adminFilterWeekly" value="weekly_individual" class="individual-filter"
-                     ng-click="reportAdminFilter($event,adminFilterWeekly,userFilterType,defaultFilterVal,currentProduct)">Individual
+                  <input type="radio" name="{{currentProduct + 'adminFilterWeeklyTime'}}" ng-checked="true" ng-model="adminFilterWeeklyTime" value="weekly_overall"
+                     ng-click="loadWeeklyGraph('weekly', 'vertical_bar_chart', 'time_statistics', currentProduct)">Overall
+                  <input type="radio" name="{{currentProduct + 'adminFilterWeeklyTime'}}" ng-checked="false" ng-model="adminFilterWeeklyTime" value="weekly_individual" class="individual-filter"
+                     ng-click="reportAdminFilter($event,adminFilterWeeklyTime,userFilterType,defaultFilterVal,currentProduct,'time_statistics')">Individual
                </div>
                <div class="dropdown chart-dropdown">
                   <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -818,7 +834,7 @@
                      </li>
                   </div>
                </div>
-               <div ng-if="adminFilterWeekly  == 'weekly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
+               <div ng-if="adminFilterWeeklyTime  == 'weekly_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
                   <span class="chart vbar-chart active-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'vertical_bar_chart','time_statistics', currentProduct)"></i></span>
                   <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'pie_chart','time_statistics', currentProduct)"></i></span>
                   <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph('weekly_change', $event,report_type,'line_chart','time_statistics', currentProduct)"></i></span>
@@ -831,7 +847,7 @@
                   <span class="chart stacked-bar-chart"><img src="images/polar-chart.png" title="polar chart" class="" ng-click= "changeGraph('weekly_change', $event,report_type,'polar_chart','time_statistics', currentProduct)"></img></span>
                   <span class="chart stacked-bar-chart"><img src="images/polar-chart.png" title="polar chart" class="" ng-click= "changeGraph('weekly_change', $event,report_type,'polar_chart','time_statistics', currentProduct)"></img></span>
                   <div id="{{currentProduct + '-product-chart-yearly6'}}" class="chart-graph"></div>
-                  <div class="weekly-section" ng-if="adminFilterWeekly  == 'weekly_overall'">
+                  <div class="weekly-section" ng-if="adminFilterWeeklyTime  == 'weekly_overall'">
                      <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
                      <ul>
                         <li ng-repeat="item in reportyearlist track by $index">
@@ -843,25 +859,25 @@
                   <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                   <div class="resize-move" ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                </div>
-               <div ng-if="adminFilterWeekly  == 'weekly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
+               <div ng-if="adminFilterWeeklyTime  == 'weekly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
                   <div class="usertype-filter-weekly" ng-show="report_type =='weekly'">
                      <div class="usertype-filter-type">
                         <span class="user-label">User Type : </span>
-                        <input type="radio" name="adminReportUserTypeWeekly" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter($event,adminFilterWeekly,'dept', defaultFilterVal,currentProduct)"
+                        <input type="radio" name="adminReportUserTypeWeekly" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter($event,adminFilterWeeklyTime,'dept', defaultFilterVal,currentProduct,'time_statistics')"
                            />Department
-                        <input type="radio" name="adminReportUserTypeWeekly" ng-checked="false" ng-model="adminReport" value="User" ng-click="reportAdminFilter($event,adminFilterWeekly,'dept', defaultFilterVal,currentProduct)"
+                        <input type="radio" name="adminReportUserTypeWeekly" ng-checked="false" ng-model="adminReport" value="User" ng-click="reportAdminFilter($event,adminFilterWeeklyTime,'dept', defaultFilterVal,currentProduct,'time_statistics')"
                            />User
                      </div>
                      <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
                         <label for="usertype-filter-dropdown">Department list:</label>
-                        <select class="form-control" id="usertype-filter-dropdown" data-attr="{{adminReportDeptList[0]}}"  ng-model="selectedDeptItem" ng-init="selectedDeptItem = adminReportDeptList[0]" ng-change="reportAdminFilter($event,adminFilterWeekly,'dept', selectedDeptItem,currentProduct)">
+                        <select class="form-control" id="usertype-filter-dropdown" data-attr="{{adminReportDeptList[0]}}"  ng-model="selectedDeptItem" ng-init="selectedDeptItem = adminReportDeptList[0]" ng-change="reportAdminFilter($event,adminFilterWeeklyTime,'dept', selectedDeptItem,currentProduct,'time_statistics')">
                            <option style="display:none" value="">select </option>
                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
                         </select>
                      </div>
                      <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
                         <label for="usertype-filter-dropdown">User list:</label>
-                        <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-init="selectedItem = adminReportUserList[0]" ng-change="reportAdminFilter($event,adminFilterWeekly,'user', selectedItem,currentProduct)">
+                        <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-init="selectedItem = adminReportUserList[0]" ng-change="reportAdminFilter($event,adminFilterWeeklyTime,'user', selectedItem,currentProduct,'time_statistics')">
                            <option style="display:none" value="">select </option>
                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
                         </select>
@@ -894,12 +910,12 @@
             </div>
             <div class="col-sm-12  full-screen-view chart-render chart-render-7" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-8'}}">
                <div class="admin-report-filter">
-                  <input type="radio" name="{{currentProduct + 'adminFilterThisWeekTime'}}" ng-checked="true" ng-model="adminFilterThisWeek"
-                     value="thisweek_overall" ng-click="loadThisWeekGraph('thisweek', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
-                  <input type="radio" name="{{currentProduct + 'adminFilterThisWeekTime'}}" ng-checked="false" ng-model="adminFilterThisWeek"
-                     value="thisweek_individual" class="individual-filter" ng-click="reportAdminFilter($event,adminFilterThisWeek,userFilterType,defaultFilterVal,currentProduct)">Individual
+                  <input type="radio" name="{{currentProduct + 'adminFilterThisWeekTime'}}" ng-checked="true" ng-model="adminFilterThisWeekTime"
+                     value="thisweek_overall" ng-click="loadThisWeekGraph('thisweek', 'vertical_bar_chart', 'time_statistics', currentProduct)">Overall
+                  <input type="radio" name="{{currentProduct + 'adminFilterThisWeekTime'}}" ng-checked="false" ng-model="adminFilterThisWeekTime"
+                     value="thisweek_individual" class="individual-filter" ng-click="reportAdminFilter($event,adminFilterThisWeekTime,userFilterType,defaultFilterVal,currentProduct,'time_statistics')">Individual
                </div>
-               <div ng-if="adminFilterThisWeek  == 'thisweek_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
+               <div ng-if="adminFilterThisWeekTime  == 'thisweek_overall'" class="pie-chart-container overall-report chart-container back-g-white half-bordered">
                   <div class="dropdown chart-dropdown">
                      <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-square"></i>
@@ -956,7 +972,7 @@
                   <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                   <div class="resize-move" ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                </div>
-               <div ng-if="adminFilterThisWeek  == 'thisweek_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
+               <div ng-if="adminFilterThisWeekTime  == 'thisweek_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
                   <div class="dropdown chart-dropdown">
                      <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-square"></i>
@@ -992,7 +1008,7 @@
                   <div class="year-list" ng-show="report_type =='yearly'">
                      <span class="year-label">Year : </span>
                      <span class="admin-year-label" ng-repeat="item in adminReportYearList track by $index">
-                     <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter($event,adminFilterThisWeek,userFilterType,item.year,currentProduct)"/>{{item.year}}
+                     <input type="radio" name="adminReportYear" ng-checked = "$index==0" ng-click="reportAdminFilter($event,adminFilterThisWeekTime,userFilterType,item.year,currentProduct,'time_statistics')"/>{{item.year}}
                      </span>
                   </div>
                   <div class="chart-type-container clearfix">
@@ -1010,8 +1026,8 @@
                   <!--
                      <div class="usertype-filter-year" ng-show="report_type =='yearly'">
                          <span class="user-label">User Type : </span>
-                         <input type="radio" name="adminReportUserType" ng-checked="true" ng-click="reportAdminFilter($event,adminFilterThisWeek,'dept', defaultFilterVal)" />Department
-                         <input type="radio" name="adminReportUserType" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterThisWeek,'user', defaultFilterVal)" />User
+                         <input type="radio" name="adminReportUserType" ng-checked="true" ng-click="reportAdminFilter($event,adminFilterThisWeekTime,'dept', defaultFilterVal)" />Department
+                         <input type="radio" name="adminReportUserType" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterThisWeekTime,'user', defaultFilterVal)" />User
                      
                      
                      </div>
@@ -1041,22 +1057,22 @@
                      <div class="usertype-filter-type">
                         <span class="user-label">User Type : </span>
                         <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeTime'}}" ng-checked="true" ng-model="adminReport"
-                           value="Department" ng-click="reportAdminFilter($event,adminFilterThisWeek,'dept', defaultFilterVal,currentProduct)"
+                           value="Department" ng-click="reportAdminFilter($event,adminFilterThisWeekTime,'dept', defaultFilterVal,currentProduct,'time_statistics')"
                            />Department
                         <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeTime'}}" ng-checked="false" ng-model="adminReport"
-                           value="User" ng-click="reportAdminFilter($event,adminFilterThisWeek,'dept', defaultFilterVal,currentProduct)"
+                           value="User" ng-click="reportAdminFilter($event,adminFilterThisWeekTime,'dept', defaultFilterVal,currentProduct,'time_statistics')"
                            />User
                      </div>
                      <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
                         <label for="usertype-filter-dropdown">Department list:</label>
-                        <select class="form-control" id="usertype-filter-dropdown" data-attr="{{adminReportDeptList[0]}}"  ng-model="selectedDeptItem" ng-init="selectedDeptItem = adminReportDeptList[0]" ng-change="reportAdminFilter($event,adminFilterThisWeek,'dept', selectedDeptItem,currentProduct)">
+                        <select class="form-control" id="usertype-filter-dropdown" data-attr="{{adminReportDeptList[0]}}"  ng-model="selectedDeptItem" ng-init="selectedDeptItem = adminReportDeptList[0]" ng-change="reportAdminFilter($event,adminFilterThisWeekTime,'dept', selectedDeptItem,currentProduct,'time_statistics')">
                            <option style="display:none" value="">select </option>
                            <option ng-repeat="item in adminReportDeptList">{{item}}</option>
                         </select>
                      </div>
                      <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
                         <label for="usertype-filter-dropdown">User list:</label>
-                        <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-init="selectedItem = adminReportUserList[0]" ng-change="reportAdminFilter($event,adminFilterThisWeek,'user', selectedItem,currentProduct)">
+                        <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-init="selectedItem = adminReportUserList[0]" ng-change="reportAdminFilter($event,adminFilterThisWeekTime,'user', selectedItem,currentProduct,'time_statistics')">
                            <option style="display:none" value="">select </option>
                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
                         </select>

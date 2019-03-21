@@ -174,7 +174,7 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
         
        };
 
-       this.getAdminReportYearListUrl = function(username, product_name) {
+       this.getAdminReportYearListUrl = function(username, product_name, statisticsIndType) {
         
         //$scope.userLogged = localStorageService.get("user");
         var userObj = {"username": username, "product_name" : product_name}

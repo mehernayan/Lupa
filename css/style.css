@@ -686,14 +686,14 @@ i.far.fa-square {
 .chart img {
     height: 14px;
 }
-.weekly-section ul {
+ul.monthly-section , .weekly-section ul {
     display: block;
     position: absolute;
     bottom: 32px;
     left: 33%;
     z-index: 1000;
 }
-.weekly-section li {
+.monthly-section li, .weekly-section li {
     float: left;
     padding-left: 10px;
     list-style-type: none;

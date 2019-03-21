@@ -251,7 +251,7 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         
         
        };
-       this.getDeptReportYearListUrl = function(username, current_prod) {
+       this.getDeptReportYearListUrl = function(username, current_prod, statisticsIndType) {
         //$scope.userLogged = localStorageService.get("user");
         var userObj = {"username": username, "product_name" : current_prod};
         //var userObj = {"username": "Harish", "product_name" : product_name}

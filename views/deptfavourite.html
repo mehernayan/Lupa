@@ -5,7 +5,9 @@
 <div class="favourite-container body-container" ng-class="{'expand':expandNav}">
     <div class="container-fluid">
         <div class="row" id="sortable">
-            <div class="{{'col-sm-12 chart-container chart-render full-screen-view chart-render-' + $index}}" ng-repeat= "item in response track by $index"  id="{{'full-screen-view-' + $index}}" ng-class="{'col-sm-6' : favouritelength>1 }">
+            
+    
+            <div class="{{'col-sm-12 chart-container full-screen-view chart-render  chart-render-' + $index}}" ng-repeat= "item in response track by $index"  id="{{'full-screen-view-' + $index}}" ng-class="{'col-sm-6' : favouritelength>1 }">
                 <div class="pie-chart-container chart-container back-g-white half-bordered">
                     <div class="dropdown chart-dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -55,6 +57,15 @@
                     <div class="resize-move"  ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                 </div>
             </div>
+            
+    
+
+
+
+
+    
+
+        </div>
 
 
 
@@ -62,5 +73,6 @@
            
         </div>
     </div>
+    
 
 </div>
