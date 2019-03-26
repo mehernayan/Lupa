@@ -4117,6 +4117,15 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
             bargroupgap: 0.5
 
         };
+        if ($scope.statisticsType == 'license_statistics') {
+                layout.yaxis.title = "Total number of license";
+                		
+
+        }
+        else if ($scope.statisticsType == 'time_statistics') {
+            layout.yaxis.title = "Total number of hours used";
+                    
+        }
         //Bar chart Section goes here
 
         var xAxisVal = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

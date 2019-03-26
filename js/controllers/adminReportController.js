@@ -3103,11 +3103,14 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             bargroupgap: 0.5
 
         };
-        if(statisticsIndType == "license_statistics") {
-            layout.yaxis.title = "Total number of license used"
-        }
-        else {
-            layout.yaxis.title = "Total number of hours used"
+         if ($scope.statisticsType == 'license_statistics') {
+                layout.yaxis.title = "Total number of license";
+                		
+
+            }
+            else if ($scope.statisticsType == 'time_statistics') {
+                layout.yaxis.title = "Total number of hours used";
+                		
         }
         //Bar chart Section goes here
 

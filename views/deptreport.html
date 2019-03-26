@@ -483,7 +483,7 @@
             <div class="col-sm-12  full-screen-view chart-render chart-render-4" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-5'}}">
                <div class="admin-report-filter">
                   <input type="radio" name="{{currentProduct + 'deptFilterYearlyTime'}}" ng-checked="true" ng-model="deptFilterYearlyTime" value="yearly_overall"
-                     ng-click="loadYearlyGraph('yearly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
+                     ng-click="loadYearlyGraph('yearly', 'vertical_bar_chart', 'time_statistics', currentProduct)">Overall
                   <input type="radio" name="{{currentProduct + 'deptFilterYearlyTime'}}" ng-checked="false" ng-model="deptFilterYearlyTime" value="yearly_individual"
                      class="individual-filter" data-ng-click="reportDeptFilter($event,deptFilterYearlyTime,userFilterType,defaultFilterVal,currentProduct, 'time_statistics')">Individual
                </div>
@@ -782,10 +782,11 @@
                   <div class="resize-move" ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                </div>
                <div ng-if="deptFilterWeeklyTime  == 'weekly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
+                  
                   <div class="usertype-filter-weekly" ng-show="report_type =='weekly'">
                      <div class="usertype-filter-dropdown-dept">
                         <label for="usertype-filter-dropdown">User list:</label>
-                        <select class="form-control" id="usertype-filter-dropdown"  ng-model="selectedItem" ng-init="selectedItem = deptReportUserList[0]" ng-change="reportDeptFilter($event,deptFilterWeeklyTime,userFilterType, selectedItem,currentProduct, 'time_statistics')">
+                        <select class="form-control" id="usertype-filter-dropdown" ng-init="selectedItem = deptReportUserList[0]" ng-model="selectedItem" ng-click="event = $event" ng-change="reportDeptFilter(event,deptFilterWeeklyTime,userFilterType, selectedItem,currentProduct, 'time_statistics')">
                            <option style="display:none" value="">select </option>
                            <option ng-repeat="item in deptReportUserList">{{item}}</option>
                         </select>
@@ -804,7 +805,21 @@
                      <span class="chart stacked-bar-chart"><img src="images/polar-chart.png" title="polar chart" class="" ng-click= "changeGraphIndividual('weekly_change', $event,report_type,'polar_chart','time_statistics', currentProduct)"></img></span>
                   </div>
                   <div id="{{currentProduct + '-product-chart-yearly6'}}" class="chart-graph"></div>
-                  <div class="weekly-section" ng-if="report_type == 'weekly' && deptFilterWeeklyTime == 'weekly_overall'">
+                  <div class="weekly-section" ng-if="deptFilterWeeklyTime  == 'weekly_individual'">
+                     <ul>
+                        <li ng-repeat="item in reportyearlist track by $index">
+                           <input type="radio" ng-checked="$index==0" name="{{'timeitemindividual' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType)"
+                              value="{{item.year}}">                                    {{item.year}}
+                        </li>
+                        <li ng-if="chartType == 'pie_chart'">
+                              <select class="form-control"   ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, currentProduct)">
+                              <option style="display:none" value="">select </option>
+                              <option ng-repeat="item in monthList">{{item}}</option>
+                              </select>
+                        </li>
+                     </ul>
+                  </div>
+                  <!--<div class="weekly-section" ng-if="report_type == 'weekly' && deptFilterWeeklyTime == 'weekly_individual'">
                      <ul>
                         <li ng-repeat="item in reportyearlist track by $index">
                            <input type="radio" ng-checked="$index==0" name="{{'timeitemindividual' + currentProduct}}" ng-change="weeklyYearChange(item.year, chartType)" 
@@ -817,7 +832,7 @@
                               </select>
                         </li>
                      </ul>
-                  </div>
+                  </div>-->
                   <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                   <div class="resize-move" ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                </div>

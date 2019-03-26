@@ -671,7 +671,7 @@
             <div class="col-sm-12  full-screen-view chart-render chart-render-5" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-6'}}">
                <div class="admin-report-filter">
                   <input type="radio" name="{{currentProduct + 'adminFilterMonthlyTime'}}" ng-checked="true" ng-model="adminFilterMonthlyTime"
-                     value="monthly_overall" ng-click="loadMonthlyGraph('monthly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
+                     value="monthly_overall" ng-click="loadMonthlyGraph('monthly', 'vertical_bar_chart', 'time_statistics', currentProduct)">Overall
                   <input type="radio" name="{{currentProduct + 'adminFilterMonthlyTime'}}" ng-checked="false" ng-model="adminFilterMonthlyTime"
                      value="monthly_individual" class="individual-filter" ng-click="reportAdminFilter($event,adminFilterMonthlyTime,userFilterType,defaultFilterVal,currentProduct,'time_statistics')">Individual
                </div>

@@ -68,6 +68,9 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
             for (i = 0; i < $scope.getYearlyExpenditureData.product_name.length; i++) {
                 customd3Colors.push(d3colors(i));
             }
+            if($scope.getYearlyExpenditureData.cost_value == undefined) {
+                $scope.getYearlyExpenditureData.cost_value = [0,0,0,0,0];
+            }
 
 
             //$rootScope.plotDataBarY2 = [];
@@ -209,6 +212,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
                     color: customd3Colors
                 }
             }];
+            layout.title = "Total Software utilization";
 
             
             Plotly.newPlot('overall-cost-analytics', plotDataBarY2, layout, plotlyDefaultConfigurationBar);
@@ -584,8 +588,10 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
     $scope.featurechartfilterselectyear1 = false;
     $scope.featurechartfilterselectmonth1 = false;
     $scope.overallfeature = true;
-
-    $scope.getYearlyExpenditure(year,month,type_of_license);
+    $scope.yearlyExp = "";
+    $scope.monthlyExp = "";
+    $scope.type_of_license_exp = "";
+    $scope.getYearlyExpenditure($scope.yearlyExp,$scope.monthlyExp,$scope.type_of_license_exp);
     ////$scope.getFeaturePercentage(year,month,product_name);
     $scope.getOverallCostAnalytics();
     
@@ -597,6 +603,11 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
         if(selectedMonth2 == undefined || selectedMonth2 == false) {
             selectedMonth2 = "";
         }
+        if(year == undefined || year == false) {
+            year = "2018";
+            $scope.featurechartfilterselectyear1 = "2018"
+        }
+        
         var d = new Date();
         if (year == d.getFullYear()) {
             var currentMonth = d.getMonth();
@@ -620,7 +631,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
             selectedMonth2 = "04";
         }else if(selectedMonth2 == "May"){
             selectedMonth2 = "05";
-        }else if(selectedMonth2 == "Jun"){
+        }else if(selectedMonth2 == "June"){
             selectedMonth2 = "06";
         }else if(selectedMonth2 == "Jul"){
             selectedMonth2 = "07";
