@@ -413,13 +413,16 @@ function($scope,$location,lupaAdminService,addDepartmentData,transferUserData,lo
       shiftEnd = $filter("date")(shiftEnd, 'HH:mm:ss');
       $('#loadergif').show();
       $scope.error = "";
+      $scope.shiftCreated = false;
       lupaAdminService.addThisWeekShiftUrl(shiftName,shiftStart,shiftEnd).then(function(response) {
           $('#loadergif').hide();
+          $scope.response = JSON.parse(response.data.status_response);
           if(typeof $scope.response!=="undefined"){
             if($scope.response.Success){
               $scope.shiftCreated = true;
               $scope.shiftFieldValidation =  false;
               $scope.getThisWeekShifts();
+              $scope.error = "";
             }else{
               $scope.error = $scope.response.message;
             }
