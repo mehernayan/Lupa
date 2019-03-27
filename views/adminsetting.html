@@ -20,7 +20,7 @@
                             <span>{{error}}</span>
                         </div>
                         <div class="pad-top-20 success-msg" ng-if="successMsg">
-                                <i class="fa fa-check"></i>
+                                  
                             <span>{{successMsg}}</span>
                         </div>
                     </div> 
@@ -180,12 +180,17 @@
                                     End Time
                                     <input class="form-control" min="shiftStart" ng-model="shiftEnd" ps-input-time required>
                                 </label>
-                                <button type="button" class="btn btn-primary" ng-click="addThisWeekShift(shiftName,shiftStart,shiftEnd)">Submit</button>
-                                <div class="alert alert-danger mar-top-20" ng-if="shiftFieldValidation">
-                                   Please Enter Shift Name / Shift Start / Shift End Date
+                                <button type="button" class="btn btn-primary btn-radial" ng-click="addThisWeekShift(shiftName,shiftStart,shiftEnd)">Submit</button>
+                                <div class="error-msg mar-top-20" ng-if="shiftFieldValidation">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    <span>Please enter Shift Name / Shift Start / Shift End </span>
                                 </div>
-                                <div class="alert alert-success mar-top-20" ng-if="shiftCreated">
-                                    Shift Added Successfully.
+                                <div class="error-msg mar-top-20" ng-if="error">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    <span>{{error}}</span>
+                                </div>
+                                <div class="success-msg mar-top-20" ng-if="shiftCreated">
+                                    <i class="fa fa-check"></i><span>Shift added successfully.</span>
                                 </div>
                             
                         </div>
@@ -208,12 +213,12 @@
                                     
                                 </label>
                                
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteShiftModal" ng-click="deleteShiftByIdConf(selectedShift.id,selectedShift.shift_name)">Delete</button>
+                                <button type="button" class="btn btn-danger btn-radial" data-toggle="modal" data-target="#deleteShiftModal" ng-click="deleteShiftByIdConf(selectedShift.id,selectedShift.shift_name)">Delete</button>
                                 <!--<div class="alert alert-danger mar-top-20" ng-if="shiftFieldValidation">
                                    Please Enter Shift Name / Shift Start / Shift End Date
                                 </div>-->
-                                <div class="alert alert-danger mar-top-20" ng-if="shiftDeleted">
-                                    Selected shift is Deleted
+                                <div class="success-msg mar-top-20" ng-if="shiftDeleted">
+                                    <i class="fa fa-check"></i><span>Selected Shift is deleted.</span>
                                 </div>
                             
                         </div>

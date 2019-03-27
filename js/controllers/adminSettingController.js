@@ -10,6 +10,10 @@ function($scope,$location,lupaAdminService,addDepartmentData,transferUserData,lo
     $scope.tab = 1;
     $scope.setTab = function (tabId) {
         $scope.tab = tabId;
+        $scope.error ="";
+        $scope.successMsg ="";
+        $scope.shiftCreated = false;
+        $scope.shiftFieldValidation = false;
         if(tabId==1){
             $scope.error ="";
             $scope.successMsg ="";
@@ -408,14 +412,16 @@ function($scope,$location,lupaAdminService,addDepartmentData,transferUserData,lo
       shiftStart = $filter("date")(shiftStart, 'HH:mm:ss');
       shiftEnd = $filter("date")(shiftEnd, 'HH:mm:ss');
       $('#loadergif').show();
+      $scope.error = "";
       lupaAdminService.addThisWeekShiftUrl(shiftName,shiftStart,shiftEnd).then(function(response) {
           $('#loadergif').hide();
           if(typeof $scope.response!=="undefined"){
             if($scope.response.Success){
               $scope.shiftCreated = true;
               $scope.shiftFieldValidation =  false;
-              }else{
-              
+              $scope.getThisWeekShifts();
+            }else{
+              $scope.error = $scope.response.message;
             }
           }
       });
@@ -441,8 +447,6 @@ function($scope,$location,lupaAdminService,addDepartmentData,transferUserData,lo
                $scope.selectedShift = $scope.shiftList[0].shift_name;
                //debugger;
              
-            }else{
-              
             }
           }
       });      

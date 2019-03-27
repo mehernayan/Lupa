@@ -9,6 +9,9 @@
 .height-250{
     min-height: 200px;
 }
+.btn-radial{
+    border-radius: 20px;
+}
 .btn-fixed{
     width: 150px;
 }
