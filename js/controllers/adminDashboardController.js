@@ -539,13 +539,13 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
     $scope.drawPolarChart = function(polarChartData, product) {
         var data2 = [{
             type: "scatterpolar",
-            name: "license used in Every 30 minutes",
             r: polarChartData.r,
             theta: polarChartData.theta,
             fill: "toself",
             subplot: "polar2",
             fillcolor: '#709BFF'
         }];
+        
         //
         var layout = {
 
@@ -569,7 +569,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                     }
                 }
             },
-            title: product + " / License used in Every 30 minutes interval"
+            title: product + " / License used in Every Month"
 
 
         }

@@ -33,7 +33,7 @@ lupaUserDashboardService.service('lupaUserDashboardService', ['$http', '$q','$fi
         
         
        };
-       this.addFavouriteUrl = function(report_type, chart_type, statisticsType) {
+       this.addFavouriteUrl = function(report_type, chart_type, statisticsType, product_name) {
         var  user_id = localStorageService.get("user")[0].id;
         
 

@@ -1649,7 +1649,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
     //$scope.changeGraph('yearly', 'vertical_bar_chart', 'license_statistics');
     //$scope.loadReport("yearly_overall", "license_statistics");
     $scope.addedFav = false;
-    $scope.addToFavourite = function (reportType, chartType, statisticsType) {
+    $scope.addToFavourite = function (reportType, chartType, statisticsType, currentprod) {
         $scope.addedFav = true;
         //$scope.userLogged = localStorageService.get("user");
         //console.log($scope.chartType, $scope.statisticsType);
@@ -1658,12 +1658,12 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         var user_id = $scope.userLogged[0].id;
         console.log(user_id);
         //var product_name = product_name;
-        var statisticsType = "license_statistics";
+        //var statisticsType = "license_statistics";
         var report_type = "yearly";
         var favourite = 1;
         var role = "user";
         var api = "";
-        lupaUserDashboardService.addFavouriteUrl(reportType, chartType, statisticsType).then(function (response) {
+        lupaUserDashboardService.addFavouriteUrl(reportType, chartType, statisticsType, currentprod).then(function (response) {
             if(JSON.parse(response.data.status_response).success == 1) {
                 $scope.addedSuccess = true;
                 setTimeout(function() {

@@ -2984,7 +2984,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
     
     $scope.addedFav = false;
     $scope.individualSet = false;
-    $scope.addToFavourite = function (reportType, chartType, statisticsType) {
+    $scope.addToFavourite = function (reportType, chartType, statisticsType, currentprod) {
         $scope.addedFav = true;
         //$scope.userLogged = localStorageService.get("user");
         //console.log($scope.chartType, $scope.statisticsType);
@@ -2993,12 +2993,12 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         var user_id = $scope.userLogged[0].id;
         console.log(user_id);
         var product_name = "LSDYNA";
-        var statisticsType = "license_statistics";
+        //var statisticsType = "license_statistics";
         var report_type = "yearly";
         var favourite = 1;
         var role = "user";
         var api = "";
-        lupaDeptDashboardService.addFavouriteUrl(reportType, chartType, statisticsType).then(function (response) {
+        lupaDeptDashboardService.addFavouriteUrl(reportType, chartType, statisticsType, currentprod).then(function (response) {
             if(JSON.parse(response.data.status_response).success == 1) {
                 $scope.addedSuccess = true;
                 setTimeout(function() {
@@ -4078,8 +4078,9 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
                 }
                 if(chartType == 'polar_chart') {
-                    $scope.drawReportPolarChart($scope.response,$scope.chartRenderId, reportType);
+                    $scope.drawReportPolarChartIndividual($scope.response,$scope.chartRenderId, $scope.report_type);
                     $scope.weeklyresponse = $scope.response;
+                    
 
                 }
 
@@ -4366,6 +4367,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     fillcolor: '#709BFF'
                 })
             }
+            
 
         }
         else if(reportType == "monthly") {
@@ -4472,18 +4474,17 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
     $scope.drawReportPolarChartIndividual = function(polarChartData,chartRenderPolarId, reportType) {
         var polarData = [];
         if (reportType == "yearly") {
-            for (key in polarChartData) {
-                polarChartRenderData = polarChartData[key];
+            
                 polarData.push({
                     type: "scatterpolar",
                     name: "license used in " + key,
-                    r: polarChartRenderData.r,
-                    theta: polarChartRenderData.theta,
+                    r: polarChartData.r,
+                    theta: polarChartData.theta,
                     fill: "toself",
                     subplot: "polar2",
                     fillcolor: '#709BFF'
                 })
-            }
+           
 
         }
         else if(reportType == "monthly") {

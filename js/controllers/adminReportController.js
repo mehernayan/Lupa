@@ -2987,7 +2987,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     $scope.addedFav = false;
     $scope.addedSuccess = false;
     $scope.alreadyAddedSuccess = false;
-    $scope.addToFavourite = function(reportType, chartType, statisticsType) {
+    $scope.addToFavourite = function(reportType, chartType, statisticsType, currentprod) {
         $scope.addedFav = true;
         //$scope.userLogged = localStorageService.get("user");
         //console.log($scope.chartType, $scope.statisticsType);
@@ -2997,7 +2997,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         var user_id = $scope.userLogged[0].id;
         console.log(user_id);
         var product_name = "LSDYNA";
-        var statisticsType = "license_statistics";
+        //var statisticsType = "license_statistics";
         var report_type = "yearly";
         var favourite = 1;
         var role = "user";
