@@ -19,6 +19,9 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
         $scope.emptyChartMsg = "";
         $('#loadergif').show();
         lupaAdminDashboardService.getLiveChartUrl().then(function(response) {
+            /*$scope.response = [{"product_name":"LSDYNA","values":[[1553742001,600000],[1553743800,600000],[1553748060,20],[1553749201,1200000],[1553749201,1200000],[1553749202,1200000],[1553749261,1200000],[1553749321,1200000],[1553749321,1200000],[1553749381,1200000],[1553749441,20],[1553756401,20],[1553760001,20],[1553763601,20],[1553767201,20],[1553769608,20],[1553770801,20],[1553778001,1200000],[1553785201,1200000],[1553792401,20],[1553796001,20]]},{"product_name":"BETA_CAE","values":[[1553749321,300000],[1553749441,5],[1553749501,5],[1553757601,300000],[1553774401,300000]]},{"product_name":"MSC","values":[[1553749321,10],[1553749381,10],[1553763601,10],[1553767201,10],[1553769608,600000],[1553773208,600000],[1553776808,600000],[1553780408,600000],[1553784008,600000]]}];
+
+            $scope.productlistresponse = [{"product_name":"LSDYNA","values":[[1553742001,600000],[1553743800,600000],[1553748060,20],[1553749201,1200000],[1553749201,1200000],[1553749202,1200000],[1553749261,1200000],[1553749321,1200000],[1553749321,1200000],[1553749381,1200000],[1553749441,20],[1553756401,20],[1553760001,20],[1553763601,20],[1553767201,20],[1553769608,20],[1553770801,20],[1553778001,1200000],[1553785201,1200000],[1553792401,20],[1553796001,20]]},{"product_name":"BETA_CAE","values":[[1553749321,300000],[1553749441,5],[1553749501,5],[1553757601,300000],[1553774401,300000]]},{"product_name":"MSC","values":[[1553749321,10],[1553749381,10],[1553763601,10],[1553767201,10],[1553769608,600000],[1553773208,600000],[1553776808,600000],[1553780408,600000],[1553784008,600000]]}];*/
             $scope.response = response.data;
             $scope.productlistresponse = response.data;
             $scope.productListDashboard = [];
@@ -38,43 +41,37 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                         "product_name": $scope.response[i].product_name,
                         "value": true
                     })
+                    
 
                 }
-                $scope.changeProductDashboard = function(item, productlist) {
-                    console.log($scope.response);
-                    //
-                    var filteredResponse = [];
-                    for (i = 0; i < productlist.length; i++) {
-                        if (productlist[i].value == true && productlist[i].product_name == $scope.productlistresponse[i].product_name) {
-                            filteredResponse.push($scope.productlistresponse[i]);
-                            //
-                        }
+                
 
 
-                    }
-                    $scope.response = filteredResponse;
-                    var seriesCounter = 0;
-                    for (i = 0; i < $scope.response.length; i++) {
-                        //
-                        seriesOptions[i] = {
-                            name: $scope.response[i].product_name,
-                            data: $scope.response[i].values
-                        };
-                        seriesCounter += 1;
-
-                        if (seriesCounter === $scope.response.length) {
-                            createChart();
-                        }
-                    }
-
-                }
-
-
-                var seriesOptions = [],
+                $scope.seriesOptions = [],
                     seriesCounter = 0;
 
-                function createChart() {
+                
+                    $scope.seriesOptions = [];
+                for (i = 0; i < $scope.response.length; i++) {
 
+                    $scope.seriesOptions[i] = {
+                        name: $scope.response[i].product_name,
+                        data: $scope.response[i].values
+                    };
+                    seriesCounter += 1;
+
+                    if (seriesCounter === $scope.response.length) {
+                        $scope.createChart();
+                    }
+                }
+            } else {
+                $scope.emptyChartMsg = "No live chart available."
+            }
+        });
+    }
+    $scope.createChart = function() {
+
+                    
                     Highcharts.stockChart('chart', {
 
                         rangeSelector: {
@@ -86,6 +83,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                                 type: 'all',
                                 text: 'All'
                             }]
+                            
                         },
                         title: {
                             text: 'Real Time Utilization'
@@ -93,9 +91,9 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
 
                         yAxis: {
                             labels: {
-                                formatter: function() {
-                                    return (this.value > 0 ? '  ' : '') + this.value;
-                                }
+                                
+                                
+
                             },
                             plotLines: [{
                                 value: 0,
@@ -112,38 +110,55 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
 
                         plotOptions: {
                             series: {
-                                compare: 'value',
-                                showInNavigator: true
+                                showInNavigator: false
                             }
                         },
 
                         tooltip: {
-                            pointFormat: '<span style="color:{series.color}">{series.name}</span>:  ({point.change})<br/>',
+                            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
                             valueDecimals: 2,
                             split: true
                         },
 
-                        series: seriesOptions
+                        series: $scope.seriesOptions
                     });
                 }
+    $scope.changeProductDashboard = function(item, productlist) {
+                    $scope.seriesOptions = [],
+                    seriesCounter = 0;
+                    //
+                    var filteredResponse = [];
+                    for (i = 0; i < productlist.length; i++) {
+                        if (productlist[i].value == true && productlist[i].product_name == $scope.productlistresponse[i].product_name) {
+                            filteredResponse.push($scope.productlistresponse[i]);
+                            //
+                        }
 
-                for (i = 0; i < $scope.response.length; i++) {
 
-                    seriesOptions[i] = {
-                        name: $scope.response[i].product_name,
-                        data: $scope.response[i].values
-                    };
-                    seriesCounter += 1;
-
-                    if (seriesCounter === $scope.response.length) {
-                        createChart();
                     }
-                }
-            } else {
-                $scope.emptyChartMsg = "No live chart available."
-            }
-        });
-    }
+                    $scope.response = filteredResponse;
+                    
+                    
+                    if($scope.response.length == 0) {
+                         $scope.seriesOptions = [];
+                         $scope.createChart();
+
+                    }
+                    for (k = 0; k < $scope.response.length; k++) {
+                        
+                        $scope.seriesOptions[k] = {
+                            name: $scope.response[k].product_name,
+                            data: $scope.response[k].values
+                        };
+                        seriesCounter += 1;
+                        
+                        if (seriesCounter === $scope.response.length) {
+                            
+                        }
+                    }
+                    $scope.createChart();
+
+        }
     $scope.getLiveChart();
     $scope.getRecentReport = function() {
         $('#loadergiflast').show();
@@ -611,11 +626,11 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
             //$scope.getLiveChart();
             $('#loadergif').hide();
             //var seriesCounter = 0;
-            var seriesOptions = [],
+            $scope.seriesOptions = [],
                 seriesCounter = 0;
             for (i = 0; i < $scope.response.length; i++) {
                 //
-                seriesOptions[i] = {
+                $scope.seriesOptions[i] = {
                     name: $scope.response[i].product_name,
                     data: $scope.response[i].values
                 };
@@ -623,47 +638,11 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                 seriesCounter += 1;
 
                 if (seriesCounter === $scope.response.length) {
-                    createChart();
+                    $scope.createChart();
                 }
             }
 
-            function createChart() {
-
-                Highcharts.stockChart('chart', {
-
-                    rangeSelector: {
-                        inputEnabled: false,
-                        labelStyle: {
-                            visibility: 'hidden'
-                        },
-                        buttons: [{
-                            type: 'all',
-                            text: 'All'
-                        }]
-                    },
-                    title: {
-                        text: 'Real Time Utilization'
-                    },
-
-                    yAxis: {
-                        plotLines: [{
-                            value: 0,
-                            width: 2,
-                            color: 'silver'
-                        }]
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    credits: {
-                        enabled: false
-                    },
-
-
-
-                    series: seriesOptions
-                });
-            }
+            
         });
     }
 
