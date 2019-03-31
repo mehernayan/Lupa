@@ -237,7 +237,8 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 			}
 			else {
 				//Fullscreen.all();
-				Fullscreen.enable($(e.target).closest('.chart-render')[0]);
+				$(e.target).closest('.chart-render')[0].requestFullscreen()
+				//Fullscreen.enable($(e.target).closest('.chart-render')[0]);
 				//Fullscreen.enable(document.getElementById('full-screen-view'));
 			}
 				

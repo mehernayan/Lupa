@@ -660,8 +660,8 @@ i.far.fa-square {
 }
 .chart-dropdown .dropdown-menu{
     min-width: 20px;
-    /* padding: 0px; */
-    left: -45px;
+    left: -64px;
+    margin-top: -31px;
 }
 
 .custom-plot-button{
@@ -700,6 +700,16 @@ ul.monthly-section , .weekly-section ul {
     float: left;
     padding-left: 10px;
     list-style-type: none;
+}
+.monthly-section-pie-fav {
+    text-align: right;
+    padding-left: 10px;
+    list-style-type: none;
+    width: 100px;
+    position: absolute;
+    margin-left: 10px;
+    bottom: 62px;
+    right: 60px;
 }
 .added-fav {
     color: #f00;
@@ -1081,3 +1091,18 @@ footer {
 .individual-report .ui-icon-gripsmall-diagonal-se {
     bottom: -15px  !important;
 }
+.weekly-fav-year {
+    text-align: center;
+    
+}
+.thisweek-section-pie-fav {
+    width: 130px;
+    right: 50px;
+    position: absolute;
+    bottom: 59px;
+}
+
+
+/*.individual-report .chart-graph {
+    padding-top: 10px;
+}*/
