@@ -4724,6 +4724,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         }
         
         
+        
         for(i = 0; i<$scope.defaultPieLicenseData.length; i++) {
             if(Object.keys($scope.defaultPieLicenseData[i])[0] == monthNamePieChart) {
                 var val = $scope.defaultPieLicenseData[i][monthNamePieChart];

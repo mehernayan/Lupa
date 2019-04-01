@@ -310,7 +310,9 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             var plotDataBarY = [{
                             values: $scope.piechartWeeklyDataLicense,
                             labels: $scope.pieLabel,
-                            type: 'pie'
+                            type: 'pie',
+                            textinfo: 'label+text+value'
+                            
             }];
             /*if(chartType == "weekly") {
                 plotly.newPlot($scope.chartRenderId, plotDataBarY, {}, plotlyDefaultConfigurationBar);
@@ -1280,7 +1282,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         var plotDataBarY = [{
                             values: $scope.defaultWeekData,
                             labels: $scope.pieLabel,
-                            type: 'pie'
+                            type: 'pie',
+                            textinfo: 'label+text+value'
                         }];
                         
 
@@ -1292,7 +1295,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         var plotDataBarY = [{
                             values: $scope.response[0].license[0]["morning"],
                             labels: xAxisVal,
-                            type: 'pie'
+                            type: 'pie',
+                            textinfo: 'label+text+value'
                         }];
                         
                     }
@@ -1300,7 +1304,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         var plotDataBarY = [{
                         values: $scope.response[0].value,
                         labels: $scope.response[0].label,
-                        type: 'pie'
+                        type: 'pie',
+                        textinfo: 'label+text+value'
                     }];
                     }
                     
@@ -2222,6 +2227,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                                     values: yVal,
                                     labels: xVal,
                                     type: 'pie',
+                                    textinfo: 'label+text+value',
                                     marker: {
                                         color: d3colors(i)
                                     }
@@ -2243,7 +2249,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             var plotDataBarY = [{
                                 values: $scope.defaultWeekData,
                                 labels: $scope.pieLabel,
-                                type: 'pie'
+                                type: 'pie',
+                                textinfo: 'label+text+value'
                             }];
                             
 
@@ -2266,6 +2273,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                                     values: $scope.response[0].license,
                                     labels: monthArray,
                                     type: 'pie',
+                                    textinfo: 'label+text+value',
                                     marker: {
                                         color: d3colors(i)
                                     }
@@ -2281,6 +2289,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                                     values: yVal,
                                     labels: xAxisVal,
                                     type: 'pie',
+                                    textinfo: 'label+text+value',
                                     marker: {
                                         color: d3colors(i)
                                     }
@@ -3790,17 +3799,21 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     }
 
     $scope.changeMonthData = function(event, monthNamePieChart, product_name) {
+        $scope.reportPieChartYear = $(event.target).closest('.weekly-section').find("input:checked").attr('data-attr');
+        $scope.monthNamePieChart = monthNamePieChart;
         $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-graph").attr('id');
         layout.title = product_name + " / Weekly report";
         $scope.pieLabel = ["1st week", "2nd week", "3rd week", "4th week", "5th week"];
         if($scope.reportPieChartYear == "" || $scope.reportPieChartYear == undefined) {
-            $scope.defaultPieLicenseData = $scope.response[$scope.response.length - 1].license;
+            $scope.defaultPieLicenseData = $scope.response[0].license;
+            
             
         }
         else {
-            for(k = 0; k< $scope.pieChartTotalReponse.length; k++) {
+            for(k = 0; k < $scope.pieChartTotalReponse.length; k++) {
                 if($scope.pieChartTotalReponse[k].year == $scope.reportPieChartYear) {
                     $scope.defaultPieLicenseData = $scope.pieChartTotalReponse[k].license;
+                    
                    
                 }
             }
@@ -3814,7 +3827,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 var plotDataBarY = [{
                             values: val,
                             labels: $scope.pieLabel,
-                            type: 'pie'
+                            type: 'pie',
+                            textinfo: 'label+text+value'
                 }];
                 
                 
@@ -3822,6 +3836,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             }
         }
         
+        layout.legend = {x:1, y:1};
         Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
     }
@@ -3847,7 +3862,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         var plotDataBarY = [{
                             values: $scope.pieDeptIndMonthlySelected[0].license,
                             labels: monthArray,
-                            type: 'pie'
+                            type: 'pie',
+                            textinfo: 'label+text+value'
         }];
         Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
         
@@ -3868,7 +3884,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         var plotDataBarY = [{
                             values: Object.values($scope.thisweekFilterPieData[0])[0],
                             labels: xAxisVal,
-                            type: 'pie'
+                            type: 'pie',
+                            textinfo: 'label+text+value'
         }];
         layout.legend = {x: 1, y: 1};
         Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);

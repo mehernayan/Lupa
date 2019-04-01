@@ -35,7 +35,6 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
             //$scope.reportyearlist = [{"year": 2016, "checked": false}, {"year": 2017, "checked": true}];
             var d3colors = Plotly.d3.scale.category10();
             $scope.response = JSON.parse(response.data.status_response).favourites_list;
-            debugger;
             if($scope.response != undefined) {
                 $scope.favouritelength = $scope.response.length;
                 
@@ -441,6 +440,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                     }
                             })
                             }
+                            
                     if ($scope.response[i].type == 'license_statistics') {
                         layout.yaxis.title = "Total number of license";
                                 
@@ -898,6 +898,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                     }
                             })
                             }
+                            
                     if ($scope.response[i].type == 'license_statistics') {
                         layout.yaxis.title = "Total number of license";
                                 
@@ -1182,7 +1183,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                     type: type,
                                     mode: 'markers',
                                     marker: {
-                                        color: d3colors(i)
+                                        color: d3colors(j)
                                     }
                                                                         
                                 })
@@ -1190,6 +1191,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                             }
 
                         }
+                        
 
 
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -1209,7 +1211,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                             values: $scope.pieVal,
                             labels: $scope.pieLabel,
                             type: 'pie',
-                            textinfo: 'none'
+                            textinfo: 'label+text+value'
                         }];
                         
                         $(".chart-render-" + chartFavouriteIndex).show();
@@ -1469,7 +1471,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                     type: type,
                                     mode: 'markers',
                                     marker: {
-                                        color: d3colors(i)
+                                        color: d3colors(j)
                                     }
                                                                         
                                 })
@@ -1494,10 +1496,11 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                         $scope.pieVal = $scope.chartresponse['morning']; 
                         var plotDataBarY = [{
                             values: $scope.pieVal,
-                            labels: $scope.pieLabel,
+                            labels: xAxisVal,
                             type: 'pie',
-                            textinfo: 'none'
+                            textinfo: 'label+text+value'
                         }];
+                        
                         
                         $(".chart-render-" + chartFavouriteIndex).show();
                         layout.legend = {x: 1, y: 1};
@@ -1573,7 +1576,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                             values: val,
                             labels: $scope.monthList,
                             type: 'pie',
-                            textinfo: 'none'
+                            textinfo: 'label+text+value'
                 }];
             }
         }
@@ -1601,13 +1604,14 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                             values: val,
                             labels: $scope.pieLabel,
                             type: 'pie',
-                            textinfo: 'none'
+                            textinfo: 'label+text+value'
                 }];
                 
                 
                 
             }
         }
+         
          var plotlyDefaultConfigurationBar = {
                 responsive: true,
                 displaylogo: false,
