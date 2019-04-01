@@ -190,9 +190,17 @@
                         <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
                         <ul>
                             <li ng-repeat="item in reportyearlist track by $index">
-                                <input type="radio" ng-checked="$index==0" name="{{'licenseitem' + currentProduct}}" ng-model="selectedValue.year"  ng-click="weeklyYearChange($event,item.year, chartType)"  value="{{item.year}}" >
-                                {{item.year}}
+                               <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index == 0"  ng-model="selectedValue.year"  name="{{'licenseitem' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType)"
+                               value="{{item.year}}">{{item.year}}</span>
+                               <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index == 0" ng-model="selectedValue.year"  name="{{'licenseitem' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct)"
+                                value="{{item.year}}">{{item.year}}</span> 
                             </li>
+                            <li ng-if="chartType == 'pie_chart'">
+                              <select class="form-control"   ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, currentProduct)">
+                              <option style="display:none" value="">select </option>
+                              <option ng-repeat="item in monthList">{{item}}</option>
+                              </select>
+                             </li>
                         </ul>
                         
 
@@ -258,6 +266,12 @@
                     <span class="chart stacked-bar-chart"><img src="images/polar-chart.png" title="polar chart" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'polar_chart',statisticsType,currentProduct)"></img></span>
 
                     <div id="{{currentProduct + '-product-chart-yearly3'}}" class="chart-graph"></div>
+                    <div class="thisWeekPieData" ng-show="(report_type =='thisweek' || report_type =='this_week') && chartType == 'pie_chart'">
+                        <select class="form-control thisweek-section-pie-fav" ng-model="thiweeksNamePieChart" ng-init="thiweeksNamePieChart = daySession[0]" ng-click="event = $event" ng-change="changeThisWeekPieData(event, thiweeksNamePieChart, currentProduct)">
+                              <option style="display:none" value="">select </option>
+                              <option ng-repeat="item in daySession">{{item}}</option>
+                        </select>
+                    </div>
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                     <div class="resize-move" ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                 </div>
@@ -438,10 +452,19 @@
                         <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
                         <ul>
                             <li ng-repeat="item in reportyearlist track by $index">
-                                <input type="radio" ng-checked="$index==0" name="{{'timeitem' + currentProduct}}"  ng-click="weeklyYearChange($event,item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
-                                {{item.year}}
+                               <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index == 0"  ng-model="selectedValue.year" value="{{item.year}}"  name="{{'timeitem' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType)"
+                               value="{{item.year}}">{{item.year}}</span>
+                               <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index == 0" ng-model="selectedValue.year"  value="{{item.year}}" name="{{'timeitem' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct)"
+                                value="{{item.year}}">{{item.year}}</span> 
                             </li>
+                            <li ng-if="chartType == 'pie_chart'">
+                              <select class="form-control"   ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, currentProduct)">
+                              <option style="display:none" value="">select </option>
+                              <option ng-repeat="item in monthList">{{item}}</option>
+                              </select>
+                             </li>
                         </ul>
+                        
                         
 
 
@@ -505,6 +528,12 @@
                     <span class="chart stacked-bar-chart"><img src="images/polar-chart.png" title="polar chart" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'polar_chart',statisticsType,currentProduct)"></img></span>
 
                     <div id="{{currentProduct + '-product-chart-yearly7'}}" class="chart-graph"></div>
+                    <div class="thisWeekPieData" ng-show="(report_type =='thisweek' || report_type =='this_week') && chartType == 'pie_chart'">
+                        <select class="form-control thisweek-section-pie-fav" ng-model="thiweeksNamePieChart" ng-init="thiweeksNamePieChart = daySession[0]" ng-click="event = $event" ng-change="changeThisWeekPieData(event, thiweeksNamePieChart, currentProduct)">
+                              <option style="display:none" value="">select </option>
+                              <option ng-repeat="item in daySession">{{item}}</option>
+                        </select>
+                    </div>
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                     <div class="resize-move" ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                 </div>

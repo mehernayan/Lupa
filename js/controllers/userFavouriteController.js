@@ -32,6 +32,14 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
             var d3colors = Plotly.d3.scale.category10();
             //$scope.response = response.data;
             $scope.response = JSON.parse(response.data.status_response);
+            if($scope.response != undefined) {
+                $scope.favouritelength = $scope.response.length;
+                
+            }
+            else {
+                $("#loadergif").hide();
+                $("#loadergiflast").hide();
+            }
             $scope.response = $scope.response.favourites_list;
             $scope.favouritelength = $scope.response.length;
             if ($scope.response.status_response) {
@@ -112,8 +120,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                         var plotDataBarY = [{
                         values: $scope.chartresponse[0].value,
                         labels: $scope.chartresponse[0].label,
-                        type: 'pie',
-                        textinfo: 'none'
+                        type: 'pie'
                         }];
                         layout.legend = {x:1, y:1};
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -466,8 +473,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                         var plotDataBarY = [{
                         values: $scope.chartresponse[0].value,
                         labels: $scope.chartresponse[0].label,
-                        type: 'pie',
-                        textinfo: 'none'
+                        type: 'pie'
                         }];
                         layout.legend = {x:1, y:1};
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -946,7 +952,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                             values: $scope.chartresponse[0].value,
                             labels: $scope.chartresponse[0].label,
                             type: 'pie',
-                            textinfo: 'none'
+                            textinfo: 'label+text+value'
                         }];
                         var label = {}
                         
@@ -1053,7 +1059,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                             values: $scope.chartresponse[0].value,
                             labels: $scope.chartresponse[0].label,
                             type: 'pie',
-                            textinfo: 'none'
+                            textinfo: 'label+text+value'
                         }];
                             var layout = {
                                 
@@ -1322,7 +1328,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                                     values: $scope.chartresponse[0].value,
                                     labels: $scope.chartresponse[0].label,
                                     type: 'pie',
-                                    textinfo: 'none'
+                                    textinfo: 'label+text+value'
                                 }];
                                 var layout = {
                                     showlegend: true,
@@ -1422,7 +1428,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                                     values: $scope.chartresponse[0].value,
                                     labels: $scope.chartresponse[0].label,
                                     type: 'pie',
-                                    textinfo: 'none'
+                                    textinfo: 'label+text+value'
                                 }];
                                 var layout = {
                                     showlegend: true,

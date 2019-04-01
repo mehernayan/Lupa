@@ -27,7 +27,9 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
     $scope.reportSidebar = true;
     $scope.dashboardActive = false;
     $scope.favouriteActive = false;
-
+    $scope.monthList = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+    $scope.daySession = ['Morning', 'Afternoon', 'Evening'];
+    
     
     
     $scope.chartType = ['vertical_bar_chart', 'pie_chart', 'line_chart', 'area_chart', 'horizontal_bar_chart'];
@@ -1000,7 +1002,6 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                         $scope.pieLabel = ["1st week", "2nd week", "3rd week", "4th week", "5th week"];
                         $scope.defaultWeekDataSet = $scope.response[$scope.response.length - 1].license[0];
                         $scope.defaultWeekData = $scope.response[0].license[0].january;
-                        debugger;
                         var sum = $scope.defaultWeekData.reduce(function(a, b) { return a + b; }, 0);
                         if(sum == 0) {
                             $scope.noPieChartDataMessage = true;
@@ -1011,7 +1012,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                             values: $scope.defaultWeekData,
                             labels: $scope.pieLabel,
                             type: 'pie',
-                            textinfo: 'none'
+                            textinfo: 'label+text+value'
                         }];
                         
 
@@ -1024,7 +1025,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                             values: $scope.response[0].license[0]["morning"],
                             labels: xAxisVal,
                             type: 'pie',
-                            textinfo: 'none'
+                            textinfo: 'label+text+value'
                         }];
                         
                     }
@@ -1033,7 +1034,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                         values: $scope.response[0].value,
                         labels: $scope.response[0].label,
                         type: 'pie',
-                        textinfo: 'none'
+                        textinfo: 'label+text+value'
                     }];
                     }
                     
@@ -1526,13 +1527,15 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     var size = [];
 
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
+                        
                         //$scope.thisWeekCommonChartType($scope.response[0]);
                         layout.title = product_name + ' / This Week Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             size = [];
-                            size = $scope.bubbleSize($scope.response[0].license[i][key]);
+                            
                             for (key in $scope.response[0].license[i]) {
+                                size = $scope.bubbleSize($scope.response[0].license[i][key]);
                                 plotDataBarY.push({
                                     x: xAxisVal,
                                     y: $scope.response[0].license[i][key],
@@ -1956,6 +1959,69 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
             
         }
         return size;
+    }
+    $scope.changeMonthData = function(event, monthNamePieChart, product_name) {
+        $scope.reportPieChartYear = $(event.target).closest('.weekly-section').find("input:checked").attr('data-attr');
+        $scope.monthNamePieChart = monthNamePieChart;
+        $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-graph").attr('id');
+        layout.title = product_name + " / Weekly report";
+        $scope.pieLabel = ["1st week", "2nd week", "3rd week", "4th week", "5th week"];
+        if($scope.reportPieChartYear == "" || $scope.reportPieChartYear == undefined) {
+            $scope.defaultPieLicenseData = $scope.response[0].license;
+            
+            
+        }
+        else {
+            for(k = 0; k < $scope.pieChartTotalReponse.length; k++) {
+                if($scope.pieChartTotalReponse[k].year == $scope.reportPieChartYear) {
+                    $scope.defaultPieLicenseData = $scope.pieChartTotalReponse[k].license;
+                    
+                   
+                }
+            }
+        }
+        
+        
+        
+        for(i = 0; i<$scope.defaultPieLicenseData.length; i++) {
+            if(Object.keys($scope.defaultPieLicenseData[i])[0] == monthNamePieChart) {
+                var val = $scope.defaultPieLicenseData[i][monthNamePieChart];
+                var plotDataBarY = [{
+                            values: val,
+                            labels: $scope.pieLabel,
+                            type: 'pie',
+                            textinfo: 'label+text+value'
+                }];
+                
+                
+                
+            }
+        }
+        
+        layout.legend = {x:1, y:1};
+        Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+
+    }
+    $scope.changeThisWeekPieData = function(event, thiweeksNamePieChart, product_name) {
+        $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-graph").attr('id');
+        var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        $scope.thisWeekPieData = $scope.thisWeekPieRespData;
+        layout.title = product_name + " / Monthly report";
+        $scope.thisweekFilterPieData = [];
+        for(k=0; k < $scope.thisWeekPieData.length; k++) {
+            if(Object.keys($scope.thisWeekPieData[k])[0] == thiweeksNamePieChart.toLowerCase()) {
+                $scope.thisweekFilterPieData.push($scope.thisWeekPieData[k]);
+
+            }
+        }
+        var plotDataBarY = [{
+                            values: Object.values($scope.thisweekFilterPieData[0])[0],
+                            labels: xAxisVal,
+                            type: 'pie',
+                            textinfo: 'label+text+value'
+        }];
+        layout.legend = {x: 1, y: 1};
+        Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
     }
 
 }]);

@@ -1209,7 +1209,7 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                             values: $scope.pieVal,
                             labels: $scope.pieLabel,
                             type: 'pie',
-                            textinfo: 'none'
+                            textinfo: 'label+text+value'
                         }];
                         
                         $(".chart-render-" + chartFavouriteIndex).show();
@@ -1496,7 +1496,7 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                             values: $scope.pieVal,
                             labels: $scope.pieLabel,
                             type: 'pie',
-                            textinfo: 'none'
+                            textinfo: 'label+text+value'
                         }];
                         
                         $(".chart-render-" + chartFavouriteIndex).show();
@@ -1573,7 +1573,7 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                             values: val,
                             labels: $scope.monthList,
                             type: 'pie',
-                            textinfo: 'none'
+                            textinfo: 'label+text+value'
                 }];
             }
         }
@@ -1601,7 +1601,7 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                             values: val,
                             labels: $scope.pieLabel,
                             type: 'pie',
-                            textinfo: 'none'
+                            textinfo: 'label+text+value'
                 }];
                 
                 

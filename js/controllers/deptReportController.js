@@ -317,7 +317,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                             values: $scope.piechartWeeklyDataLicense,
                             labels: $scope.pieLabel,
                             type: 'pie',
-                            textinfo: 'none'
+                            textinfo: 'label+text+value'
             }];
             /*if(chartType == "weekly") {
                 plotly.newPlot($scope.chartRenderId, plotDataBarY, {}, plotlyDefaultConfigurationBar);
@@ -1300,7 +1300,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         values: $scope.response[0].value,
                         labels: $scope.response[0].label,
                         type: 'pie',
-                        textinfo: 'none'
+                        textinfo: 'label+text+value'
                     }];
                     var layout = {};
                     if($scope.report_type == "yearly") {
@@ -2227,7 +2227,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         values: $scope.response[0].license,
                         labels: $scope.response[0].label,
                         type: 'pie',
-                        textinfo: 'none'
+                        textinfo: 'label+text+value'
                     }];
                     var layout = {};
                     if($scope.report_type == "yearly") {
@@ -2239,7 +2239,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                                 values: $scope.response[0].license,
                                 labels: monthArray,
                                 type: 'pie',
-                                textinfo: 'none'
+                                textinfo: 'label+text+value'
                             }];
                          }
                         else if($scope.report_type == "weekly"){
@@ -2259,7 +2259,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                                     values: $scope.defaultWeekData,
                                     labels: $scope.pieLabel,
                                     type: 'pie',
-                                    textinfo: 'none'
+                                    textinfo: 'label+text+value'
                                 }];
                         }
                         else {
@@ -3368,7 +3368,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                                 values: yVal,
                                 name: name,
                                 type: 'pie',
-                                textinfo: 'none',
+                                textinfo: 'label+text+value',
                                 marker: {
                                     color: d3colors(i)
                                 }
@@ -4696,7 +4696,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                             values: $scope.pieDeptIndMonthlySelected[0].license,
                             labels: monthArray,
                             type: 'pie',
-                            textinfo: 'none'
+                            textinfo: 'label+text+value'
         }];
         Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
         
@@ -4732,7 +4732,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                             values: val,
                             labels: $scope.pieLabel,
                             type: 'pie',
-                            textinfo: 'none'
+                            textinfo: 'label+text+value'
                 }];
                 
                 
@@ -4760,7 +4760,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                             values: Object.values($scope.thisweekFilterPieData[0])[0],
                             labels: xAxisVal,
                             type: 'pie',
-                            textinfo: 'none'
+                            textinfo: 'label+text+value'
         }];
         layout.legend = {x: 1, y: 1};
         Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
