@@ -274,7 +274,33 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
                         var type = 'scatter',
                             mode = 'markers';
                     }
-                    if ($scope.response[i].chart_type == 'polar_chart') {
+                    else if ($scope.response[i].chart_type == 'polar_chart') {
+                        var layout = {
+
+
+                            polar2: {
+
+                                radialaxis: {
+                                    angle: 0,
+                                    visible: true,
+                                    tickfont: {
+                                        size: 10,
+                                        color: '#000'
+                                    }
+                                },
+                                angularaxis: {
+                                    visible: true,
+                                    direction: "clockwise",
+                                    tickfont: {
+                                        size: 8,
+                                        color: '#000'
+                                    }
+                                }
+                            },
+                            title: product_name + " / License used in Every Month"
+
+
+                        }
                         polarChartData = $scope.chartresponse;
                         for (key in polarChartData) {
                             polarChartRenderData = polarChartData[key];
@@ -288,12 +314,13 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
                                 fillcolor: '#709BFF'
                             })
                         }
-
+                        
                     }
+                    
 
 
 
-                    if ($scope.response[i].chart_type == "pie_chart") {
+                   else  if ($scope.response[i].chart_type == "pie_chart") {
                         var plotDataBarY = [];
                         var plotDataBarY = [{
                             values: $scope.chartresponse[0].value,
@@ -310,7 +337,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
                         };
                     }
                     
-                    if ($scope.response[i].chart_type == "horizontal_bar_chart") {
+                   else  if ($scope.response[i].chart_type == "horizontal_bar_chart") {
                          var layout = {
                         title: product_name +  ' / ' + $scope.response[i].report_type +  'Report',
                         showlegend: true,

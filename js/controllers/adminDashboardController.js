@@ -1382,13 +1382,14 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                         }
                         
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
-                        for (k = 0; k < $scope.chartresponse[0].license.length; k++) {
-                            for (key in $scope.chartresponse[0].license[k]) {
+                        for(j=0;j<$scope.chartresponse[j].length ; j++){
+                            for (k = 0; k < $scope.chartresponse[j].license.length; k++) {
+                            for (key in $scope.chartresponse[j].license[k]) {
                                 plotDataBarY.push({
                                     type: "scatterpolar",
                                     name: monthArray[k],
-                                    r: $scope.chartresponse[0].license[k][key].r,
-                                    theta: $scope.chartresponse[0].license[k][key].theta,
+                                    r: $scope.chartresponse[j].license[k][key].r,
+                                    theta: $scope.chartresponse[j].license[k][key].theta,
                                     fill: "toself",
                                     subplot: "polar2",
                                     fillcolor: '#709BFF'
@@ -1399,6 +1400,9 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
 
 
                         }
+                        }
+                        
+                        
                         $(".chart-render-" + chartFavouriteIndex).show();
                         layout.legend = {x: 1, y: 1};
                         layout.title = $scope.response[i].product_name + ' ' + $scope.response[i].report_type +  ' / ' + favouriteStatisticType +' report';

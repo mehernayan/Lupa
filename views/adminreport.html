@@ -347,7 +347,7 @@
                      </li>
                   </div>
                </div>
-                  <div class="usertype-filter-weekly" ng-show="report_type =='weekly'">
+                  <div class="usertype-filter-weekly">
                      <div class="usertype-filter-type">
                         <span class="user-label">User Type : </span>
                         <input type="radio" name="{{currentProduct + 'adminReportWeeklyUserTypeLicense'}}" ng-checked="true" data-attr="dept" ng-model="adminReport"
@@ -366,7 +366,7 @@
                      </div>
                      <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'User'">
                         <label for="usertype-filter-dropdown">User list:</label>
-                        <select class="form-control" id="usertype-filter-dropdown" ng-model="selectedItem" ng-init="selectedItem = adminReportUserList[0]" ng-click="event = $event" ng-change="reportAdminFilter(event,adminFilterWeeklyLicense,'user', selectedItem,currentProduct,'license_statistics')">
+                        <select class="form-control" id="usertype-filter-dropdown"  ng-model="selectedItem" ng-init="selectedItem = adminReportUserList[0]" ng-click="event = $event" ng-change="reportAdminFilter(event,adminFilterWeeklyLicense,'user', selectedItem,currentProduct,'license_statistics')">
                            <option style="display:none" value="">select </option>
                            <option ng-repeat="item in adminReportUserList">{{item}}</option>
                         </select>
@@ -904,7 +904,7 @@
                   <div class="resize-move" ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                </div>
                <div ng-if="adminFilterWeeklyTime  == 'weekly_individual'" class="pie-chart-container individual-report chart-container back-g-white half-bordered">
-                  <div class="usertype-filter-weekly" ng-show="report_type =='weekly'">
+                  <div class="usertype-filter-weekly">
                      <div class="usertype-filter-type">
                         <span class="user-label">User Type : </span>
                         <input type="radio" name="adminReportUserTypeWeekly" ng-checked="true" ng-model="adminReport" value="Department" data-attr="dept" ng-click="reportAdminFilter($event,adminFilterWeeklyTime,'dept', defaultFilterVal,currentProduct,'time_statistics')"
