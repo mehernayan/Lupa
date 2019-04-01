@@ -35,12 +35,14 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
             //$scope.reportyearlist = [{"year": 2016, "checked": false}, {"year": 2017, "checked": true}];
             var d3colors = Plotly.d3.scale.category10();
             $scope.response = JSON.parse(response.data.status_response).favourites_list;
+            debugger;
             if($scope.response != undefined) {
                 $scope.favouritelength = $scope.response.length;
                 
             }
             else {
-                $("#loadergif").hide()
+                $("#loadergif").hide();
+                $("#loadergiflast").hide();
             }
             
             

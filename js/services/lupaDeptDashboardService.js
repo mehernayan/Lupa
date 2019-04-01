@@ -72,23 +72,23 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         var thisWeekReportIndividualFilter = localStorageService.get("thisWeekReportIndividualFilter");
         
 
-        var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url};
+        var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "dept", "api": $rootScope.url};
         if(report_type == "yearly") {
-          var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url, "filter_year": yearlyReportIndividual}; 
+          var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "dept", "api": $rootScope.url, "filter_year": yearlyReportIndividual}; 
         }
         if(report_type == "monthly") {
-          var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url, "filter_year": monthlyReportIndividual}; 
+          var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "dept", "api": $rootScope.url, "filter_year": monthlyReportIndividual}; 
         }
         if(report_type == "weekly") {
          
-          var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url, "filter_year": weeklyReportYearOverallSel};
+          var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "dept", "api": $rootScope.url, "filter_year": weeklyReportYearOverallSel};
           
           if(weeklyReportIndividualFilter != "") {
               if(userFilterType == "user") {
-                  var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url, "filter_year": weeklyReportYearOverallSel, "filter_user": weeklyReportIndividualFilter};
+                  var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "dept", "api": $rootScope.url, "filter_year": weeklyReportYearOverallSel, "filter_user": weeklyReportIndividualFilter};
               }
               else {
-                  var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url, "filter_year": weeklyReportYearOverallSel, "filter_department": weeklyReportIndividualFilter};
+                  var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "dept", "api": $rootScope.url, "filter_year": weeklyReportYearOverallSel, "filter_department": weeklyReportIndividualFilter};
               }
               
               
@@ -97,14 +97,14 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         }
         if(report_type == "thisweek" || report_type == "this_week") {
          
-          var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url};
+          var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "dept", "api": $rootScope.url};
           
           if(thisWeekReportIndividualFilter != "") {
               if(userFilterType == "user") {
-                  var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url, "filter_user": thisWeekReportIndividualFilter};
+                  var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "dept", "api": $rootScope.url, "filter_user": thisWeekReportIndividualFilter};
               }
               else if(userFilterType == "dept"){
-                  var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url, "filter_department": thisWeekReportIndividualFilter};
+                  var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "dept", "api": $rootScope.url, "filter_department": thisWeekReportIndividualFilter};
               }
               
               

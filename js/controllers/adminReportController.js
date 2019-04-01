@@ -310,8 +310,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             var plotDataBarY = [{
                             values: $scope.piechartWeeklyDataLicense,
                             labels: $scope.pieLabel,
-                            type: 'pie',
-                            textinfo: 'none'
+                            type: 'pie'
             }];
             /*if(chartType == "weekly") {
                 plotly.newPlot($scope.chartRenderId, plotDataBarY, {}, plotlyDefaultConfigurationBar);
@@ -1069,6 +1068,9 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         if ($scope.report_type == 'thisweek') {
             $scope.report_type = 'this_week';
         }
+        if($scope.report_type == 'weekly') {
+            $(event.target).closest('.chart-container').find('.weekly-section input:radio:first').prop("checked", true);
+        }
         $scope.statisticsType = statisticsType;
         $('#loadergif').show();
         $(".chart-container .chart").removeClass("active-chart");
@@ -1278,8 +1280,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         var plotDataBarY = [{
                             values: $scope.defaultWeekData,
                             labels: $scope.pieLabel,
-                            type: 'pie',
-                            textinfo: 'none'
+                            type: 'pie'
                         }];
                         
 
@@ -1291,8 +1292,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         var plotDataBarY = [{
                             values: $scope.response[0].license[0]["morning"],
                             labels: xAxisVal,
-                            type: 'pie',
-                            textinfo: 'none'
+                            type: 'pie'
                         }];
                         
                     }
@@ -1300,8 +1300,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         var plotDataBarY = [{
                         values: $scope.response[0].value,
                         labels: $scope.response[0].label,
-                        type: 'pie',
-                        textinfo: 'none'
+                        type: 'pie'
                     }];
                     }
                     
@@ -1798,6 +1797,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
+                                size = [];
+                                size = $scope.bubbleSize($scope.response[0].license[i][key]);
                                 plotDataBarY.push({
                                     x: xAxisVal,
                                     y: $scope.response[0].license[i][key],
@@ -1849,16 +1850,9 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     } else {
                         for (i = 0; i < $scope.response.length; i++) {
-                            for (j = 0; j < $scope.response[i].license.length; j++) {
-                                console.log($scope.response[i].license[j]);
-                                if ($scope.response[i].license[j] > 10) {
-                                    
-                                    size.push($scope.response[i].license[j] / 7)
-                                } else {
-                                    size.push($scope.response[i].license[j]);
-                                    
-                                }
-                            }
+                            size = [];
+                            size = $scope.bubbleSize($scope.response[i].license);
+
                             plotDataBarY.push({
                                 x: xAxisVal,
                                 y: $scope.response[i].license,
@@ -2225,7 +2219,6 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                                     values: yVal,
                                     labels: xVal,
                                     type: 'pie',
-                                    textinfo: 'none',
                                     marker: {
                                         color: d3colors(i)
                                     }
@@ -2247,8 +2240,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             var plotDataBarY = [{
                                 values: $scope.defaultWeekData,
                                 labels: $scope.pieLabel,
-                                type: 'pie',
-                                textinfo: 'none'
+                                type: 'pie'
                             }];
                             
 
@@ -2271,7 +2263,6 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                                     values: $scope.response[0].license,
                                     labels: monthArray,
                                     type: 'pie',
-                                    textinfo: 'none',
                                     marker: {
                                         color: d3colors(i)
                                     }
@@ -2287,7 +2278,6 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                                     values: yVal,
                                     labels: xAxisVal,
                                     type: 'pie',
-                                    textinfo: 'none',
                                     marker: {
                                         color: d3colors(i)
                                     }
@@ -2849,12 +2839,14 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
+                                size = [];
+                                size = $scope.bubbleSize($scope.response[0].license[i][key]);
                                 plotDataBarY.push({
                                     x: xAxisVal,
                                     y: $scope.response[0].license[i][key],
                                     mode: 'markers',
                                     marker: {
-                                        size: [20, 40, 60]
+                                        size: size
                                     },
                                     name: key
                                 })
@@ -2885,13 +2877,15 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
+                                size = [];
+                                size = $scope.bubbleSize($scope.response[0].license[i][key]);
                                 plotDataBarY.push({
                                     x: xAxisVal,
                                     y: $scope.response[0].license[i][key],
                                     name: monthArray[i],
                                     mode: 'markers',
                                     marker: {
-                                        size: [10, 20, 30, 40, 50]
+                                        size: size
                                     },
                                 })
 
@@ -2913,13 +2907,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             if ($scope.report_type == "yearly") {
                                 if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
                                     size = [];
-                                    for (j = 0; j < $scope.response[i].value.length; j++) {
-                                        if ($scope.response[i].value[j] > 10) {
-                                            size.push($scope.response[i].value[j] / 7)
-                                        } else {
-                                            size.push($scope.response[i].value[j]);
-                                        }
-                                    }
+                                    size = $scope.bubbleSize($scope.response[i].value);
                                     var xVal = $scope.response[i].label;
                                     var yVal = $scope.response[i].value;
                                     var name = "yearly";
@@ -3816,20 +3804,21 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         }
         
         
+        
         for(i = 0; i<$scope.defaultPieLicenseData.length; i++) {
             if(Object.keys($scope.defaultPieLicenseData[i])[0] == monthNamePieChart) {
                 var val = $scope.defaultPieLicenseData[i][monthNamePieChart];
                 var plotDataBarY = [{
                             values: val,
                             labels: $scope.pieLabel,
-                            type: 'pie',
-                            textinfo: 'none'
+                            type: 'pie'
                 }];
                 
                 
                 
             }
         }
+        
         Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
     }
@@ -3855,8 +3844,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         var plotDataBarY = [{
                             values: $scope.pieDeptIndMonthlySelected[0].license,
                             labels: monthArray,
-                            type: 'pie',
-                            textinfo: 'none'
+                            type: 'pie'
         }];
         Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
         
@@ -3877,11 +3865,41 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         var plotDataBarY = [{
                             values: Object.values($scope.thisweekFilterPieData[0])[0],
                             labels: xAxisVal,
-                            type: 'pie',
-                            textinfo: 'none'
+                            type: 'pie'
         }];
         layout.legend = {x: 1, y: 1};
         Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+    }
+    $scope.bubbleSize = function(bubbleData) {
+        size = [];
+        for(k=0; k < bubbleData.length; k++) {
+            if(bubbleData[k] < 10) {
+                size.push(bubbleData[k]*5)
+            }
+            else if(bubbleData[k] >= 10 && bubbleData[k] < 50) {
+                size.push(bubbleData[k])
+            }
+            else if(bubbleData[k] >= 50 && bubbleData[k] < 100) {
+                size.push(bubbleData[k] / 2)
+            }
+            else if(bubbleData[k] >= 100 && bubbleData[k] < 200) {
+                size.push(bubbleData[k]/3)
+            }
+            else if(bubbleData[k] >= 200 && bubbleData[k] < 500) {
+                size.push(bubbleData[k]/5)
+            }
+            else if(bubbleData[k] >= 500 && bubbleData[k] < 1000) {
+                size.push(bubbleData[k]/10)
+            }
+            else if(bubbleData[k] >= 1000 && bubbleData[k] < 3000) {
+                size.push(bubbleData[k]/50)
+            }
+            else {
+                size.push(bubbleData[k]/100)
+            }
+            
+        }
+        return size;
     }
 
 

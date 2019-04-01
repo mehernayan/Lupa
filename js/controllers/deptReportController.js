@@ -1109,6 +1109,9 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         if($scope.report_type == 'thisweek') {
             $scope.report_type = 'this_week';
         }
+        if($scope.report_type == 'weekly') {
+            $(event.target).closest('.chart-container').find('.weekly-section input:radio:first').prop("checked", true);
+        }
         $scope.statisticsType = statisticsType;
         $('#loadergif').show();
         $(".chart-container .chart").removeClass("active-chart");
@@ -1821,12 +1824,14 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
+                                size = [];
+                                size = $scope.bubbleSize($scope.response[0].license[i][key]);
                                 plotDataBarY.push({
                                     x: xAxisVal,
                                     y: $scope.response[0].license[i][key],
                                     mode: 'markers',
                                     marker: {
-                                        size: [20, 40, 60]
+                                        size: size
                                     },
                                     name: key
                                 })
@@ -1857,13 +1862,15 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
+                                size = [];
+                                size = $scope.bubbleSize($scope.response[0].license[i][key]);
                                 plotDataBarY.push({
                                     x: xAxisVal,
                                     y: $scope.response[0].license[i][key],
                                     name: monthArray[i],
                                     mode: 'markers',
                                     marker: {
-                                        size: [10, 20, 30, 40, 50]
+                                        size: size
                                     },
                                 })
 
@@ -1875,15 +1882,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         plotDataBarY = [];
                         for (i = 0; i < $scope.response.length; i++) {
                             size = [];
-                            for (j = 0; j < $scope.response[i].license.length; j++) {
-                                console.log($scope.response[i].license[j]);
-                                if ($scope.response[i].license[j] > 10) {
-                                size.push($scope.response[i].license[j] / 2)
-                                } else {
-                                    size.push($scope.response[i].license[j]);
-                                    
-                                }
-                            }
+                            size = $scope.bubbleSize($scope.response[i].license);
                             plotDataBarY.push({
                                 x: xAxisVal,
                                 y: $scope.response[i].license,
@@ -2023,6 +2022,9 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         $scope.report_type = report_dur[0];
         if($scope.report_type == 'thisweek') {
             $scope.report_type = 'this_week';
+        }
+        if($scope.report_type == 'weekly') {
+            $(event.target).closest('.chart-container').find('.weekly-section input:radio:first').prop("checked", true);
         }
         $scope.statisticsType = statisticsType;
         $('#loadergif').show();
@@ -2798,12 +2800,14 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
+                                size = [];
+                                size = $scope.bubbleSize($scope.response[0].license[i][key]);
                                 plotDataBarY.push({
                                     x: xAxisVal,
                                     y: $scope.response[0].license[i][key],
                                     mode: 'markers',
                                     marker: {
-                                        size: [20, 40, 60]
+                                        size: size
                                     },
                                     name: key
                                 })
@@ -2834,13 +2838,15 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
+                                size = [];
+                                size = $scope.bubbleSize($scope.response[0].license[i][key]);
                                 plotDataBarY.push({
                                     x: xAxisVal,
                                     y: $scope.response[0].license[i][key],
                                     name: monthArray[i],
                                     mode: 'markers',
                                     marker: {
-                                        size: [10, 20, 30, 40, 50]
+                                        size: size
                                     },
                                 })
 
@@ -2851,16 +2857,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     else {
                         for (i = 0; i < $scope.response.length; i++) {
                             size = [];
-                            for (j = 0; j < $scope.response[i].license.length; j++) {
-                                console.log($scope.response[i].license[j]);
-                                if ($scope.response[i].license[j] > 10) {
-                                    
-                                    size.push($scope.response[i].license[j] / 2)
-                                } else {
-                                    size.push($scope.response[i].license[j]);
-                                    
-                                }
-                            }
+                            size = $scope.bubbleSize($scope.response[i].license);
                             if($scope.report_type == "monthly") {
                                     name = $scope.response[i].username;
                                     
@@ -3921,12 +3918,14 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
+                                size = [];
+                                size = $scope.bubbleSize($scope.response[0].license[i][key]);
                                 plotDataBarY.push({
                                     x: xAxisVal,
                                     y: $scope.response[0].license[i][key],
                                     mode: 'markers',
                                     marker: {
-                                        size: [20, 40, 60]
+                                        size: size
                                     },
                                     name: key
                                 })
@@ -3957,13 +3956,15 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
+                                size = [];
+                                size = $scope.bubbleSize($scope.response[0].license[i][key]);
                                 plotDataBarY.push({
                                     x: xAxisVal,
                                     y: $scope.response[0].license[i][key],
                                     name: monthArray[i],
                                     mode: 'markers',
                                     marker: {
-                                        size: [10, 20, 30, 40, 50]
+                                        size: size
                                     },
                                 })
 
@@ -3974,35 +3975,18 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     else {
                         console.log($scope.response);
                         for (i = 0; i < $scope.response.length; i++) {
-                            size = [];
+                            
                             if($scope.response[0].hasOwnProperty("label")) {
                                 $scope.labelVal = $scope.response[0]['value'];
-                                for(k=0; k < $scope.labelVal.length ; k++) {
-                                    if($scope.labelVal[k] < 30) {
-                                        size.push($scope.labelVal[k]*30);
-                                    }
-                                    else if($scope.labelVal[k] >30 && $scope.labelVal[k] < 100){
-                                        size.push($scope.labelVal[k]*2);
-                                    }
-                                    else {
-                                        size.push($scope.labelVal[k]);
-                                    }
-                                    
-                                }
+                                size = [];
+                                size = $scope.bubbleSize($scope.labelVal);
 
                                 //size.push()
                             }
                             else {
-                                for (j = 0; j < $scope.response[i].license.length; j++) {
-                                    console.log($scope.response[i].license[j]);
-                                    if ($scope.response[i].license[j] > 10) {
-                                        
-                                        size.push($scope.response[i].license[j] / 2)
-                                    } else {
-                                        size.push($scope.response[i].license[j]);
-                                        
-                                    }
-                                }  
+                                size = [];
+                                size = $scope.bubbleSize($scope.response[i].license);
+                                 
                             }
                             
                             if($scope.report_type == "yearly") {
@@ -4779,6 +4763,37 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         }];
         layout.legend = {x: 1, y: 1};
         Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+    }
+    $scope.bubbleSize = function(bubbleData) {
+        size = [];
+        for(k=0; k < bubbleData.length; k++) {
+            if(bubbleData[k] < 10) {
+                size.push(bubbleData[k]*5)
+            }
+            else if(bubbleData[k] >= 10 && bubbleData[k] < 50) {
+                size.push(bubbleData[k])
+            }
+            else if(bubbleData[k] >= 50 && bubbleData[k] < 100) {
+                size.push(bubbleData[k] / 2)
+            }
+            else if(bubbleData[k] >= 100 && bubbleData[k] < 200) {
+                size.push(bubbleData[k]/3)
+            }
+            else if(bubbleData[k] >= 200 && bubbleData[k] < 500) {
+                size.push(bubbleData[k]/5)
+            }
+            else if(bubbleData[k] >= 500 && bubbleData[k] < 1000) {
+                size.push(bubbleData[k]/10)
+            }
+            else if(bubbleData[k] >= 1000 && bubbleData[k] < 3000) {
+                size.push(bubbleData[k]/50)
+            }
+            else {
+                size.push(bubbleData[k]/100)
+            }
+            
+        }
+        return size;
     }
     
 
