@@ -696,6 +696,9 @@ ul.monthly-section , .weekly-section ul {
     left: 33%;
     z-index: 1000;
 }
+.weekly-section ul {
+    left: 26%;
+}
 .monthly-section li, .weekly-section li {
     float: left;
     padding-left: 10px;

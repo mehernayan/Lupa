@@ -17,7 +17,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     var currentthisweekprod = "";
     $scope.product_name = product_name;
     $scope.monthList = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
-    $scope.daySession = ['Morning', 'Afternoon', 'Evening']
+    $scope.daySession = ['Morning', 'Afternoon', 'Evening'];
     if (typeof userId === "undefined" || userId == null) {
         $location.path('/');
     }
@@ -813,6 +813,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     }
 
                 }
+                //debugger;
                 //$('.chart-render-' + $scope.chartId).show();
                 if (statisticsType == 'license_statistics') {
                     Plotly.newPlot($scope.product_name + '-product-chart-yearly2', plotDataBarY, layout, plotlyDefaultConfigurationBar);
@@ -1982,6 +1983,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
     }
     $scope.changeGraphIndividual = function(adminFilter, event, reportType, chartType, statisticsType, currentprod) {
+        $scope.userFilterType = $(event.target).closest('.chart-container').find('.usertype-filter-year input:checked').attr('data-attr');
+        
         $scope.thiweeksNamePieChart = "morning";
         $scope.chartType = chartType;
         var report_dur = adminFilter.split("_");
@@ -1990,6 +1993,10 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
         if ($scope.report_type == 'thisweek') {
             $scope.report_type = 'this_week';
+        }
+        if($scope.report_type == 'yearly' || $scope.report_type == 'monthly') {
+            defaultFilterVal = $(event.target).closest('.chart-render').find('.admin-year-label input:checked').attr('data-attr');
+            $scope.defaultFilterVal = defaultFilterVal;
         }
         $scope.statisticsType = statisticsType;
         $('#loadergif').show();

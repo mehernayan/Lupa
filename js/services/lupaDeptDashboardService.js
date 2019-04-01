@@ -60,13 +60,57 @@ lupaDeptDashboardService.service('lupaDeptDashboardService', ['$http', '$q','$fi
         
        };
        this.addFavouriteUrl = function(report_type, chart_type, statisticsType, product_name) {
+        if(chart_type == undefined) {
+            chart_type = 'vertical_bar_chart';
+        }
         var  user_id = localStorageService.get("user")[0].id;
-        //var product_name = product_name;
+        var weeklyReportYearOverallSel = localStorageService.get("weeklyReportYearOverall");
+        var weeklyReportIndividualFilter = localStorageService.get("weeklyReportIndividualFilter");
 
-        var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "dept", "api": $rootScope.url}
-        //$scope.userLogged = localStorageService.get("user");
-        console.log("user obj", userObj);
-        //debugger;
+        var yearlyReportIndividual = localStorageService.get("yearlyReportIndividual");
+        var monthlyReportIndividual = localStorageService.get("monthlyReportIndividual");
+        var thisWeekReportIndividualFilter = localStorageService.get("thisWeekReportIndividualFilter");
+        
+
+        var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url};
+        if(report_type == "yearly") {
+          var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url, "filter_year": yearlyReportIndividual}; 
+        }
+        if(report_type == "monthly") {
+          var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url, "filter_year": monthlyReportIndividual}; 
+        }
+        if(report_type == "weekly") {
+         
+          var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url, "filter_year": weeklyReportYearOverallSel};
+          
+          if(weeklyReportIndividualFilter != "") {
+              if(userFilterType == "user") {
+                  var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url, "filter_year": weeklyReportYearOverallSel, "filter_user": weeklyReportIndividualFilter};
+              }
+              else {
+                  var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url, "filter_year": weeklyReportYearOverallSel, "filter_department": weeklyReportIndividualFilter};
+              }
+              
+              
+          }
+           
+        }
+        if(report_type == "thisweek" || report_type == "this_week") {
+         
+          var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url};
+          
+          if(thisWeekReportIndividualFilter != "") {
+              if(userFilterType == "user") {
+                  var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url, "filter_user": thisWeekReportIndividualFilter};
+              }
+              else if(userFilterType == "dept"){
+                  var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "admin", "api": $rootScope.url, "filter_department": thisWeekReportIndividualFilter};
+              }
+              
+              
+          }
+           
+        }
         var deferred = $q.defer();
         $http({
                     method : 'POST',

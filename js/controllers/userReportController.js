@@ -560,18 +560,22 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
             }
         });
     }
-    $scope.loadWeeklyGraph = function (reportType, chartType, statisticsType) {
+    $scope.loadWeeklyGraph = function(reportType, chartType, statisticsType, currentprod) {
         var product_name = localStorageService.get("product_name");
-        if(product_name == "" || product_name == "undefined" || product_name == null) {
+        if (product_name == "" || product_name == "undefined" || product_name == null) {
             product_name = "LSDYNA"
         }
         $scope.product_name = product_name;
+        if (currentprod != "" && currentprod != undefined) {
+            $scope.product_name = currentprod;
+            product_name = currentprod;
+        }
         $scope.chartType = chartType;
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
-        lupaUserDashboardService.changeGraphUrl(reportType, chartType, statisticsType,$scope.product_name).then(function (response) {
+        lupaUserDashboardService.changeGraphUrl(reportType, chartType, statisticsType, $scope.product_name).then(function(response) {
             var layout = {
-                title: product_name +  ' / ' + $scope.report_type + ' Report',
+                title: product_name + ' / ' + $scope.report_type + ' Report',
                 showlegend: true,
                 legend: {
                     "orientation": "h",
@@ -583,7 +587,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     showgrid: false,
                     gridcolor: '#bdbdbd',
                     gridwidth: 1,
-                    tickangle: -25,
+                    tickangle: -20,
                 },
                 yaxis: {
                     showgrid: true,
@@ -599,15 +603,14 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                 layout.yaxis.title = "Total number of license";
                 		
 
-            }
-            else if ($scope.statisticsType == 'time_statistics') {
+            } else if ($scope.statisticsType == 'time_statistics') {
                 layout.yaxis.title = "Total number of hours used";
                 		
             }
 
             // Pie chart
             var layoutTitle = {
-                title: product_name +  ' / ' + $scope.report_type + ' Report'
+                title: product_name + ' / ' + $scope.report_type + ' Report'
             }
 
             //Bar chart Section goes here
@@ -630,7 +633,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
 
 
-            layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+            layout.title = product_name + ' / ' + $scope.report_type + ' Report';
 
             $scope.response = response.data;
             if ($scope.response[0] != "" || $scope.response[0] != undefined) {
@@ -639,7 +642,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
             if ($scope.response) {
                 $('#loadergif').hide();
                 var plotDataBarY = [];
-                layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+                layout.title = product_name + ' / ' + $scope.report_type + ' Report';
                 $scope.weeklyresponse = $scope.response;
                 $scope.reportyearlist = [];
                 for (i = 0; i < $scope.response.length; i++) {
@@ -654,6 +657,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                             "checked": false
                         });
                     }
+                    localStorageService.set("weeklyReportYearOverall", $scope.response[0].year);
 
                 };
 
@@ -675,16 +679,16 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     }
 
                 }
-                
-                if(statisticsType == 'license_statistics') {
+                debugger;
+                //$('.chart-render-' + $scope.chartId).show();
+                if (statisticsType == 'license_statistics') {
                     Plotly.newPlot($scope.product_name + '-product-chart-yearly2', plotDataBarY, layout, plotlyDefaultConfigurationBar);
-                     $('#' + $scope.product_name + ' .chart-render-2').show();
-                }
-                else {
+                    $('#' + $scope.product_name + ' .chart-render-2').show();
+                } else {
                     Plotly.newPlot($scope.product_name + '-product-chart-yearly6', plotDataBarY, layout, plotlyDefaultConfigurationBar);
-                     $('#' + $scope.product_name + ' .chart-render-6').show();
+                    $('#' + $scope.product_name + ' .chart-render-6').show();
                 }
-                
+
                 $("#loadergif").hide();
             }
 
