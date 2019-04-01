@@ -99,7 +99,7 @@
                      <input type="radio" name="{{currentProduct + 'adminReportYearLicense'}}" ng-checked = "$index==0" data-attr={{item.year}} ng-click="reportAdminFilter($event,adminFilterYearlyLicense,userFilterType,item.year,currentProduct,'license_statistics')"/>{{item.year}}
                      </span>
                   </div>
-                  <div class="usertype-filter-year">
+                  <div class="usertype-filter-year usertype-filter-type">
                      <span class="user-label">User Type : </span>
                      <input type="radio" name="{{currentProduct + 'adminReportYearlyUserTypeLicense'}}" ng-checked="true" data-attr="dept" ng-click="reportAdminFilter($event,adminFilterYearlyLicense,'dept', defaultFilterVal,currentProduct,'license_statistics')"
                         />Department
@@ -222,7 +222,7 @@
                      <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraphIndividual('monthly_change', $event,report_type,'scatter_chart','license_statistics', currentProduct)"></img></span>
                      <span class="chart stacked-bar-chart"><img src="images/polar-chart.png" title="polar chart" class="" ng-click= "changeGraphIndividual('monthly_change', $event,report_type,'polar_chart','license_statistics', currentProduct)"></img></span>
                   </div>
-                  <div class="usertype-filter-year">
+                  <div class="usertype-filter-year usertype-filter-type">
                      <span class="user-label">User Type : </span>
                      <input type="radio" name="{{currentProduct + 'adminReportMonthlyUserTypeLicense'}}" ng-checked="true" data-attr="dept" ng-click="reportAdminFilter($event,adminFilterMonthlyLicense,'dept', defaultFilterVal, currentProduct,'license_statistics')"
                         />Department
@@ -350,10 +350,10 @@
                   <div class="usertype-filter-weekly" ng-show="report_type =='weekly'">
                      <div class="usertype-filter-type">
                         <span class="user-label">User Type : </span>
-                        <input type="radio" name="{{currentProduct + 'adminReportWeeklyUserTypeLicense'}}" ng-checked="true" ng-model="adminReport"
+                        <input type="radio" name="{{currentProduct + 'adminReportWeeklyUserTypeLicense'}}" ng-checked="true" data-attr="dept" ng-model="adminReport"
                            value="Department" ng-click="reportAdminFilter($event,adminFilterWeeklyLicense,'dept', adminReportDeptList[0],currentProduct,'license_statistics')"
                            />Department
-                        <input type="radio" name="{{currentProduct + 'adminReportWeeklyUserTypeLicense'}}" ng-checked="false" ng-model="adminReport"
+                        <input type="radio" name="{{currentProduct + 'adminReportWeeklyUserTypeLicense'}}" data-attr="user" ng-checked="false" ng-model="adminReport"
                            value="User" ng-click="reportAdminFilter($event,adminFilterWeeklyLicense,'user', adminReportUserList[0],currentProduct,'license_statistics')"
                            />User
                      </div>
@@ -525,7 +525,7 @@
                      <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraphIndividual('thisweek_change', $event,report_type,'scatter_chart','license_statistics', currentProduct)"></img></span>
                      <span class="chart stacked-bar-chart"><img src="images/polar-chart.png" title="polar chart" class="" ng-click= "changeGraphIndividual('thisweek_change', $event,report_type,'polar_chart','license_statistics', currentProduct)"></img></span>
                   </div>
-                  <!--<div class="usertype-filter-year" ng-show="report_type =='yearly'">
+                  <!--<div class="usertype-filter-year usertype-filter-type" ng-show="report_type =='yearly'">
                      <span class="user-label">User Type : </span>
                      <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeTime'}}"  ng-checked="true" ng-click="reportAdminFilter($event,adminFilterThisWeekLicense,'dept', defaultFilterVal)" />Department
                      <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeTime'}}" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterThisWeekLicense,'user', defaultFilterVal)" />User
@@ -557,10 +557,10 @@
                   <div class="usertype-filter-thisweek" ng-show="report_type =='thisweek' || report_type == 'this_week'">
                      <div class="usertype-filter-type">
                         <span class="user-label">User Type : </span>
-                        <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeLicense'}}" ng-checked="true" ng-model="adminReport"
+                        <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeLicense'}}" ng-checked="true" data-attr="dept" ng-model="adminReport"
                            value="Department" ng-click="reportAdminFilter($event,adminFilterThisWeekLicense,'dept', adminReportDeptList[0],currentProduct,'license_statistics')"
                            />Department
-                        <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeLicense'}}" ng-checked="false" ng-model="adminReport"
+                        <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeLicense'}}" ng-checked="false" data-attr="user" ng-model="adminReport"
                            value="User" ng-click="reportAdminFilter($event,adminFilterThisWeekLicense,'user', adminReportUserList[0],currentProduct,'license_statistics')"
                            />User
                      </div>
@@ -683,7 +683,7 @@
                      <input type="radio" name="{{currentProduct + 'adminReportYearTime'}}" ng-checked = "$index==0" ng-checked = "$index==0" data-attr={{item.year}} ng-click="reportAdminFilter($event,adminFilterYearlyTime,userFilterType,item.year,currentProduct,'time_statistics')"/>{{item.year}}
                      </span>
                   </div>
-                  <div class="usertype-filter-year">
+                  <div class="usertype-filter-year usertype-filter-type">
                      <span class="user-label">User Type : </span>
                      <input type="radio" name="{{currentProduct + 'adminReportYearlyUserTypeTime'}}" ng-checked="true" data-attr="dept" ng-click="reportAdminFilter($event,adminFilterYearlyTime,'dept', defaultFilterVal,currentProduct,'time_statistics')"
                         />Department
@@ -806,7 +806,7 @@
                      <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraphIndividual('monthly_change', $event,report_type,'scatter_chart','time_statistics', currentProduct)"></img></span>
                      <span class="chart stacked-bar-chart"><img src="images/polar-chart.png" title="polar chart" class="" ng-click= "changeGraphIndividual('monthly_change', $event,report_type,'polar_chart','time_statistics', currentProduct)"></img></span>
                   </div>
-                  <div class="usertype-filter-year">
+                  <div class="usertype-filter-year usertype-filter-type">
                      <span class="user-label">User Type : </span>
                      <input type="radio" name="{{currentProduct + 'adminReportMonthlyUserTypeTime'}}" ng-checked="true" data-attr="dept" ng-click="reportAdminFilter($event,adminFilterMonthlyTime,'dept', defaultFilterVal,currentProduct,'time_statistics')"
                         />Department
@@ -902,9 +902,9 @@
                   <div class="usertype-filter-weekly" ng-show="report_type =='weekly'">
                      <div class="usertype-filter-type">
                         <span class="user-label">User Type : </span>
-                        <input type="radio" name="adminReportUserTypeWeekly" ng-checked="true" ng-model="adminReport" value="Department" ng-click="reportAdminFilter($event,adminFilterWeeklyTime,'dept', defaultFilterVal,currentProduct,'time_statistics')"
+                        <input type="radio" name="adminReportUserTypeWeekly" ng-checked="true" ng-model="adminReport" value="Department" data-attr="dept" ng-click="reportAdminFilter($event,adminFilterWeeklyTime,'dept', defaultFilterVal,currentProduct,'time_statistics')"
                            />Department
-                        <input type="radio" name="adminReportUserTypeWeekly" ng-checked="false" ng-model="adminReport" value="User" ng-click="reportAdminFilter($event,adminFilterWeeklyTime,'dept', defaultFilterVal,currentProduct,'time_statistics')"
+                        <input type="radio" name="adminReportUserTypeWeekly" ng-checked="false" ng-model="adminReport" value="User" data-attr="dept" ng-click="reportAdminFilter($event,adminFilterWeeklyTime,'dept', defaultFilterVal,currentProduct,'time_statistics')"
                            />User
                      </div>
                      <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
@@ -1069,7 +1069,7 @@
                      <span class="chart stacked-bar-chart"><img src="images/polar-chart.png" title="polar chart" class="" ng-click= "changeGraphIndividual('thisweek_change', $event,report_type,'polar_chart','time_statistics', currentProduct)"></img></span>
                   </div>
                   <!--
-                     <div class="usertype-filter-year" ng-show="report_type =='yearly'">
+                     <div class="usertype-filter-year usertype-filter-type" ng-show="report_type =='yearly'">
                          <span class="user-label">User Type : </span>
                          <input type="radio" name="adminReportUserType" ng-checked="true" ng-click="reportAdminFilter($event,adminFilterThisWeekTime,'dept', defaultFilterVal)" />Department
                          <input type="radio" name="adminReportUserType" ng-checked="false" ng-click="reportAdminFilter($event,adminFilterThisWeekTime,'user', defaultFilterVal)" />User
@@ -1101,10 +1101,10 @@
                   <div class="usertype-filter-thisweek" ng-show="report_type =='thisweek'  || report_type == 'this_week'">
                      <div class="usertype-filter-type">
                         <span class="user-label">User Type : </span>
-                        <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeTime'}}" ng-checked="true" ng-model="adminReport"
+                        <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeTime'}}" ng-checked="true" data-attr="dept" ng-model="adminReport"
                            value="Department" ng-click="reportAdminFilter($event,adminFilterThisWeekTime,'dept', adminReportUserList[0],currentProduct,'time_statistics')"
                            />Department
-                        <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeTime'}}" ng-checked="false" ng-model="adminReport"
+                        <input type="radio" name="{{currentProduct + 'adminReportThisWeekUserTypeTime'}}" data-attr="user" ng-checked="false" ng-model="adminReport"
                            value="User" ng-click="reportAdminFilter($event,adminFilterThisWeekTime,'user', adminReportDeptList[0],currentProduct,'time_statistics')"
                            />User
                      </div>

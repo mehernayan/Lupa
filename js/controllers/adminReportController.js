@@ -1983,13 +1983,19 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
     }
     $scope.changeGraphIndividual = function(adminFilter, event, reportType, chartType, statisticsType, currentprod) {
-        $scope.userFilterType = $(event.target).closest('.chart-container').find('.usertype-filter-year input:checked').attr('data-attr');
+        $scope.userFilterType = $(event.target).closest('.chart-container').find('.usertype-filter-type input:checked').attr('data-attr');
+        
+        
+        
         
         $scope.thiweeksNamePieChart = "morning";
         $scope.chartType = chartType;
         var report_dur = adminFilter.split("_");
         var report = report_dur[0];
         $scope.report_type = report_dur[0];
+        if($scope.report_type == 'weekly') {
+            $(event.target).closest('.chart-container').find('.weekly-section input:radio:first').prop("checked", true);
+        }
 
         if ($scope.report_type == 'thisweek') {
             $scope.report_type = 'this_week';
