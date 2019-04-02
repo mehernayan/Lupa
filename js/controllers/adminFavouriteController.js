@@ -1619,6 +1619,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                 pan2d: true,
                 modeBarButtonsToRemove: ['sendDataToCloud', 'hoverClosestPie', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']
         };
+        layout = {};
         layout.title = product_name + ' monthly / ' + $scope.favouriteStatisticType +' report';
         //layout.title = product_name + ' weekl / ' + $scope.favouriteStatisticType +' report';
         Plotly.newPlot($scope.chartRenderId, plotDataBarY, {}, plotlyDefaultConfigurationBar);
@@ -1629,5 +1630,11 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
         //$("#reports, #duration").slideDown();
     }
     $scope.getfavourite();
+    $scope.deleteFavourite = function(e) {
+        $('#loadergif').show();
+        lupaAdminDashboardService.deleteFavouriteUrl().then(function (response) {
+
+        });
+    }
 
 }]);

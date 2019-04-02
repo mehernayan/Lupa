@@ -408,7 +408,39 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                 }
 
             }
-        } else if (chartType == "box_plot_styling_outliers_chart") {
+        } 
+        else if(chartType == 'bubble_chart') {
+            for (j = 0; j < $scope.weeklyresponse.length; j++) {
+                if (reportyear == $scope.weeklyresponse[j].year) {
+                    response.push($scope.weeklyresponse[j]);
+
+                }
+
+            }
+            var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
+            layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+            for (i = 0; i < response[0].license.length; i++) {
+                            for (key in response[0].license[i]) {
+                                size = [];
+                                size = $scope.bubbleSize(response[0].license[i][key]);
+                                plotDataBarY.push({
+                                    x: xAxisVal,
+                                    y: response[0].license[i][key],
+                                    name: monthArray[i],
+                                    mode: 'markers',
+                                    marker: {
+                                        size: size
+                                    },
+                                })
+
+                            }
+
+            }
+            layout.legend= {x: 1, y:1}
+
+
+        } 
+        else if (chartType == "box_plot_styling_outliers_chart") {
             $scope.response = [];
             for (j = 0; j < $scope.weeklyresponse.length; j++) {
                 if (reportyear == $scope.weeklyresponse[j].year) {

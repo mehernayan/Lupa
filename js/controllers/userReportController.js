@@ -271,6 +271,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
     $scope.weeklyYearChange = function (event,reportyear, chartType) {
         $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-graph").attr('id');
+        localStorageService.set("weeklyReportYearOverall", reportyear);
         // default property 
         var fill = '';
         var type = 'bar';
@@ -289,14 +290,45 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         var plotDataBarY = [];
         var response = [];
         var reportyear = reportyear;
-        if(chartType == 'polar_chart') {
+        if(chartType == 'bubble_chart') {
             for (j = 0; j < $scope.weeklyresponse.length; j++) {
-            if (reportyear == $scope.weeklyresponse[j].year) {
-                response.push($scope.weeklyresponse[j]);
+                if (reportyear == $scope.weeklyresponse[j].year) {
+                    response.push($scope.weeklyresponse[j]);
+
+                }
 
             }
+            var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
+            layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+            for (i = 0; i < response[0].license.length; i++) {
+                            for (key in response[0].license[i]) {
+                                size = [];
+                                size = $scope.bubbleSize(response[0].license[i][key]);
+                                plotDataBarY.push({
+                                    x: xAxisVal,
+                                    y: response[0].license[i][key],
+                                    name: monthArray[i],
+                                    mode: 'markers',
+                                    marker: {
+                                        size: size
+                                    },
+                                })
+
+                            }
+
+            }
+            layout.legend= {x: 1, y:1}
+
 
         }
+        else if(chartType == 'polar_chart') {
+            for (j = 0; j < $scope.weeklyresponse.length; j++) {
+                if (reportyear == $scope.weeklyresponse[j].year) {
+                    response.push($scope.weeklyresponse[j]);
+
+                }
+
+            }
         //$scope.response = response;
         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
         layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
@@ -1106,6 +1138,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                             }
 
                         };
+                        localStorageService.set("weeklyReportYearOverall", $scope.response[0].year);
 
 
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];

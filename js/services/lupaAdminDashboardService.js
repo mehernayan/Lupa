@@ -421,6 +421,24 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
                 return deferred.promise;
 
         };
+        this.deleteFavouriteUrl = function(event) {
+            
+            var deferred = $q.defer();
+            $rootScope.url= appConstants.serviceAddress+'delete_favourites';
+            
+        
+            s$http({
+                    method : 'POST',
+                    url : $rootScope.url,
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+
+        }
 
 
       

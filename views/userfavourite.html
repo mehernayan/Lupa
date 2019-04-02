@@ -5,7 +5,7 @@
 <div class="favourite-container body-container" ng-class="{'expand':expandNav}">
     <div class="container-fluid">
         <div class="row" id="sortable">
-            <div class="{{'col-sm-12 chart-container chart-render full-screen-view chart-render-' + $index}}" ng-repeat= "item in response track by $index"  id="{{'full-screen-view-' + $index}}" ng-class="{'col-sm-6' : favouritelength>1 }">
+            <div class="{{'col-sm-12 chart-container full-screen-view chart-render  chart-render-' + $index}}" ng-repeat= "item in response track by $index"  id="{{'full-screen-view-' + $index}}" ng-class="{'col-sm-6' : favouritelength>1 }">
                 <div class="pie-chart-container chart-container back-g-white half-bordered">
                     <div class="dropdown chart-dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -37,20 +37,43 @@
 
                         </div>
                     </div>
-                    <div id="{{'product-chart-yearly' +  $index}}"></div>
-                    
-                    <div class="weekly-section" ng-if="report_type == 'weekly'">
-                        <!--<input type="radio" ng-model="reportyear" value="foo" ng-change='changeYear(reportyear)'>-->
-                        <ul>
-                            <li ng-repeat="item in reportyearlist">
-                                <input type="radio" ng-checked= "item.checked" name="item"   ng-change="weeklyYearChange(item.year, chartType)"  ng-model="selectedValue.year" value="{{item.year}}">
-                                {{item.year}}
-                            </li>
-                        </ul>
-                        
-
-
+                    <div id="{{'product-chart-yearly' +  $index}}" class="chart-fav-id"></div>
+                    <div class="weekly-fav-year" ng-if="item.report_type=='weekly'">
+                            <span ng-if="item.filter_department != null"><b>Department</b> : {{item.filter_department}}</span>
+                            <span ng-if="item.filter_user != null"><b>User</b> : {{item.filter_user}}</span>
+                            &nbsp;<b>Year</b> : <input type="radio" ng-checked="true" />{{item.filter_year}}
+                            <select class="form-control monthly-section-pie-fav"  ng-if="item.chart_type == 'pie_chart'" ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, item.product_name)">
+                              <option style="display:none" value="">select </option>
+                              <option ng-repeat="item in monthList">{{item}}</option>
+                            </select>
                     </div>
+                    <div class="weekly-fav-year" ng-if="item.report_type=='thisweek' || item.report_type == 'this_week'">
+                         <span ng-if="item.filter_department != null"><b>Department</b> : {{item.filter_department}}</span>
+                         <span ng-if="item.filter_user != null"><b>User</b> : {{item.filter_user}}</span>
+                    </div>
+                    <div class="weekly-fav-year" ng-if="item.report_type=='yearly' && item.filter_year != null">
+                        <span ng-if="item.filter_user != null"> {{item.filter_user}}</span>
+                        &nbsp;<b>Year</b> : <input type="radio" ng-checked="true" />{{item.filter_year}}
+                    </div>
+                    <div class="weekly-fav-year" ng-if="item.report_type == 'monthly' && item.chart_type == 'pie_chart'">
+                        <select class="form-control monthly-section-pie-fav"  ng-model="deptNamePieChart" ng-init="deptNamePieChart" ng-click="event = $event" ng-change="changeDeptMonthData(event, deptNamePieChart, item.product_name)">
+                              <option style="display:none" value="">select </option>
+                              <option ng-repeat="item in departmentList">{{item}}</option>
+                        </select>
+                    </div>
+                    
+                              
+                     
+                    
+                    <!--<div class="weekly-section">
+                        <ul>
+                            <li ng-repeat="item in reportyearlist track by $index">
+                            <input type="radio" ng-checked="$index==0" name="{{'licenseitem' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType)"
+                              value="{{item.year}}"> {{item.year}}
+                            </li>
+                            
+                        </ul>
+                     </div>-->
                     <div class="download-icon" ng-click="downloadChart($event)"><i class="fa fa-arrow-circle-down"></i></div>
                     <div class="resize-move"  ng-mouseover="resizeMouseOver($event)"><i class="fa fa-arrows-alt"></i></div>
                 </div>

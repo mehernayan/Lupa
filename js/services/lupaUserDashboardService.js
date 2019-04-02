@@ -35,11 +35,15 @@ lupaUserDashboardService.service('lupaUserDashboardService', ['$http', '$q','$fi
        };
        this.addFavouriteUrl = function(report_type, chart_type, statisticsType, product_name) {
         var  user_id = localStorageService.get("user")[0].id;
+        var weeklyReportYearOverallSel = localStorageService.get("weeklyReportYearOverall");
         
 
         var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "user", "api": $rootScope.url}
         //$scope.userLogged = localStorageService.get("user");
-
+        if(report_type == "weekly") {
+          var userObj = {"user_id": user_id, "product_name" : product_name,"report_type" : report_type, "chart_type" :chart_type, "statistics_type": statisticsType,  "favorite" : 1, "role" : "user", "api": $rootScope.url, "filter_year": weeklyReportYearOverallSel};
+          
+        }
         console.log("user obj", userObj);
         var deferred = $q.defer();
         $http({
