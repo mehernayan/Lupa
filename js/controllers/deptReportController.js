@@ -1,5 +1,6 @@
 lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashboardService', '$location', 'localStorageService', function ($scope, userData, lupaDeptDashboardService, $location, localStorageService) {
     var userId = localStorageService.get("user");
+    localStorageService.set("weeklyReportIndividualFilter", "");
     var product_name = localStorageService.get("product_name");
     if(product_name == "" || product_name == "undefined" || product_name == null) {
         product_name = "LSDYNA";
@@ -2055,14 +2056,16 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         if($scope.report_type == 'thisweek') {
             $scope.report_type = 'this_week';
         }
-        if($scope.report_type == 'weekly') {
-            $(event.target).closest('.chart-container').find('.weekly-section input:radio:first').prop("checked", true);
-        }
+        
         $scope.statisticsType = statisticsType;
         $('#loadergif').show();
         $(".chart-container .chart").removeClass("active-chart");
         $(event.target).closest(".chart").addClass("active-chart");
-        if($scope.report_type == "weekly" || $scope.report_type == "this_week" || $scope.report_type == "thisweek") {
+        if($scope.report_type == 'weekly') {
+            $(event.target).closest('.chart-container').find('.weekly-section input:radio:first').prop("checked", true);
+            $scope.filter_user =  $(event.target).closest('.chart-container').find(".usertype-filter-weekly select:visible option:selected").text();
+        }
+        else if($scope.report_type == "this_week" || $scope.report_type == "thisweek") {
             $scope.filter_user = $scope.defaultFilterVal;
         }
         else {
@@ -4468,7 +4471,11 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     subplot: "polar2",
                     fillcolor: '#709BFF'
                 })
+                $scope.addedFav = polarChartRenderData.favourite;
+                
             }
+            
+            
             
 
         }
@@ -4482,6 +4489,8 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                     subplot: "polar2",
                     fillcolor: '#709BFF'
                 })
+                $scope.addedFav = polarChartData.favourite;
+
             
             
         }
@@ -4515,7 +4524,9 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                             fill: "toself",
                             subplot: "polar2",
                             fillcolor: '#709BFF'
-                        })
+                        });
+                        $scope.addedFav = $scope.response[0].favourite;
+                        
                         
 
                     }
@@ -4534,7 +4545,8 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                                 fill: "toself",
                                 subplot: "polar2",
                                 fillcolor: '#709BFF'
-                            })        
+                            });
+                            $scope.addedFav = polarChartData.favourite;        
                                 
     }
         
@@ -4644,6 +4656,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                         
 
                     }
+                    'time_statistics'
                     
 
                 }

@@ -501,8 +501,8 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                                     }) 
                                 }
                                 else {
-                                    polarChartRenderData = $scope.chartresponse[key];
                                     for (key in $scope.chartresponse) {
+                                    polarChartRenderData = $scope.chartresponse[key];
                                     plotDataBarY.push({
                                             type: "scatterpolar",
                                             name: "license used in " + key,
@@ -514,6 +514,7 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                                         })
                                     }
                                 }
+                                
                             
                             
                             
@@ -944,18 +945,19 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
 
                         }
                         
-                            for (key in $scope.chartresponse) {
-                                polarChartRenderData = $scope.chartresponse[key];
+                            
+                                polarChartRenderData = $scope.chartresponse;
                                 plotDataBarY.push({
                                     type: "scatterpolar",
-                                    name: "license used in " + key,
+                                    name: "license used",
                                     r: polarChartRenderData.r,
                                     theta: polarChartRenderData.theta,
                                     fill: "toself",
                                     subplot: "polar2",
                                     fillcolor: '#709BFF'
                                 })
-                            }
+                            
+                            
                             
                             
                     $(".chart-render-" + chartFavouriteIndex).show();

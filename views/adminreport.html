@@ -392,6 +392,7 @@
                      <ul>
                         <li ng-repeat="item in reportyearlist track by $index">
                            
+                           <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index == 0"  name="{{'licenseitem' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType)"
                                value="{{item.year}}">{{item.year}}</span>
                             <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index == 0"  name="{{'licenseitem' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct)"
                                value="{{item.year}}">{{item.year}}</span> 

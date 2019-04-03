@@ -499,8 +499,9 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                                     }) 
                                 }
                                 else {
-                                    polarChartRenderData = $scope.chartresponse[key];
+                                    
                                     for (key in $scope.chartresponse) {
+                                    polarChartRenderData = $scope.chartresponse[key];    
                                     plotDataBarY.push({
                                             type: "scatterpolar",
                                             name: "license used in " + key,
@@ -1558,6 +1559,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
             
             setTimeout(function() {
                 $("#loadergiflast").hide();
+                $('#loadergif').hide();
             }, 4000)
             
 

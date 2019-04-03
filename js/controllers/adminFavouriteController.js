@@ -501,8 +501,9 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                     }) 
                                 }
                                 else {
-                                    polarChartRenderData = $scope.chartresponse[key];
+                                    
                                     for (key in $scope.chartresponse) {
+                                    polarChartRenderData = $scope.chartresponse[key];    
                                     plotDataBarY.push({
                                             type: "scatterpolar",
                                             name: "license used in " + key,

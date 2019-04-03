@@ -2027,8 +2027,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         if($scope.report_type == 'weekly') {
             $(event.target).closest('.chart-container').find('.weekly-section input:radio:first').prop("checked", true);
             // /$scope.defaultFilterVal
-            $(".usertype-filter-weekly").find("select:visible option:selected").text();
-            $scope.defaultFilterVal =  $(".usertype-filter-weekly").find("select:visible option:selected").text();
+            $scope.defaultFilterVal =  $(event.target).closest('.chart-container').find(".usertype-filter-weekly select:visible option:selected").text();
         }
 
         if ($scope.report_type == 'thisweek') {
