@@ -958,6 +958,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                             }
                             
                             
+                            
                     $(".chart-render-" + chartFavouriteIndex).show();
                     layout.legend = {x: 1, y: 1};
                     layout.title = $scope.response[i].product_name + ' ' + $scope.response[i].report_type +  ' / ' + favouriteStatisticType +' report';
@@ -1474,7 +1475,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                                     type: type,
                                     mode: 'markers',
                                     marker: {
-                                        color: d3colors(j)
+                                        color: d3colors(k)
                                     }
                                                                         
                                 })

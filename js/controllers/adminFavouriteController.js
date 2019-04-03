@@ -946,8 +946,8 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
 
                         }
                         
-                            for (key in $scope.chartresponse) {
-                                polarChartRenderData = $scope.chartresponse[key];
+                            
+                                polarChartRenderData = $scope.chartresponse;
                                 plotDataBarY.push({
                                     type: "scatterpolar",
                                     name: "license used in " + key,
@@ -957,7 +957,8 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                     subplot: "polar2",
                                     fillcolor: '#709BFF'
                                 })
-                            }
+                            
+                            
                             
                             
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -1184,7 +1185,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                     type: type,
                                     mode: 'markers',
                                     marker: {
-                                        color: d3colors(j)
+                                        color: d3colors(k)
                                     }
                                                                         
                                 })
@@ -1472,7 +1473,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                     type: type,
                                     mode: 'markers',
                                     marker: {
-                                        color: d3colors(j)
+                                        color: d3colors(k)
                                     }
                                                                         
                                 })

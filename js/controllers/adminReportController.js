@@ -3528,7 +3528,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         fill: "toself",
                         subplot: "polar2",
                         fillcolor: '#709BFF'
-                    })
+                    });
+                    $scope.addedFav = polarChartRenderData.favourite;
                 }
             }
             
@@ -3581,7 +3582,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         fill: "toself",
                         subplot: "polar2",
                         fillcolor: '#709BFF'
-                    })
+                    });
+                    $scope.addedFav = $scope.response[0].favourite;
 
 
                 }
@@ -3600,7 +3602,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 fill: "toself",
                 subplot: "polar2",
                 fillcolor: '#709BFF'
-            })
+            });
+            
 
         }
         
