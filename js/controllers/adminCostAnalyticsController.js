@@ -10,6 +10,16 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
     $scope.dashboardActive = false;
     $scope.favouriteActive = false;
     $scope.costAnalyticsActive = true;
+    $scope.selectedMonth1 = "";
+    $scope.featurechartfilterselectmonth3 = "";
+    $scope.featurechartfilterselectmonth1 = "";
+    $scope.featurechartfilterselectmonth2 = "";
+    $scope.featurechartfilterselectmonth4 = "";
+    $scope.typeOfLicense = "overall";
+    $scope.typeOfLicense = String($scope.typeOfLicense);
+   
+    
+    
 
     //layout 
     var layout = {
@@ -55,6 +65,8 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
 
 
     var year = "", month = "", type_of_license = "", product_name = "";
+    
+    
     $scope.getYearlyExpenditure = function (year, month, type_of_license) {
         
         $('#loadergif').show();
@@ -62,6 +74,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
             $('#loadergif').hide();
             $scope.getYearlyExpenditureData = response.data[0];
             $scope.getYearlyList = $scope.getYearlyExpenditureData.years_list;
+            //$scope.selectedYear1 = $scope.getYearlyList[0].toString();
             $scope.getProductList = $scope.getYearlyExpenditureData.product_name;
             $scope.getLicenseList = $scope.getYearlyExpenditureData.type_of_licenses;
             
@@ -177,7 +190,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
             selectedMonth2 = "04";
         }else if(selectedMonth2 == "May"){
             selectedMonth2 = "05";
-        }else if(selectedMonth2 == "Jun"){
+        }else if(selectedMonth2 == "June"){
             selectedMonth2 = "06";
         }else if(selectedMonth2 == "Jul"){
             selectedMonth2 = "07";
@@ -235,12 +248,13 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
     $scope.selectedRadio4 = false;
     $scope.selectedRadio5 = false;
     
-    $scope.selectedYear1 = "";
-    $scope.selectedMonth1 = "";
-    $scope.selectedYear2 = "";
-    $scope.selectedMonth2 = "";
+    //$scope.selectedYear1 = "";
+    //$scope.selectedMonth1 = "";
+    $scope.selectedYear2 = "overall";
+    
+    //$scope.selectedMonth2 = String($scope.selectedMonth2);
 
-    $scope.typeOfLicense = "";
+    
 
     $scope.changeOverallCostAnalyticsBtn = function (selectedDropdown, selectedYear2, selectedMonth2) {
         $scope.overallUti = false;
@@ -288,11 +302,56 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
         if(blck == "cost") {
             $scope.getOverallCostAnalytics();
             $scope.selectedYear2 = "Overall";
-            $scope.selectedMonth2 = "Overall";
+            $scope.selectedYear2 = String("Overall");
+            //$scope.selectedMonth2 = "Overall";
             $scope.selectedRadio4 = false;
             $scope.selectedRadio5 = false;
             
         }
+        else if(blck == "exp") {
+            $scope.getYearlyExpenditure($scope.yearlyExp,$scope.monthlyExp,$scope.type_of_license_exp);
+            $scope.typeOfLicense = $scope.getLicenseList[0];
+
+            $scope.getMonthList[0] = 'overall';
+            $scope.selectedMonth1 = $scope.getMonthList[0];
+
+           
+
+            
+            $scope.selectedRadio1 =  false;
+            $scope.selectedRadio2 =  false;
+            $scope.selectedRadio3 =  false;
+            
+        }
+        if(blck =='LSDYNA') {
+            $scope.featurechartfilterselectradio1 = false;
+            $scope.featurechartfilterselectradio2 = false;
+            $scope.changeFeatureAnalyticsGraphOverall("", "", blck, 'cost-analytics-feature-chart-0');
+
+        }
+        else if(blck =='MSC') {
+            $scope.featurechartfilterselectradio3 = false;
+            $scope.featurechartfilterselectradio4 = false;
+            $scope.changeFeatureAnalyticsGraphOverall("", "", blck, 'cost-analytics-feature-chart-1');
+
+        }
+        else if(blck =='ALTAIR') {
+            $scope.featurechartfilterselectradio5 = false;
+            $scope.featurechartfilterselectradio6 = false;
+            $scope.changeFeatureAnalyticsGraphOverall("", "", blck, 'cost-analytics-feature-chart-2');
+
+        }
+        else if(blck =='BETA_CAE') {
+            $scope.featurechartfilterselectradio7 = false;
+            $scope.featurechartfilterselectradio8 = false;
+            $scope.changeFeatureAnalyticsGraphOverall("", "", blck, 'cost-analytics-feature-chart-3');
+        }
+        else {
+            $scope.featurechartfilterselectradio9 = false;
+            $scope.featurechartfilterselectradio10 = false;
+            $scope.changeFeatureAnalyticsGraphOverall("", "", blck, 'cost-analytics-feature-chart-4');
+        }
+
         //$route.reload();
 
     }
@@ -312,7 +371,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
         else if(selectedMonth == "May") {
             return "05"
         }
-        else if(selectedMonth == "Jun") {
+        else if(selectedMonth == "June") {
             return "06"
         }
         else if(selectedMonth == "Jul") {
@@ -346,13 +405,17 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
             
         }
         if(selectedDropdown == "month") {
+            monthArray[0] = 'Jan';
             selectedMonth1 = "01";
             $scope.selectedMonth1 = monthArray[0];
+            $scope.selectedRadio1 = true;
             $scope.selectedRadio2 = true;
+            selectedYear1 = $scope.getYearlyList[0].toString();
+            $scope.selectedYear1 = selectedYear1;
+            
         }
         if(selectedDropdown == "license") {
-            typeOfLicense = $scope.getLicenseList[0];
-            $scope.typeOfLicense = typeOfLicense;
+            $scope.typeOfLicense = String($scope.getLicenseList[1]);
             $scope.selectedRadio3 = true;
             selectedMonth1 = $scope.selectedMonthChange(selectedMonth1);
         }
@@ -405,7 +468,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
             selectedMonth1 = "04";
         }else if(selectedMonth1 == "May"){
             selectedMonth1 = "05";
-        }else if(selectedMonth1 == "Jun"){
+        }else if(selectedMonth1 == "June"){
             selectedMonth1 = "06";
         }else if(selectedMonth1 == "Jul"){
             selectedMonth1 = "07";
@@ -504,6 +567,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
     $scope.changeFeatureAnalyticsGraphType = function(chartType, id, response, prod_name) {
         
         
+        
         $(".chart-container .chart").removeClass("active-chart");
         $(event.target).closest(".chart").addClass("active-chart");
         var plotDataBarY = [];
@@ -514,6 +578,8 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
                                     y: response.cost_year_val,
                                     name: prod_name,
                                     type: 'bar',
+                                    text: response.cost_year_percentage,
+                                    textposition: 'auto',
                                     marker: {
                                         color: d3colors(0)
                                     }
@@ -585,8 +651,8 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
     }
     $scope.featurechartfilteryear1 = false;
     $scope.featurechartfiltermonth1 = false;
-    $scope.featurechartfilterselectyear1 = false;
-    $scope.featurechartfilterselectmonth1 = false;
+    //$scope.featurechartfilterselectyear1 = false;
+    //$scope.featurechartfilterselectmonth1 = false;
     $scope.overallfeature = true;
     $scope.yearlyExp = "";
     $scope.monthlyExp = "";
@@ -596,7 +662,56 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
     $scope.getOverallCostAnalytics();
     
     
+    $scope.changeFeatureAnalyticsGraphOverall = function(year,selectedMonth2,product_name, id) {
+        //debugger;
+        
+        if(selectedMonth2 == undefined || selectedMonth2 == false) {
+            selectedMonth2 = "";
+        }
+        $scope.featurechartfilterselectyear1 = year;
+        
+        var d = new Date();
+        if (year == d.getFullYear()) {
+            var currentMonth = d.getMonth();
+            var newMonthArray = [];
+            for (i = 0; i <= currentMonth; i++) {
+                newMonthArray.push(monthArray[i])
+            }
+            $scope.getMonthList = newMonthArray;
 
+        }
+        else {
+            $scope.getMonthList = monthArray;
+        }
+        if(selectedMonth2 == "Jan") {
+            selectedMonth2 = "01";
+        }else if(selectedMonth2 == "Feb"){
+            selectedMonth2 = "02";
+        }else if(selectedMonth2 == "Mar"){
+            selectedMonth2 = "03";
+        }else if(selectedMonth2 == "Apr"){
+            selectedMonth2 = "04";
+        }else if(selectedMonth2 == "May"){
+            selectedMonth2 = "05";
+        }else if(selectedMonth2 == "June"){
+            selectedMonth2 = "06";
+        }else if(selectedMonth2 == "Jul"){
+            selectedMonth2 = "07";
+        }else if(selectedMonth2 == "Aug"){
+            selectedMonth2 = "08";
+        }else if(selectedMonth2 == "Sep"){
+            selectedMonth2 = "09";
+        }else if(selectedMonth2 == "Oct"){
+            selectedMonth2 = "10";
+        }else if(selectedMonth2 == "Nov"){
+            selectedMonth2 = "11";
+        }else if(selectedMonth2 == "Dec"){
+            selectedMonth2 = "12";
+        }
+        
+        $scope.getFeaturePercentageOnChange(year, selectedMonth2, product_name,id);
+        
+    }
     $scope.changeFeatureAnalyticsGraph = function(year,selectedMonth2,product_name, id) {
         //debugger;
         
@@ -604,8 +719,8 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
             selectedMonth2 = "";
         }
         if(year == undefined || year == false) {
-            year = "2018";
-            $scope.featurechartfilterselectyear1 = "2018"
+            year = "";
+            $scope.featurechartfilterselectyear1 = ""
         }
         
         var d = new Date();
@@ -982,18 +1097,48 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
         
         if(prod_id == 'cost-analytics-feature-chart-0') {
             $scope.overallFeauture[0]=false;
+            if(selectedDropdown == "year") {
+                $scope.featurechartfilterselectradio1 = true;
+            }
+            else {
+                $scope.featurechartfilterselectradio2 = true;
+            }
         }
         else if(prod_id == 'cost-analytics-feature-chart-1') {
             $scope.overallFeauture[1]=false;
+            if(selectedDropdown == "year") {
+                $scope.featurechartfilterselectradio3 = true;
+            }
+            else {
+                $scope.featurechartfilterselectradio4 = true;
+            }
         }
         else if(prod_id == 'cost-analytics-feature-chart-2') {
             $scope.overallFeauture[2]=false;
+            if(selectedDropdown == "year") {
+                $scope.featurechartfilterselectradio5 = true;
+            }
+            else {
+                $scope.featurechartfilterselectradio6 = true;
+            }
         }
         else if(prod_id == 'cost-analytics-feature-chart-3') {
             $scope.overallFeauture[3]=false;
+            if(selectedDropdown == "year") {
+                $scope.featurechartfilterselectradio7 = true;
+            }
+            else {
+                $scope.featurechartfilterselectradio8 = true;
+            }
         }
         else if(prod_id == 'cost-analytics-feature-chart-4') {
             $scope.overallFeauture[4]=false;
+            if(selectedDropdown == "year") {
+                $scope.featurechartfilterselectradio9 = true;
+            }
+            else {
+                $scope.featurechartfilterselectradio10 = true;
+            }
         }
         
         

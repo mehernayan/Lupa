@@ -950,7 +950,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 polarChartRenderData = $scope.chartresponse;
                                 plotDataBarY.push({
                                     type: "scatterpolar",
-                                    name: "license used in " + key,
+                                    name: "This month",
                                     r: polarChartRenderData.r,
                                     theta: polarChartRenderData.theta,
                                     fill: "toself",
@@ -1634,9 +1634,11 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
     $scope.getfavourite();
     $scope.deleteFavourite = function(e) {
         $('#loadergif').show();
-        lupaAdminDashboardService.deleteFavouriteUrl().then(function (response) {
-
+        var id = parseInt($(e.target).closest("a").attr('data-attr'));
+        lupaAdminDashboardService.deleteFavouriteUrl(id).then(function (response) {
+            $('#loadergif').hide();
         });
+        $scope.removeReport(e);
     }
 
 }]);

@@ -33,10 +33,10 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
         
         
        };
-       this.loadThisWeekShiftGraphUrl = function(chart_duration, chart_type, statistics_type) {
+       this.loadThisWeekShiftGraphUrl = function(chart_duration, chart_type, statistics_type,current_prod) {
         
         var userLogged = localStorageService.get("user")[0].name;
-        var userObj = {"username": userLogged, "product_name" : product_name, "type": statistics_type, "chart_type" : chart_type}
+        var userObj = {"username": userLogged, "product_name" : current_prod, "type": statistics_type, "chart_type" : chart_type}
         if(chart_duration ==="thisweek"){
             chart_duration = "this_week";
         }
@@ -420,15 +420,13 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
                 return deferred.promise;
 
         };
-        this.deleteFavouriteUrl = function(event) {
+        this.deleteFavouriteUrl = function(id) {
             
             var deferred = $q.defer();
-            $rootScope.url= appConstants.serviceAddress+'delete_favourites';
-            
-        
-            s$http({
+            var userObj = {"favourite_id": id}
+            $http({
                     method : 'POST',
-                    url : $rootScope.url,
+                    url : appConstants.serviceAddress+'/delete_favourites',
                     data : userObj
                 }).then(function(response) {
                     deferred.resolve(response);

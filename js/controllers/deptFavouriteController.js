@@ -1627,4 +1627,12 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
         $scope.activeMenu = item;
         //$("#reports, #duration").slideDown();
     }
+    $scope.deleteFavourite = function(e) {
+        $('#loadergif').show();
+        var id = parseInt($(e.target).closest("a").attr('data-attr'));
+        lupaDeptDashboardService.deleteFavouriteUrl(id).then(function (response) {
+            $('#loadergif').hide();
+        });
+        $scope.removeReport(e);
+    }
 }]);

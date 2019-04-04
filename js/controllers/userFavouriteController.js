@@ -1980,4 +1980,12 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
         }
         return size;
     }
+    $scope.deleteFavourite = function(e) {
+        $('#loadergif').show();
+        var id = parseInt($(e.target).closest("a").attr('data-attr'));
+        lupaUserDashboardService.deleteFavouriteUrl(id).then(function (response) {
+            $('#loadergif').hide();
+        });
+        $scope.removeReport(e);
+    }
 }]);

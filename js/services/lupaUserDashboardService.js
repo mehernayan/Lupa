@@ -190,6 +190,22 @@ lupaUserDashboardService.service('lupaUserDashboardService', ['$http', '$q','$fi
         
         
        };
+       this.deleteFavouriteUrl = function(id) {
+            
+            var deferred = $q.defer();
+            var userObj = {"favourite_id": id}
+            $http({
+                    method : 'POST',
+                    url : appConstants.serviceAddress+'/delete_favourites',
+                    data : userObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+
+        }
 
        
 

@@ -437,7 +437,9 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                             }
 
             }
-            layout.legend= {x: 1, y:1}
+            layout.legend= {x: 1, y:1};
+            Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+            
 
 
         } 
@@ -507,8 +509,9 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
             }
             }
-            Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+           Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
         }
+         
 
         //$('.chart-render-' + $scope.chartId).show();
         
@@ -2144,6 +2147,13 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                 $scope.response = response.data;
             }*/
             $scope.response = response.data;
+            if(statisticsType == 'license_statistics') {
+                $scope.pieDeptIndMonthlyLicense =  $scope.response;
+                
+            }
+            else {
+                $scope.pieDeptIndMonthlyTime =  $scope.response;
+            }
             $scope.pieDeptIndMonthly = $scope.response;
                     $scope.deptIndPieUserList = [];
                     for(i=0;i<$scope.pieDeptIndMonthly.length;i++) {
@@ -4727,7 +4737,13 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         $scope.loadReport("monthly_overall", "license_statistics");
     }
 
-    $scope.changeUserPieData = function(event, userNamePieLicense, currentProduct) {
+    $scope.changeUserPieData = function(event, userNamePieLicense, currentProduct, statisticsType) {
+        if(statisticsType == 'license_statistics') {
+            $scope.pieDeptIndMonthly = $scope.pieDeptIndMonthlyLicense;
+        }
+        else {
+            $scope.pieDeptIndMonthly = $scope.pieDeptIndMonthlyTime;
+        }
         $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-graph").attr('id');
         layout.title = currentProduct + " / Monthly report";
         $scope.pieDeptIndMonthlySelected = [];

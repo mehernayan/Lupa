@@ -411,7 +411,6 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 			$('#loaderNotification').show();
 			lupaAdminService.ackRequest(id).then(function (response) {
 				$('#loaderNotification').hide();
-				debugger;
 				$scope.response = JSON.parse(response.data.status_response);
 				if (typeof $scope.response !== "undefined") {
 					if ($scope.response.Success) {

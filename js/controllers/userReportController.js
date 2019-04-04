@@ -317,7 +317,8 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                             }
 
             }
-            layout.legend= {x: 1, y:1}
+            layout.legend= {x: 1, y:1};
+            Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
 
         }

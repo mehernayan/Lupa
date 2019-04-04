@@ -233,7 +233,7 @@
                  
                   <ul class="monthly-section">
                         <li ng-if="chartType == 'pie_chart'">
-                              <select class="form-control" ng-model="userNamePieLicense"  ng-init="userNamePieLicense = deptIndPieUserList[0]"    ng-click="event = $event" ng-change="changeUserPieData(event, userNamePieLicense, currentProduct)">
+                              <select class="form-control" ng-model="userNamePieLicense"  ng-init="userNamePieLicense = deptIndPieUserList[0]"    ng-click="event = $event" ng-change="changeUserPieData(event, userNamePieLicense, currentProduct, 'license_statistics')">
                               <option style="display:none" value="">select </option>
                               <option ng-repeat="item in deptIndPieUserList">{{item}}</option>
                               </select>
@@ -449,29 +449,29 @@
                         </li>
                      </div>
                   </div>
-                  <span class="chart vbar-chart active-chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'vertical_bar_chart','license_statistics', currentProduct)"></i></span>
-                  <span class="chart pie-chart"><i class="fa fa-pie-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'pie_chart','license_statistics', currentProduct)"></i></span>
-                  <span class="chart line-chart"><i class="fa fa-line-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'line_chart','license_statistics', currentProduct)"></i></span>
-                  <span class="chart area-chart"><i class="fa fa-area-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'area_chart','license_statistics', currentProduct)"></i></span>
-                  <span class="chart hbar-chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'horizontal_bar_chart','license_statistics', currentProduct)"></img></span>
-                  <span class="chart stacked-bar-chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'stacked_bar_chart','license_statistics', currentProduct)"></img></span>
-                  <span class="chart stacked-bar-chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'box_plot_styling_outliers_chart','license_statistics', currentProduct)"></img></span>
-                  <span class="chart stacked-bar-chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'bubble_chart','license_statistics', currentProduct)"></img></span>
-                  <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'scatter_chart','license_statistics', currentProduct)"></img></span>
-                  <span class="chart stacked-bar-chart"><img src="images/polar-chart.png" title="polar chart" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'polar_chart','license_statistics', currentProduct)"></img></span>
+                  <span class="chart vbar-chart active-chart" data-attr="vertical_bar_chart"><i class="fa fa-bar-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'vertical_bar_chart','license_statistics', currentProduct)"></i></span>
+                  <span class="chart pie-chart" data-attr="pie_chart"><i class="fa fa-pie-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'pie_chart','license_statistics', currentProduct)"></i></span>
+                  <span class="chart line-chart" data-attr="line_chart"><i class="fa fa-line-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'line_chart','license_statistics', currentProduct)"></i></span>
+                  <span class="chart area-chart" data-attr="area_chart"><i class="fa fa-area-chart" ng-click= "changeGraph('thisweek_change', $event,report_type,'area_chart','license_statistics', currentProduct)"></i></span>
+                  <span class="chart hbar-chart" data-attr="horizontal_bar_chart"><img src="images/horizontal-bar.png" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'horizontal_bar_chart','license_statistics', currentProduct)"></img></span>
+                  <span class="chart stacked-bar-chart" data-attr="stacked_bar_chart"><img src="images/stacked-chart.jpg" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'stacked_bar_chart','license_statistics', currentProduct)"></img></span>
+                  <span class="chart stacked-bar-chart" data-attr="box_plot_styling_outliers_chart"><img src="images/box-chart.jpg" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'box_plot_styling_outliers_chart','license_statistics', currentProduct)"></img></span>
+                  <span class="chart stacked-bar-chart" data-attr="bubble_chart"><img src="images/bubble-chart.png" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'bubble_chart','license_statistics', currentProduct)"></img></span>
+                  <span class="chart stacked-bar-chart" data-attr="scatter_chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'scatter_chart','license_statistics', currentProduct)"></img></span>
+                  <span class="chart stacked-bar-chart" data-attr="polar_chart"><img src="images/polar-chart.png" title="polar chart" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'polar_chart','license_statistics', currentProduct)"></img></span>
                   <div id="{{currentProduct + '-product-chart-yearly3'}}" class="chart-graph"></div>
-                  <div class="usertype-filter-thisweek shift-filter" ng-show="(report_type =='thisweek' || report_type =='this_week') && chartType == 'vertical_bar_chart'">
+                  <div class="usertype-filter-thisweek shift-filter" ng-show="(report_type =='thisweek' || report_type =='this_week')">
                      <div class="usertype-filter-type">
                         <span class="user-label"> </span>
                         <input type="radio" name="adminLicenseReportUserTypeThisWeekShift" ng-checked="true" value="Session" ng-click="loadReport('thisweek_overall', 'license_statistics')"
                            />Day Session Wise :
-                        <span class="user-label"></span>
-                        <input type="radio" name="adminLicenseReportUserTypeThisWeekShift" ng-checked="false" value="Shift" ng-click="loadThisWeekShiftGraph('thisweek', 'license_statistics')"
+                        <span class="user-label"></span>          
+                        <input type="radio" name="adminLicenseReportUserTypeThisWeekShift" ng-checked="false" value="Shift" ng-click="loadThisWeekShiftGraph('thisweek', $event,'license_statistics', currentProduct)"
                            />Day shift Wise :
                      </div>
                   </div>
                   <div class="thisWeekPieData" ng-show="(report_type =='thisweek' || report_type =='this_week') && chartType == 'pie_chart'">
-                        <select class="form-control thisweek-section-pie-fav" ng-model="thiweeksNamePieChart" ng-init="thiweeksNamePieChart = daySession[0]" ng-click="event = $event" ng-change="changeThisWeekPieData(event, thiweeksNamePieChart, currentProduct)">
+                        <select class="form-control thisweek-section-pie-fav" ng-model="thiweeksNamePieChart"  ng-click="event = $event" ng-change="changeThisWeekPieData(event, thiweeksNamePieChart, currentProduct)">
                               <option style="display:none" value="">select </option>
                               <option ng-repeat="item in daySession">{{item}}</option>
                         </select>
@@ -823,7 +823,7 @@
                   
                   <ul class="monthly-section">
                         <li ng-if="chartType == 'pie_chart'">
-                              <select class="form-control" ng-model="userNamePieLicense" ng-init="userNamePieLicense = deptIndPieUserList[0]"    ng-click="event = $event" ng-change="changeUserPieData(event, userNamePieLicense, currentProduct)">
+                              <select class="form-control" ng-model="userNamePieLicense" ng-init="userNamePieLicense = deptIndPieUserList[0]"    ng-click="event = $event" ng-change="changeUserPieData(event, userNamePieLicense, currentProduct, 'time_statistics')">
                               <option style="display:none" value="">select </option>
                               <option ng-repeat="item in deptIndPieUserList">{{item}}</option>
                               </select>
@@ -909,7 +909,7 @@
                         <span class="user-label">User Type : </span>
                         <input type="radio" name="adminReportUserTypeWeekly" ng-checked="true" ng-model="adminReport" value="Department" data-attr="dept" ng-click="reportAdminFilter($event,adminFilterWeeklyTime,'dept', defaultFilterVal,currentProduct,'time_statistics')"
                            />Department
-                        <input type="radio" name="adminReportUserTypeWeekly" ng-checked="false" ng-model="adminReport" value="User" data-attr="dept" ng-click="reportAdminFilter($event,adminFilterWeeklyTime,'dept', defaultFilterVal,currentProduct,'time_statistics')"
+                        <input type="radio" name="adminReportUserTypeWeekly" ng-checked="false" ng-model="adminReport" value="User" data-attr="user" ng-click="reportAdminFilter($event,adminFilterWeeklyTime,'dept', defaultFilterVal,currentProduct,'time_statistics')"
                            />User
                      </div>
                      <div class="usertype-filter-dropdown-dept" ng-show="adminReport == 'Department'">
@@ -1011,13 +1011,13 @@
                   <span class="chart stacked-bar-chart"><img src="images/scatter-chart.png" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'scatter_chart','time_statistics', currentProduct)"></img></span>
                   <span class="chart stacked-bar-chart"><img src="images/polar-chart.png" title="polar chart" class="" ng-click= "changeGraph('thisweek_change', $event,report_type,'polar_chart','time_statistics', currentProduct)"></img></span>
                   <div id="{{currentProduct + '-product-chart-yearly7'}}" class="chart-graph"></div>
-                  <div class="usertype-filter-thisweek shift-filter" ng-show="(report_type =='thisweek' || report_type =='this_week') && chartType == 'vertical_bar_chart'">
+                  <div class="usertype-filter-thisweek shift-filter" ng-show="(report_type =='thisweek' || report_type =='this_week')">
                      <div class="usertype-filter-type">
                         <span class="user-label"> </span>
                         <input type="radio" name="adminTimeReportUserTypeThisWeekShift" ng-checked="true" value="Session" ng-click="loadReport('thisweek_overall', 'time_statistics')"
                            />Day Session Wise :
                         <span class="user-label"></span>
-                        <input type="radio" name="adminTimeReportUserTypeThisWeekShift" ng-checked="false" value="Shift" ng-click="loadThisWeekShiftGraph('thisweek', 'time_statistics')"
+                        <input type="radio" name="adminTimeReportUserTypeThisWeekShift" ng-checked="false" value="Shift" ng-click="loadThisWeekShiftGraph('thisweek', $event,  report_type,'vertical_bar_chart','license_statistics', currentProduct)"
                            />Day shift Wise :
                      </div>
                   </div>
