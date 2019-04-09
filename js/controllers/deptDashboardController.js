@@ -13,6 +13,7 @@ lupaApp.controller('deptDashboardController', ['$scope', 'userData', 'lupaDeptDa
     $scope.polarChartFlag = false;
     $scope.activeMenu = "LSDYNA";
     $scope.productlist = localStorageService.get('productlist');
+    $scope.pieLabel = ["1st week", "2nd week", "3rd week", "4th week", "5th week"];
     $scope.selected = {};
     $scope.loadDashboardLiveChart = function(){
         $scope.productlistresponse = $.grep($scope.productlistresponse, function( item ) {

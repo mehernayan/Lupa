@@ -595,6 +595,15 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q', '$filter', 'localSt
 
         };
         this.overallCostAnalyticsUrl = function(product_name, year, month) {
+        if(year == 'overall' || year == 'Overall') {
+            year = '';
+        }
+        if(month == 'overall' || month == 'Overall') {
+            month = '';
+        }
+        if(year == '' && month != '' ) {
+            year = '2018'
+        }
         var userObj = {"year": year,"month" : month};
         var deferred = $q.defer();
         $http({
@@ -625,6 +634,19 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q', '$filter', 'localSt
 
         };
         this.getYearlyExpenditureUrl = function(year, month, type_of_license) {
+        if(year == 'overall' || year == 'Overall') {
+            year = '';
+        }
+        if(month == 'overall' || month == 'Overall') {
+            month = '';
+        }
+        if(type_of_license == 'overall' || type_of_license == 'Overall') {
+            type_of_license = '';
+        }
+        if(year == '' && month != '' ) {
+            year = '2018'
+        }
+        
         var userObj = {"year": year,"month" : month, "type_of_license": type_of_license};
         var deferred = $q.defer();
         $http({
@@ -642,6 +664,15 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q', '$filter', 'localSt
         
        };
        this.getFeaturePercentageUrl = function(year,month,product_name) {
+        if(year == 'overall' || year == 'Overall') {
+            year = '';
+        }
+        if(month == 'overall' || month == 'Overall') {
+            month = '';
+        }
+        if(year == '' && month != '' ) {
+            year = '2018'
+        }
         var userObj = {"year": year,"month" : month, "product_name": product_name};
         var deferred = $q.defer();
         $http({

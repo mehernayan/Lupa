@@ -294,7 +294,7 @@
                   <div class="weekly-section" ng-if="deptFilterWeeklyLicense  == 'weekly_overall'">
                      <ul>
                         <li ng-repeat="item in reportyearlist track by $index">
-                           <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index == 0"  name="{{'licenseitemoverall' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType)"
+                           <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index == 0"  name="{{'licenseitemoverall' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType, currentProduct, 'license_statistics')"
                                value="{{item.year}}">{{item.year}}</span>
                             <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index == 0"  name="{{'licenseitemoverall' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct)"
                                value="{{item.year}}">{{item.year}}</span>  
@@ -336,7 +336,7 @@
                      <ul>
                         <li ng-repeat="item in reportyearlist track by $index">
                            
-                           <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'licenseitemindividual' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType)"
+                           <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'licenseitemindividual' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType, currentProduct, 'license_statistics')"
                               value="{{item.year}}">{{item.year}}</span>
                            <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index==0"   name="{{'licenseitemindividual' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct)"
                               value="{{item.year}}">{{item.year}}</span>
@@ -778,7 +778,7 @@
                   <div class="weekly-section" ng-if="deptFilterWeeklyTime  == 'weekly_overall'">
                      <ul>
                         <li ng-repeat="item in reportyearlist track by $index">
-                           <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'timeitemoverall' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType)"
+                           <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'timeitemoverall' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType, currentProduct, 'time_statistics')"
                                value="{{item.year}}"> {{item.year}}</span>
                            <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'timeitemoverall' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct)"
                                value="{{item.year}}"> {{item.year}}</span>
@@ -827,7 +827,7 @@
                   <div class="weekly-section" ng-if="deptFilterWeeklyTime  == 'weekly_individual'">
                      <ul>
                         <li ng-repeat="item in reportyearlist track by $index">
-                           <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'timeitemindividual' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType)"
+                           <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'timeitemindividual' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType, currentProduct, 'time_statistics')"
                               value="{{item.year}}">{{item.year}}</span>
                            <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'timeitemindividual' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct)"
                               value="{{item.year}}">{{item.year}}</span>

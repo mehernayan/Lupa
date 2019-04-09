@@ -14,6 +14,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
     $scope.favouriteActive = false;
     $scope.polarChartFlag = false;
     $scope.activeMenu = "LSDYNA";
+    $scope.pieLabel = ["1st week", "2nd week", "3rd week", "4th week", "5th week"];
 
     $scope.getLiveChart = function() {
         $scope.emptyChartMsg = "";
@@ -662,7 +663,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                                             fillcolor: '#709BFF'
                                         })
                                     }
-                                    debugger;
+                                   
                                 }
                                
                                 
@@ -1170,6 +1171,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                         $scope.chartresponse = JSON.parse($scope.response[i].data);
                     }
                     var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
+                    $scope.pieLabel = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
                     if($scope.response[i].chart_type == "vertical_bar_chart" || $scope.response[i].chart_type == "line_chart" || $scope.response[i].chart_type == "area_chart" || 
                         $scope.response[i].chart_type == "stacked_bar_chart") {
                         var fill = '';
@@ -1360,7 +1362,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                         $scope.pieVal = $scope.chartresponse['january']; 
                         var plotDataBarY = [{
                             values: $scope.pieVal,
-                            labels: $scope.pieLabel,
+                            labels: xAxisVal,
                             type: 'pie',
                             textinfo: 'none'
                         }];

@@ -13,6 +13,7 @@ lupaApp.controller('userDashboardController', ['$scope', 'userData', 'lupaUserDa
 
     $scope.reportSidebar = true;
     $scope.activeMenu = "LSDYNA";
+    $scope.pieLabel = ["1st week", "2nd week", "3rd week", "4th week", "5th week"];
     
     $scope.dashboardActive = true;
     $scope.favouriteActive = false;

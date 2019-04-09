@@ -269,9 +269,18 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
     // switch weekly chart year section in report 
 
-    $scope.weeklyYearChange = function (event,reportyear, chartType) {
+    $scope.weeklyYearChange = function (event,reportyear, chartType, currentprod, statisticsType) {
         $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-graph").attr('id');
         localStorageService.set("weeklyReportYearOverall", reportyear);
+        var weeklyresponse = localStorageService.get("userweekly"+statisticsType+currentprod);
+        $scope.weeklyresponse = JSON.parse(weeklyresponse);
+        if (statisticsType == 'license_statistics') {
+            layout.yaxis.title = "Total number of license";
+        }
+        else if (statisticsType == 'time_statistics') {
+            layout.yaxis.title = "Total number of hours used";
+        }
+        
         // default property 
         var fill = '';
         var type = 'bar';
@@ -679,6 +688,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                 var plotDataBarY = [];
                 layout.title = product_name + ' / ' + $scope.report_type + ' Report';
                 $scope.weeklyresponse = $scope.response;
+                localStorageService.set('userweekly' + statisticsType + $scope.product_name, JSON.stringify($scope.response));
                 $scope.reportyearlist = [];
                 for (i = 0; i < $scope.response.length; i++) {
                     if (i == 0) {
@@ -973,6 +983,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     else if ($scope.report_type == 'weekly') {
                         layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
                         $scope.weeklyresponse = $scope.response;
+                        localStorageService.set('userweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
                         for (i = 0; i < $scope.response.length; i++) {
                             if (i == 0) {
@@ -1124,6 +1135,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                             layout.title = product_name +  ' / Yearly Report';
                         }
                         $scope.weeklyresponse = $scope.response;
+                        localStorageService.set('userweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
                         for (i = 0; i < $scope.response.length; i++) {
                             if (i == 0) {
@@ -1218,6 +1230,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     else if ($scope.report_type == 'weekly') {
                         layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
                         $scope.weeklyresponse = $scope.response;
+                        localStorageService.set('userweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
                         for (i = 0; i < $scope.response.length; i++) {
                             if (i == 0) {
@@ -1341,6 +1354,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     else if ($scope.report_type == 'weekly') {
                         layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
                         $scope.weeklyresponse = $scope.response;
+                        localStorageService.set('userweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
                         for (i = 0; i < $scope.response.length; i++) {
                             if (i == 0) {
@@ -1422,6 +1436,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     else if ($scope.report_type == 'weekly') {
                         layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
                         $scope.weeklyresponse = $scope.response;
+                        localStorageService.set('userweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
                         for (i = 0; i < $scope.response.length; i++) {
                             if (i == 0) {
@@ -1486,6 +1501,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                         var plotDataBarY = [];
                         layout.title = product_name + ' / ' + $scope.report_type + ' Report';
                         $scope.weeklyresponse = $scope.response;
+                        localStorageService.set('userweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
                         for (i = 0; i < $scope.response.length; i++) {
                             if (i == 0) {
@@ -1585,6 +1601,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     else if ($scope.report_type == 'weekly') {
                         layout.title = product_name + ' / ' + 'Weekly Report';
                         $scope.weeklyresponse = $scope.response;
+                        localStorageService.set('userweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
                         for (i = 0; i < $scope.response.length; i++) {
                             if (i == 0) {
@@ -1672,6 +1689,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     else if ($scope.report_type == 'weekly') {
                         layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
                         $scope.weeklyresponse = $scope.response;
+                        localStorageService.set('userweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
                         for (i = 0; i < $scope.response.length; i++) {
                             if (i == 0) {
@@ -1727,6 +1745,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                 if(chartType == 'polar_chart') {
                     $scope.drawReportPolarChart($scope.response,$scope.chartRenderId, $scope.report_type, currentprod);
                     $scope.weeklyresponse = $scope.response;
+                    localStorageService.set('userweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
 
                 }
 
