@@ -41,7 +41,7 @@
                            </a>
                         </li>
                         <li>
-                           <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, 'license_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                           <a class="dropdown-item" ng-click="addToFavourite($event,report_type, chartType, 'license_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                            </a>
                         </li>
                      </div>
@@ -88,7 +88,7 @@
                            </a>
                         </li>
                         <li>
-                           <a class="dropdown-item" ng-click="addToFavourite(report_type, indChartType, 'license_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                           <a class="dropdown-item" ng-click="addToFavourite($event,report_type, indChartType, 'license_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                            </a>
                         </li>
                      </div>
@@ -156,7 +156,7 @@
                            </a>
                         </li>
                         <li>
-                           <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, 'license_statistics',currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                           <a class="dropdown-item" ng-click="addToFavourite($event,report_type, chartType, 'license_statistics',currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                            </a>
                         </li>
                      </div>
@@ -203,7 +203,7 @@
                            </a>
                         </li>
                         <li>
-                           <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, 'license_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                           <a class="dropdown-item" ng-click="addToFavourite($event,report_type, chartType, 'license_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                            </a>
                         </li>
                      </div>
@@ -274,7 +274,7 @@
                         </a>
                      </li>
                      <li>
-                        <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, 'license_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                        <a class="dropdown-item" ng-click="addToFavourite($event,report_type, chartType, 'license_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                         </a>
                      </li>
                   </div>
@@ -296,11 +296,11 @@
                         <li ng-repeat="item in reportyearlist track by $index">
                            <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index == 0"  name="{{'licenseitemoverall' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType, currentProduct, 'license_statistics')"
                                value="{{item.year}}">{{item.year}}</span>
-                            <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index == 0"  name="{{'licenseitemoverall' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct)"
+                            <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index == 0"  name="{{'licenseitemoverall' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct, 'license_statistics')"
                                value="{{item.year}}">{{item.year}}</span>  
                         </li>
                         <li ng-if="chartType == 'pie_chart'">
-                              <select class="form-control"   ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, currentProduct)">
+                              <select class="form-control"   ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, currentProduct, 'license_statistics')">
                               <option style="display:none" value="">select </option>
                               <option ng-repeat="item in monthList">{{item}}</option>
                               </select>
@@ -338,11 +338,11 @@
                            
                            <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'licenseitemindividual' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType, currentProduct, 'license_statistics')"
                               value="{{item.year}}">{{item.year}}</span>
-                           <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index==0"   name="{{'licenseitemindividual' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct)"
+                           <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index==0"   name="{{'licenseitemindividual' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct, 'license_statistics')"
                               value="{{item.year}}">{{item.year}}</span>
                         </li>
                         <li ng-if="chartType == 'pie_chart'">
-                              <select class="form-control"   ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, currentProduct)">
+                              <select class="form-control"   ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, currentProduct, 'license_statistics')">
                               <option style="display:none" value="">select </option>
                               <option ng-repeat="item in monthList">{{item}}</option>
                               </select>
@@ -390,7 +390,7 @@
                            </a>
                         </li>
                         <li>
-                           <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, 'license_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                           <a class="dropdown-item" ng-click="addToFavourite($event,report_type, chartType, 'license_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                            </a>
                         </li>
                      </div>
@@ -453,7 +453,7 @@
                            </a>
                         </li>
                         <li>
-                           <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, 'license_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                           <a class="dropdown-item" ng-click="addToFavourite($event,report_type, chartType, 'license_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                            </a>
                         </li>
                      </div>
@@ -525,7 +525,7 @@
                            </a>
                         </li>
                         <li>
-                           <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, 'time_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                           <a class="dropdown-item" ng-click="addToFavourite($event,report_type, chartType, 'time_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                            </a>
                         </li>
                      </div>
@@ -572,7 +572,7 @@
                            </a>
                         </li>
                         <li>
-                           <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, 'time_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                           <a class="dropdown-item" ng-click="addToFavourite($event,report_type, chartType, 'time_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                            </a>
                         </li>
                      </div>
@@ -641,7 +641,7 @@
                            </a>
                         </li>
                         <li>
-                           <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, 'time_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                           <a class="dropdown-item" ng-click="addToFavourite($event,report_type, chartType, 'time_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                            </a>
                         </li>
                      </div>
@@ -688,7 +688,7 @@
                            </a>
                         </li>
                         <li>
-                           <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, 'time_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                           <a class="dropdown-item" ng-click="addToFavourite($event,report_type, chartType, 'time_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                            </a>
                         </li>
                      </div>
@@ -758,7 +758,7 @@
                         </a>
                      </li>
                      <li>
-                        <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, 'time_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                        <a class="dropdown-item" ng-click="addToFavourite($event,report_type, chartType, 'time_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                         </a>
                      </li>
                   </div>
@@ -780,11 +780,11 @@
                         <li ng-repeat="item in reportyearlist track by $index">
                            <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'timeitemoverall' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType, currentProduct, 'time_statistics')"
                                value="{{item.year}}"> {{item.year}}</span>
-                           <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'timeitemoverall' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct)"
+                           <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'timeitemoverall' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct, 'time_statistics')"
                                value="{{item.year}}"> {{item.year}}</span>
                         </li>
                         <li ng-if="chartType == 'pie_chart'">
-                              <select class="form-control"   ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, currentProduct)">
+                              <select class="form-control"   ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, currentProduct, 'time_statistics')">
                               <option style="display:none" value="">select </option>
                               <option ng-repeat="item in monthList">{{item}}</option>
                               </select>
@@ -829,11 +829,11 @@
                         <li ng-repeat="item in reportyearlist track by $index">
                            <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'timeitemindividual' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType, currentProduct, 'time_statistics')"
                               value="{{item.year}}">{{item.year}}</span>
-                           <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'timeitemindividual' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct)"
+                           <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'timeitemindividual' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct, 'time_statistics')"
                               value="{{item.year}}">{{item.year}}</span>
                         </li>
                         <li ng-if="chartType == 'pie_chart'">
-                              <select class="form-control"   ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, currentProduct)">
+                              <select class="form-control"   ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, currentProduct, 'time_statistics')">
                               <option style="display:none" value="">select </option>
                               <option ng-repeat="item in monthList">{{item}}</option>
                               </select>
@@ -880,7 +880,7 @@
                            </a>
                         </li>
                         <li>
-                           <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, 'time_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                           <a class="dropdown-item" ng-click="addToFavourite($event,report_type, chartType, 'time_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                            </a>
                         </li>
                      </div>
@@ -943,7 +943,7 @@
                            </a>
                         </li>
                         <li>
-                           <a class="dropdown-item" ng-click="addToFavourite(report_type, chartType, 'time_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
+                           <a class="dropdown-item" ng-click="addToFavourite($event,report_type, chartType, 'time_statistics', currentProduct)"> <i class="fa fa-heart" ng-class="{'added-fav' : addedFav}"></i>
                            </a>
                         </li>
                      </div>

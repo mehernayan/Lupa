@@ -47,7 +47,7 @@
                             <span ng-if="item.filter_department != null"><b>Department</b> : {{item.filter_department}}</span>
                             <span ng-if="item.filter_user != null"><b>User</b> : {{item.filter_user}}</span>
                             &nbsp;<b>Year</b> : <input type="radio" ng-checked="true" />{{item.filter_year}}
-                            <select class="form-control monthly-section-pie-fav"  ng-if="item.chart_type == 'pie_chart'" ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, item.product_name)">
+                            <select class="form-control monthly-section-pie-fav"  ng-if="item.chart_type == 'pie_chart'" ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, item.product_name, item.type, item.filter_department)">
                               <option style="display:none" value="">select </option>
                               <option ng-repeat="item in monthList">{{item}}</option>
                             </select>

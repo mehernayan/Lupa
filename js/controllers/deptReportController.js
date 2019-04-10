@@ -1342,6 +1342,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
                 if (chartType == "pie_chart") {
                     $scope.pieChartTotalReponse = $scope.response;
+                    localStorageService.set("deptweeklypie" + currentprod + statisticsType, $scope.pieChartTotalReponse);
                     $scope.thisWeekPieRespData =  $scope.response[0].license;
                     var plotDataBarY = [{
                         values: $scope.response[0].value,
@@ -2311,6 +2312,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
                                 layout.title = product_name +  ' / Weekly Report';
                                 var plotDataBarY = [];
                                 $scope.pieChartTotalReponse = $scope.response;
+                                localStorageService.set("deptweeklypie" + currentprod + statisticsType, $scope.pieChartTotalReponse);
                                 $scope.pieLabel = ["1st week", "2nd week", "3rd week", "4th week", "5th week"];
                                 $scope.defaultWeekDataSet = $scope.response[$scope.response.length - 1].license[0];
                                 $scope.defaultWeekData = $scope.response[$scope.response.length - 1].license[0].january;
@@ -3101,7 +3103,12 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
     
     $scope.addedFav = false;
     $scope.individualSet = false;
-    $scope.addToFavourite = function (reportType, chartType, statisticsType, currentprod) {
+    $scope.addToFavourite = function (event,reportType, chartType, statisticsType, currentprod) {
+        if(reportType == 'weekly' && chartType == 'pie_chart') {
+            defaultVal = $(event.target).closest('.chart-render').find('.weekly-section input:checked').attr('data-attr');
+            localStorageService.set("weeklyReportYearOverall", defaultVal);
+        }
+        
         $scope.addedFav = true;
         //$scope.userLogged = localStorageService.get("user");
         //console.log($scope.chartType, $scope.statisticsType);
@@ -4492,6 +4499,7 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
 
                 $scope.defaultFilterUserVal = $scope.deptReportYearList[0];
                 
+                
             }
 
 
@@ -4808,7 +4816,8 @@ lupaApp.controller('deptReportController', ['$scope', 'userData', 'lupaDeptDashb
         
     }
     $scope.monthNamePieChart = "january";
-    $scope.changeMonthData = function(event, monthNamePieChart, product_name) {
+    $scope.changeMonthData = function(event, monthNamePieChart, product_name, statisticsType) {
+        $scope.pieChartTotalReponse = localStorageService.get("deptweeklypie"+product_name+statisticsType);
         $scope.reportPieChartYear = $(event.target).closest('.weekly-section').find("input:checked").attr('data-attr');
         $scope.monthNamePieChart = monthNamePieChart;
         $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-graph").attr('id');

@@ -1043,6 +1043,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                     if($scope.report_type == "weekly") {
                         var plotDataBarY = [];
                         $scope.pieChartTotalReponse = $scope.response;
+                        localStorageService.set("userweeklypie" + currentprod + statisticsType, $scope.pieChartTotalReponse);
                         $scope.pieLabel = ["1st week", "2nd week", "3rd week", "4th week", "5th week"];
                         $scope.defaultWeekDataSet = $scope.response[$scope.response.length - 1].license[0];
                         $scope.defaultWeekData = $scope.response[0].license[0].january;
@@ -2013,7 +2014,8 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
         }
         return size;
     }
-    $scope.changeMonthData = function(event, monthNamePieChart, product_name) {
+    $scope.changeMonthData = function(event, monthNamePieChart, product_name, statisticsType) {
+        $scope.pieChartTotalReponse = localStorageService.get("userweeklypie"+product_name+statisticsType);
         $scope.reportPieChartYear = $(event.target).closest('.weekly-section').find("input:checked").attr('data-attr');
         $scope.monthNamePieChart = monthNamePieChart;
         $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-graph").attr('id');

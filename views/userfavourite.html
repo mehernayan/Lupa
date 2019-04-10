@@ -47,7 +47,7 @@
                             <span ng-if="item.filter_department != null"><b>Department</b> : {{item.filter_department}}</span>
                             <span ng-if="item.filter_user != null"><b>User</b> : {{item.filter_user}}</span>
                             &nbsp;<b>Year</b> : <input type="radio" ng-checked="true" />{{item.filter_year}}
-                            <select class="form-control monthly-section-pie-fav"  ng-if="item.chart_type == 'pie_chart'" ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, item.product_name)">
+                            <select class="form-control monthly-section-pie-fav"  ng-if="item.chart_type == 'pie_chart'" ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, item.product_name, item.type)">
                               <option style="display:none" value="">select </option>
                               <option ng-repeat="item in monthList">{{item}}</option>
                             </select>
@@ -60,12 +60,7 @@
                         <span ng-if="item.filter_user != null"> {{item.filter_user}}</span>
                         &nbsp;<b>Year</b> : <input type="radio" ng-checked="true" />{{item.filter_year}}
                     </div>
-                    <div class="weekly-fav-year" ng-if="item.report_type == 'monthly' && item.chart_type == 'pie_chart'">
-                        <select class="form-control monthly-section-pie-fav"  ng-model="deptNamePieChart" ng-init="deptNamePieChart" ng-click="event = $event" ng-change="changeDeptMonthData(event, deptNamePieChart, item.product_name)">
-                              <option style="display:none" value="">select </option>
-                              <option ng-repeat="item in departmentList">{{item}}</option>
-                        </select>
-                    </div>
+                    
                     
                               
                      

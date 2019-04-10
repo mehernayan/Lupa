@@ -148,7 +148,7 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                         layout.legend = {x:1, y:1};
                     $(".chart-render-" + chartFavouriteIndex).show();
                     layout.legend = {x: 1, y: 1};
-                    layout.title = $scope.chartresponse[0].productname +  ' Yearly / report';
+                    layout.title = $scope.response[i].product_name +  ' Yearly / report';
                     Plotly.newPlot('product-chart-yearly' + chartFavouriteIndex, plotDataBarY, layout, plotlyDefaultConfigurationBar);
                     var gd1 = document.getElementById("product-chart-yearly" + chartFavouriteIndex);
                     Plotly.Plots.resize(gd1);
@@ -1205,6 +1205,8 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                         $scope.favouriteStatisticType = favouriteStatisticType;
                         $scope.chartresponse = JSON.parse($scope.response[i].data);
                         $scope.pieChartFavouriteData = $scope.chartresponse[0].license;
+                        localStorageService.set("deptfavouriteweeklypie" + $scope.response[i].filter_year + $scope.response[i].product_name + $scope.response[i].type, $scope.pieChartFavouriteData);
+                        
                         $scope.chartresponse = $scope.chartresponse[0].license[0];
                         $scope.pieVal = $scope.chartresponse['january']; 
                         var plotDataBarY = [{
@@ -1492,6 +1494,8 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                         $scope.favouriteStatisticType = favouriteStatisticType;
                         $scope.chartresponse = JSON.parse($scope.response[i].data);
                         $scope.pieChartFavouriteData = $scope.chartresponse[0].license;
+                        localStorageService.set("deptfavouriteweeklypie" + $scope.response[i].filter_year + $scope.response[i].product_name + $scope.response[i].type, $scope.pieChartFavouriteData);
+                        
                         $scope.chartresponse = $scope.chartresponse[0].license[0];
                         $scope.pieVal = $scope.chartresponse['morning']; 
                         var plotDataBarY = [{
@@ -1592,7 +1596,8 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
         Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
     }
-    $scope.changeMonthData = function(event, monthNamePieChart, product_name) {
+    $scope.changeMonthData = function(event, monthNamePieChart, product_name, statisticsType, cat) {
+        $scope.pieChartFavouriteData = localStorageService.get("deptfavouriteweeklypie"+cat+product_name+statisticsType);
         $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-fav-id").attr('id');
         $scope.pieLabel = ["1st week", "2nd week", "3rd week", "4th week", "5th week"];
         $scope.defaultPieLicenseData = $scope.pieChartFavouriteData;
@@ -1617,9 +1622,10 @@ lupaApp.controller('deptFavouriteController', ['$scope', 'userData', 'lupaDeptDa
                 pan2d: true,
                 modeBarButtonsToRemove: ['sendDataToCloud', 'hoverClosestPie', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']
         };
+        layout = {};
         layout.title = product_name + ' monthly / ' + $scope.favouriteStatisticType +' report';
         //layout.title = product_name + ' weekl / ' + $scope.favouriteStatisticType +' report';
-        Plotly.newPlot($scope.chartRenderId, plotDataBarY, {}, plotlyDefaultConfigurationBar);
+        Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
     }
     $scope.getfavourite();
     $scope.getLiveChartByProduct = function(item,e) {
