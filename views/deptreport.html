@@ -243,7 +243,7 @@
             <div class="col-sm-12  full-screen-view chart-render chart-render-2" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-3'}}">
                <div class="admin-report-filter">
                   <input type="radio" name="{{currentProduct + 'deptFilterWeeklyLicense'}}" ng-checked="true" ng-model="deptFilterWeeklyLicense" value="weekly_overall"
-                     ng-click="loadWeeklyGraph('weekly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
+                     ng-click="loadWeeklyGraph('weekly', 'vertical_bar_chart', 'license_statistics', currentProduct)">Overall
                   <input type="radio" name="{{currentProduct + 'deptFilterWeeklyLicense'}}" ng-checked="false" ng-model="deptFilterWeeklyLicense"
                      value="weekly_individual" ng-click="reportDeptFilter($event,deptFilterWeeklyLicense,userFilterType,defaultFilterUserVal,currentProduct, 'license_statistics')">Individual
                </div>
@@ -293,13 +293,13 @@
                   <div id="{{currentProduct + '-product-chart-yearly2'}}" class="chart-graph"></div>
                   <div class="weekly-section" ng-if="deptFilterWeeklyLicense  == 'weekly_overall'">
                      <ul>
-                        <li ng-repeat="item in reportyearlist track by $index">
+                        <li ng-repeat="item in reportyearlists[currentProduct] track by $index">
                            <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index == 0"  name="{{'licenseitemoverall' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType, currentProduct, 'license_statistics')"
                                value="{{item.year}}">{{item.year}}</span>
                             <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index == 0"  name="{{'licenseitemoverall' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct, 'license_statistics')"
                                value="{{item.year}}">{{item.year}}</span>  
                         </li>
-                        <li ng-if="chartType == 'pie_chart'">
+                        <li class="pie-dropdown hide">
                               <select class="form-control"   ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, currentProduct, 'license_statistics')">
                               <option style="display:none" value="">select </option>
                               <option ng-repeat="item in monthList">{{item}}</option>
@@ -334,14 +334,14 @@
                   </div>
                   <div class="weekly-section" ng-if="deptFilterWeeklyLicense  == 'weekly_individual'">
                      <ul>
-                        <li ng-repeat="item in reportyearlist track by $index">
+                        <li ng-repeat="item in reportyearlists[currentProduct] track by $index">
                            
                            <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'licenseitemindividual' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType, currentProduct, 'license_statistics')"
                               value="{{item.year}}">{{item.year}}</span>
                            <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index==0"   name="{{'licenseitemindividual' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct, 'license_statistics')"
                               value="{{item.year}}">{{item.year}}</span>
                         </li>
-                        <li ng-if="chartType == 'pie_chart'">
+                        <li class="pie-dropdown hide">
                               <select class="form-control"   ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, currentProduct, 'license_statistics')">
                               <option style="display:none" value="">select </option>
                               <option ng-repeat="item in monthList">{{item}}</option>
@@ -727,7 +727,7 @@
             <div class="col-sm-12  full-screen-view chart-render chart-render-6" ng-class="{'col-sm-6' : chartId>0 }" id="{{currentProduct + '-full-screen-view-7'}}">
                <div class="admin-report-filter">
                   <input type="radio" name="{{currentProduct + 'deptFilterWeeklyTime'}}" ng-checked="true" ng-model="deptFilterWeeklyTime" value="weekly_overall"
-                     ng-click="loadWeeklyGraph('weekly', 'vertical_bar_chart', license_statistics, currentProduct)">Overall
+                     ng-click="loadWeeklyGraph('weekly', 'vertical_bar_chart', 'time_statistics', currentProduct)">Overall
                   <input type="radio" name="{{currentProduct + 'deptFilterWeeklyTime'}}" ng-checked="false" ng-model="deptFilterWeeklyTime" value="weekly_individual"
                      ng-click="reportDeptFilter($event,deptFilterWeeklyTime,userFilterType,defaultFilterUserVal,currentProduct, 'time_statistics')">Individual
                </div>
@@ -777,13 +777,13 @@
                   <div id="{{currentProduct + '-product-chart-yearly6'}}" class="chart-graph"></div>
                   <div class="weekly-section" ng-if="deptFilterWeeklyTime  == 'weekly_overall'">
                      <ul>
-                        <li ng-repeat="item in reportyearlist track by $index">
+                        <li ng-repeat="item in reportyearlists[currentProduct] track by $index">
                            <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'timeitemoverall' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType, currentProduct, 'time_statistics')"
                                value="{{item.year}}"> {{item.year}}</span>
                            <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'timeitemoverall' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct, 'time_statistics')"
                                value="{{item.year}}"> {{item.year}}</span>
                         </li>
-                        <li ng-if="chartType == 'pie_chart'">
+                        <li class="pie-dropdown hide">
                               <select class="form-control"   ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, currentProduct, 'time_statistics')">
                               <option style="display:none" value="">select </option>
                               <option ng-repeat="item in monthList">{{item}}</option>
@@ -826,13 +826,13 @@
                   <div id="{{currentProduct + '-product-chart-yearly6'}}" class="chart-graph"></div>
                   <div class="weekly-section" ng-if="deptFilterWeeklyTime  == 'weekly_individual'">
                      <ul>
-                        <li ng-repeat="item in reportyearlist track by $index">
+                        <li ng-repeat="item in reportyearlists[currentProduct] track by $index">
                            <span ng-if="chartType != 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'timeitemindividual' + currentProduct}}" ng-click="weeklyYearChange($event,item.year, chartType, currentProduct, 'time_statistics')"
                               value="{{item.year}}">{{item.year}}</span>
                            <span ng-if="chartType == 'pie_chart'"><input type="radio" ng-checked="$index==0"  name="{{'timeitemindividual' + currentProduct}}" data-attr={{item.year}} ng-click="changeMonthData($event, monthNamePieChart, currentProduct, 'time_statistics')"
                               value="{{item.year}}">{{item.year}}</span>
                         </li>
-                        <li ng-if="chartType == 'pie_chart'">
+                        <li class="pie-dropdown hide">
                               <select class="form-control"   ng-model="monthNamePieChart" ng-init="monthNamePieChart = monthList[0]" ng-click="event = $event" ng-change="changeMonthData(event, monthNamePieChart, currentProduct, 'time_statistics')">
                               <option style="display:none" value="">select </option>
                               <option ng-repeat="item in monthList">{{item}}</option>

@@ -1104,7 +1104,9 @@ footer {
     position: absolute;
     bottom: 59px;
 }
-
+.horizontal-bar {
+    bottom: 60px !important;
+}
 
 /*.individual-report .chart-graph {
     padding-top: 10px;

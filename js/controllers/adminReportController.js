@@ -1,6 +1,8 @@
 lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDashboardService', '$location', 'localStorageService', function($scope, userData, lupaAdminDashboardService, $location, localStorageService) {
     var userId = localStorageService.get("user");
     var product_name = localStorageService.get("product_name");
+    $scope.reportyearlist =[];
+    $scope.reportyearlists = [];
     if (product_name == "" || product_name == "undefined" || product_name == null) {
         product_name = "LSDYNA";
         localStorageService.set("product_name", "LSDYNA");
@@ -293,6 +295,33 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     // switch weekly chart year section in report 
     $scope.monthNamePieChart = "january";
     $scope.weeklyYearChange = function(event, reportyear, chartType, currentprod, statisticsType) {
+        // default property
+        var layout = {
+            showlegend: true,
+            legend: {
+                "orientation": "h",
+                x: 0.58,
+                y: 1.1
+            },
+            xaxis: {
+                type: 'category',
+                showgrid: false,
+                gridcolor: '#bdbdbd',
+                gridwidth: 1,
+                tickangle: -20,
+            },
+            yaxis: {
+                showgrid: true,
+                title: 'Total number of license',
+                showline: true
+            },
+            barmode: 'group',
+            bargroupgap: 0.5
+
+        };
+        var mode = '';
+        var fill = '';
+        var type = 'bar';
         $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-graph").attr('id');
         $scope.reportPieChartYear = reportyear;
         localStorageService.set("weeklyReportYearOverall", reportyear);
@@ -338,9 +367,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             
             
         }
-        // default property 
-        var fill = '';
-        var type = 'bar';
+        
 
         //change chart type
         if (chartType == 'line_chart') {
@@ -353,31 +380,56 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         if (chartType == 'stacked_bar_chart') {
             layout.barmode = 'stack';
         }
+        if(chartType == 'scatter_chart') {
+            var type = 'scatter';
+            var mode = 'markers';
+        }
         var plotDataBarY = [];
         var response = [];
         var reportyear = reportyear;
         if(chartType == "horizontal_bar_chart") {
+          var layout = {
+                        showlegend: true,
+                        legend: {
+                            "orientation": "h",
+                            x: 0.58,
+                            y: 1.1
+                        },
+                        yaxis: {
+                            type: 'category',
+                            showgrid: false,
+                            gridcolor: '#bdbdbd',
+                            tickangle: -45,
+                        },
+                        xaxis: {
+                            showgrid: true,
+                            title: 'Total number of license used',
+                            showline: true
+                        },
+                        barmode: 'group',
+                        bargroupgap: 0.5,
+                        autosize: true
+
+            };
            
-                    for (j = 0; j < $scope.weeklyresponse.length; j++) {
+         for (j = 0; j < $scope.weeklyresponse.length; j++) {
                 if (reportyear == $scope.weeklyresponse[j].year) {
                     response.push($scope.weeklyresponse[j]);
 
                 }
 
             }
-            
-            //$scope.response = response;
             var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
             layout.title = product_name + ' / ' + $scope.report_type + ' Report';
             if(response[0] != undefined) {
                 for (var i = 0; i < response[0].license.length; i++) {
                 for (key in response[0].license[i]) {
                     plotDataBarY.push({
-                        x: xAxisVal,
-                        y: response[0].license[i][key],
+                        x: response[0].license[i][key],
+                        y: xAxisVal,
                         name: monthArray[i],
-                        type: type,
-                        fill: fill,
+                        type: 'bar',
+                        orientation: "h",
                         marker: {
                             color: d3colors(i)
                         }
@@ -418,6 +470,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 }
 
             }
+            Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+           
         }
         else if(chartType == 'bubble_chart') {
             for (j = 0; j < $scope.weeklyresponse.length; j++) {
@@ -482,6 +536,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 }
 
             }
+            Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
 
 
 
@@ -508,6 +563,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         name: monthArray[i],
                         type: type,
                         fill: fill,
+                        mode: mode,
                         marker: {
                             color: d3colors(i)
                         }
@@ -518,6 +574,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             }
             }
             Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, plotlyDefaultConfigurationBar);
+            
         }
 
         //$('.chart-render-' + $scope.chartId).show();
@@ -844,6 +901,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     localStorageService.set("weeklyReportYearOverall", $scope.response[0].year);
 
                 };
+                $scope.reportyearlists[$scope.product_name] = $scope.reportyearlist;
 
 
                 var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
@@ -1122,6 +1180,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         });
     }
     $scope.changeGraph = function(adminFilter, event, reportType, chartType, statisticsType, currentprod) {
+        
         $scope.daySession = ['Morning', 'Afternoon', 'Evening'];
         $scope.thiweeksNamePieChart = String($scope.daySession[0])
         $scope.chartType = chartType;
@@ -1134,6 +1193,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         }
         if($scope.report_type == 'weekly') {
             $(event.target).closest('.chart-container').find('.weekly-section input:radio:first').prop("checked", true);
+            $(event.target).closest('.chart-render').find('.pie-dropdown').removeClass('show');
         }
         $scope.statisticsType = statisticsType;
         $('#loadergif').show();
@@ -1282,6 +1342,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             }
 
                         };
+                         $scope.reportyearlists[currentprod] = $scope.reportyearlist;
 
 
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
@@ -1413,7 +1474,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         };
 
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
                         for (i = 0; i < $scope.response[0].license.length; i++) {
@@ -1509,7 +1570,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             }
 
                         };
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
 
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
@@ -1620,7 +1681,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             }
 
                         };
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
 
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
@@ -1712,7 +1773,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             }
 
                         };
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
 
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
@@ -1788,7 +1849,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         };
 
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
                         for (i = 0; i < $scope.response[0].license.length; i++) {
@@ -1885,7 +1946,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             }
 
                         };
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
 
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
@@ -1972,7 +2033,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             }
 
                         };
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
 
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
@@ -2172,7 +2233,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             }
 
                         };
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
 
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
@@ -2230,6 +2291,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         $scope.pieLabel = ["1st week", "2nd week", "3rd week", "4th week", "5th week"];
                         $scope.defaultWeekDataSet = $scope.response[$scope.response.length - 1].license[0];
                         $scope.defaultWeekData = $scope.response[0].license[0].january;
+                        $(event.target).closest('.chart-render').find('.pie-dropdown').addClass('show');
                         var sum = $scope.defaultWeekData.reduce(function(a, b) { return a + b; }, 0);
                         if(sum == 0) {
                             $scope.noPieChartDataMessage = true;
@@ -2324,7 +2386,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             }
 
                         };
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
 
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
@@ -2422,7 +2484,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         };
 
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
                         for (i = 0; i < $scope.response[0].license.length; i++) {
@@ -2533,7 +2595,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         };
 
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
                         for (i = 0; i < $scope.response[0].license.length; i++) {
@@ -2625,7 +2687,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         };
 
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
                         for (i = 0; i < $scope.response[0].license.length; i++) {
@@ -2699,7 +2761,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             }
 
                         };
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
 
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
@@ -2798,7 +2860,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         };
 
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
                         for (i = 0; i < $scope.response[0].license.length; i++) {
@@ -2884,7 +2946,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             }
 
                         };
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
 
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
@@ -2962,6 +3024,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         $scope.report_type = report_dur[0];
         if($scope.report_type == 'weekly') {
             $(event.target).closest('.chart-container').find('.weekly-section input:radio:first').prop("checked", true);
+            $(event.target).closest('.chart-render').find('.pie-dropdown').removeClass('show');
             // /$scope.defaultFilterVal
             $scope.defaultFilterVal =  $(event.target).closest('.chart-container').find(".usertype-filter-weekly select:visible option:selected").text();
         }
@@ -3116,7 +3179,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         };
 
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
                         for (i = 0; i < $scope.response[0].license.length; i++) {
@@ -3209,6 +3272,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             $scope.pieLabel = ["1st week", "2nd week", "3rd week", "4th week", "5th week"];
                             $scope.defaultWeekDataSet = $scope.response[$scope.response.length - 1].license[0];
                             $scope.defaultWeekData = $scope.response[$scope.response.length - 1].license[0].january;
+                            $(event.target).closest('.chart-render').find('.pie-dropdown').addClass('show');
                             var sum = $scope.defaultWeekData.reduce(function(a, b) { return a + b; }, 0);
                             if(sum == 0) {
                                 $scope.noPieChartDataMessage = true;
@@ -3343,7 +3407,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             }
 
                         };
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
 
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
@@ -3444,7 +3508,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             }
 
                         };
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
 
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
@@ -3568,7 +3632,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         };
 
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
                         for (i = 0; i < $scope.response[0].license.length; i++) {
@@ -3672,7 +3736,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         };
 
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
                         for (i = 0; i < $scope.response[0].license.length; i++) {
@@ -3864,7 +3928,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                             }
 
                         };
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
 
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
@@ -3887,16 +3951,6 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     } else {
                         for (i = 0; i < $scope.response.length; i++) {
-                            /*for (j = 0; j < $scope.response[i].license.length; j++) {
-                                console.log($scope.response[i].license[j]);
-                                if ($scope.response[i].license[j] > 10) {
-                                    
-                                    size.push($scope.response[i].license[j] / 7)
-                                } else {
-                                    size.push($scope.response[i].license[j]);
-                                    
-                                }
-                            }*/
                             if ($scope.report_type == "yearly") {
                                 if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
                                     size = [];
@@ -3907,6 +3961,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                                 }
 
                             } else {
+                                size = [];
+                                size = $scope.bubbleSize($scope.response[i].license);
                                 //$scope.response = $scope.response[0];
                                 if ($scope.response[i].hasOwnProperty('department')) {
                                     var xVal = xAxisVal;
@@ -3984,7 +4040,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         };
 
-
+                        $scope.reportyearlists[currentprod] = $scope.reportyearlist;
                         var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
                         for (i = 0; i < $scope.response[0].license.length; i++) {
@@ -4354,6 +4410,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         $scope.report_type = report_dur[0];
         if($scope.report_type == "weekly") {
             localStorageService.set("weeklyReportIndividualFilter", defaultFilterVal);
+            $(event.target).closest('.chart-render').find('.pie-dropdown').removeClass('show');
         }
         if($scope.report_type == "this_week" || $scope.report_type == "thisweek") {
             localStorageService.set("thisWeekReportIndividualFilter", defaultFilterVal);
@@ -4524,7 +4581,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 }
 
             };
-
+            $scope.reportyearlists[product_name] = $scope.reportyearlist;
 
             var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
@@ -4692,7 +4749,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
             };
 
-
+            $scope.reportyearlists[product_name] = $scope.reportyearlist;
             var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
             for (i = 0; i < $scope.response[0].license.length; i++) {
