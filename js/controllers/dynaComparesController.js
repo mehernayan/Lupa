@@ -123,7 +123,7 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
             $scope.error = "";
             $scope.prodFeatures = $scope.response.data;
             if($scope.prodFeatures.length){
-              $scope.prodFeatures.forEach(element => {
+              $scope.prodFeatures.forEach(function(element) {
                 element.status = false;
               });
             }else{
@@ -152,7 +152,7 @@ lupaApp.controller('dynaComparesController', ['$scope', '$location', 'lupaManage
     $scope.addFeatures = function () {
       //$scope.features_lists = [];
       if (typeof $scope.prodFeatures !== "undefined" && $scope.prodFeatures.length !== 0) {
-       $scope.prodFeatures.forEach(element => {
+       $scope.prodFeatures.forEach(function(element) {
           if (typeof element.status !== "undefined" && element.status && $scope.features_lists.indexOf(element.feature_name) === -1) {
             $scope.features_lists.push(element.feature_name);
           }

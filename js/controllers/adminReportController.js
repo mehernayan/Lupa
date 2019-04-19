@@ -659,6 +659,25 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             layout.title = product_name + ' / ' + $scope.report_type + ' Report';
 
             $scope.response = response.data;
+            if (!$scope.response.length) {
+
+                $("#loadergif").hide();
+            
+                if ($scope.statisticsType == 'license_statistics') {
+            
+                    $('#' + $scope.product_name + ' .chart-render-0').hide();
+            
+                }
+            
+                else {
+            
+                    $('#' + $scope.product_name + ' .chart-render-4').hide();
+            
+                }
+            
+                return;
+            
+            }
             if ($scope.response[0] != "" || $scope.response[0] != undefined) {
                 $scope.addedFav = $scope.response[0].favourite;
             }
@@ -769,6 +788,25 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             layout.title = product_name + ' / ' + $scope.report_type + ' Report';
 
             $scope.response = response.data;
+            if (!$scope.response.length) {
+
+                $("#loadergif").hide();
+            
+                if ($scope.statisticsType == 'license_statistics') {
+            
+                    $('#' + $scope.product_name + ' .chart-render-1').hide();
+            
+                }
+            
+                else {
+            
+                    $('#' + $scope.product_name + ' .chart-render-5').hide();
+            
+                }
+            
+                return;
+            
+            }
             if ($scope.response[0] != "" || $scope.response[0] != undefined) {
                 $scope.addedFav = $scope.response[0].favourite;
             }
@@ -876,6 +914,25 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             layout.title = product_name + ' / ' + $scope.report_type + ' Report';
 
             $scope.response = response.data;
+            if (!$scope.response.length) {
+
+                $("#loadergif").hide();
+            
+                if ($scope.statisticsType == 'license_statistics') {
+            
+                    $('#' + $scope.product_name + ' .chart-render-2').hide();
+            
+                }
+            
+                else {
+            
+                    $('#' + $scope.product_name + ' .chart-render-6').hide();
+            
+                }
+            
+                return;
+            
+            }
             if ($scope.response[0] != "" || $scope.response[0] != undefined) {
                 $scope.addedFav = $scope.response[0].favourite;
             }
@@ -1016,6 +1073,25 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             layout.title = product_name + ' / ' + $scope.report_type + ' Report';
 
             $scope.response = response.data;
+            if (!$scope.response.length) {
+
+                $("#loadergif").hide();
+            
+                if ($scope.statisticsType == 'license_statistics') {
+            
+                    $('#' + $scope.product_name + ' .chart-render-3').hide();
+            
+                }
+            
+                else {
+            
+                    $('#' + $scope.product_name + ' .chart-render-7').hide();
+            
+                }
+            
+                return;
+            
+            }
             if ($scope.response[0] != "" || $scope.response[0] != undefined) {
                 $scope.addedFav = $scope.response[0].favourite;
             }
@@ -1137,6 +1213,25 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             layout.title = product_name + ' / This Week Shift Report';
 
             $scope.response = response.data;
+            if (!$scope.response.length) {
+
+                $("#loadergif").hide();
+            
+                if ($scope.statisticsType == 'license_statistics') {
+            
+                    $('#' + $scope.product_name + ' .chart-render-3').hide();
+            
+                }
+            
+                else {
+            
+                    $('#' + $scope.product_name + ' .chart-render-7').hide();
+            
+                }
+            
+                return;
+            
+            }
             if ($scope.response[0] != "" || $scope.response[0] != undefined) {
                 $scope.addedFav = $scope.response[0].favourite;
             }
