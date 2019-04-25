@@ -687,7 +687,7 @@ i.far.fa-square {
     visibility: hidden
 }
 .chart img {
-    height: 14px;
+    height: 16px;
 }
 ul.monthly-section , .weekly-section ul {
     display: block;
@@ -1034,6 +1034,7 @@ footer {
 }
 .active-chart img {
     border: 2px solid #59D659;
+    background: #70ef70;
 }
 .reportToggleFlag .arrow-right {
     transform: rotate(45deg) !important;

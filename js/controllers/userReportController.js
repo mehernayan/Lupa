@@ -308,7 +308,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
             layout.yaxis.title = "Total number of license";
         }
         else if (statisticsType == 'time_statistics') {
-            layout.yaxis.title = "Total number of hours used";
+            layout.yaxis.title = "Total percentage utilized";
         }
         if(chartType == "pie_chart") {
             $scope.piechartWeeklyData = [];
@@ -598,7 +598,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total number of hours used";
+                layout.yaxis.title = "Total percentage utilized";
                 		
             }
 
@@ -724,7 +724,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total number of hours used";
+                layout.yaxis.title = "Total percentage utilized";
                 		
             }
 
@@ -851,7 +851,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total number of hours used";
+                layout.yaxis.title = "Total percentage utilized";
                 		
             }
 
@@ -1004,7 +1004,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total number of hours used";
+                layout.yaxis.title = "Total percentage utilized";
                 		
             }
 
@@ -1153,7 +1153,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total number of hours used";
+                layout.yaxis.title = "Total percentage utilized";
                 
             }
 
@@ -1574,7 +1574,7 @@ lupaApp.controller('userReportController', ['$scope', 'userData', 'lupaUserDashb
                         
                     }
                     else if ($scope.statisticsType == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                         
                     }
                     //var marker = ["#"]

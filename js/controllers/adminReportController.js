@@ -332,7 +332,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             layout.yaxis.title = "Total number of license";
         }
         else if (statisticsType == 'time_statistics') {
-            layout.yaxis.title = "Total number of hours used";
+            layout.yaxis.title = "Total percentage utilized";
         }
         if(chartType == "pie_chart") {
             $scope.piechartWeeklyData = [];
@@ -627,7 +627,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total number of hours used";
+                layout.yaxis.title = "Total percentage utilized";
                 		
             }
 
@@ -756,7 +756,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total number of hours used";
+                layout.yaxis.title = "Total percentage utilized";
                 		
             }
 
@@ -882,7 +882,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total number of hours used";
+                layout.yaxis.title = "Total percentage utilized";
                 		
             }
 
@@ -1041,7 +1041,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total number of hours used";
+                layout.yaxis.title = "Total percentage utilized";
                 		
             }
 
@@ -1181,7 +1181,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total number of hours used";
+                layout.yaxis.title = "Total percentage utilized";
                 		
             }
 
@@ -1332,7 +1332,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total number of hours used";
+                layout.yaxis.title = "Total percentage utilized";
                 		
             }
 
@@ -2223,7 +2223,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total number of hours used";
+                layout.yaxis.title = "Total percentage utilized";
                 		
             }
 
@@ -3170,7 +3170,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total number of hours used";
+                layout.yaxis.title = "Total percentage utilized";
                 		
             }
 
@@ -4363,7 +4363,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
             }
             else if ($scope.statisticsType == 'time_statistics') {
-                layout.yaxis.title = "Total number of hours used";
+                layout.yaxis.title = "Total percentage utilized";
                 		
         }
         //Bar chart Section goes here

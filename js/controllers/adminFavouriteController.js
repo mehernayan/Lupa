@@ -124,7 +124,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -181,7 +181,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -222,7 +222,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -285,7 +285,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -325,7 +325,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -365,7 +365,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -405,7 +405,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -446,7 +446,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -572,7 +572,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -643,7 +643,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -684,7 +684,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -748,7 +748,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -789,7 +789,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -830,7 +830,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -871,7 +871,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -905,7 +905,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     $(".chart-render-" + chartFavouriteIndex).show();
@@ -1011,7 +1011,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     
@@ -1300,7 +1300,7 @@ lupaApp.controller('adminFavouriteController', ['$scope', 'userData', 'lupaAdmin
                                 
 
                     } else if ($scope.response[i].type == 'time_statistics') {
-                        layout.yaxis.title = "Total number of hours used";
+                        layout.yaxis.title = "Total percentage utilized";
                                 
                     }
                     
