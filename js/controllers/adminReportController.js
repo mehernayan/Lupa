@@ -4,10 +4,10 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     $scope.reportyearlist =[];
     $scope.reportyearlists = [];
     if (product_name == "" || product_name == "undefined" || product_name == null) {
-        product_name = "LSDYNA";
-        localStorageService.set("product_name", "LSDYNA");
-        $scope.currentProducts = ['LSDYNA'];
-        $scope.activeMenu = "LSDYNA";
+        product_name = "LSTC";
+        localStorageService.set("product_name", "LSTC");
+        $scope.currentProducts = ['LSTC'];
+        $scope.activeMenu = "LSTC";
     } else {
 
         $scope.currentProducts = [product_name];
@@ -116,7 +116,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         var product_name = localStorageService.get("product_name");
         $scope.yearlyAdminReportIndividual = "";
         if (product_name == "" || product_name == "undefined" || product_name == null) {
-            product_name = "LSDYNA"
+            product_name = "LSTC"
         }
         $scope.product_name = product_name;
         //$('#' + $scope.product_name + ' .chart-render-0').show();
@@ -295,6 +295,16 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     // switch weekly chart year section in report 
     $scope.monthNamePieChart = "january";
     $scope.weeklyYearChange = function(event, reportyear, chartType, currentprod, statisticsType) {
+        
+        var favouriteStatisticType = "";
+			if (statisticsType == 'license_statistics') {
+                        favouriteStatisticType = "license";
+
+                    	}
+                    	else if (statisticsType == 'time_statistics') {
+                        favouriteStatisticType = "percentage";
+                                
+        }
         // default property
         var layout = {
             showlegend: true,
@@ -327,12 +337,14 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         localStorageService.set("weeklyReportYearOverall", reportyear);
         var weeklyresponse = localStorageService.get("adminweekly"+statisticsType+currentprod);
         $scope.weeklyresponse = JSON.parse(weeklyresponse);
-        
+        var favouriteStatisticType = "";
         if (statisticsType == 'license_statistics') {
             layout.yaxis.title = "Total number of license";
+            favouriteStatisticType = "license";
         }
         else if (statisticsType == 'time_statistics') {
             layout.yaxis.title = "Total percentage utilized";
+            favouriteStatisticType = "percentage";
         }
         if(chartType == "pie_chart") {
             $scope.piechartWeeklyData = [];
@@ -420,7 +432,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
             }
             var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
-            layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+            layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
             if(response[0] != undefined) {
                 for (var i = 0; i < response[0].license.length; i++) {
                 for (key in response[0].license[i]) {
@@ -452,7 +464,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             }
             //$scope.response = response;
             var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
-            layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+            layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
             for (var i = 0; i < response[0].license.length; i++) {
                 for (key in response[0].license[i]) {
                     plotDataBarY.push({
@@ -482,7 +494,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
             }
             var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
-            layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+            layout.title = product_name +  ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
             for (i = 0; i < response[0].license.length; i++) {
                             for (key in response[0].license[i]) {
                                 size = [];
@@ -519,7 +531,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             var plotDataBarY = [];
 
             var plotDataBarY = [];
-            layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+            layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
             var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
 
             for (i = 0; i < $scope.response[0].license.length; i++) {
@@ -553,7 +565,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             
             //$scope.response = response;
             var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
-            layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+            layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
             if(response[0] != undefined) {
                 for (var i = 0; i < response[0].license.length; i++) {
                 for (key in response[0].license[i]) {
@@ -586,7 +598,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     $scope.loadYearlyGraph = function(reportType, chartType, statisticsType, currentprod) {
         var product_name = localStorageService.get("product_name");
         if (product_name == "" || product_name == "undefined" || product_name == null) {
-            product_name = "LSDYNA"
+            product_name = "LSTC"
         }
         $scope.product_name = product_name;
         if (currentprod != "" && currentprod != undefined) {
@@ -597,8 +609,17 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
         lupaAdminDashboardService.changeGraphUrl(reportType, chartType, statisticsType, $scope.product_name).then(function(response) {
+            var favouriteStatisticType = "";
+			if (statisticsType == 'license_statistics') {
+                        favouriteStatisticType = "license";
+
+                    	}
+                    	else if (statisticsType == 'time_statistics') {
+                        favouriteStatisticType = "percentage";
+                                
+            }
             var layout = {
-                title: product_name + ' / ' + $scope.report_type + ' Report',
+                title: product_name + ' / ' + $scope.report_type + " " + favouriteStatisticType +' Report',
                 showlegend: true,
                 legend: {
                     "orientation": "h",
@@ -622,12 +643,15 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 autosize: true
 
             };
+            var favouriteStatisticType = "";
             if ($scope.statisticsType == 'license_statistics') {
                 layout.yaxis.title = "Total number of license";
+                favouriteStatisticType = "license";
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
                 layout.yaxis.title = "Total percentage utilized";
+                favouriteStatisticType = "percentage";
                 		
             }
 
@@ -656,7 +680,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
 
 
-            layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+            layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
 
             $scope.response = response.data;
             if (!$scope.response.length) {
@@ -715,7 +739,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     $scope.loadMonthlyGraph = function(reportType, chartType, statisticsType, currentprod) {
         var product_name = localStorageService.get("product_name");
         if (product_name == "" || product_name == "undefined" || product_name == null) {
-            product_name = "LSDYNA"
+            product_name = "LSTC"
         }
         $scope.product_name = product_name;
         if (currentprod != "" && currentprod != undefined) {
@@ -726,8 +750,18 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
         lupaAdminDashboardService.changeGraphUrl(reportType, chartType, statisticsType, $scope.product_name).then(function(response) {
+            var favouriteStatisticType = "";
+			if (statisticsType == 'license_statistics') {
+                        favouriteStatisticType = "license";
+
+                    	}
+                    	else if (statisticsType == 'time_statistics') {
+                        favouriteStatisticType = "percentage";
+                                
+            }
+            
             var layout = {
-                title: product_name + ' / ' + $scope.report_type + ' Report',
+                title: product_name + ' / ' + $scope.report_type + " " + favouriteStatisticType +' Report',
                 showlegend: true,
                 legend: {
                     "orientation": "h",
@@ -751,12 +785,15 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 autosize: true
 
             };
+            var favouriteStatisticType = "";
             if ($scope.statisticsType == 'license_statistics') {
                 layout.yaxis.title = "Total number of license";
+                favouriteStatisticType = "license";
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
                 layout.yaxis.title = "Total percentage utilized";
+                favouriteStatisticType = "percentage";
                 		
             }
 
@@ -785,7 +822,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
 
 
-            layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+            layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
 
             $scope.response = response.data;
             if (!$scope.response.length) {
@@ -841,7 +878,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     $scope.loadWeeklyGraph = function(reportType, chartType, statisticsType, currentprod) {
         var product_name = localStorageService.get("product_name");
         if (product_name == "" || product_name == "undefined" || product_name == null) {
-            product_name = "LSDYNA"
+            product_name = "LSTC"
         }
         $scope.product_name = product_name;
         if (currentprod != "" && currentprod != undefined) {
@@ -852,8 +889,18 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
         lupaAdminDashboardService.changeGraphUrl(reportType, chartType, statisticsType, $scope.product_name).then(function(response) {
+            var favouriteStatisticType = "";
+			if (statisticsType == 'license_statistics') {
+                        favouriteStatisticType = "license";
+
+                    	}
+                    	else if (statisticsType == 'time_statistics') {
+                        favouriteStatisticType = "percentage";
+                                
+            }
+            
             var layout = {
-                title: product_name + ' / ' + $scope.report_type + ' Report',
+                title: product_name + ' / ' + $scope.report_type + " " + favouriteStatisticType +' Report',
                 showlegend: true,
                 legend: {
                     "orientation": "h",
@@ -877,12 +924,15 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 autosize: true
 
             };
+            var favouriteStatisticType = "";
             if ($scope.statisticsType == 'license_statistics') {
                 layout.yaxis.title = "Total number of license";
+                favouriteStatisticType = "license";
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
                 layout.yaxis.title = "Total percentage utilized";
+                favouriteStatisticType = "percentage";
                 		
             }
 
@@ -911,7 +961,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
 
 
-            layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+            layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
 
             $scope.response = response.data;
             if (!$scope.response.length) {
@@ -939,7 +989,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             if ($scope.response) {
                 $('#loadergif').hide();
                 var plotDataBarY = [];
-                layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                 $scope.weeklyresponse = $scope.response;
                 localStorageService.set('adminweekly' + statisticsType + $scope.product_name, JSON.stringify($scope.response));
                 $scope.reportyearlist = [];
@@ -998,7 +1048,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         var product_name = localStorageService.get("product_name");
         localStorageService.set("thisWeekReportIndividualFilter", "");
         if (product_name == "" || product_name == "undefined" || product_name == null) {
-            product_name = "LSDYNA"
+            product_name = "LSTC"
         }
         $scope.product_name = product_name;
         if (currentprod != "" && currentprod != undefined) {
@@ -1011,8 +1061,18 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         $scope.report_type = reportType;
         $scope.statisticsType = statisticsType;
         lupaAdminDashboardService.changeGraphUrl(reportType, chartType, statisticsType, $scope.product_name).then(function(response) {
+            var favouriteStatisticType = "";
+			if (statisticsType == 'license_statistics') {
+                        favouriteStatisticType = "license";
+
+                    	}
+                    	else if (statisticsType == 'time_statistics') {
+                        favouriteStatisticType = "percentage";
+                                
+            }
+            
             var layout = {
-                title: product_name + ' / ' + $scope.report_type + ' Report',
+                title: product_name + ' / ' + $scope.report_type + " " + favouriteStatisticType +' Report',
                 showlegend: true,
                 legend: {
                     "orientation": "h",
@@ -1036,12 +1096,15 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 autosize: true
 
             };
+            var favouriteStatisticType = "";
             if ($scope.statisticsType == 'license_statistics') {
                 layout.yaxis.title = "Total number of license";
+                favouriteStatisticType = "license";
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
                 layout.yaxis.title = "Total percentage utilized";
+                favouriteStatisticType = "percentage";
                 		
             }
 
@@ -1070,7 +1133,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
 
 
-            layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+            layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
 
             $scope.response = response.data;
             if (!$scope.response.length) {
@@ -1100,7 +1163,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 var plotDataBarY = [];
                 
                 //$scope.thisWeekCommonChartType($scope.response[0]);
-                layout.title = product_name + ' / This Week Report';
+                layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                 var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                 var plotDataBarY = [];
                 for (var i = 0; i < $scope.response[0].license.length; i++) {
@@ -1176,12 +1239,15 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 autosize: true
 
             };
+            var favouriteStatisticType = "";
             if ($scope.statisticsType == 'license_statistics') {
                 layout.yaxis.title = "Total number of license";
+                favouriteStatisticType = "license";
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
                 layout.yaxis.title = "Total percentage utilized";
+                favouriteStatisticType = "percentage";
                 		
             }
 
@@ -1239,7 +1305,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 var plotDataBarY = [];
                 
                 //$scope.thisWeekCommonChartType($scope.response[0]);
-                layout.title = product_name + ' / This Week Report';
+                layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                 var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                 var plotDataBarY = [];
                 for (var i = 0; i < $scope.response[0].license.length; i++) {
@@ -1299,11 +1365,19 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         if($scope.shiftGraph) {
             lupaAdminDashboardService.loadThisWeekShiftGraphUrl($scope.report_type, chartType, statisticsType, currentprod).then(function(response) {
                 
-           
+                var favouriteStatisticType = "";
+                if (statisticsType == 'license_statistics') {
+                    favouriteStatisticType = "license";
+
+                }
+                else if (statisticsType == 'time_statistics') {
+                    favouriteStatisticType = "percentage";
+
+                }
             // common to all graph
             product_name = currentprod;
             var layout = {
-                title: product_name + ' / ' + $scope.report_type + ' Report',
+                title: product_name + ' / ' + $scope.report_type + " " + favouriteStatisticType +' Report',
                 showlegend: true,
                 legend: {
                     "orientation": "h",
@@ -1327,12 +1401,15 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 autosize: true
 
             };
+            var favouriteStatisticType = "";
             if ($scope.statisticsType == 'license_statistics') {
                 layout.yaxis.title = "Total number of license";
+                favouriteStatisticType = "license";
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
                 layout.yaxis.title = "Total percentage utilized";
+                favouriteStatisticType = "percentage";
                 		
             }
 
@@ -1361,7 +1438,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
 
 
-            layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+            layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
             $scope.response = response.data;
             /*if ($scope.yearlyAdminReportIndividual != "") {
                 $scope.response = [];
@@ -1395,7 +1472,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         var plotDataBarY = [];
                         for (var i = 0; i < $scope.response[0].license.length; i++) {
@@ -1419,7 +1496,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -1513,15 +1590,15 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                     var layout = {};
                     if ($scope.report_type == "yearly") {
-                        layout.title = product_name + ' / Yearly Report';
+                        layout.title = product_name + ' / Yearly ' + favouriteStatisticType +' Report';
                     } else if ($scope.report_type == "monthly") {
-                        layout.title = product_name + ' / Monthly Report';
+                        layout.title = product_name + ' / Monthly ' + favouriteStatisticType +' Report';
                     } else if ($scope.report_type == "weekly") {
-                        layout.title = product_name + ' / Weekly Report';
+                        layout.title = product_name + ' / Weekly ' + favouriteStatisticType +' Report';
                     } else {
-                        layout.title = product_name + ' / This week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                     }
-                    
+                    debugger;
                     
                     Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout);
 
@@ -1532,7 +1609,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     //var marker = ["#"]
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -1550,7 +1627,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -1629,7 +1706,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -1647,7 +1724,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -1686,7 +1763,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         }
                     } else {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
 
                         for (i = 0; i < $scope.response.length; i++) {
                             if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
@@ -1740,7 +1817,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -1758,7 +1835,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -1797,7 +1874,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         }
                     } else {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         for (i = 0; i < $scope.response.length; i++) {
                             if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
                                 var xVal = $scope.response[i].label;
@@ -1833,7 +1910,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -1850,7 +1927,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -1888,7 +1965,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         }
                     } else {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         for (i = 0; i < $scope.response.length; i++) {
                             if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
                                 var xVal = $scope.response[i].label;
@@ -1925,7 +2002,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     var plotDataBarY = [];
                     if ($scope.report_type == "weekly") {
                         var plotDataBarY = [];
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -1964,7 +2041,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                     } else if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -1995,7 +2072,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 }
                 if (chartType == "bubble_chart") {
                     var layout = {
-                        title: product_name + ' / Yearly Report',
+                        title: product_name + ' / ' + $scope.report_type + " " + favouriteStatisticType +' Report',
                         showlegend: true,
 
                     };
@@ -2004,7 +2081,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -2023,7 +2100,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + 'Weekly Report';
+                        layout.title = product_name + ' / ' + 'Weekly ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -2092,7 +2169,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -2110,7 +2187,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -2193,8 +2270,17 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
            
             // common to all graph
             product_name = currentprod;
+            var favouriteStatisticType = "";
+			if (statisticsType == 'license_statistics') {
+                        favouriteStatisticType = "license";
+
+                    	}
+                    	else if (statisticsType == 'time_statistics') {
+                        favouriteStatisticType = "percentage";
+                                
+            }
             var layout = {
-                title: product_name + ' / ' + $scope.report_type + ' Report',
+                title: product_name + ' / ' + $scope.report_type + " " + favouriteStatisticType +' Report',
                 showlegend: true,
                 legend: {
                     "orientation": "h",
@@ -2218,12 +2304,15 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 autosize: true
 
             };
+            var favouriteStatisticType = "";
             if ($scope.statisticsType == 'license_statistics') {
                 layout.yaxis.title = "Total number of license";
+                favouriteStatisticType = "license";
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
                 layout.yaxis.title = "Total percentage utilized";
+                favouriteStatisticType = "percentage";
                 		
             }
 
@@ -2252,7 +2341,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
 
 
-            layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+            layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
             $scope.response = response.data;
             /*if ($scope.yearlyAdminReportIndividual != "") {
                 $scope.response = [];
@@ -2286,7 +2375,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         var plotDataBarY = [];
                         for (var i = 0; i < $scope.response[0].license.length; i++) {
@@ -2310,7 +2399,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -2426,13 +2515,13 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                     var layout = {};
                     if ($scope.report_type == "yearly") {
-                        layout.title = product_name + ' / Yearly Report';
+                        layout.title = product_name + ' / ' + " yearly " + favouriteStatisticType +' Report';
                     } else if ($scope.report_type == "monthly") {
-                        layout.title = product_name + ' / Monthly Report';
+                        layout.title = product_name + ' / ' + " monthly " + favouriteStatisticType +' Report';
                     } else if ($scope.report_type == "weekly") {
-                        layout.title = product_name + ' / Weekly Report';
+                        layout.title = product_name + ' / ' + " weekly " + favouriteStatisticType +' Report';
                     } else {
-                        layout.title = product_name + ' / This week Report';
+                        layout.title = product_name + ' / ' + " this week " + favouriteStatisticType +' Report';
                     }
                     
                     
@@ -2445,7 +2534,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     //var marker = ["#"]
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -2463,7 +2552,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -2542,7 +2631,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -2560,7 +2649,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -2599,7 +2688,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         }
                     } else {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
 
                         for (i = 0; i < $scope.response.length; i++) {
                             if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
@@ -2653,7 +2742,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -2671,7 +2760,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -2710,7 +2799,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         }
                     } else {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         for (i = 0; i < $scope.response.length; i++) {
                             if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
                                 var xVal = $scope.response[i].label;
@@ -2746,7 +2835,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -2763,7 +2852,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -2801,7 +2890,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         }
                     } else {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         for (i = 0; i < $scope.response.length; i++) {
                             if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
                                 var xVal = $scope.response[i].label;
@@ -2838,7 +2927,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     var plotDataBarY = [];
                     if ($scope.report_type == "weekly") {
                         var plotDataBarY = [];
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -2877,7 +2966,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                     } else if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -2908,7 +2997,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 }
                 if (chartType == "bubble_chart") {
                     var layout = {
-                        title: product_name + ' / Yearly Report',
+                        title: product_name + ' / ' + $scope.report_type + " " + favouriteStatisticType +' Report',
                         showlegend: true,
 
                     };
@@ -2917,7 +3006,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -2936,7 +3025,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + 'Weekly Report';
+                        layout.title = product_name + ' / ' + $scope.report_type + " " + favouriteStatisticType +' Report'
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -3005,7 +3094,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -3023,7 +3112,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -3140,8 +3229,17 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             
             // common to all graph
             product_name = currentprod;
+            var favouriteStatisticType = "";
+            if (statisticsType == 'license_statistics') {
+                favouriteStatisticType = "license";
+                            
+
+            } else if (statisticsType == 'time_statistics') {
+                    favouriteStatisticType = "percentage";
+                            
+            }
             var layout = {
-                title: product_name + ' / ' + $scope.report_type + ' Report',
+                title: product_name + ' / ' + $scope.report_type + " " + favouriteStatisticType +' Report',
                 showlegend: true,
                 legend: {
                     "orientation": "h",
@@ -3165,12 +3263,15 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 autosize: true
 
             };
+            var favouriteStatisticType = "";
             if ($scope.statisticsType == 'license_statistics') {
                 layout.yaxis.title = "Total number of license";
+                favouriteStatisticType = "license";
                 		
 
             } else if ($scope.statisticsType == 'time_statistics') {
                 layout.yaxis.title = "Total percentage utilized";
+                favouriteStatisticType = "percentage";
                 		
             }
 
@@ -3199,7 +3300,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
 
 
-            layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+            layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
             /*if ($scope.yearlyAdminReportIndividual != "") {
                 $scope.response = [];
                 $scope.response[0] = $scope.yearlyAdminReportIndividual;
@@ -3231,7 +3332,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         var plotDataBarY = [];
                         for (var i = 0; i < $scope.response[0].license.length; i++) {
@@ -3255,7 +3356,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -3403,7 +3504,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                                     }
                                     
                                 }
-                                layout.title = product_name +  ' / Monthly Report';
+                                layout.title = product_name +  ' / Monthly ' + favouriteStatisticType +' Report';
                                 var plotDataBarY = [{
                                     values: $scope.response[0].license,
                                     labels: monthArray,
@@ -3450,13 +3551,13 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     }
                     var layout = {};
                     if ($scope.report_type == "yearly") {
-                        layout.title = product_name + ' / Yearly Report';
+                        layout.title = product_name + ' / Yearly ' + favouriteStatisticType +' Report';
                     } else if ($scope.report_type == "monthly") {
-                        layout.title = product_name + ' / Monthly Report';
+                        layout.title = product_name + ' / Monthly ' + favouriteStatisticType +' Report';
                     } else if ($scope.report_type == "weekly") {
-                        layout.title = product_name + ' / Weekly Report';
+                        layout.title = product_name + ' / Weekly ' + favouriteStatisticType +' Report';
                     } else {
-                        layout.title = product_name + ' / This week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                     }
                     Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout);
 
@@ -3467,7 +3568,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     //var marker = ["#"]
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -3484,7 +3585,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -3567,7 +3668,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -3585,7 +3686,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -3624,7 +3725,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         }
                     } else {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
 
                         for (i = 0; i < $scope.response.length; i++) {
                             if ($scope.report_type == "yearly") {
@@ -3690,7 +3791,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -3708,7 +3809,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -3747,7 +3848,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         }
                     } else {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         for (i = 0; i < $scope.response.length; i++) {
                             if ($scope.report_type == "yearly") {
                                 if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
@@ -3795,7 +3896,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -3812,7 +3913,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -3850,7 +3951,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                         }
                     } else {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         for (i = 0; i < $scope.response.length; i++) {
                             if ($scope.report_type == "yearly") {
                                 if ($scope.response[i].label != null || $scope.response[i].label != undefined) {
@@ -3898,7 +3999,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -3924,7 +4025,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                                 var plotDataBarY = [];
                                  
 
-                                    layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                                    layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                                     var xAxisVal = ['1st week', '2nd week', '3rd week', '4th week', '5th week'];
                                     console.log($scope.response);
                                     for (k = 0; k < $scope.response[0].license.length; k++) {
@@ -3977,7 +4078,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     
                     
                     var layout = {
-                        title: product_name + ' / Yearly Report',
+                        title: product_name + ' / ' + $scope.report_type + " " + favouriteStatisticType +' Report',
                         showlegend: true,
 
                     };
@@ -3986,7 +4087,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -4005,7 +4106,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -4090,6 +4191,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     Plotly.newPlot($scope.chartRenderId, plotDataBarY, layout, {
                         showSendToCloud: true
                     });
+                    
 
                 }
 
@@ -4098,7 +4200,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                     var plotDataBarY = [];
                     if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
                         //$scope.thisWeekCommonChartType($scope.response[0]);
-                        layout.title = product_name + ' / This Week Report';
+                        layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < $scope.response[0].license.length; i++) {
                             for (key in $scope.response[0].license[i]) {
@@ -4116,7 +4218,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                         }
                     }
                     else if ($scope.report_type == 'weekly') {
-                        layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+                        layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
                         $scope.weeklyresponse = $scope.response;
                         localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
                         $scope.reportyearlist = [];
@@ -4215,7 +4317,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
     /*$scope.thisWeekCommonChartType =  function(response) {
          var plotDataBarY = [];
-         layout.title = product_name +  ' / This Week Report';
+         layout.title = product_name +  ' /  This Week ' + favouriteStatisticType +' Report';
                         var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                         for (i = 0; i < response.license.length; i++) {
                             for (key in response.license[i]) {
@@ -4248,7 +4350,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
         var user_id = $scope.userLogged[0].id;
         console.log(user_id);
-        var product_name = "LSDYNA";
+        var product_name = "LSTC";
         //var statisticsType = "license_statistics";
         var report_type = "yearly";
         var favourite = 1;
@@ -4276,8 +4378,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     $scope.adminReportYearList = [];
     $scope.getAdminReportYearList = function(userFilterType, defaultFilterVal, currentProduct,statisticsIndType) {
         $scope.userLogged = localStorageService.get('user');
-        //var product_name = "LSDYNA";
-        //lupaAdminDashboardService.getAdminReportYearListUrl($scope.userLogged, "LSDYNA").then(function (response) {
+        //var product_name = "LSTC";
+        //lupaAdminDashboardService.getAdminReportYearListUrl($scope.userLogged, "LSTC").then(function (response) {
         lupaAdminDashboardService.getAdminReportYearListUrl("Admin", currentProduct, statisticsIndType).then(function(response) {
             //console.log(response.data);
             $scope.adminReportYearList[currentProduct] = response.data;
@@ -4292,8 +4394,8 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     //load data to get year value
     $scope.getAdminReportYearListLoad = function() {
         $scope.userLogged = localStorageService.get('user');
-        //var product_name = "LSDYNA";
-        //lupaAdminDashboardService.getAdminReportYearListUrl($scope.userLogged, "LSDYNA").then(function (response) {
+        //var product_name = "LSTC";
+        //lupaAdminDashboardService.getAdminReportYearListUrl($scope.userLogged, "LSTC").then(function (response) {
         lupaAdminDashboardService.getAdminReportYearListUrl("Admin", product_name).then(function(response) {
             //console.log(response.data);
             $scope.adminReportYearList[product_name] = response.data;
@@ -4333,8 +4435,17 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     $scope.drawGraph = function(chartData, currentProduct, defaultFilterVal, statisticsIndType) {
         currentprod = currentProduct;
         statisticsType = statisticsIndType;
+        var favouriteStatisticType = "";
+        if (statisticsType == 'license_statistics') {
+               favouriteStatisticType = "license";
+                		
+
+        } else if (statisticsType == 'time_statistics') {
+                favouriteStatisticType = "percentage";
+                		
+        }
         var layout = {
-            title: currentProduct + ' / ' + $scope.report_type + ' Report',
+            title: currentProduct + ' / ' + $scope.report_type + " " +  favouriteStatisticType +' Report',
             showlegend: true,
             legend: {
                 "orientation": "h",
@@ -4357,15 +4468,17 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
             bargroupgap: 0.5
 
         };
-         if ($scope.statisticsType == 'license_statistics') {
+         
+            if ($scope.statisticsType == 'license_statistics') {
                 layout.yaxis.title = "Total number of license";
+                favouriteStatisticType = "license";
                 		
 
-            }
-            else if ($scope.statisticsType == 'time_statistics') {
+            } else if ($scope.statisticsType == 'time_statistics') {
                 layout.yaxis.title = "Total percentage utilized";
+                favouriteStatisticType = "percentage";
                 		
-        }
+            }
         //Bar chart Section goes here
 
         var xAxisVal = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -4391,7 +4504,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
 
 
         var plotDataBarY = [];
-        //layout.title = product_name +  ' / ' + $scope.report_type + ' Report';
+        //layout.title = product_name +  ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
         if ($scope.report_type == "yearly") {
             if (defaultFilterVal != undefined) {
                 $scope.defaultFilterVal = defaultFilterVal;
@@ -4433,7 +4546,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
         } else if ($scope.report_type == 'thisweek' || $scope.report_type == 'this_week') {
             
             //$scope.thisWeekCommonChartType($scope.response[0]);
-            layout.title = product_name + ' / This Week Report';
+            layout.title = product_name + ' /  This Week ' + favouriteStatisticType +' Report';
             var xAxisVal = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
             var plotDataBarY = [];
             //chartData = {"license" : [{"morning":[0,0,0,0,0,0,0]},{"afternoon":[0,0,0,0,0,0,0]},{"evening":[0,0,0,0,0,0,0]}]}
@@ -4457,7 +4570,7 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
                 }
             }
         } else if ($scope.report_type == 'weekly') {
-            layout.title = product_name + ' / ' + $scope.report_type + ' Report';
+            layout.title = product_name + ' / ' + $scope.report_type +  '  ' + favouriteStatisticType +' Report';
             $scope.weeklyresponse = $scope.AdminYearlyReportDepartmentFilter;
             $scope.response = $scope.AdminYearlyReportDepartmentFilter;
             localStorageService.set('adminweekly' + statisticsType + currentprod, JSON.stringify($scope.response));
@@ -4941,11 +5054,20 @@ lupaApp.controller('adminReportController', ['$scope', 'userData', 'lupaAdminDas
     }
 
     $scope.changeMonthData = function(event, monthNamePieChart, product_name, statisticsType) {
+        var favouriteStatisticType = "";
+        if (statisticsType == 'license_statistics') {
+            favouriteStatisticType = "license";
+
+        }
+        else if (statisticsType == 'time_statistics') {
+            favouriteStatisticType = "percentage";
+
+        }
         $scope.pieChartTotalReponse = localStorageService.get("adminweeklypie"+product_name+statisticsType);
         $scope.reportPieChartYear = $(event.target).closest('.weekly-section').find("input:checked").attr('data-attr');
         $scope.monthNamePieChart = monthNamePieChart;
         $scope.chartRenderId = $(event.target).closest(".chart-render").find(".chart-graph").attr('id');
-        layout.title = product_name + " / Weekly report";
+        layout.title = product_name + ' / ' + " weekly " + favouriteStatisticType +' Report';
         $scope.pieLabel = ["1st week", "2nd week", "3rd week", "4th week", "5th week"];
         if($scope.reportPieChartYear == "" || $scope.reportPieChartYear == undefined) {
             $scope.defaultPieLicenseData = $scope.response[0].license;

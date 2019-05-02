@@ -6,7 +6,7 @@ lupaUserDashboardService.service('lupaUserDashboardService', ['$http', '$q','$fi
         //debugger;
         var product_name = localStorageService.get("product_name");
         if(product_name == "" || product_name == "undefined" || product_name == null) {
-            product_name = "LSDYNA"
+            product_name = "LSTC"
         }
         this.changeGraphUrl = function(chart_duration, chart_type, statistics_type, current_prod) {
         product_name = localStorageService.get("product_name");

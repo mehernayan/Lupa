@@ -90,7 +90,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                         favouriteStatisticType = "license";
                     }
                     else {
-                        favouriteStatisticType = "time";
+                        favouriteStatisticType = "percentage";
                     }
                     var xAxisVal = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                     if($scope.response[i].chart_type== "vertical_bar_chart") {
@@ -538,7 +538,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                         favouriteStatisticType = "license";
                     }
                     else {
-                        favouriteStatisticType = "time";
+                        favouriteStatisticType = "percentage";
                     }
                     var xAxisVal = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                     if($scope.response[i].chart_type== "vertical_bar_chart") {
@@ -979,7 +979,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                         favouriteStatisticType = "license";
                     }
                     else {
-                        favouriteStatisticType = "time";
+                        favouriteStatisticType = "percentage";
                     }
                     var layout = {
                     showlegend: true,
@@ -1272,7 +1272,7 @@ lupaApp.controller('userFavouriteController', ['$scope', 'userData', 'lupaUserDa
                         favouriteStatisticType = "license";
                     }
                     else {
-                        favouriteStatisticType = "time";
+                        favouriteStatisticType = "percentage";
                     }
                     var layout = {
                     showlegend: true,

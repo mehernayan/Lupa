@@ -133,7 +133,7 @@
                         <div class="year-filter">
                             <input type="radio" name ="chart-filter-2"  ng-click="changeOverallCostAnalyticsBtn('year', selectedYear2, selectedMonth2)" />
                             <label>Year</label>
-                            <select class="form-control" id="year2" ng-model="selectedYear2" ng-disabled="!selectedRadio4"  ng-change="overallCostAnalyticsChange('LSDYNA', selectedYear2, selectedMonth2)">
+                            <select class="form-control" id="year2" ng-model="selectedYear2" ng-disabled="!selectedRadio4"  ng-change="overallCostAnalyticsChange('LSTC', selectedYear2, selectedMonth2)">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getCostAnalyticsYearList">{{item}}</option>
                             </select>
@@ -141,7 +141,7 @@
                         <div class="month-filter">
                             <input type="radio" name ="chart-filter-2" ng-click="changeOverallCostAnalyticsBtn('month', selectedYear2, selectedMonth2)" />
                             <label>Month</label>
-                            <select class="form-control" id="month2" ng-model="selectedMonth2" ng-disabled="!selectedRadio5" ng-change="overallCostAnalyticsChange('LSDYNA', selectedYear2, selectedMonth2)">
+                            <select class="form-control" id="month2" ng-model="selectedMonth2" ng-disabled="!selectedRadio5" ng-change="overallCostAnalyticsChange('LSTC', selectedYear2, selectedMonth2)">
                                 <option style="display:none" value="">Overall</option>
                                 <option ng-repeat="item in getCostAnalyticsMonthList">{{item}}</option>
                             </select>

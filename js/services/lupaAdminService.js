@@ -4,7 +4,7 @@ lupaAdminService.service('lupaAdminService', ['$http', '$q', '$filter', 'localSt
 
         var product_name = localStorageService.get("product_name");
         if(product_name == "" || product_name == "undefined" || product_name == null) {
-            product_name = "LSDYNA"
+            product_name = "LSTC"
         }
         /*
           * fetch the user department list

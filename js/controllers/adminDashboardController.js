@@ -2,7 +2,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
     var userId = localStorageService.get("user");
     var product_name = localStorageService.get("product_name");
     if (product_name == "" || product_name == "undefined" || product_name == null) {
-        product_name = "LSDYNA"
+        product_name = "LSTC"
     }
     if (typeof userId === "undefined" || userId == null) {
         $location.path('/');
@@ -13,16 +13,16 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
     $scope.dashboardActive = true;
     $scope.favouriteActive = false;
     $scope.polarChartFlag = false;
-    $scope.activeMenu = "LSDYNA";
+    $scope.activeMenu = "LSTC";
     $scope.pieLabel = ["1st week", "2nd week", "3rd week", "4th week", "5th week"];
 
     $scope.getLiveChart = function() {
         $scope.emptyChartMsg = "";
         $('#loadergif').show();
         lupaAdminDashboardService.getLiveChartUrl().then(function(response) {
-            /*$scope.response = [{"product_name":"LSDYNA","values":[[1553742001,600000],[1553743800,600000],[1553748060,20],[1553749201,1200000],[1553749201,1200000],[1553749202,1200000],[1553749261,1200000],[1553749321,1200000],[1553749321,1200000],[1553749381,1200000],[1553749441,20],[1553756401,20],[1553760001,20],[1553763601,20],[1553767201,20],[1553769608,20],[1553770801,20],[1553778001,1200000],[1553785201,1200000],[1553792401,20],[1553796001,20]]},{"product_name":"BETA_CAE","values":[[1553749321,300000],[1553749441,5],[1553749501,5],[1553757601,300000],[1553774401,300000]]},{"product_name":"MSC","values":[[1553749321,10],[1553749381,10],[1553763601,10],[1553767201,10],[1553769608,600000],[1553773208,600000],[1553776808,600000],[1553780408,600000],[1553784008,600000]]}];
+            /*$scope.response = [{"product_name":"LSTC","values":[[1553742001,600000],[1553743800,600000],[1553748060,20],[1553749201,1200000],[1553749201,1200000],[1553749202,1200000],[1553749261,1200000],[1553749321,1200000],[1553749321,1200000],[1553749381,1200000],[1553749441,20],[1553756401,20],[1553760001,20],[1553763601,20],[1553767201,20],[1553769608,20],[1553770801,20],[1553778001,1200000],[1553785201,1200000],[1553792401,20],[1553796001,20]]},{"product_name":"BETA_CAE","values":[[1553749321,300000],[1553749441,5],[1553749501,5],[1553757601,300000],[1553774401,300000]]},{"product_name":"MSC","values":[[1553749321,10],[1553749381,10],[1553763601,10],[1553767201,10],[1553769608,600000],[1553773208,600000],[1553776808,600000],[1553780408,600000],[1553784008,600000]]}];
 
-            $scope.productlistresponse = [{"product_name":"LSDYNA","values":[[1553742001,600000],[1553743800,600000],[1553748060,20],[1553749201,1200000],[1553749201,1200000],[1553749202,1200000],[1553749261,1200000],[1553749321,1200000],[1553749321,1200000],[1553749381,1200000],[1553749441,20],[1553756401,20],[1553760001,20],[1553763601,20],[1553767201,20],[1553769608,20],[1553770801,20],[1553778001,1200000],[1553785201,1200000],[1553792401,20],[1553796001,20]]},{"product_name":"BETA_CAE","values":[[1553749321,300000],[1553749441,5],[1553749501,5],[1553757601,300000],[1553774401,300000]]},{"product_name":"MSC","values":[[1553749321,10],[1553749381,10],[1553763601,10],[1553767201,10],[1553769608,600000],[1553773208,600000],[1553776808,600000],[1553780408,600000],[1553784008,600000]]}];*/
+            $scope.productlistresponse = [{"product_name":"LSTC","values":[[1553742001,600000],[1553743800,600000],[1553748060,20],[1553749201,1200000],[1553749201,1200000],[1553749202,1200000],[1553749261,1200000],[1553749321,1200000],[1553749321,1200000],[1553749381,1200000],[1553749441,20],[1553756401,20],[1553760001,20],[1553763601,20],[1553767201,20],[1553769608,20],[1553770801,20],[1553778001,1200000],[1553785201,1200000],[1553792401,20],[1553796001,20]]},{"product_name":"BETA_CAE","values":[[1553749321,300000],[1553749441,5],[1553749501,5],[1553757601,300000],[1553774401,300000]]},{"product_name":"MSC","values":[[1553749321,10],[1553749381,10],[1553763601,10],[1553767201,10],[1553769608,600000],[1553773208,600000],[1553776808,600000],[1553780408,600000],[1553784008,600000]]}];*/
             $scope.response = response.data;
             $scope.productlistresponse = response.data;
             $scope.productListDashboard = [];
@@ -243,7 +243,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                         favouriteStatisticType = "license";
                     }
                     else {
-                        favouriteStatisticType = "time";
+                        favouriteStatisticType = "percentage";
                     }
                     var xAxisVal = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                     if($scope.response[i].chart_type== "vertical_bar_chart") {
@@ -692,7 +692,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                         favouriteStatisticType = "license";
                     }
                     else {
-                        favouriteStatisticType = "time";
+                        favouriteStatisticType = "percentage";
                     }
                     var xAxisVal = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                     if($scope.response[i].chart_type== "vertical_bar_chart") {
@@ -1131,7 +1131,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                         favouriteStatisticType = "license";
                     }
                     else {
-                        favouriteStatisticType = "time";
+                        favouriteStatisticType = "percentage";
                     }
                     var layout = {
                     showlegend: true,
@@ -1424,7 +1424,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
                         favouriteStatisticType = "license";
                     }
                     else {
-                        favouriteStatisticType = "time";
+                        favouriteStatisticType = "percentage";
                     }
                     var layout = {
                     showlegend: true,
@@ -1722,7 +1722,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
         });
     
     }
-    /*$scope.fiveMinuteData =  [{"product_name": "LSDYNA", "jobs" : [{"success" : 20},{"Jobs Qued" : 30}, {"Warning" : 20},{"Warning" : 30}]}];
+    /*$scope.fiveMinuteData =  [{"product_name": "LSTC", "jobs" : [{"success" : 20},{"Jobs Qued" : 30}, {"Warning" : 20},{"Warning" : 30}]}];
     $scope.fiveMinuteDataProd = $scope.fiveMinuteData[0].product_name;
     $scope.fiveMinuteDataJobs = $scope.fiveMinuteData[0].jobs;*/
 
@@ -1737,7 +1737,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
             //
         });
     }
-    $scope.getLastFiveMinutesReport("LSDYNA");
+    $scope.getLastFiveMinutesReport("LSTC");
     // last 24 hours
     $scope.getTodayReport = function(product_name) {
         // 
@@ -1749,7 +1749,7 @@ lupaApp.controller('adminDashboardController', ['$scope', 'userData', 'lupaAdmin
             //
         });
     }
-    $scope.getTodayReport("LSDYNA");
+    $scope.getTodayReport("LSTC");
     $scope.getRecentReport();
     $scope.drawPolarChart = function(polarChartData, product) {
         var data2 = [{

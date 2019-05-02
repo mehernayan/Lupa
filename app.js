@@ -127,7 +127,7 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		$scope.message = 'Everyone come and see how good I look!';
 		$scope.username = "";
 		$scope.userType = "";
-		$scope.currentProducts  = ['LSDYNA'];
+		$scope.currentProducts  = ['LSTC'];
 		$scope.headInit = function () {
 			$scope.user = localStorageService.get('user');
 			if (typeof $scope.user !== "undefined" && $scope.user !== [] && $scope.user !== null) {

@@ -289,7 +289,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
         else {
             $scope.getCostAnalyticsMonthList = monthArray;
         }
-        $scope.overallCostAnalyticsChange("LSDYNA", $scope.selectedYear2, selectedMonth2);
+        $scope.overallCostAnalyticsChange("LSTC", $scope.selectedYear2, selectedMonth2);
 
 
 
@@ -323,7 +323,7 @@ lupaApp.controller('adminCostAnalyticsController', ['$scope', '$rootScope', 'use
             $scope.selectedRadio3 =  false;
             
         }
-        if(blck =='LSDYNA') {
+        if(blck =='LSTC') {
             $scope.featurechartfilterselectradio1 = false;
             $scope.featurechartfilterselectradio2 = false;
             $scope.changeFeatureAnalyticsGraphOverall("", "", blck, 'cost-analytics-feature-chart-0');
