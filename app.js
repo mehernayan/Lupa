@@ -97,6 +97,10 @@ lupaApp.config(function ($routeProvider, $httpProvider) {
 		.when('/admincostanalytics', {
 			templateUrl: 'views/admincostanalytics.html',
 			controller: 'adminCostAnalyticsController'
+		})
+		.when('/machinename', {
+			templateUrl: 'views/machinename.html',
+			controller: 'machineNameController'
 		}).otherwise('/', {
 			templateUrl: 'views/uservalidate.html',
 			controller: 'userValidateController'

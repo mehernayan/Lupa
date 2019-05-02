@@ -436,6 +436,35 @@ lupaAdminDashboardService.service('lupaAdminDashboardService', ['$http', '$q','$
                 return deferred.promise;
 
         }
+        this.getMachineNames = function () {
+                var deferred = $q.defer();
+                $http({
+                    method: 'GET',
+                    url: appConstants.serviceAddress + '/admin/machines_existing_details'
+                }).then(function (response) {
+                    deferred.resolve(response);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+
+        };
+        this.updateMachineNames = function(machinesObj) {
+            
+            var deferred = $q.defer();
+            var machinesObj = machinesObj;
+            $http({
+                    method : 'POST',
+                    url : appConstants.serviceAddress+'/admin/machine_names_update',
+                    data : machinesObj
+                }).then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+
+        }
 
 
       
