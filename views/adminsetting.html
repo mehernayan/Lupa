@@ -64,9 +64,9 @@
                                 <tbody>
                                     <tr class="text-center" ng-repeat="license in licenses">
                                     <td>{{license.product_name}}</td>
-                                    <td>
+                                    <td class="license-remaining">
                                         <button class="btn  btn-primary btn-table">Total - {{license.total_license}}</button>
-                                        <button class="btn  btn-danger btn-table">Used - {{license.total_license - license.license_remaining}}</button>
+                                        <button class="btn  btn-danger btn-table">license remaining - {{license.license_remaining}}</button>
                                     </td>
                                     </tr>
                                 </tbody>

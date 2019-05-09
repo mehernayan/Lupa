@@ -125,9 +125,19 @@ lupaApp.config(function ($routeProvider, $httpProvider) {
 	};
 
 });
-lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localStorageService', '$location', 'Fullscreen', 'lupaManagerService', 'lupaAdminService', 'notificationId',
-	function ($scope, $timeout, $window, localStorageService, $location, Fullscreen, lupaManagerService, lupaAdminService, notificationId) {
+lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localStorageService', '$location', 'Fullscreen', 'lupaManagerService', 'lupaAdminService', 'notificationId', '$http', '$route','appConstants',
+	function ($scope, $timeout, $window, localStorageService, $location, Fullscreen, lupaManagerService, lupaAdminService, notificationId, $http, $route, appConstants) {
 		// create a message to display in our view
+		
+		/*$http.get("https://jsonip.com/").then(function (response) {
+			
+			$scope.ip = response.data.ip.split(",");
+			$scope.ip = $scope.ip[0];
+			appConstants.serviceAddress = 'http://'+$scope.ip+'/LUPA';
+			
+			
+		});*/
+		
 		$scope.message = 'Everyone come and see how good I look!';
 		$scope.username = "";
 		$scope.userType = "";
@@ -434,6 +444,9 @@ lupaApp.controller('mainController', ['$scope', '$timeout', '$window', 'localSto
 		$scope.getSignOut = function () {
 			localStorageService.clearAll();
 			$location.path('/');
+		};
+		$scope.reloadMachine = function() {
+			$route.reload();
 		};
 
 

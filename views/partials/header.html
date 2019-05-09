@@ -66,7 +66,7 @@
       <li ng-if="userType ==='admin'"><a href="#/costcalculator"><i class="fa fa-calculator"></i>Cost Calculator</a></li>
       <li ng-if="userType ==='admin'"><a href="#/smtp"><i class="fa fa-database"></i>SMTP</a></li>
       <li ng-if="userType ==='dept'"><a href="#/dynacompares"><i class="fa fa-database"></i>Dyna Compare</a></li>
-      <li ng-if="userType ==='admin'"><a href="#/machinename"><i class="fas fa-industry"></i></i>Machine Name</a></li>
+      <li ng-if="userType ==='admin'"><a href="#/machinename" ng-click="reloadMachine()"><i class="fas fa-industry"></i></i>Machine Name</a></li>
       <li><a href="javascript:void(0)" ng-click="getSignOut()"><i class="fa fa-sign-out"></i>Logout</a></li>
     </ul>
   </div>

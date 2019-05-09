@@ -985,7 +985,7 @@ ul.monthly-section , .weekly-section ul {
 
 /* navigation scroll bar */
 .navigation-links {
-    height: 512px;
+    height: calc(100% - 40px);
     overflow-y: auto;
 }
 
@@ -1109,6 +1109,12 @@ footer {
     bottom: 60px !important;
 }
 
+.license-remaining button.btn-primary {
+    width: 103px !important;
+}
+.license-remaining button.btn-danger {
+    width: auto !important;
+}
 /*.individual-report .chart-graph {
     padding-top: 10px;
 }*/
